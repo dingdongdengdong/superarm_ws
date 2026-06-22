@@ -1,5 +1,7 @@
 # RoboParty + AmazingHand + LeRobot Task Guides
 
+Korean versions are available in [ko/](ko/README.md).
+
 These guides split the project into task-sized workstreams. Use them as the
 working checklist for the RoboParty 5-DOF arm, AmazingHand, LeRobot wrapper,
 SO-100 proxy data workflow, and first imitation-learning baseline.
