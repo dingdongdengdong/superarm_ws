@@ -4,6 +4,28 @@ These guides split the project into task-sized workstreams. Use them as the
 working checklist for the RoboParty 5-DOF arm, AmazingHand, LeRobot wrapper,
 SO-100 proxy data workflow, and first imitation-learning baseline.
 
+## For AI agents
+
+These guides are written for humans and AI agents. An agent should treat each
+task guide as the source of truth for one branch, follow the checklist in order,
+avoid touching unrelated files, and record hardware/test results in the markdown
+logs named by that guide.
+
+Use one branch per large task:
+
+```text
+tasks/source-lock-inventory
+tasks/so100-leader-follower-data
+tasks/roboparty-arm-bringup
+tasks/amazinghand-integration
+tasks/lerobot-custom-robot
+tasks/dataset-training-eval
+tasks/validation-gates
+```
+
+Before finishing a task branch, the agent should run the relevant verification
+steps from that guide, update the matching log/checklist, and push the branch.
+
 ## Recommended order
 
 1. [Branch and repo workflow](00_branch_and_repo_workflow.md)
