@@ -8,6 +8,15 @@
 /worktrees/
 /outputs/
 
+# ROS 2 colcon build artifacts
+/build/
+/install/
+/log/
+
+# Claude Code internals
+/.omx/
+/CLAUDE.md
+
 # Python/cache noise.
 __pycache__/
 *.py[cod]

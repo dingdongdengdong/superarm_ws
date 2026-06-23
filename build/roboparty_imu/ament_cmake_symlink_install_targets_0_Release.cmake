@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/workspaces/isaac_ros-dev/build/roboparty_imu/imu_py.cpython-310-x86_64-linux-gnu.so" "TARGETS" "imu_py" "LIBRARY_DESTINATION" "lib/python3.10/site-packages" "ARCHIVE_DESTINATION" "lib/python3.10/site-packages" "RUNTIME_DESTINATION" "lib/python3.10/site-packages")

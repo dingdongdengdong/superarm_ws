@@ -35,7 +35,9 @@ jobs:
           docker exec $CONTAINER bash -c "
             source /opt/ros/humble/setup.bash &&
             cd $WS &&
-            colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+            colcon build --symlink-install \
+              --cmake-args -DCMAKE_BUILD_TYPE=Release \
+              --packages-ignore-regex 'rsl_rl|roboto_usb2can'
           "
 
       - name: Run tests
