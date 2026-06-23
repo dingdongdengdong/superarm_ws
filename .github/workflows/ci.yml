@@ -27,7 +27,7 @@ jobs:
             cd $WS &&
             rosdep update --rosdistro humble -q &&
             rosdep install --from-paths . --ignore-src -r -y \
-              --skip-keys 'livox_ros_driver2 ros-noetic-catkin'
+              --skip-keys 'livox_ros_driver2 catkin'
           "
 
       - name: Build packages
