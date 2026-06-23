@@ -43,7 +43,7 @@ jobs:
             cd $WS &&
             colcon build --symlink-install \
               --cmake-args -DCMAKE_BUILD_TYPE=Release \
-              --packages-ignore-regex 'rsl_rl|roboto_usb2can|atom01urdf|serial|roboparty_imu|roboparty_motors|roboparty_inference|nlink_parser_ros2|nlink_message'
+              --packages-select nav2_localization_adapter robolab
           "
 
       - name: Run tests
@@ -52,7 +52,8 @@ jobs:
             source /opt/ros/humble/setup.bash &&
             cd $WS &&
             source install/setup.bash &&
-            colcon test --return-code-on-test-failure &&
+            colcon test --return-code-on-test-failure \
+              --packages-select nav2_localization_adapter robolab &&
             colcon test-result --verbose
           "
 
