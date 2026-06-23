@@ -1,0 +1,114 @@
+name: Isaac ROS CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  ISAAC_ROS_IMAGE: isaac_ros_dev-x86_64:latest
+
+jobs:
+  build-and-test:
+    name: Build & Test ROS Packages
+    runs-on: [self-hosted, linux, gpu]
+    container:
+      image: isaac_ros_dev-x86_64:latest
+      options: --gpus all --network host --ipc=host --privileged
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup ROS environment
+        run: |
+          source /opt/ros/humble/setup.bash
+          echo "ROS_DISTRO=$ROS_DISTRO" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          source /opt/ros/humble/setup.bash
+          rosdep update
+          rosdep install --from-paths . --ignore-src -r -y
+
+      - name: Build packages
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+          echo "BUILD_STATUS=success" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: |
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
+          colcon test --return-code-on-test-failure
+          colcon test-result --verbose
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: log/latest_test/
+
+  docker-build-push:
+    name: Build & Push Docker Image
+    runs-on: [self-hosted, linux, gpu]
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-
+            type=ref,event=branch
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy-simulation:
+    name: Deploy & Run Simulation
+    runs-on: [self-hosted, linux, gpu]
+    needs: docker-build-push
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull latest image
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Run simulation test
+        run: |
+          docker run --rm --gpus all --network host \
+            -e DISPLAY=$DISPLAY \
+            -v /tmp/.X11-unix:/tmp/.X11-unix \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+            bash -c "source /opt/ros/humble/setup.bash && ros2 launch superarm_ws simulation.launch.py headless:=true"
+        timeout-minutes: 10
+
+      - name: Notify success
+        if: success()
+        run: echo "Simulation passed on commit ${{ github.sha }}"
