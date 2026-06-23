@@ -43,7 +43,7 @@ jobs:
             cd $WS &&
             colcon build --symlink-install \
               --cmake-args -DCMAKE_BUILD_TYPE=Release \
-              --packages-ignore-regex 'rsl_rl|roboto_usb2can|atom01urdf|serial|roboparty_imu|roboparty_motors|roboparty_inference'
+              --packages-ignore-regex 'rsl_rl|roboto_usb2can|atom01urdf|serial|roboparty_imu|roboparty_motors|roboparty_inference|nlink_parser_ros2|nlink_message'
           "
 
       - name: Run tests
