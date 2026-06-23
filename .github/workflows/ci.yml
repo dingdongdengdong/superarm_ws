@@ -159,8 +159,6 @@ jobs:
     runs-on: [self-hosted, linux, gpu]
     needs: docker-build-push
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -184,5 +182,6 @@ jobs:
           git add .ci/
           if ! git diff --cached --quiet; then
             git commit -m "ci: update deploy status [skip ci]"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
