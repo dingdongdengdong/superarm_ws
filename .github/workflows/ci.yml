@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fix git safe directory in container
+        run: |
+          docker exec $CONTAINER bash -c "
+            git config --global --add safe.directory $WS
+          "
+
       - name: Install dependencies
         run: |
           docker exec $CONTAINER bash -c "
