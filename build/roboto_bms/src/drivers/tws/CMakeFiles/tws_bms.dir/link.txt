@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtws_bms.a CMakeFiles/tws_bms.dir/tws_bms_driver.cpp.o
+/usr/bin/ranlib libtws_bms.a

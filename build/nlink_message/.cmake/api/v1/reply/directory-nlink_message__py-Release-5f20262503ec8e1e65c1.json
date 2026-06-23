@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "nlink_message__py",
+		"source" : "/workspaces/isaac_ros-dev/build/nlink_message/nlink_message__py"
+	}
+}

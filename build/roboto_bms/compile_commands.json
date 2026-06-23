@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/workspaces/isaac_ros-dev/build/roboto_bms",
+  "command": "/usr/bin/c++ -DFMT_LOCALE -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/include -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws  -O3 -march=native -O3 -DNDEBUG -fPIE -o CMakeFiles/bms_daemon.dir/src/bms_daemon.cpp.o -c /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/bms_daemon.cpp",
+  "file": "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/bms_daemon.cpp"
+},
+{
+  "directory": "/workspaces/isaac_ros-dev/build/roboto_bms",
+  "command": "/usr/bin/c++ -DFMT_LOCALE -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/include -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws  -O3 -march=native -O3 -DNDEBUG -fPIC -o CMakeFiles/bms.dir/src/bms_driver.cpp.o -c /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/bms_driver.cpp",
+  "file": "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/bms_driver.cpp"
+},
+{
+  "directory": "/workspaces/isaac_ros-dev/build/roboto_bms",
+  "command": "/usr/bin/c++ -DFMT_LOCALE -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Dbms_py_EXPORTS -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/include -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws -isystem /usr/include/python3.10  -O3 -march=native -O3 -DNDEBUG -fPIC -fvisibility=hidden -flto -fno-fat-lto-objects -o CMakeFiles/bms_py.dir/src/pybind_module.cpp.o -c /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/pybind_module.cpp",
+  "file": "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/pybind_module.cpp"
+},
+{
+  "directory": "/workspaces/isaac_ros-dev/build/roboto_bms/src/drivers/tws",
+  "command": "/usr/bin/c++  -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/include  -O3 -march=native -O3 -DNDEBUG -fPIC -o CMakeFiles/tws_bms_protocol.dir/protocol.cpp.o -c /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws/protocol.cpp",
+  "file": "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws/protocol.cpp"
+},
+{
+  "directory": "/workspaces/isaac_ros-dev/build/roboto_bms/src/drivers/tws",
+  "command": "/usr/bin/c++ -DFMT_LOCALE -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws -I/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/include  -O3 -march=native -O3 -DNDEBUG -fPIC -o CMakeFiles/tws_bms.dir/tws_bms_driver.cpp.o -c /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws/tws_bms_driver.cpp",
+  "file": "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon/src/drivers/tws/tws_bms_driver.cpp"
+}
+]

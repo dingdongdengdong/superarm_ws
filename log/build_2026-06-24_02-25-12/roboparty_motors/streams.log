@@ -1,0 +1,28 @@
+[0.033s] Invoking command in '/workspaces/isaac_ros-dev/build/roboparty_motors': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_deploy/src/motors -DCMAKE_BUILD_TYPE=Release -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboparty_motors
+[0.255s] -- The C compiler identification is GNU 11.4.0
+[0.255s] -- The CXX compiler identification is GNU 11.4.0
+[0.255s] -- Detecting C compiler ABI info
+[0.323s] -- Detecting C compiler ABI info - done
+[0.328s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.329s] -- Detecting C compile features
+[0.329s] -- Detecting C compile features - done
+[0.331s] -- Detecting CXX compiler ABI info
+[0.441s] -- Detecting CXX compiler ABI info - done
+[0.445s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.445s] -- Detecting CXX compile features
+[0.446s] -- Detecting CXX compile features - done
+[0.841s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.877s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.924s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: system 
+[0.929s] -- Looking for pthread.h
+[1.026s] -- Looking for pthread.h - found
+[1.027s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.124s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.125s] -- Found Threads: TRUE  
+[1.784s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter Development Development.Module Development.Embed 
+[1.818s] -- Performing Test HAS_FLTO
+[1.947s] -- Performing Test HAS_FLTO - Success
+[1.948s] -- Found pybind11: /usr/include (found version "2.9.1")
+[2.007s] -- Configuring done
+[2.019s] -- Generating done
+[2.023s] -- Build files have been written to: /workspaces/isaac_ros-dev/build/roboparty_motors

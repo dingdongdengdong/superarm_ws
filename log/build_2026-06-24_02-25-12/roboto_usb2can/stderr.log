@@ -1,0 +1,13 @@
+CMake Error at CMakeLists.txt:9 (find_package):
+  Could not find a package configuration file provided by "Zephyr" with any
+  of the following names:
+
+    ZephyrConfig.cmake
+    zephyr-config.cmake
+
+  Add the installation prefix of "Zephyr" to CMAKE_PREFIX_PATH or set
+  "Zephyr_DIR" to a directory containing one of the above files.  If "Zephyr"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+
+

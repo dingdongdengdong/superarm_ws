@@ -1,0 +1,173 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-524cfd1ef86e4b33369c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						4
+					],
+					"jsonFile" : "directory-src-Release-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src"
+				},
+				{
+					"build" : "src/drivers",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-src.drivers-Release-7a285a5331bf370e54a5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/drivers"
+				},
+				{
+					"build" : "src/drivers/hipnuc",
+					"jsonFile" : "directory-src.drivers.hipnuc-Release-b30af52384d00bd57ba1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/drivers/hipnuc",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src/protocol",
+					"jsonFile" : "directory-src.protocol-Release-e2dbaf013debbf9929df.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/protocol",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "roboparty_imu",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "hipnuc_imu::@853ff2fc57ceeeb1ae9b",
+					"jsonFile" : "target-hipnuc_imu-Release-ab6c30966a6284856f8c.json",
+					"name" : "hipnuc_imu",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "imu::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-imu-Release-74ebebdb2ae8ee94518b.json",
+					"name" : "imu",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "imu_protocol::@265c2c6246c6aa3fd761",
+					"jsonFile" : "target-imu_protocol-Release-e44365dddec24b3eda7d.json",
+					"name" : "imu_protocol",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "imu_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-imu_py-Release-35c436f0af170e4f7c43.json",
+					"name" : "imu_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "roboparty_imu_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-roboparty_imu_uninstall-Release-0de55aca311e873ca37f.json",
+					"name" : "roboparty_imu_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-e7e7531e87cc360a6eb9.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/workspaces/isaac_ros-dev/build/roboparty_imu",
+		"source" : "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_deploy/src/imu"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

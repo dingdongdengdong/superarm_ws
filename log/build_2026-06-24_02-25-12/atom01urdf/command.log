@@ -1,0 +1,1 @@
+Invoking command in '/workspaces/isaac_ros-dev/build/atom01urdf': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_xr_teleop/assets/Atom01_urdf/meshes -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/atom01urdf

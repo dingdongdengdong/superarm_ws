@@ -1,0 +1,40 @@
+[0.031s] Invoking command in '/workspaces/isaac_ros-dev/build/atom01urdf': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_xr_teleop/assets/Atom01_urdf/meshes -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/atom01urdf
+[0.250s] CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.250s]   Compatibility with CMake < 2.8.12 will be removed from a future version of
+[0.250s]   CMake.
+[0.250s] 
+[0.250s]   Update the VERSION argument <min> value or use a ...<max> suffix to tell
+[0.250s]   CMake that the project does not need compatibility with older versions.
+[0.250s] 
+[0.250s] 
+[0.251s] -- The C compiler identification is GNU 11.4.0
+[0.251s] -- The CXX compiler identification is GNU 11.4.0
+[0.251s] -- Detecting C compiler ABI info
+[0.312s] -- Detecting C compiler ABI info - done
+[0.318s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.318s] -- Detecting C compile features
+[0.319s] -- Detecting C compile features - done
+[0.321s] -- Detecting CXX compiler ABI info
+[0.425s] -- Detecting CXX compiler ABI info - done
+[0.432s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.432s] -- Detecting CXX compile features
+[0.433s] -- Detecting CXX compile features - done
+[0.455s] CMake Error at CMakeLists.txt:5 (find_package):
+[0.455s]   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
+[0.455s]   asked CMake to find a package configuration file provided by "catkin", but
+[0.455s]   CMake did not find one.
+[0.455s] 
+[0.455s]   Could not find a package configuration file provided by "catkin" with any
+[0.455s]   of the following names:
+[0.455s] 
+[0.455s]     catkinConfig.cmake
+[0.455s]     catkin-config.cmake
+[0.455s] 
+[0.455s]   Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set
+[0.455s]   "catkin_DIR" to a directory containing one of the above files.  If "catkin"
+[0.455s]   provides a separate development package or SDK, be sure it has been
+[0.456s]   installed.
+[0.456s] 
+[0.456s] 
+[0.456s] -- Configuring incomplete, errors occurred!
+[0.456s] See also "/workspaces/isaac_ros-dev/build/atom01urdf/CMakeFiles/CMakeOutput.log".

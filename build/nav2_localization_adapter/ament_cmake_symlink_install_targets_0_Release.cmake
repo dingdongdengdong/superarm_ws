@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/workspaces/isaac_ros-dev/build/nav2_localization_adapter/nav2_localization_adapter_node" "TARGETS" "nav2_localization_adapter_node" "DESTINATION" "lib/nav2_localization_adapter")

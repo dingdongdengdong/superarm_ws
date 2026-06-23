@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O3 -march=native -O3 -DNDEBUG -flto -shared  -o imu_py.cpython-310-x86_64-linux-gnu.so CMakeFiles/imu_py.dir/src/pybind_module.cpp.o  libimu.a src/drivers/hipnuc/libhipnuc_imu.a src/protocol/libimu_protocol.a /usr/lib/x86_64-linux-gnu/libspdlog.so.1.9.2 /usr/lib/x86_64-linux-gnu/libfmt.so.8.1.1 -Wl,--as-needed -lpthread 

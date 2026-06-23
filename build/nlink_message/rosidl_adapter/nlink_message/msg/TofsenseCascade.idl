@@ -1,0 +1,13 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from nlink_message/msg/TofsenseCascade.msg
+// generated code does not contain a copyright notice
+
+#include "nlink_message/msg/TofsenseFrame0.idl"
+
+module nlink_message {
+  module msg {
+    struct TofsenseCascade {
+      sequence<nlink_message::msg::TofsenseFrame0> nodes;
+    };
+  };
+};

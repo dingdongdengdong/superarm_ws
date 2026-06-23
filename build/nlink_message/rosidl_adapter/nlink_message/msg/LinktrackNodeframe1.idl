@@ -1,0 +1,23 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from nlink_message/msg/LinktrackNodeframe1.msg
+// generated code does not contain a copyright notice
+
+#include "nlink_message/msg/LinktrackNode1.idl"
+
+module nlink_message {
+  module msg {
+    struct LinktrackNodeframe1 {
+      uint8 role;
+
+      uint8 id;
+
+      uint32 local_time;
+
+      uint32 system_time;
+
+      float voltage;
+
+      sequence<nlink_message::msg::LinktrackNode1> nodes;
+    };
+  };
+};

@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from nlink_message/msg/IotFrame0Node.msg
+// generated code does not contain a copyright notice
+
+
+module nlink_message {
+  module msg {
+    struct IotFrame0Node {
+      uint32 uid;
+
+      float dis;
+
+      float aoa_angle_horizontal;
+
+      float aoa_angle_vertical;
+
+      float fp_rssi;
+
+      float rx_rssi;
+
+      string user_data;
+    };
+  };
+};

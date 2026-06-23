@@ -1,0 +1,321 @@
+[0.000000] (-) TimerEvent: {}
+[0.000364] (atom01urdf) JobQueued: {'identifier': 'atom01urdf', 'dependencies': OrderedDict()}
+[0.000416] (nav2_localization_adapter) JobQueued: {'identifier': 'nav2_localization_adapter', 'dependencies': OrderedDict()}
+[0.000441] (nlink_message) JobQueued: {'identifier': 'nlink_message', 'dependencies': OrderedDict()}
+[0.000453] (robolab) JobQueued: {'identifier': 'robolab', 'dependencies': OrderedDict()}
+[0.000465] (roboparty_imu) JobQueued: {'identifier': 'roboparty_imu', 'dependencies': OrderedDict()}
+[0.000476] (roboparty_motors) JobQueued: {'identifier': 'roboparty_motors', 'dependencies': OrderedDict()}
+[0.000487] (roboto_bms) JobQueued: {'identifier': 'roboto_bms', 'dependencies': OrderedDict()}
+[0.000497] (roboto_usb2can) JobQueued: {'identifier': 'roboto_usb2can', 'dependencies': OrderedDict()}
+[0.000508] (serial) JobQueued: {'identifier': 'serial', 'dependencies': OrderedDict()}
+[0.000519] (nlink_parser_ros2) JobQueued: {'identifier': 'nlink_parser_ros2', 'dependencies': OrderedDict([('nlink_message', '/workspaces/isaac_ros-dev/install/nlink_message'), ('serial', '/workspaces/isaac_ros-dev/install/serial')])}
+[0.000533] (roboparty_inference) JobQueued: {'identifier': 'roboparty_inference', 'dependencies': OrderedDict([('roboparty_imu', '/workspaces/isaac_ros-dev/install/roboparty_imu'), ('roboparty_motors', '/workspaces/isaac_ros-dev/install/roboparty_motors')])}
+[0.000551] (robots_localization) JobQueued: {'identifier': 'robots_localization', 'dependencies': OrderedDict([('nlink_message', '/workspaces/isaac_ros-dev/install/nlink_message')])}
+[0.000564] (nlink_message) JobStarted: {'identifier': 'nlink_message'}
+[0.004885] (roboparty_imu) JobStarted: {'identifier': 'roboparty_imu'}
+[0.006759] (roboparty_motors) JobStarted: {'identifier': 'roboparty_motors'}
+[0.008993] (serial) JobStarted: {'identifier': 'serial'}
+[0.010970] (atom01urdf) JobStarted: {'identifier': 'atom01urdf'}
+[0.012849] (nav2_localization_adapter) JobStarted: {'identifier': 'nav2_localization_adapter'}
+[0.014882] (robolab) JobStarted: {'identifier': 'robolab'}
+[0.016949] (roboto_bms) JobStarted: {'identifier': 'roboto_bms'}
+[0.019566] (roboto_usb2can) JobStarted: {'identifier': 'roboto_usb2can'}
+[0.036062] (roboparty_imu) JobProgress: {'identifier': 'roboparty_imu', 'progress': 'cmake'}
+[0.036508] (roboparty_imu) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_deploy/src/imu', '-DCMAKE_BUILD_TYPE=Release', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboparty_imu'], 'cwd': '/workspaces/isaac_ros-dev/build/roboparty_imu', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/roboparty_imu'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.037741] (nlink_message) JobProgress: {'identifier': 'nlink_message', 'progress': 'cmake'}
+[0.038027] (nlink_message) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_navigation/nlink_parser_ros2/src/nlink_message', '-DCMAKE_BUILD_TYPE=Release', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/nlink_message'], 'cwd': '/workspaces/isaac_ros-dev/build/nlink_message', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/nlink_message'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.038785] (roboparty_motors) JobProgress: {'identifier': 'roboparty_motors', 'progress': 'cmake'}
+[0.038891] (roboparty_motors) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_deploy/src/motors', '-DCMAKE_BUILD_TYPE=Release', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboparty_motors'], 'cwd': '/workspaces/isaac_ros-dev/build/roboparty_motors', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/roboparty_motors'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.039896] (serial) JobProgress: {'identifier': 'serial', 'progress': 'cmake'}
+[0.040060] (serial) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_navigation/nlink_parser_ros2/src/serial', '-DCMAKE_BUILD_TYPE=Release', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/serial'], 'cwd': '/workspaces/isaac_ros-dev/build/serial', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/serial'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.041153] (atom01urdf) JobProgress: {'identifier': 'atom01urdf', 'progress': 'cmake'}
+[0.041444] (atom01urdf) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_xr_teleop/assets/Atom01_urdf/meshes', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/atom01urdf'], 'cwd': '/workspaces/isaac_ros-dev/build/atom01urdf', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/atom01urdf'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.099862] (-) TimerEvent: {}
+[0.200012] (-) TimerEvent: {}
+[0.260484] (atom01urdf) StderrLine: {'line': b'CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):\n'}
+[0.260887] (atom01urdf) StderrLine: {'line': b'  Compatibility with CMake < 2.8.12 will be removed from a future version of\n'}
+[0.260941] (atom01urdf) StderrLine: {'line': b'  CMake.\n'}
+[0.260981] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.261016] (atom01urdf) StderrLine: {'line': b'  Update the VERSION argument <min> value or use a ...<max> suffix to tell\n'}
+[0.261053] (atom01urdf) StderrLine: {'line': b'  CMake that the project does not need compatibility with older versions.\n'}
+[0.261091] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.261127] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.261162] (serial) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.261280] (serial) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.261319] (serial) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.261352] (nlink_message) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.261433] (nlink_message) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.261462] (nlink_message) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.261491] (roboparty_imu) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.261525] (roboparty_imu) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.261547] (roboparty_imu) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.261570] (roboparty_motors) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.261602] (roboparty_motors) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.261625] (roboparty_motors) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.261647] (atom01urdf) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.261677] (atom01urdf) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.261699] (atom01urdf) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.261721] (nav2_localization_adapter) JobProgress: {'identifier': 'nav2_localization_adapter', 'progress': 'cmake'}
+[0.261817] (nav2_localization_adapter) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_navigation/nav2_localization_adapter', '-DCMAKE_BUILD_TYPE=Release', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/nav2_localization_adapter'], 'cwd': '/workspaces/isaac_ros-dev/build/nav2_localization_adapter', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/nav2_localization_adapter'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.262822] (roboto_bms) JobProgress: {'identifier': 'roboto_bms', 'progress': 'cmake'}
+[0.263061] (roboto_bms) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_bms'], 'cwd': '/workspaces/isaac_ros-dev/build/roboto_bms', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/roboto_bms'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.264111] (roboto_usb2can) JobProgress: {'identifier': 'roboto_usb2can', 'progress': 'cmake'}
+[0.264272] (roboto_usb2can) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/roboto_usb2can', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_usb2can'], 'cwd': '/workspaces/isaac_ros-dev/build/roboto_usb2can', 'env': OrderedDict([('NPP_VERSION', '12.3.1.23'), ('SHELL', '/bin/bash'), ('ROS_VERSION', '2'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('DALI_BUILD', '16741769'), ('CUSOLVER_VERSION', '11.6.4.38'), ('CUBLAS_VERSION', '12.6.0.22'), ('ROS_PYTHON_VERSION', '3'), ('HOSTNAME', 'rsim-202305040006'), ('DCGM_VERSION', '3.2.6'), ('HOST_USER_GID', '1000'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=9.0'), ('CUFFT_VERSION', '11.2.6.28'), ('CUDA_CACHE_DISABLE', '1'), ('NCCL_VERSION', '2.22.3'), ('MODEL_OPT_VERSION', '0.15.0'), ('CUSPARSE_VERSION', '12.5.2.23'), ('ENV', '/etc/shinit_v2'), ('PWD', '/workspaces/isaac_ros-dev/build/roboto_usb2can'), ('OPENUCX_VERSION', '1.17.0'), ('NSIGHT_SYSTEMS_VERSION', '2024.4.2.133'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('POLYGRAPHY_VERSION', '0.49.13'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('TF_ENABLE_WINOGRAD_NONFUSED', '1'), ('CUSPARSELT_VERSION', '0.6.2.3'), ('TRT_VERSION', '10.3.0.26+cuda12.5.1.007'), ('NVIDIA_PRODUCT_NAME', 'Triton Server'), ('RDMACORE_VERSION', '39.0'), ('HOME', '/root'), ('USERNAME', 'admin'), ('LANG', 'en_US.UTF-8'), ('CUDA_VERSION', '12.6.0.022'), ('CURAND_VERSION', '10.3.7.37'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:'), ('TCMALLOC_RELEASE_RATE', '200'), ('CUTENSOR_VERSION', '2.0.2.5'), ('TRITON_SERVER_GPU_ENABLED', '1'), ('HPCX_VERSION', '2.19'), ('CUDNN_FRONTEND_VERSION', '1.5.2'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/tritonserver/backends/dali/wheel/dali:'), ('COLCON', '1'), ('TRITON_SERVER_VERSION', '2.49.0'), ('GDRCOPY_VERSION', '2.3.1-1'), ('HOST_USER_UID', '1000'), ('USER', 'rsim'), ('OPENMPI_VERSION', '4.1.7'), ('NVJPEG_VERSION', '12.3.3.23'), ('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs:'), ('DISPLAY', ''), ('SHLVL', '0'), ('BASH_ENV', '/etc/bash.bashrc'), ('TRT_INC_PATH', '/usr/include/x86_64-linux-gnu'), ('TF_AUTOTUNE_THRESHOLD', '2'), ('CUDNN_VERSION', '9.3.0.75'), ('NSIGHT_COMPUTE_VERSION', '2024.3.0.15'), ('DALI_VERSION', '1.40.0'), ('NVIDIA_TRITON_SERVER_VERSION', '24.08'), ('TRT_LIB_PATH', '/usr/lib/x86_64-linux-gnu'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/opt/hpcx/ucc/lib/:/opt/hpcx/ucx/lib/:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/tritonserver/lib'), ('NVIDIA_BUILD_ID', '107631419'), ('ROS_LOCALHOST_ONLY', '0'), ('OMPI_MCA_coll_hcoll_enable', '0'), ('OPAL_PREFIX', '/opt/hpcx/ompi'), ('CUDA_DRIVER_VERSION', '560.35.03'), ('TRANSFORMER_ENGINE_VERSION', '1.9'), ('_CUDA_COMPAT_PATH', '/usr/local/cuda/compat'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', ''), ('PATH', '/opt/ros/humble/bin:/opt/tritonserver/bin:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin'), ('TRITON_SERVER_USER', 'triton-server'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('MOFED_VERSION', '5.4-rdmacore39.0'), ('TRTOSS_VERSION', '24.08'), ('DEBIAN_FRONTEND', 'noninteractive'), ('ROS_ROOT', '/opt/ros/humble'), ('ROS_DISTRO', 'humble'), ('TF_ADJUST_HUE_FUSED', '1'), ('TF_ADJUST_SATURATION_FUSED', '1'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('UCX_MEM_EVENTS', 'no'), ('OLDPWD', '/workspaces/isaac_ros-dev'), ('_', '/usr/bin/env')]), 'shell': False}
+[0.288564] (roboto_usb2can) StderrLine: {'line': b'CMake Error at CMakeLists.txt:9 (find_package):\n'}
+[0.288685] (roboto_usb2can) StderrLine: {'line': b'  Could not find a package configuration file provided by "Zephyr" with any\n'}
+[0.288716] (roboto_usb2can) StderrLine: {'line': b'  of the following names:\n'}
+[0.288740] (roboto_usb2can) StderrLine: {'line': b'\n'}
+[0.288762] (roboto_usb2can) StderrLine: {'line': b'    ZephyrConfig.cmake\n'}
+[0.288785] (roboto_usb2can) StderrLine: {'line': b'    zephyr-config.cmake\n'}
+[0.288808] (roboto_usb2can) StderrLine: {'line': b'\n'}
+[0.288831] (roboto_usb2can) StderrLine: {'line': b'  Add the installation prefix of "Zephyr" to CMAKE_PREFIX_PATH or set\n'}
+[0.288853] (roboto_usb2can) StderrLine: {'line': b'  "Zephyr_DIR" to a directory containing one of the above files.  If "Zephyr"\n'}
+[0.288875] (roboto_usb2can) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.288895] (roboto_usb2can) StderrLine: {'line': b'  installed.\n'}
+[0.288915] (roboto_usb2can) StderrLine: {'line': b'\n'}
+[0.288935] (roboto_usb2can) StderrLine: {'line': b'\n'}
+[0.288955] (roboto_usb2can) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.289618] (roboto_usb2can) CommandEnded: {'returncode': 1}
+[0.290033] (roboto_usb2can) JobEnded: {'identifier': 'roboto_usb2can', 'rc': 1}
+[0.300070] (-) TimerEvent: {}
+[0.322803] (roboparty_imu) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.322966] (atom01urdf) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.326233] (roboparty_imu) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.326508] (roboparty_imu) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.326816] (roboparty_imu) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.329013] (roboparty_imu) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.329119] (nlink_message) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.329241] (atom01urdf) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.329370] (serial) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.329452] (atom01urdf) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.329964] (atom01urdf) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.330005] (roboparty_motors) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.331578] (atom01urdf) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.332951] (nlink_message) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.333074] (nlink_message) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.333264] (nlink_message) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.334931] (serial) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.335073] (nlink_message) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.335104] (serial) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.335383] (serial) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.335413] (roboparty_motors) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.335581] (roboparty_motors) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.335873] (roboparty_motors) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.337645] (serial) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.338170] (roboparty_motors) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.361190] (roboto_bms) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.361325] (nav2_localization_adapter) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.397458] (roboto_bms) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.397633] (nav2_localization_adapter) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.400137] (-) TimerEvent: {}
+[0.402488] (roboto_bms) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.402609] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.431633] (roboparty_imu) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.435607] (nlink_message) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.435957] (atom01urdf) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.436662] (roboparty_imu) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.436886] (roboparty_imu) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.437231] (roboparty_imu) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.441346] (nlink_message) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.441544] (nlink_message) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.441882] (nlink_message) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.442882] (atom01urdf) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.443105] (atom01urdf) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.443511] (atom01urdf) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.444940] (nlink_message) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.445217] (serial) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.447700] (roboparty_motors) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.449444] (serial) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.449605] (serial) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.449846] (serial) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.451977] (roboparty_motors) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.452179] (roboparty_motors) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.452516] (roboparty_motors) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.452835] (serial) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.465876] (atom01urdf) StderrLine: {'line': b'CMake Error at CMakeLists.txt:5 (find_package):\n'}
+[0.466009] (atom01urdf) StderrLine: {'line': b'  By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.466052] (atom01urdf) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "catkin", but\n'}
+[0.466091] (atom01urdf) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.466127] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.466162] (atom01urdf) StderrLine: {'line': b'  Could not find a package configuration file provided by "catkin" with any\n'}
+[0.466196] (atom01urdf) StderrLine: {'line': b'  of the following names:\n'}
+[0.466227] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.466259] (atom01urdf) StderrLine: {'line': b'    catkinConfig.cmake\n'}
+[0.466291] (atom01urdf) StderrLine: {'line': b'    catkin-config.cmake\n'}
+[0.466322] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.466353] (atom01urdf) StderrLine: {'line': b'  Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set\n'}
+[0.466393] (atom01urdf) StderrLine: {'line': b'  "catkin_DIR" to a directory containing one of the above files.  If "catkin"\n'}
+[0.466428] (atom01urdf) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.466459] (atom01urdf) StderrLine: {'line': b'  installed.\n'}
+[0.466493] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.466524] (atom01urdf) StderrLine: {'line': b'\n'}
+[0.466560] (atom01urdf) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.466595] (atom01urdf) StdoutLine: {'line': b'See also "/workspaces/isaac_ros-dev/build/atom01urdf/CMakeFiles/CMakeOutput.log".\n'}
+[0.468279] (atom01urdf) JobEnded: {'identifier': 'atom01urdf', 'rc': 'SIGINT'}
+[0.498759] (roboto_bms) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.498896] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.500205] (-) TimerEvent: {}
+[0.502276] (roboto_bms) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.502400] (roboto_bms) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.502587] (roboto_bms) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.502667] (nav2_localization_adapter) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.502777] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.502977] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.504265] (roboto_bms) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.504590] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.600293] (-) TimerEvent: {}
+[0.605982] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.606138] (roboto_bms) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.609581] (nav2_localization_adapter) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.609740] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.609821] (roboto_bms) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.609979] (roboto_bms) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.610017] (nav2_localization_adapter) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.610204] (roboto_bms) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.612935] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.615894] (roboto_bms) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.687915] (robolab) JobEnded: {'identifier': 'robolab', 'rc': 'SIGINT'}
+[0.700387] (-) TimerEvent: {}
+[0.720513] (roboto_bms) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.720689] (roboto_bms) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.800427] (-) TimerEvent: {}
+[0.821147] (roboto_bms) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.821605] (roboto_bms) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.829686] (roboparty_imu) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.830828] (nlink_message) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.848189] (roboparty_motors) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.848368] (serial) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.866706] (roboparty_imu) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.866825] (nlink_message) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.883166] (serial) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.883595] (roboparty_motors) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.900495] (-) TimerEvent: {}
+[0.902596] (nlink_message) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.905216] (roboparty_imu) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.926703] (serial) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[0.930668] (roboparty_motors) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: system \n'}
+[0.935558] (roboparty_motors) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.938738] (nlink_message) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.943804] (nlink_message) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.950967] (nlink_message) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.960215] (nlink_message) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.972552] (nlink_message) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.995312] (serial) StdoutLine: {'line': b'-- Configuring done\n'}
+[0.995882] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.999744] (serial) StdoutLine: {'line': b'-- Generating done\n'}
+[1.000548] (-) TimerEvent: {}
+[1.001067] (serial) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/serial\n'}
+[1.004463] (roboparty_imu) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.004674] (roboparty_imu) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.004838] (serial) JobEnded: {'identifier': 'serial', 'rc': 'SIGINT'}
+[1.008093] (nlink_message) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.010695] (nlink_message) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.031925] (nav2_localization_adapter) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.033309] (roboparty_motors) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.033473] (roboparty_motors) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.063052] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.085124] (nlink_message) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.099271] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.100615] (-) TimerEvent: {}
+[1.103542] (roboparty_imu) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.104176] (roboparty_imu) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.104279] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.111156] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.113484] (nlink_message) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.119812] (nav2_localization_adapter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.130927] (roboparty_motors) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.131468] (roboparty_motors) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.131570] (nav2_localization_adapter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.154254] (nlink_message) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.163775] (nlink_message) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.164853] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.167419] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.200704] (-) TimerEvent: {}
+[1.237494] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.263046] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.263470] (nlink_message) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.263909] (nlink_message) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.300783] (-) TimerEvent: {}
+[1.306056] (nav2_localization_adapter) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.315865] (nav2_localization_adapter) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.365004] (nlink_message) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.365629] (nlink_message) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.400726] (nlink_message) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.400844] (-) TimerEvent: {}
+[1.415238] (nav2_localization_adapter) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.415570] (nav2_localization_adapter) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.500943] (-) TimerEvent: {}
+[1.518715] (nav2_localization_adapter) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.519490] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.554264] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found nav_msgs: 4.9.1 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[1.573154] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found tf2: 0.25.20 (/opt/ros/humble/share/tf2/cmake)\n'}
+[1.585079] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.20 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[1.601042] (-) TimerEvent: {}
+[1.643234] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.20 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[1.648072] (nlink_message) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[1.661781] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[1.662670] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[1.662803] (nav2_localization_adapter) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[1.666662] (nav2_localization_adapter) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.701121] (-) TimerEvent: {}
+[1.737259] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[1.738408] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.738510] (nav2_localization_adapter) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[1.738548] (nav2_localization_adapter) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.739538] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[1.739605] (nav2_localization_adapter) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[1.739887] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.740326] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.740665] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[1.741752] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.741789] (nav2_localization_adapter) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.742071] (nav2_localization_adapter) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.743245] (nav2_localization_adapter) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.753036] (nav2_localization_adapter) StdoutLine: {'line': b'-- Generating done\n'}
+[1.754314] (roboparty_imu) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter Development Development.Module Development.Embed \n'}
+[1.755709] (nav2_localization_adapter) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/nav2_localization_adapter\n'}
+[1.762700] (nav2_localization_adapter) JobEnded: {'identifier': 'nav2_localization_adapter', 'rc': 'SIGINT'}
+[1.788845] (roboparty_imu) StdoutLine: {'line': b'-- Performing Test HAS_FLTO\n'}
+[1.790942] (roboparty_motors) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter Development Development.Module Development.Embed \n'}
+[1.801189] (-) TimerEvent: {}
+[1.824554] (roboparty_motors) StdoutLine: {'line': b'-- Performing Test HAS_FLTO\n'}
+[1.828059] (roboto_bms) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter Development Development.Module Development.Embed \n'}
+[1.859422] (roboto_bms) StdoutLine: {'line': b'-- Performing Test HAS_FLTO\n'}
+[1.874050] (nlink_message) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.901275] (-) TimerEvent: {}
+[1.937943] (roboparty_imu) StdoutLine: {'line': b'-- Performing Test HAS_FLTO - Success\n'}
+[1.938296] (roboparty_imu) StdoutLine: {'line': b'-- Found pybind11: /usr/include (found version "2.9.1")\n'}
+[1.954090] (roboparty_motors) StdoutLine: {'line': b'-- Performing Test HAS_FLTO - Success\n'}
+[1.954497] (roboparty_motors) StdoutLine: {'line': b'-- Found pybind11: /usr/include (found version "2.9.1")\n'}
+[1.960702] (nlink_message) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.976461] (nlink_message) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[1.978679] (nlink_message) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[1.992111] (roboto_bms) StdoutLine: {'line': b'-- Performing Test HAS_FLTO - Success\n'}
+[1.992435] (roboto_bms) StdoutLine: {'line': b'-- Found pybind11: /usr/include (found version "2.9.1")\n'}
+[1.994113] (roboto_bms) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.996202] (roboparty_imu) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.996969] (nlink_message) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[1.997051] (nlink_message) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[1.997076] (nlink_message) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[1.997097] (nlink_message) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[1.999661] (roboto_bms) StdoutLine: {'line': b'-- Generating done\n'}
+[2.001326] (-) TimerEvent: {}
+[2.001453] (roboto_bms) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/roboto_bms\n'}
+[2.003654] (roboparty_imu) StdoutLine: {'line': b'-- Generating done\n'}
+[2.004419] (roboto_bms) JobEnded: {'identifier': 'roboto_bms', 'rc': 'SIGINT'}
+[2.006023] (roboparty_imu) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/roboparty_imu\n'}
+[2.010031] (roboparty_imu) JobEnded: {'identifier': 'roboparty_imu', 'rc': 'SIGINT'}
+[2.011352] (nlink_message) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[2.013466] (roboparty_motors) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.026229] (roboparty_motors) StdoutLine: {'line': b'-- Generating done\n'}
+[2.029853] (roboparty_motors) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/roboparty_motors\n'}
+[2.034309] (roboparty_motors) JobEnded: {'identifier': 'roboparty_motors', 'rc': 'SIGINT'}
+[2.092563] (nlink_message) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.101392] (-) TimerEvent: {}
+[2.135689] (nlink_message) StdoutLine: {'line': b'-- Generating done\n'}
+[2.143198] (nlink_message) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/nlink_message\n'}
+[2.150558] (nlink_message) JobEnded: {'identifier': 'nlink_message', 'rc': 'SIGINT'}
+[2.160783] (nlink_parser_ros2) JobSkipped: {'identifier': 'nlink_parser_ros2'}
+[2.160803] (roboparty_inference) JobSkipped: {'identifier': 'roboparty_inference'}
+[2.160814] (robots_localization) JobSkipped: {'identifier': 'robots_localization'}
+[2.160824] (-) EventReactorShutdown: {}

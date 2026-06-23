@@ -1,0 +1,14 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from nlink_message/msg/LinktrackNode4Anchor.msg
+// generated code does not contain a copyright notice
+
+
+module nlink_message {
+  module msg {
+    struct LinktrackNode4Anchor {
+      uint8 id;
+
+      float dis;
+    };
+  };
+};

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtws_bms_protocol.a CMakeFiles/tws_bms_protocol.dir/protocol.cpp.o
+/usr/bin/ranlib libtws_bms_protocol.a

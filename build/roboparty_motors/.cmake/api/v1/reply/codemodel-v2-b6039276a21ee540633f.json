@@ -1,0 +1,289 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-f2f652bbee13d958f174.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						3,
+						6,
+						7,
+						8
+					]
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						7
+					],
+					"jsonFile" : "directory-src-Release-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src"
+				},
+				{
+					"build" : "src/drivers",
+					"childIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6
+					],
+					"jsonFile" : "directory-src.drivers-Release-7a285a5331bf370e54a5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/drivers"
+				},
+				{
+					"build" : "src/drivers/dm",
+					"jsonFile" : "directory-src.drivers.dm-Release-8ad40f88ed361485bb56.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/drivers/dm",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src/drivers/evo",
+					"jsonFile" : "directory-src.drivers.evo-Release-d36d3859425c16dded20.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/drivers/evo",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "src/drivers/lro",
+					"jsonFile" : "directory-src.drivers.lro-Release-dc4e372d6a467ef1c124.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/drivers/lro",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src/drivers/xyn",
+					"jsonFile" : "directory-src.drivers.xyn-Release-57b6da09e5c1ed471af9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/drivers/xyn",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "src/protocol",
+					"childIndexes" : 
+					[
+						8,
+						9
+					],
+					"jsonFile" : "directory-src.protocol-Release-e2dbaf013debbf9929df.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/protocol"
+				},
+				{
+					"build" : "src/protocol/can",
+					"jsonFile" : "directory-src.protocol.can-Release-b15bae1c0c7f2d0b27d5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "src/protocol/can",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "src/protocol/canfd",
+					"jsonFile" : "directory-src.protocol.canfd-Release-1f4457f0ca28dd9f240a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 0,
+					"source" : "src/protocol/canfd",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"name" : "roboparty_motors",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "dm_motors::@2aa90c559b4e885d33ca",
+					"jsonFile" : "target-dm_motors-Release-fc4d29e39166d2641497.json",
+					"name" : "dm_motors",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "evo_motors::@7c241669e24d51f980c0",
+					"jsonFile" : "target-evo_motors-Release-f84f0bbdaa3af2530aee.json",
+					"name" : "evo_motors",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "lro_motors::@37a6bc9244ca748d81b1",
+					"jsonFile" : "target-lro_motors-Release-2cdf5ae5d36f6b31a6dc.json",
+					"name" : "lro_motors",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motors::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motors-Release-2e658ca0c19b3f680a66.json",
+					"name" : "motors",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "motors_can::@3edf5ab1ab8b572514ff",
+					"jsonFile" : "target-motors_can-Release-e8ebef260d0d1b29c3f6.json",
+					"name" : "motors_can",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "motors_canfd::@e2b1982622e58e029d7e",
+					"jsonFile" : "target-motors_canfd-Release-f5675da9263d9202cb74.json",
+					"name" : "motors_canfd",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motors_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motors_py-Release-d75bdb8cb9284eedff00.json",
+					"name" : "motors_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "roboparty_motors_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-roboparty_motors_uninstall-Release-f59a533b7826048a1068.json",
+					"name" : "roboparty_motors_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-c96e0f43f9531ce1ad41.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "xyn_motors::@4f16b266e4d06fee2754",
+					"jsonFile" : "target-xyn_motors-Release-0ad121b0c71b2930ec11.json",
+					"name" : "xyn_motors",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/workspaces/isaac_ros-dev/build/roboparty_motors",
+		"source" : "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_deploy/src/motors"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,2 @@
+Invoking command in '/workspaces/isaac_ros-dev/build/roboto_usb2can': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/roboto_usb2can -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_usb2can
+Invoked command in '/workspaces/isaac_ros-dev/build/roboto_usb2can' returned '1': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/roboto_usb2can -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_usb2can

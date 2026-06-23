@@ -1,0 +1,132 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-5999c5b30d4199a6a904.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"build" : "src/drivers",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-src.drivers-Release-7a285a5331bf370e54a5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src/drivers"
+				},
+				{
+					"build" : "src/drivers/tws",
+					"jsonFile" : "directory-src.drivers.tws-Release-78c1c44bd0d430a10042.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/drivers/tws",
+					"targetIndexes" : 
+					[
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "roboto_bms",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bms::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bms-Release-2be834eb70b1de04ddf2.json",
+					"name" : "bms",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "bms_daemon::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bms_daemon-Release-ccfd1c813d0e47155ab6.json",
+					"name" : "bms_daemon",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "bms_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bms_py-Release-8578794196fc7793ed47.json",
+					"name" : "bms_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "tws_bms::@efbd0ad7ce92e99eb0a6",
+					"jsonFile" : "target-tws_bms-Release-666af6077ce170d650b2.json",
+					"name" : "tws_bms",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "tws_bms_protocol::@efbd0ad7ce92e99eb0a6",
+					"jsonFile" : "target-tws_bms_protocol-Release-c0b08b5145f05be47ef7.json",
+					"name" : "tws_bms_protocol",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/workspaces/isaac_ros-dev/build/roboto_bms",
+		"source" : "/workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

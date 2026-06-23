@@ -1,0 +1,16 @@
+[0.255s] Invoking command in '/workspaces/isaac_ros-dev/build/roboto_usb2can': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/roboto_usb2can -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_usb2can
+[0.269s] CMake Error at CMakeLists.txt:9 (find_package):
+[0.269s]   Could not find a package configuration file provided by "Zephyr" with any
+[0.269s]   of the following names:
+[0.269s] 
+[0.269s]     ZephyrConfig.cmake
+[0.269s]     zephyr-config.cmake
+[0.269s] 
+[0.269s]   Add the installation prefix of "Zephyr" to CMAKE_PREFIX_PATH or set
+[0.269s]   "Zephyr_DIR" to a directory containing one of the above files.  If "Zephyr"
+[0.269s]   provides a separate development package or SDK, be sure it has been
+[0.269s]   installed.
+[0.269s] 
+[0.269s] 
+[0.269s] -- Configuring incomplete, errors occurred!
+[0.270s] Invoked command in '/workspaces/isaac_ros-dev/build/roboto_usb2can' returned '1': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/roboto_usb2can -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_usb2can

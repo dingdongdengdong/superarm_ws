@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from nlink_message/msg/LinktrackNode1.msg
+// generated code does not contain a copyright notice
+
+
+module nlink_message {
+  module msg {
+    typedef float float__3[3];
+    struct LinktrackNode1 {
+      uint8 role;
+
+      uint8 id;
+
+      float__3 pos_3d;
+    };
+  };
+};

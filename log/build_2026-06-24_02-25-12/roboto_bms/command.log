@@ -1,0 +1,1 @@
+Invoking command in '/workspaces/isaac_ros-dev/build/roboto_bms': _=/usr/bin/env /usr/bin/cmake /workspaces/isaac_ros-dev/roboparty/modules/roboparty_firmware/orangepi-build/external/cache/sources/bms_daemon -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/roboto_bms
