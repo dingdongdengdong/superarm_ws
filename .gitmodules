@@ -1,0 +1,9 @@
+[submodule "roboparty"]
+	path = roboparty
+	url = https://github.com/Roboparty/roboto_origin
+[submodule "AmazingHand"]
+	path = AmazingHand
+	url = https://github.com/pollen-robotics/AmazingHand
+[submodule "lerobot"]
+	path = lerobot
+	url = https://github.com/dingdongdengdong/lerobot

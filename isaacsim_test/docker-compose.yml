@@ -1,0 +1,89 @@
+services:
+
+  # Isaac Sim 5.1 — runs the simulated OpenArm follower
+  isaac-sim-51:
+    image: nvcr.io/nvidia/isaac-sim:5.1.0
+    container_name: isaacsim-test-sim
+    network_mode: host
+    environment:
+      DISPLAY: "${DISPLAY:-:0}"
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ACCEPT_EULA: "Y"
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+      OPENARM_URDF_PATH: "${OPENARM_URDF_PATH:-}"
+      HEADLESS: "${HEADLESS:-1}"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./isaacsim:/workspace/isaacsim:ro
+      - ${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:ro
+      - isaac_sim_cache:/root/.cache/ov
+      - isaac_nucleus_cache:/root/.local/share/ov/data
+    entrypoint: ["/bin/bash", "-c"]
+    command: >
+      source /opt/ros/humble/setup.bash &&
+      exec /isaac-sim/python.sh /workspace/isaacsim/setup_openarm_scene.py
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: "no"
+
+  # LeRobot + smartphone slider teleop (port 8766)
+  lerobot:
+    image: nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
+    container_name: isaacsim-test-lerobot
+    network_mode: host
+    environment:
+      DISPLAY: "${DISPLAY:-:0}"
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+      PHONE_PORT: "${PHONE_PORT:-8766}"
+      PYTHONPATH: "/workspace/superarm_ws/isaacsim_test/lerobot"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:rw
+    working_dir: /workspace/superarm_ws
+    entrypoint: ["/bin/bash", "-c"]
+    command: >
+      source /opt/ros/humble/setup.bash &&
+      cd /workspace/superarm_ws/lerobot &&
+      pip install -e . --quiet &&
+      bash /workspace/superarm_ws/isaacsim_test/lerobot/run_smartphone_teleop.sh
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: "no"
+
+  # Foxglove WebSocket bridge — port 8765 (standard default)
+  # Connect from: Foxglove Studio desktop, studio.foxglove.dev, or Foxglove mobile app
+  # URL: ws://<host-ip>:8765
+  foxglove:
+    image: nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
+    container_name: isaacsim-test-foxglove
+    network_mode: host
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+    entrypoint: ["/bin/bash", "-c"]
+    command: >
+      source /opt/ros/humble/setup.bash &&
+      apt-get install -y -q ros-humble-foxglove-bridge 2>/dev/null || true &&
+      ros2 launch foxglove_bridge foxglove_bridge_launch.xml
+      port:=${FOXGLOVE_PORT:-8765}
+      address:=0.0.0.0
+    restart: "no"
+
+volumes:
+  isaac_sim_cache:
+  isaac_nucleus_cache:

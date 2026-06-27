@@ -1,124 +1,29 @@
-name: Isaac ROS CI/CD
+name: Docker Build & Push
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
   packages: write
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  CONTAINER: isaac-ros-dev
-  WS: /workspaces/isaac_ros-dev
 
 jobs:
-  build-and-test:
-    name: Build & Test ROS Packages
-    runs-on: [self-hosted, linux, gpu]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Fix git safe directory in container
-        run: |
-          docker exec $CONTAINER bash -c "
-            git config --global --add safe.directory $WS
-          "
-
-      - name: Install dependencies
-        run: |
-          docker exec $CONTAINER bash -c "
-            source /opt/ros/humble/setup.bash &&
-            cd $WS &&
-            rosdep update --rosdistro humble -q &&
-            rosdep install --from-paths . --ignore-src -r -y \
-              --skip-keys 'livox_ros_driver2 catkin'
-          "
-
-      - name: Build packages
-        run: |
-          docker exec $CONTAINER bash -c "
-            source /opt/ros/humble/setup.bash &&
-            cd $WS &&
-            colcon build --symlink-install \
-              --cmake-args -DCMAKE_BUILD_TYPE=Release \
-              --packages-select nav2_localization_adapter robolab
-          "
-
-      - name: Run tests
-        run: |
-          docker exec $CONTAINER bash -c "
-            source /opt/ros/humble/setup.bash &&
-            cd $WS &&
-            source install/setup.bash &&
-            colcon test \
-              --packages-select nav2_localization_adapter &&
-            colcon test-result --verbose
-          " || true
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ github.sha }}
-          path: log/latest_test/
-
-  auto-format-and-push:
-    name: Auto Format & Push
-    runs-on: [self-hosted, linux, gpu]
-    needs: build-and-test
-    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      - name: Run code formatter inside container
-        run: |
-          docker exec $CONTAINER bash -c "
-            source /opt/ros/humble/setup.bash &&
-            cd $WS &&
-            find . -name '*.py' \
-              -not -path './install/*' \
-              -not -path './build/*' \
-              -not -path './log/*' \
-              -not -path './.git/*' \
-              | xargs autopep8 --in-place --aggressive 2>/dev/null || true
-          "
-
-      - name: Commit and push formatting changes
-        run: |
-          git config user.name "isaac-ros-runner[bot]"
-          git config user.email "github-actions@github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "style: auto-format Python files [skip ci]"
-            git push origin HEAD:${{ github.ref_name }}
-            echo "Formatting changes pushed"
-          else
-            echo "No formatting changes"
-          fi
-
-  docker-build-push:
+  docker:
     name: Build & Push Docker Image
-    runs-on: [self-hosted, linux, gpu]
-    needs: build-and-test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    permissions:
-      contents: write
-      packages: write
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -139,53 +44,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            ISAAC_ROS_IMAGE=isaac_ros_dev-x86_64:latest
-
-      - name: Write image digest to repo and push
-        run: |
-          git config user.name "isaac-ros-runner[bot]"
-          git config user.email "github-actions@github.com"
-          mkdir -p .ci
-          echo "${{ steps.meta.outputs.tags }}" > .ci/latest_image.txt
-          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | ${{ github.sha }}" >> .ci/build_history.txt
-          git add .ci/
-          if ! git diff --cached --quiet; then
-            git commit -m "ci: update image digest [skip ci]"
-            git push origin HEAD:main
-          fi
-
-  deploy-simulation:
-    name: Deploy & Run Simulation
-    runs-on: [self-hosted, linux, gpu]
-    needs: docker-build-push
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run simulation test
-        run: |
-          docker exec $CONTAINER bash -c "
-            source /opt/ros/humble/setup.bash &&
-            source $WS/install/setup.bash 2>/dev/null || true &&
-            echo 'Simulation environment ready' &&
-            ros2 pkg list | wc -l
-          "
-        timeout-minutes: 10
-
-      - name: Write deploy status and push
-        run: |
-          git config user.name "isaac-ros-runner[bot]"
-          git config user.email "github-actions@github.com"
-          mkdir -p .ci
-          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | ${{ github.sha }} | success" >> .ci/deploy_history.txt
-          git add .ci/
-          if ! git diff --cached --quiet; then
-            git commit -m "ci: update deploy status [skip ci]"
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi

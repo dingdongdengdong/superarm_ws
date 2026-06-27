@@ -1,4 +1,4 @@
-ARG ISAAC_ROS_IMAGE=nvcr.io/nvidia/isaac/ros:humble-isaac_ros_dev
+ARG ISAAC_ROS_IMAGE=nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
 FROM ${ISAAC_ROS_IMAGE}
 
 WORKDIR /workspace/superarm_ws
