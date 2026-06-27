@@ -1,0 +1,84 @@
+{
+  "errors": [],
+  "failed_requirements": [
+    "GSP.001",
+    "RB.MB.001"
+  ],
+  "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+  "next_step": "simready-validate",
+  "output_dir": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+  "passed": false,
+  "profile": "Prop-Robotics-Neutral",
+  "profile_version": "1.0.0",
+  "reports": {
+    "FET_004_SIMULATE_MULTI_BODY_PHYSICS": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/fet004-multibody.json",
+    "FET_005_SIMULATE_GRASP_PHYSICS": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-grasp/fet005-grasp.json"
+  },
+  "requirements_blocked": [
+    "GSP.001"
+  ],
+  "requirements_repaired": [
+    "RB.MB.001"
+  ],
+  "requirements_skipped": [
+    "NP.002",
+    "NP.006",
+    "UN.007"
+  ],
+  "status": "BLOCKED",
+  "steps": [
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/simready-conform-profile/references/FET_004_SIMULATE_MULTI_BODY_PHYSICS/scripts/run.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+        "--output-dir",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody",
+        "--profile",
+        "Prop-Robotics-Neutral",
+        "--profile-version",
+        "1.0.0",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/fet004-multibody.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/fet004-multibody.md",
+        "--validation-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/05_validation/simready-profile.json"
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "name": "FET_004_SIMULATE_MULTI_BODY_PHYSICS",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "passed": true,
+      "reason": "applied",
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/fet004-multibody.json",
+      "requirements_blocked": [],
+      "requirements_repaired": [
+        "RB.MB.001"
+      ],
+      "requirements_skipped": [],
+      "status": "PASS",
+      "warnings": []
+    },
+    {
+      "command": [],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "name": "FET_005_SIMULATE_GRASP_PHYSICS",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "passed": false,
+      "reason": "GSP.001 requires at least two explicit --grasp-point values selected from visual evidence.",
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-grasp/fet005-grasp.json",
+      "requirements_blocked": [
+        "GSP.001"
+      ],
+      "requirements_repaired": [],
+      "requirements_skipped": [],
+      "status": "BLOCKED",
+      "warnings": []
+    }
+  ],
+  "validation_report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/05_validation/simready-profile.json",
+  "warnings": []
+}

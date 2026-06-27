@@ -1,0 +1,129 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+  "asset_topology": {
+    "component_count": 110,
+    "default_prim_path": "/echo_full",
+    "geom_subset_count": 0,
+    "inspected": true,
+    "mesh_count": 110,
+    "mesh_with_geom_subset_count": 0,
+    "reason": null,
+    "single_prim_or_geomsubset": false
+  },
+  "available_profiles": [],
+  "command": [
+    "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/simready-validate",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+    "--profile",
+    "Prop-Robotics-Neutral",
+    "--version",
+    "1.0.0",
+    "--rules-path",
+    "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation/nv_core/sr_specs/docs/capabilities",
+    "--features-path",
+    "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation/nv_core/sr_specs/docs/features",
+    "--profiles-path",
+    "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation/nv_core/sr_specs/docs/profiles/profiles.toml",
+    "--output",
+    "/tmp/tmp5oe9z74a/simready-profile-report.json"
+  ],
+  "errors": [
+    "FET004_BASE_NEUTRAL failed requirement RB.MB.001",
+    "FET005_BASE_NEUTRAL failed requirement GSP.001"
+  ],
+  "feature_results": [
+    {
+      "dependencies": "[]",
+      "failing_requirements": [],
+      "feature_id": "FET000_CORE",
+      "passed": true,
+      "version": "0.1.0"
+    },
+    {
+      "dependencies": "[]",
+      "failing_requirements": [],
+      "feature_id": "FET001_BASE_NEUTRAL",
+      "passed": true,
+      "version": "0.1.0"
+    },
+    {
+      "dependencies": "[]",
+      "failing_requirements": [],
+      "feature_id": "FET003_BASE_NEUTRAL",
+      "passed": true,
+      "version": "0.1.0"
+    },
+    {
+      "dependencies": "[{'FET003_BASE_NEUTRAL': {'version': '0.1.0'}}]",
+      "failing_requirements": [
+        "RB.MB.001"
+      ],
+      "feature_id": "FET004_BASE_NEUTRAL",
+      "passed": false,
+      "version": "0.1.0"
+    },
+    {
+      "dependencies": "[]",
+      "failing_requirements": [
+        "GSP.001"
+      ],
+      "feature_id": "FET005_BASE_NEUTRAL",
+      "passed": false,
+      "version": "0.1.0"
+    },
+    {
+      "dependencies": "[]",
+      "failing_requirements": [],
+      "feature_id": "FET006_BASE_MDL",
+      "passed": true,
+      "version": "0.1.0"
+    }
+  ],
+  "ignored_issues": [],
+  "issue_counts": {
+    "ERROR": 0,
+    "FAILURE": 2,
+    "INFO": 0,
+    "WARNING": 0
+  },
+  "issues": [
+    {
+      "feature_id": "FET004_BASE_NEUTRAL",
+      "message": "FET004_BASE_NEUTRAL failed requirement RB.MB.001",
+      "requirement_id": "RB.MB.001",
+      "severity": "FAILURE"
+    },
+    {
+      "feature_id": "FET005_BASE_NEUTRAL",
+      "message": "FET005_BASE_NEUTRAL failed requirement GSP.001",
+      "requirement_id": "GSP.001",
+      "severity": "FAILURE"
+    }
+  ],
+  "next_step": "simready-conform-profile",
+  "passed": false,
+  "profile_name": "Prop-Robotics-Neutral",
+  "profile_results": [
+    {
+      "passed": false,
+      "profile_id": "Prop-Robotics-Neutral",
+      "profile_version": "1.0.0"
+    }
+  ],
+  "profile_target": {
+    "name": "Prop-Robotics-Neutral",
+    "version": "1.0.0"
+  },
+  "requirement_counts": {
+    "GSP.001": 1,
+    "RB.MB.001": 1
+  },
+  "status": "FAIL",
+  "validation_policy": {
+    "ignored_requirements": [],
+    "single_component_rb_mb_001_nonblocking": false
+  },
+  "validator_skill": "simready-validate",
+  "validator_tool": "simready-validate",
+  "warnings": []
+}

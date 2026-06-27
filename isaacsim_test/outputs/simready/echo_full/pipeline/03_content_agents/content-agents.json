@@ -1,0 +1,91 @@
+{
+  "errors": [],
+  "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+  "materialized_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+  "next_step": "simready-conform-profile",
+  "output_dir": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+  "passed": true,
+  "physics_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+  "reports": {
+    "material": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.json",
+    "physics": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.json"
+  },
+  "selected_calls": [
+    "material",
+    "physics"
+  ],
+  "skill": "content-agents",
+  "status": "PASS",
+  "steps": [
+    {
+      "call": "material",
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/content-agents/references/material-agent-client/scripts/run.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.md",
+        "--timeout",
+        "3600",
+        "--request-timeout",
+        "120",
+        "--poll-interval",
+        "5.0",
+        "--prompt",
+        "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry."
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "markdown_report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.md",
+      "next_step": "physics-agent-client",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+      "passed": true,
+      "reference": "material-agent-client",
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.json",
+      "status": "PASS",
+      "stderr_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.stderr.log",
+      "stdout_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.stdout.log",
+      "warnings": []
+    },
+    {
+      "call": "physics",
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/content-agents/references/physics-agent-client/scripts/run.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.md",
+        "--timeout",
+        "3600",
+        "--request-timeout",
+        "120",
+        "--poll-interval",
+        "5.0",
+        "--prompt",
+        "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry.",
+        "--convert-output-to-usd"
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+      "markdown_report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.md",
+      "next_step": "simready-conform-profile",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "passed": true,
+      "reference": "physics-agent-client",
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.json",
+      "status": "PASS",
+      "stderr_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.stderr.log",
+      "stdout_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.stdout.log",
+      "warnings": []
+    }
+  ],
+  "textured_usdz_path": null,
+  "warnings": []
+}

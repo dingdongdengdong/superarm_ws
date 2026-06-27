@@ -1,0 +1,52 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+  "bounds": {
+    "max": [
+      0.1027998867796911,
+      0.533360120074863,
+      0.804377771118239
+    ],
+    "min": [
+      -0.626700113220194,
+      0.0483601132203288,
+      -0.06768500000007878
+    ]
+  },
+  "default_prim": "/echo_full",
+  "mesh_count": 110,
+  "output_preview_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview-overlay-y-localmm.png",
+  "overlay_points_local": [
+    [
+      -31.0,
+      260.0,
+      665.0
+    ],
+    [
+      -31.0,
+      327.0,
+      665.0
+    ]
+  ],
+  "overlay_points_world": [
+    [
+      -0.031,
+      0.26,
+      0.665
+    ],
+    [
+      -0.031,
+      0.327,
+      0.665
+    ]
+  ],
+  "parent_prim": "/echo_full",
+  "sampled_point_count": 187859,
+  "source_point_count": 187859,
+  "status": "PASS",
+  "views": [
+    "TOP XY",
+    "FRONT XZ",
+    "SIDE YZ",
+    "ISO"
+  ]
+}

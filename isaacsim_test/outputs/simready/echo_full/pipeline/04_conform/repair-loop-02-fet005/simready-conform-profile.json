@@ -1,0 +1,151 @@
+{
+  "errors": [],
+  "failed_requirements": [],
+  "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+  "next_step": "simready-validate",
+  "output_dir": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+  "passed": true,
+  "profile": "Prop-Robotics-Neutral",
+  "profile_version": "1.0.0",
+  "reports": {
+    "FET_000_CORE": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/fet000-core.json",
+    "FET_001_MINIMAL": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/fet001-minimal.json",
+    "FET_005_SIMULATE_GRASP_PHYSICS": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/fet005-grasp.json"
+  },
+  "requirements_blocked": [],
+  "requirements_repaired": [
+    "GSP.001",
+    "NP.006"
+  ],
+  "requirements_skipped": [
+    "RB.MB.001"
+  ],
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/simready-conform-profile/references/FET_000_CORE/scripts/run.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+        "--output",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.usd",
+        "--identifier",
+        "echo_full_robot_arm_hand",
+        "--profile",
+        "Prop-Robotics-Neutral",
+        "--profile-version",
+        "1.0.0",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/fet000-core.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/fet000-core.md",
+        "--source-asset",
+        "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+        "--pipeline-step",
+        "convert-to-usd",
+        "--pipeline-step",
+        "material-agent-client",
+        "--pipeline-step",
+        "physics-agent-client"
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "name": "FET_000_CORE",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.usd",
+      "passed": true,
+      "reason": null,
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/fet000-core.json",
+      "requirements_blocked": [],
+      "requirements_repaired": [
+        "NP.006"
+      ],
+      "requirements_skipped": [],
+      "status": "PASS",
+      "warnings": [
+        "Grasp vectors are not authored by this FET000 Core metadata script; handle GSP.001 with FET_005_SIMULATE_GRASP_PHYSICS."
+      ]
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/simready-conform-profile/references/FET_001_MINIMAL/scripts/run.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.usd",
+        "--output-dir",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal",
+        "--profile",
+        "Prop-Robotics-Neutral",
+        "--profile-version",
+        "1.0.0",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/fet001-minimal.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/fet001-minimal.md"
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.usd",
+      "name": "FET_001_MINIMAL",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "passed": true,
+      "reason": null,
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/fet001-minimal.json",
+      "requirements_blocked": [],
+      "requirements_repaired": [],
+      "requirements_skipped": [],
+      "status": "PASS",
+      "warnings": [
+        "Copied sidecar metadata from /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.json",
+        "metersPerUnit already satisfies UN.007"
+      ]
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python",
+        "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/simready-conform-profile/references/FET_005_SIMULATE_GRASP_PHYSICS/scripts/author_grasp_line.py",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/echo_full_robot_arm_hand.usd",
+        "--output",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+        "--report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/fet005-grasp.json",
+        "--markdown-report",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/fet005-grasp.md",
+        "--parent-prim",
+        "/echo_full",
+        "--name",
+        "grasp_identifier_01",
+        "--point=-80,293,665",
+        "--point=20,293,665",
+        "--visual-evidence",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview.png",
+        "--visual-evidence",
+        "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview-overlay-x-localmm.png",
+        "--source-visual-asset",
+        "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+        "--rationale",
+        "Vision-reviewed four-panel point-cloud evidence shows the AmazingHand palm/wrist body is the broad stable region; the selected line crosses the palm shell body and avoids thin fingers, wheels, sensors, and loose layout geometry.",
+        "--coordinate-note",
+        "Points are authored in /echo_full local coordinates because /echo_full has xformOp:scale:meter_normalization=(0.001,0.001,0.001); local points (-80,293,665) and (20,293,665) map to world points (-0.080,0.293,0.665) and (0.020,0.293,0.665), crossing RPalm_Shell world bounds."
+      ],
+      "errors": [],
+      "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "name": "FET_005_SIMULATE_GRASP_PHYSICS",
+      "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "passed": true,
+      "reason": null,
+      "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/fet005-grasp.json",
+      "requirements_blocked": [],
+      "requirements_repaired": [
+        "GSP.001"
+      ],
+      "requirements_skipped": [],
+      "status": "PASS",
+      "warnings": []
+    }
+  ],
+  "validation_report": null,
+  "warnings": [
+    "Grasp vectors are not authored by this FET000 Core metadata script; handle GSP.001 with FET_005_SIMULATE_GRASP_PHYSICS.",
+    "Copied sidecar metadata from /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.json",
+    "metersPerUnit already satisfies UN.007"
+  ]
+}

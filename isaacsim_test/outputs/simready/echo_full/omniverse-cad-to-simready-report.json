@@ -1,0 +1,258 @@
+{
+  "content_agents": {
+    "credentials": "redacted/not written to report",
+    "material_output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "physics_output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+    "readiness": "ready",
+    "service_urls": {
+      "material": "http://localhost:8100",
+      "ovrtx": "http://localhost:8001",
+      "physics": "http://localhost:8200"
+    }
+  },
+  "final_artifacts": {
+    "final_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+    "grasp_overlay_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview-overlay-x-localmm.png",
+    "grasp_preview_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview.png",
+    "json_report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/omniverse-cad-to-simready-report.json",
+    "markdown_report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/omniverse-cad-to-simready-report.md",
+    "thumbnail_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png"
+  },
+  "final_validation": {
+    "asset-validator": {
+      "errors": 0,
+      "issue_counts": {
+        "ERROR": 0,
+        "FAILURE": 0,
+        "INFO": 0,
+        "WARNING": 125
+      },
+      "issues": 125,
+      "passed": true,
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/asset-validator.json",
+      "status": "PASS",
+      "warnings": 126
+    },
+    "geometry": {
+      "errors": 0,
+      "issue_counts": {
+        "ERROR": 0,
+        "FAILURE": 0,
+        "INFO": 0,
+        "WARNING": 125
+      },
+      "issues": 125,
+      "passed": true,
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/geometry.json",
+      "status": "PASS",
+      "warnings": 125
+    },
+    "physics": {
+      "errors": 0,
+      "issue_counts": {
+        "ERROR": 0,
+        "FAILURE": 0,
+        "INFO": 0,
+        "WARNING": 0
+      },
+      "issues": 0,
+      "passed": true,
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/physics.json",
+      "status": "PASS",
+      "warnings": 0
+    },
+    "simready-profile": {
+      "errors": 0,
+      "issues": 0,
+      "passed": true,
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/simready-profile.json",
+      "requirement_counts": {},
+      "status": "PASS",
+      "warnings": 0
+    }
+  },
+  "generated_at": "2026-06-27T16:41:41.831871+00:00",
+  "grasp_repair": {
+    "coordinate_note": "The authored parent /echo_full has meter_normalization scale 0.001, so local millimeter-like points map to world-meter coordinates.",
+    "grasp_vector_path": "/echo_full/grasp_identifier_01",
+    "points_local": [
+      [
+        -80.0,
+        293.0,
+        665.0
+      ],
+      [
+        20.0,
+        293.0,
+        665.0
+      ]
+    ],
+    "points_parent_prim": "/echo_full",
+    "points_world": [
+      [
+        -0.08,
+        0.293,
+        0.665
+      ],
+      [
+        0.02,
+        0.293,
+        0.665
+      ]
+    ],
+    "rationale": "The line crosses the broad AmazingHand palm shell/body in the four-panel preview and avoids thin fingers, wheels, sensors, and loose layout geometry.",
+    "requirement": "GSP.001"
+  },
+  "known_warnings": [
+    "Asset Validator reports warning-level indexed primvar optimization opportunities.",
+    "Geometry validator reports warning-level non-manifold vertices inherited from source CAD geometry.",
+    "OVRTX render report warns Pillow was unavailable for automated pixel inspection; the PNG was generated and visually inspected."
+  ],
+  "overall_status": "passed",
+  "recommended_next_work": [
+    "Optionally clean/retopologize source geometry to remove non-manifold and indexed-primvar warnings.",
+    "If you want a distributable sample, run the package assembly/validation stages next.",
+    "Import the final USD into Isaac Sim and map robot/articulation semantics if the next goal is controller/SITL testing rather than prop-level SimReady validation."
+  ],
+  "request_summary": {
+    "detected_source_format": "cad",
+    "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+    "profile": "Prop-Robotics-Neutral",
+    "profile_version": "1.0.0",
+    "property_assignment_intent": "run",
+    "readme": "/home/sim/Documents/superarm_ws/isaacsim_test/README.md",
+    "skill_source": "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/SKILL.md",
+    "source_asset_path": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "upstream_skill_url": "https://github.com/NVIDIA/skills/tree/main/skills/omniverse-cad-to-simready"
+  },
+  "stage_results": [
+    {
+      "input": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "notes": "usd-convert-cad, OpenUSD Python, Asset Validator, SimReady validator, Content Agents ready",
+      "output": "manifest/env ready",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight-full-ready.json",
+      "stage": "preflight",
+      "status": "ready"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "notes": "STEP metadata extracted; asset inferred as robot/mobile base with hand",
+      "output": "asset context prompt seed",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/00_context/asset-context.json",
+      "stage": "identify-asset-context",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "notes": "CAD conversion via NVIDIA usd-convert-cad",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/conversion.json",
+      "stage": "convert-to-usd",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "notes": "Minimum USD viability passed",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/02_minimum_validation/minimum-usd.json",
+      "stage": "validate-usd-minimum",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "notes": "Material assignment through local Content Agent",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/material-agent-client.json",
+      "stage": "material-agent-client",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+      "notes": "Physics assignment through local Content Agent",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/physics-agent-client.json",
+      "stage": "physics-agent-client",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "notes": "Repaired NP.002, NP.006, UN.007",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/simready-conform-profile.json",
+      "stage": "simready-conform-profile initial",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "notes": "Initial profile failures: {'GSP.001': 1, 'RB.MB.001': 1}",
+      "output": "failure diagnostics",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/05_validation/simready-profile.json",
+      "stage": "profile validation before repair loops",
+      "status": "FAIL"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "notes": "Repaired RB.MB.001; GSP.001 blocked until visual grasp points selected",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/simready-conform-profile.json",
+      "stage": "repair-loop-01 FET004",
+      "status": "BLOCKED"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "notes": "Vision-reviewed overlay selected palm-body grasp line, avoiding fingers/wheels/sensors",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview-overlay-x-localmm.png",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-visual/grasp-preview-overlay-x-localmm.json",
+      "stage": "FET005 visual selection",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+      "notes": "Authored /echo_full/grasp_identifier_01 with two explicit local-space points",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/simready-conform-profile.json",
+      "stage": "repair-loop-02 FET005",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "notes": "Warnings: 126 (mostly indexed primvar + non-manifold geometry)",
+      "output": "validation report",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/asset-validator.json",
+      "stage": "final asset validation",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "notes": "Warnings: 125 (non-manifold/indexed primvar warnings; no errors)",
+      "output": "validation report",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/geometry.json",
+      "stage": "final geometry validation",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "notes": "No physics issues",
+      "output": "validation report",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/physics.json",
+      "stage": "final physics validation",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "notes": "Prop-Robotics-Neutral v1.0.0 passed; no remaining requirement failures",
+      "output": "validation report",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/simready-profile.json",
+      "stage": "final SimReady profile validation",
+      "status": "PASS"
+    },
+    {
+      "input": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+      "notes": "Render generated; Pillow pixel inspection unavailable warning only",
+      "output": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png",
+      "report": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/ovrtx-render.json",
+      "stage": "OVRTX render smoke test",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+  "categories": [
+    "Physics"
+  ],
+  "command": [
+    "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/omni_asset_validate",
+    "--category",
+    "Physics",
+    "--json-output",
+    "/tmp/tmpd6x43pah/asset-validator-report.json",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd"
+  ],
+  "errors": [],
+  "issue_counts": {
+    "ERROR": 0,
+    "FAILURE": 0,
+    "INFO": 0,
+    "WARNING": 0
+  },
+  "issues": [],
+  "next_step": "simready-validate",
+  "passed": true,
+  "rules": [],
+  "status": "PASS",
+  "validator_skill": "omni-asset-validate-physics",
+  "validator_tool": "omni_asset_validate",
+  "warnings": []
+}

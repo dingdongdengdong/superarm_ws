@@ -1,0 +1,90 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+  "checks": [
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset uses a supported USD extension",
+      "name": "supported_usd_extension",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Output mode is valid",
+      "name": "output_mode_valid",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "No metadata JSON override provided",
+      "name": "metadata_json_valid",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Copied source asset to /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet000-core/echo_full_robot_arm_hand.usd",
+      "name": "output_prepared",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Stage opens",
+      "name": "stage_opens",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Authored root layer customLayerData['SimReady_Metadata']",
+      "name": "custom_layer_written",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Wrote sidecar metadata to /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet000-core/echo_full_robot_arm_hand.json",
+      "name": "sidecar_written",
+      "passed": true,
+      "severity": "info"
+    }
+  ],
+  "custom_layer_key": "SimReady_Metadata",
+  "custom_layer_written": true,
+  "errors": [],
+  "metadata": {
+    "author": "superarm_ws workflow",
+    "description": "CAD STEP assembly converted from arm_with_hand_with_robot_file; robot arm / AmazingHand-like hand assembly with Content Agents material and physics assignment.",
+    "generated_by": "physical-ai-skill-hub",
+    "identifier": "echo_full_robot_arm_hand",
+    "pipeline": [
+      "convert-to-usd",
+      "material-agent-client",
+      "physics-agent-client"
+    ],
+    "profile": "Prop-Robotics-Neutral",
+    "profile_version": "1.0.0",
+    "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "tags": [
+      "robotics",
+      "robot-arm",
+      "hand"
+    ],
+    "version": "1.0.0"
+  },
+  "next_step": "simready-validate",
+  "operation": "copy_and_apply_metadata",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet000-core/echo_full_robot_arm_hand.usd",
+  "passed": true,
+  "requirements_repaired": [
+    "NP.006"
+  ],
+  "sidecar_json_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet000-core/echo_full_robot_arm_hand.json",
+  "skill": "FET_000_CORE",
+  "status": "PASS",
+  "tool": "pxr.Usd rootLayer.Save",
+  "warnings": [
+    "Grasp vectors are not authored by this FET000 Core metadata script; handle GSP.001 with FET_005_SIMULATE_GRASP_PHYSICS."
+  ]
+}

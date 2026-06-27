@@ -1,0 +1,197 @@
+{
+  "blockers": [],
+  "conversion_tools": [
+    "usd-convert-cad"
+  ],
+  "dependency_policy": "selected-target-dependencies",
+  "env": {
+    "CONTENT_AGENTS_MATERIAL_AGENT_BASE_URL": "http://localhost:8100",
+    "CONTENT_AGENTS_PHYSICS_AGENT_BASE_URL": "http://localhost:8200",
+    "OVRTX_RENDER_ENDPOINT": "http://localhost:8001",
+    "RENDER_ENDPOINT": "http://localhost:8001"
+  },
+  "generated_at": "2026-06-27T15:31:30.233776+00:00",
+  "legacy_options_ignored": [],
+  "manifest_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-content-agents-preflight.json",
+  "paths": {
+    "home": "/home/sim/.physical-ai-skill-hub",
+    "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+    "project_root": "",
+    "state_root": "/home/sim/.physical-ai-skill-hub/state",
+    "upstream_root": "/home/sim/.physical-ai-skill-hub/upstreams",
+    "venv_root": "/home/sim/.physical-ai-skill-hub/venvs"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "system": "linux"
+  },
+  "preflight_mode": "route-aware-dependency-bootstrap",
+  "route_selection": {
+    "conversion_tools_reason": "source-format",
+    "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "source_format": "cad"
+  },
+  "runtimes": {
+    "content_agents": {
+      "message": "Content Agents services are healthy",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "ready"
+    },
+    "git_lfs": {
+      "executable": "/home/sim/.local/bin/git-lfs",
+      "message": "Git LFS is available",
+      "status": "ready"
+    },
+    "repo_python": {
+      "executable": "/usr/bin/python3",
+      "message": "no pyproject.toml found near cwd or preflight script",
+      "status": "skipped"
+    },
+    "request": {
+      "checks": [
+        {
+          "message": "source asset exists and is readable",
+          "name": "source_asset",
+          "status": "ready"
+        },
+        {
+          "message": "output root exists and is writable",
+          "name": "output_root",
+          "status": "ready"
+        }
+      ],
+      "message": "request inputs are ready",
+      "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+      "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "status": "ready"
+    }
+  },
+  "schema_version": "1.0",
+  "services": {
+    "material": {
+      "base_url": "http://localhost:8100",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Material Agent Service\",\"version\":\"0.0.0\",\"api_keys_configured\":true,\"image_gen_configured\":false,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8100/health",
+      "message": "material health endpoint responded with HTTP 200",
+      "status": "ready"
+    },
+    "ovrtx": {
+      "base_url": "http://localhost:8001",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"ovrtx-rendering-api\",\"version\":\"0.1.0\",\"renderer\":\"ovrtx\",\"gpu_initialized\":true,\"renderer_initialized\":true,\"daemon_running\":true,\"ready_workers\":null,\"total_workers\":null,\"workers\":null}",
+      "health_url": "http://localhost:8001/health",
+      "message": "ovrtx health endpoint and render smoke responded with HTTP 200",
+      "render_smoke": {
+        "message": "render smoke returned base64 PNG",
+        "render_url": "http://localhost:8001/render",
+        "response_bytes": 1116,
+        "response_content_type": "application/json",
+        "response_status": 200,
+        "status": "ready"
+      },
+      "status": "ready"
+    },
+    "physics": {
+      "base_url": "http://localhost:8200",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Physics Agent Service\",\"version\":\"0.1.0\",\"api_keys_configured\":true,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8200/health",
+      "message": "physics health endpoint responded with HTTP 200",
+      "status": "ready"
+    }
+  },
+  "skill": "cad-to-simready-preflight",
+  "status": "ready",
+  "steps": [
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+        "fetch",
+        "origin",
+        "main"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "From https://github.com/nvidia-omniverse/content-agents\n * branch            main       -> FETCH_HEAD\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+        "checkout",
+        "main"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Already on 'main'\n",
+      "stdout_tail": "Your branch is up to date with 'origin/main'.\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+        "pull",
+        "--ff-only"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stdout_tail": "Already up to date.\n"
+    },
+    {
+      "message": "upstream Content Agents .env updated 2 deployment credential name(s)",
+      "name": "content_agents_secret_env",
+      "status": "ready"
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents/.agents/skills/deploy-collection/scripts/deploy_collection.sh",
+        "up"
+      ],
+      "message": "command completed",
+      "name": "deploy_collection.sh",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "time=\"2026-06-28T00:07:07+09:00\" level=warning msg=\"Docker Compose requires buildx plugin to be installed\"\n Image content-agents-physics-agent-service Building \n Image content-agents-material-agent-service Building \n Image content-agents-texture-agent-service Building \n Image content-agents-physics-agent-service Building \n Image content-agents-texture-agent-service Building \n Image content-agents-material-agent-service Building \n Image content-agents-texture-agent-service Built \n Image content-agents-texture-agent-service Built \n Image content-agents-material-agent-service Built \n Image content-agents-material-agent-service Built \n Image content-agents-physics-agent-service Built \n Image content-agents-physics-agent-service Built \n Network content-agents-network Creating \n Network content-agents-network Created \n Volume content-agents_texture-session-storage Creating \n Volume content-agents_texture-session-storage Created \n Volume content-agents_material-session-storage Creating \n Volume content-agents_material-session-storage Created \n Volume content-agents_physics-session-storage Creating \n Volume content-agents_physics-session-storage Created \n Container content-texture-agent-service Creating \n Container content-material-agent-service Creating \n Container content-physics-agent-service Creating \n Container content-texture-agent-service Created \n Container content-physics-agent-service Created \n Container content-material-agent-service Created \n Container content-material-agent-service Starting \n Container content-physics-agent-service Starting \n Container content-texture-agent-service Starting \n Container content-texture-agent-service Started \n Container content-physics-agent-service Started \n Container content-material-agent-service Started \n",
+      "stdout_tail": "...MIT=0     MA_DEBUG=false     MA_PROGRESS_POLL_INTERVAL_SECONDS=2     MA_IMAGE_WIDTH=512     MA_IMAGE_HEIGHT=512     MA_RENDERER_BACKEND=remote     MA_MAX_RENDER_NUM_WORKERS=32\n ---> Running in 5d432a406cc8\n ---> Removed intermediate container a532fbbc85f8\n ---> 5997c7a75abc\nStep 21/30 : USER physics-agent\n ---> Running in 50010c46e051\n ---> Removed intermediate container 5d432a406cc8\n ---> 6369686c825c\nStep 25/31 : LABEL org.opencontainers.image.version=\"${APP_VERSION}\"\n ---> Running in 01c3edde3b9c\n ---> Removed intermediate container 50010c46e051\n ---> 5579b6736567\nStep 22/30 : WORKDIR /app/apps/physics_agent_service\n ---> Running in a7cd538f4a89\n ---> Removed intermediate container 01c3edde3b9c\n ---> dc006c6d2430\nStep 26/31 : LABEL org.opencontainers.image.revision=\"${GIT_COMMIT}\"\n ---> Running in 8364fc522df1\n ---> Removed intermediate container a7cd538f4a89\n ---> 8a6c2e23fd8e\nStep 23/30 : ENV PA_SESSION_STORAGE_PATH=/var/physics-agent/sessions     PA_SESSION_TTL_HOURS=24     PA_MAX_ACTIVE_SESSIONS=1     PA_MAX_UPLOAD_SIZE_MB=500     PA_DEBUG=false     PA_RENDER_BACKEND=remote     PA_MAX_WORKERS=16\n ---> Running in e4e81390249c\n ---> Removed intermediate container 8364fc522df1\n ---> 28b87f9e2622\nStep 27/31 : ENV APP_VERSION=${APP_VERSION}\n ---> Running in 32eef8759496\n ---> Removed intermediate container e4e81390249c\n ---> ca79b067f71a\nStep 24/30 : LABEL org.opencontainers.image.version=\"${APP_VERSION}\"\n ---> Running in efa62bc3f181\n ---> Removed intermediate container 32eef8759496\n ---> 9810c612880c\nStep 28/31 : EXPOSE 8000\n ---> Running in f03e4e6e0144\n ---> Removed intermediate container efa62bc3f181\n ---> 6583b0c290d7\nStep 25/30 : LABEL org.opencontainers.image.revision=\"${GIT_COMMIT}\"\n ---> Running in 4de312ab17d5\n ---> Removed intermediate container f03e4e6e0144\n ---> dbdf62145c1d\nStep 29/31 : HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3   CMD curl -f http://localhost:8000/health || exit 1\n ---> Running in add5feb77084\n ---> Removed intermediate container 4de312ab17d5\n ---> 35ca3b084229\nStep 26/30 : ENV APP_VERSION=${APP_VERSION}\n ---> Running in fa0f8118d5e2\n ---> Removed intermediate container add5feb77084\n ---> a10629da1f53\nStep 30/31 : CMD [\"python\", \"-m\", \"uvicorn\", \"service.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]\n ---> Running in 7b2c1e1a829f\n ---> Removed intermediate container fa0f8118d5e2\n ---> 596f58f8f79f\nStep 27/30 : EXPOSE 8000\n ---> Running in 634292c7b180\n ---> Removed intermediate container 7b2c1e1a829f\n ---> 887c10337b03\nStep 31/31 : LABEL com.docker.compose.image.builder=classic\n ---> Running in c5bf5c81db13\n ---> Removed intermediate container 634292c7b180\n ---> d619202f5358\nStep 28/30 : HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3   CMD curl -f http://localhost:8000/health || exit 1\n ---> Running in f6525df79121\n ---> Removed intermediate container c5bf5c81db13\n ---> 24a460abd68b\nSuccessfully built 24a460abd68b\nSuccessfully tagged content-agents-material-agent-service:latest\n ---> Removed intermediate container f6525df79121\n ---> 014a4140c4ff\nStep 29/30 : CMD [\"python\", \"-m\", \"uvicorn\", \"service.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]\n ---> Running in d6144682ee18\n ---> Removed intermediate container d6144682ee18\n ---> ef3f5b9d246c\nStep 30/30 : LABEL com.docker.compose.image.builder=classic\n ---> Running in 7fa850284b95\n ---> Removed intermediate container 7fa850284b95\n ---> d628bee2fcf3\nSuccessfully built d628bee2fcf3\nSuccessfully tagged content-agents-physics-agent-service:latest\nWrote deploy/collection/.collection.generated.env\nFetching Scene Optimizer Core build resources before Docker build...\ndocker compose --env-file /home/sim/.physical-ai-skill-hub/upstreams/content-agents/deploy/collection/.collection.generated.env -p content-agents -f /home/sim/.physical-ai-skill-hub/upstreams/content-agents/deploy/collection/docker-compose.agents.yml up -d --build material-agent-service physics-agent-service texture-agent-service\n"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents/apps/ovrtx_rendering_api/docker-compose.yml",
+        "up",
+        "-d",
+        "--build"
+      ],
+      "message": "command completed",
+      "name": "docker",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "time=\"2026-06-28T00:10:31+09:00\" level=warning msg=\"Docker Compose requires buildx plugin to be installed\"\n Image ovrtx-rendering-api:local Building \n Image ovrtx-rendering-api:local Building \n Image ovrtx-rendering-api:local Built \n Image ovrtx-rendering-api:local Built \n Network ovrtx_rendering_api_default Creating \n Network ovrtx_rendering_api_default Created \n Container ovrtx_rendering_api-ovrtx-rendering-api-1 Creating \n Container ovrtx_rendering_api-ovrtx-rendering-api-1 Created \n Container ovrtx_rendering_api-ovrtx-rendering-api-1 Starting \n Container ovrtx_rendering_api-ovrtx-rendering-api-1 Started \n",
+      "stdout_tail": "...: RUN chmod 0555 /usr/local/bin/ovrtx-entrypoint\n ---> Running in e4190fbefc11\n ---> Removed intermediate container e4190fbefc11\n ---> dfd8d2eac939\nStep 26/39 : ENV WU_OVRTX_VENV_DIR=/app/.ovrtx_venv\n ---> Running in 333e07c5eaa9\n ---> Removed intermediate container 333e07c5eaa9\n ---> 3bea5e2ae63f\nStep 27/39 : RUN WU_OVRTX_LOCK_DIR=/tmp/wu-ovrtx-locks     python -m world_understanding.functions.graphics.render_ovrtx --provision-only &&     rm -rf /tmp/wu-ovrtx-locks\n ---> Running in 52e428ed1023\n\u001b[91m<frozen runpy>:128: RuntimeWarning: 'world_understanding.functions.graphics.render_ovrtx' found in sys.modules after import of package 'world_understanding.functions.graphics', but prior to execution of 'world_understanding.functions.graphics.render_ovrtx'; this may result in unpredictable behaviour\n\u001b[0mOvRTX Python ready: /app/.ovrtx_venv/bin/python\n ---> Removed intermediate container 52e428ed1023\n ---> ac5feb3117f3\nStep 28/39 : ENV WU_OVRTX_AUTO_PROVISION=0\n ---> Running in 65a2aac6748c\n ---> Removed intermediate container 65a2aac6748c\n ---> fcd93372ff53\nStep 29/39 : RUN python -m world_understanding.functions.graphics.render_ovrtx --provision-only\n ---> Running in 6df68abbb7bc\n\u001b[91m<frozen runpy>:128: RuntimeWarning: 'world_understanding.functions.graphics.render_ovrtx' found in sys.modules after import of package 'world_understanding.functions.graphics', but prior to execution of 'world_understanding.functions.graphics.render_ovrtx'; this may result in unpredictable behaviour\n\u001b[0mOvRTX Python ready: /app/.ovrtx_venv/bin/python\n ---> Removed intermediate container 6df68abbb7bc\n ---> 0bceb08f4818\nStep 30/39 : RUN groupadd --gid 10001 renderer &&     useradd --uid 10001 --gid renderer --create-home         --home-dir /home/renderer --shell /usr/sbin/nologin renderer &&     install -d -o renderer -g renderer /home/renderer/.cache/ovrtx-nv-shadercache &&     install -d -o renderer -g renderer -m 700 /tmp/.X11-unix &&     OVRTX_BIN=/app/.ovrtx_venv/lib/python3.12/site-packages/ovrtx/bin &&     mkdir -p \"$OVRTX_BIN/cache\" &&     rm -rf \"$OVRTX_BIN/cache/nv_shadercache\" &&     ln -s /home/renderer/.cache/ovrtx-nv-shadercache \"$OVRTX_BIN/cache/nv_shadercache\" &&     chgrp -R renderer /app &&     chmod -R g+rX /app\n ---> Running in 7cd999c62005\n ---> Removed intermediate container 7cd999c62005\n ---> 95fa1907067d\nStep 31/39 : ENV HOME=/home/renderer     XDG_CACHE_HOME=/home/renderer/.cache     PYTHONDONTWRITEBYTECODE=1\n ---> Running in 0a24dd81ef34\n ---> Removed intermediate container 0a24dd81ef34\n ---> 07bc4a1a5bc2\nStep 32/39 : WORKDIR /app/apps/ovrtx_rendering_api\n ---> Running in f0b1f4fa7f96\n ---> Removed intermediate container f0b1f4fa7f96\n ---> 497680814675\nStep 33/39 : USER renderer\n ---> Running in 2bfceac3fcb5\n ---> Removed intermediate container 2bfceac3fcb5\n ---> aaecc8613ff7\nStep 34/39 : LABEL org.opencontainers.image.version=\"${APP_VERSION}\"\n ---> Running in e46963a3e77a\n ---> Removed intermediate container e46963a3e77a\n ---> 394b161c8c86\nStep 35/39 : EXPOSE 8000\n ---> Running in da1d8a121bd4\n ---> Removed intermediate container da1d8a121bd4\n ---> 50ad5084af4b\nStep 36/39 : HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=12   CMD curl -fsS http://localhost:8000/health | grep -q '\"gpu_initialized\":true' || exit 1\n ---> Running in 434bf7e79d55\n ---> Removed intermediate container 434bf7e79d55\n ---> 798cd5601e89\nStep 37/39 : ENTRYPOINT [\"tini\", \"-g\", \"--\"]\n ---> Running in fbcf42a5ae40\n ---> Removed intermediate container fbcf42a5ae40\n ---> a100dcecd66c\nStep 38/39 : CMD [\"ovrtx-entrypoint\", \"python\", \"-m\", \"uvicorn\", \"service.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]\n ---> Running in 017be971e16a\n ---> Removed intermediate container 017be971e16a\n ---> b141878b3705\nStep 39/39 : LABEL com.docker.compose.image.builder=classic\n ---> Running in 190af0c260ae\n ---> Removed intermediate container 190af0c260ae\n ---> 2d816514a553\nSuccessfully built 2d816514a553\nSuccessfully tagged ovrtx-rendering-api:local\n"
+    }
+  ],
+  "targets": [
+    "content-agents"
+  ],
+  "upstreams": {
+    "content_agents": {
+      "branch": "main",
+      "commit": "5be4f88b380430ba02f9fc9fa756aa12826b8a55",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "present",
+      "url": "https://github.com/nvidia-omniverse/content-agents"
+    }
+  }
+}

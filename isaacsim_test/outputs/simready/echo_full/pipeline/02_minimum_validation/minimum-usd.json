@@ -1,0 +1,164 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+  "checks": [
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "OpenUSD Python modules are available",
+      "name": "openusd_python_available",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Stage opens",
+      "name": "stage_opens",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Default prim is valid",
+      "name": "default_prim_valid",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Stage up-axis is available",
+      "name": "up_axis_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Stage metersPerUnit is available",
+      "name": "meters_per_unit_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Stage has prims",
+      "name": "has_prims",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Stage has root prims",
+      "name": "has_root_prims",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "errors": [],
+  "metadata": {
+    "all_prim_count": 358,
+    "authored_reference_count": 65,
+    "authored_reference_prim_count": 65,
+    "bounds": {
+      "meters": {
+        "center": [
+          -0.26195011322025147,
+          0.2908601166475959,
+          0.36834638555907945
+        ],
+        "max": [
+          0.1027998867796911,
+          0.5333601200748631,
+          0.804377771118239
+        ],
+        "min": [
+          -0.626700113220194,
+          0.0483601132203288,
+          -0.06768500000008006
+        ],
+        "size": [
+          0.7294999999998851,
+          0.48500000685453426,
+          0.8720627711183191
+        ]
+      },
+      "stage_units": {
+        "center": [
+          -261.95011322025147,
+          290.86011664759593,
+          368.34638555907947
+        ],
+        "max": [
+          102.7998867796911,
+          533.3601200748631,
+          804.377771118239
+        ],
+        "min": [
+          -626.700113220194,
+          48.3601132203288,
+          -67.68500000008005
+        ],
+        "size": [
+          729.4999999998851,
+          485.00000685453426,
+          872.0627711183191
+        ]
+      }
+    },
+    "collider_count": 0,
+    "default_prim_path": "/echo_full",
+    "joint_count": 0,
+    "load_policy": "LoadAll",
+    "material_binding_count": 66,
+    "mesh_count": 58,
+    "meters_per_unit": 0.001,
+    "prim_count": 100,
+    "prototype_count": 29,
+    "prototype_material_binding_count": 60,
+    "prototype_mesh_count": 52,
+    "prototype_paths": [
+      "/__Prototype_1",
+      "/__Prototype_10",
+      "/__Prototype_11",
+      "/__Prototype_12",
+      "/__Prototype_13",
+      "/__Prototype_14",
+      "/__Prototype_15",
+      "/__Prototype_16",
+      "/__Prototype_17",
+      "/__Prototype_18",
+      "/__Prototype_19",
+      "/__Prototype_2",
+      "/__Prototype_20",
+      "/__Prototype_21",
+      "/__Prototype_22",
+      "/__Prototype_23",
+      "/__Prototype_24",
+      "/__Prototype_25",
+      "/__Prototype_26",
+      "/__Prototype_27",
+      "/__Prototype_28",
+      "/__Prototype_29",
+      "/__Prototype_3",
+      "/__Prototype_4",
+      "/__Prototype_5",
+      "/__Prototype_6",
+      "/__Prototype_7",
+      "/__Prototype_8",
+      "/__Prototype_9"
+    ],
+    "prototype_prim_count": 247,
+    "rigid_body_count": 0,
+    "root_prim_paths": [
+      "/echo_full"
+    ],
+    "up_axis": "Z",
+    "used_layers": [
+      "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+      "anon:0x25428110:echo_full-session.usda"
+    ]
+  },
+  "next_step": "omni-asset-validate",
+  "passed": true,
+  "validator_skill": "validate-usd-minimum",
+  "validator_tool": "pxr.Usd",
+  "warnings": [
+    "Asset uses multiple layers"
+  ]
+}

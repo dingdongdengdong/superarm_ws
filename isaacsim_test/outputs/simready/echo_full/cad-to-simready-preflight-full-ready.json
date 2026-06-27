@@ -1,0 +1,245 @@
+{
+  "blockers": [],
+  "conversion_tools": [
+    "usd-convert-cad"
+  ],
+  "dependency_policy": "selected-target-dependencies",
+  "env": {
+    "CONTENT_AGENTS_MATERIAL_AGENT_BASE_URL": "http://localhost:8100",
+    "CONTENT_AGENTS_PHYSICS_AGENT_BASE_URL": "http://localhost:8200",
+    "OVRTX_RENDER_ENDPOINT": "http://localhost:8001",
+    "RENDER_ENDPOINT": "http://localhost:8001"
+  },
+  "generated_at": "2026-06-27T15:39:20.852990+00:00",
+  "legacy_options_ignored": [],
+  "manifest_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight-full-ready.json",
+  "paths": {
+    "home": "/home/sim/.physical-ai-skill-hub",
+    "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+    "project_root": "",
+    "state_root": "/home/sim/.physical-ai-skill-hub/state",
+    "upstream_root": "/home/sim/.physical-ai-skill-hub/upstreams",
+    "venv_root": "/home/sim/.physical-ai-skill-hub/venvs"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "system": "linux"
+  },
+  "preflight_mode": "route-aware-dependency-bootstrap",
+  "route_selection": {
+    "conversion_tools_reason": "source-format",
+    "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "source_format": "cad"
+  },
+  "runtimes": {
+    "asset_validator": {
+      "executable": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/omni_asset_validate",
+      "message": "omni_asset_validate CLI is on PATH",
+      "status": "ready"
+    },
+    "content_agents": {
+      "message": "Content Agents services are already healthy",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "ready"
+    },
+    "git_lfs": {
+      "executable": "/home/sim/.local/bin/git-lfs",
+      "message": "Git LFS is available",
+      "status": "ready"
+    },
+    "openusd_python": {
+      "executable": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+      "message": "OpenUSD Python APIs are importable",
+      "status": "ready"
+    },
+    "repo_python": {
+      "executable": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+      "message": "no pyproject.toml found near cwd or preflight script",
+      "status": "skipped"
+    },
+    "request": {
+      "checks": [
+        {
+          "message": "source asset exists and is readable",
+          "name": "source_asset",
+          "status": "ready"
+        },
+        {
+          "message": "output root exists and is writable",
+          "name": "output_root",
+          "status": "ready"
+        }
+      ],
+      "message": "request inputs are ready",
+      "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+      "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "status": "ready"
+    },
+    "simready_validate": {
+      "executable": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/simready-validate",
+      "message": "simready-validate executable is on PATH",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+      "status": "ready"
+    },
+    "usd_convert_cad": {
+      "executable": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/convert.py",
+      "message": "usd-convert-cad is installed and validated",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad",
+      "status": "ready"
+    }
+  },
+  "schema_version": "1.0",
+  "services": {
+    "material": {
+      "base_url": "http://localhost:8100",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Material Agent Service\",\"version\":\"0.0.0\",\"api_keys_configured\":true,\"image_gen_configured\":false,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8100/health",
+      "message": "material health endpoint responded with HTTP 200",
+      "status": "ready"
+    },
+    "ovrtx": {
+      "base_url": "http://localhost:8001",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"ovrtx-rendering-api\",\"version\":\"0.1.0\",\"renderer\":\"ovrtx\",\"gpu_initialized\":true,\"renderer_initialized\":true,\"daemon_running\":true,\"ready_workers\":null,\"total_workers\":null,\"workers\":null}",
+      "health_url": "http://localhost:8001/health",
+      "message": "ovrtx health endpoint and render smoke responded with HTTP 200",
+      "render_smoke": {
+        "message": "render smoke returned base64 PNG",
+        "render_url": "http://localhost:8001/render",
+        "response_bytes": 1116,
+        "response_content_type": "application/json",
+        "response_status": 200,
+        "status": "ready"
+      },
+      "status": "ready"
+    },
+    "physics": {
+      "base_url": "http://localhost:8200",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Physics Agent Service\",\"version\":\"0.1.0\",\"api_keys_configured\":true,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8200/health",
+      "message": "physics health endpoint responded with HTTP 200",
+      "status": "ready"
+    }
+  },
+  "skill": "cad-to-simready-preflight",
+  "status": "ready",
+  "steps": [
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad",
+        "pull",
+        "--ff-only"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stdout_tail": "Already up to date.\n"
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/validate.py"
+      ],
+      "message": "command completed",
+      "name": "python3",
+      "returncode": 0,
+      "status": "ready",
+      "stdout_tail": "2026-06-27T15:39:18Z [Info] [carb] Logging to file: /home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/logs/Kit/kit/110.1/kit_20260628_003918.log\n2026-06-27T15:39:18Z [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.\n[0.027s] [ext: omni.kit.pipapi-0.0.0] startup\n[0.062s] [ext: omni.kit.pip_archive-0.0.0] startup\n[0.062s] [ext: omni.kit.async_engine-0.0.3] startup\n[0.063s] [ext: omni.client.lib-1.1.1] startup\n[0.073s] [ext: omni.kit.registry.nucleus-0.0.0] startup\n[0.083s] [ext: omni.client-1.3.0] startup\n[0.087s] [ext: omni.usd.config-1.0.7] startup\n2026-06-27T15:39:18Z [68ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX\n[0.090s] [ext: omni.usd.libs-1.0.3] startup\n[0.140s] [ext: omni.usd.schema.audio-0.0.1] startup\n[0.211s] [ext: omni.assets.plugins-0.0.0] startup\n[0.213s] [ext: carb.audio-0.1.0] startup\n[0.215s] [ext: omni.graph.exec-0.9.6] startup\n[0.215s] [ext: omni.kit.actions.core-1.0.0] startup\n[0.216s] [ext: omni.kit.audiodeviceenum-1.0.2] startup\n[0.217s] [ext: omni.kit.commands-1.5.0] startup\n[0.221s] [ext: omni.kit.exec.core-0.13.5] startup\n[0.222s] [ext: omni.kit.usd_undo-0.1.8] startup\n[0.223s] [ext: omni.timeline-1.1.0] startup\n[0.224s] [ext: omni.usd_resolver-1.0.0] startup\n[0.226s] [ext: omni.usd.core-1.8.3] startup\n[0.228s] [ext: omni.usd-1.15.2] startup\n[0.256s] [ext: omni.scene.optimizer.core-110.1.0] startup\n[0.276s] [ext: omni.usdex.libs-2.2.2] startup\n[0.280s] [ext: omni.kit.converter.common-510.1.3] startup\n[0.283s] [ext: omni.kit.converter.hoops_core-511.3.2] startup\n [OK] Environment ready.\n"
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python3",
+        "-c",
+        "from pxr import Usd, UsdGeom, UsdPhysics; print(Usd.GetVersion())"
+      ],
+      "message": "command completed",
+      "name": "python3",
+      "returncode": 0,
+      "status": "ready",
+      "stdout_tail": "(0, 26, 5)\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+        "fetch",
+        "origin",
+        "main"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "From https://github.com/NVIDIA/simready-foundation\n * branch            main       -> FETCH_HEAD\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+        "checkout",
+        "main"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Already on 'main'\n",
+      "stdout_tail": "Your branch is up to date with 'origin/main'.\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+        "pull",
+        "--ff-only"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stdout_tail": "Already up to date.\n"
+    },
+    {
+      "message": "checkout has local changes; skipped automatic update",
+      "name": "content_agents_update",
+      "status": "skipped"
+    }
+  ],
+  "targets": [
+    "conversion",
+    "validation",
+    "content-agents"
+  ],
+  "upstreams": {
+    "content_agents": {
+      "branch": "main",
+      "commit": "5be4f88b380430ba02f9fc9fa756aa12826b8a55",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "present",
+      "url": "https://github.com/nvidia-omniverse/content-agents"
+    },
+    "simready_foundation": {
+      "branch": "main",
+      "commit": "a1e9dd68ee2d107f74dc6cd6da875b54ad3f8fd3",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+      "status": "present",
+      "url": "https://github.com/NVIDIA/simready-foundation"
+    },
+    "usd_convert_cad": {
+      "branch": null,
+      "commit": "4226fd49c06420adf193f821e2ddee805bb38eef",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad",
+      "status": "present",
+      "url": "https://github.com/NVIDIA-Omniverse/usd-convert-cad"
+    }
+  }
+}
