@@ -1,15 +1,17 @@
-# Isaac Sim 4.5 + LeRobot Smartphone Teleop Test
+# Isaac Sim 5.1 — RoboParty Arm + AmazingHand Sim-in-the-Loop
 
-Runs OpenArm as a simulated follower in Isaac Sim 4.5, controlled by your phone browser over WiFi.
+Runs the RoboParty 5-DOF arm + AmazingHand as a simulated follower in Isaac Sim 5.1, controlled by your phone browser over WiFi.
+The LeRobot side uses `robot_type=isaacsim_rpo_arm` with the same joint names and flat feature keys as the real hardware,
+so datasets and policies are directly transferable to the physical Damiao arm.
 
 ```
 Phone browser → phone_teleop_server → /leader/joint_commands (ROS2)
                                               ↓
-                          IsaacSimOpenArmRobot (lerobot container)
+                          IsaacSimRpoArmRobot (lerobot container)
                                               ↓
                             /follower/joint_commands (ROS2)
                                               ↓
-                          setup_openarm_scene.py (isaac-sim-51 container)
+                          setup_rpo_arm_scene.py (isaac-sim-51 container)
                                               ↓
                             /follower/joint_states → observation recording
 ```
@@ -76,18 +78,21 @@ Add two `elif` blocks to `lerobot/lerobot/common/robot_devices/robots/utils.py`:
 
 ```python
 # in make_robot_config(), before the final else:
-elif robot_type == "isaacsim_openarm":
-    import sys, os
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../../../..', 'isaacsim_test/lerobot'))
-    from isaacsim_robot import IsaacSimOpenArmConfig
-    return IsaacSimOpenArmConfig(**kwargs)
+elif robot_type == "isaacsim_rpo_arm":
+    import sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+        "../../../../../../isaacsim_test/lerobot"))
+    from isaacsim_rpo_arm_robot import IsaacSimRpoArmConfig
+    return IsaacSimRpoArmConfig(**kwargs)
 
-# in make_robot_from_config(), before the final else:
-elif hasattr(config, 'joint_state_topic'):   # IsaacSimOpenArmConfig duck-type check
-    import sys, os
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../../../..', 'isaacsim_test/lerobot'))
-    from isaacsim_robot import IsaacSimOpenArmRobot
-    return IsaacSimOpenArmRobot(config)
+# in make_robot_from_config(), before the fallback else:
+elif hasattr(config, "joint_state_topic") and \
+        config.__class__.__name__ == "IsaacSimRpoArmConfig":
+    import sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__),
+        "../../../../../../isaacsim_test/lerobot"))
+    from isaacsim_rpo_arm_robot import IsaacSimRpoArmRobot
+    return IsaacSimRpoArmRobot(config)
 ```
 
 ---
@@ -100,7 +105,7 @@ xhost +local:docker   # only needed if HEADLESS=0 in .env
 
 ---
 
-## Step 5 — Start Isaac Sim 4.5
+## Step 5 — Start Isaac Sim 5.1
 
 ```bash
 cd isaacsim_test
@@ -109,11 +114,9 @@ docker compose up isaac-sim-51
 
 Wait for:
 ```
-[setup_openarm_scene] Loaded 6 joints: ['shoulder_pan_joint', ...]
-[setup_openarm_scene] Simulation running.
+[setup_rpo_arm_scene] Loaded 6 joints: ['rpo_arm_j1', 'rpo_arm_j2', 'rpo_arm_j3', 'rpo_arm_j4', 'rpo_arm_j5', 'amazinghand_grasp']
+[setup_rpo_arm_scene] Simulation running.
 ```
-
-**Update `openarm_isaacsim.yaml`** with the actual joint names printed here if they differ from the placeholders.
 
 ---
 
@@ -200,12 +203,15 @@ docker exec isaacsim-test-lerobot bash -c '
   source /opt/ros/humble/setup.bash &&
   cd /workspace/superarm_ws/lerobot &&
   python lerobot/scripts/control_robot.py \
-    --robot.type=isaacsim_openarm \
+    --robot.type=isaacsim_rpo_arm \
     --control.type=record \
-    --control.repo_id=YOUR_HF_USER/openarm_isaacsim_v1 \
+    --control.repo_id=YOUR_HF_USER/rpo_arm_isaacsim_v1 \
     --control.fps=30 \
     --control.num_episodes=5'
 ```
+
+Dataset keys: `rpo_arm_j1.pos` … `rpo_arm_j5.pos` + `amazinghand_grasp.pos` (state/action shape `(6,)`).
+These match the real hardware feature contract — see `integration_guide/09_isaacsim_sim_loop_plan.md`.
 
 ---
 
