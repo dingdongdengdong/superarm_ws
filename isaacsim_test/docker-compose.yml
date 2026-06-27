@@ -1,6 +1,6 @@
 services:
 
-  # Isaac Sim 5.1 - runs the official RoboParty V2.0 right-arm follower
+  # Isaac Sim 5.1 - loads the SimReady echo_full asset and ROS2 bridge
   isaac-sim-51:
     image: nvcr.io/nvidia/isaac-sim:5.1.0
     container_name: isaacsim-test-sim
@@ -18,10 +18,12 @@ services:
       PYTHONUNBUFFERED: "1"
       LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
       PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
+      SIMREADY_USD_PATH: "${SIMREADY_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd}"
       RPO_ARM_URDF_PATH: "${RPO_ARM_URDF_PATH:-/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf}"
       HEADLESS: "${HEADLESS:-1}"
       SCREENSHOT_AFTER_COMMAND: "${SCREENSHOT_AFTER_COMMAND:-0}"
-      SCREENSHOT_PATH: "${SCREENSHOT_PATH:-/workspace/superarm_ws/isaacsim_test/artifacts/rpo_v2_lerobot_target.png}"
+      SCREENSHOT_ON_STARTUP: "${SCREENSHOT_ON_STARTUP:-0}"
+      SCREENSHOT_PATH: "${SCREENSHOT_PATH:-/workspace/superarm_ws/isaacsim_test/artifacts/echo_full_simready_target.png}"
       EXIT_AFTER_SCREENSHOT: "${EXIT_AFTER_SCREENSHOT:-1}"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw

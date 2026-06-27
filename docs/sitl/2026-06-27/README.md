@@ -439,7 +439,7 @@ git commit -m "test: add physics-aware SITL joint limit checks"
 - Modify: `integration_guide/09_isaacsim_sim_loop_plan.md`
 - Add tests in: `isaacsim_test/test_v2_roboparty_config.py`
 
-- [ ] **Step 1: Add SimReady asset configuration**
+- [x] **Step 1: Add SimReady asset configuration**
 
 Add this default path to `.env.example` and Docker Compose:
 
@@ -447,7 +447,7 @@ Add this default path to `.env.example` and Docker Compose:
 SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
 ```
 
-- [ ] **Step 2: Load the SimReady USD in Isaac Sim**
+- [x] **Step 2: Load the SimReady USD in Isaac Sim**
 
 Update `setup_rpo_arm_scene.py` so startup loads `SIMREADY_USD_PATH` and logs:
 
@@ -457,7 +457,7 @@ Update `setup_rpo_arm_scene.py` so startup loads `SIMREADY_USD_PATH` and logs:
 
 The historical URDF import may remain behind an explicit fallback flag, but it must not be the default for new SITL work.
 
-- [ ] **Step 3: Export prim/control mapping evidence**
+- [x] **Step 3: Export prim/control mapping evidence**
 
 Write `isaacsim_test/artifacts/simready_prim_mapping.json` with:
 
@@ -476,7 +476,7 @@ Write `isaacsim_test/artifacts/simready_prim_mapping.json` with:
 }
 ```
 
-- [ ] **Step 4: Keep the 6D LeRobot contract stable first**
+- [x] **Step 4: Keep the 6D LeRobot contract stable first**
 
 For the first SimReady import pass, keep LeRobot action/state shape `(6,)`. If any feature cannot yet drive a real USD articulation, record `binding_pending` in evidence JSON rather than falling back to temporary geometry.
 
@@ -487,7 +487,9 @@ Run:
 ```bash
 cd isaacsim_test
 SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd \
-  SCREENSHOT_VIEW=right_arm_closeup bash run_lerobot_sitl_check.sh
+  SCREENSHOT_ON_STARTUP=1 \
+  SCREENSHOT_PATH=/workspace/superarm_ws/isaacsim_test/artifacts/echo_full_simready_startup.png \
+  docker compose up isaac-sim-51
 ```
 
 Expected: screenshot shows the SimReady `echo_full` asset, and evidence JSON still reports LeRobot shape `(6,)`.
@@ -640,7 +642,7 @@ git commit -m "docs: add SITL hardware parity checklist"
 2. Task 2 — multi-target joint sweep.
 3. Task 3 — close-up screenshots tied to each target.
 4. Task 4 — physics-aware limits and applied-command evidence.
-5. Task 5 — SimReady USD import and prim/control binding while keeping 6D LeRobot compatibility.
+5. Continue Task 5 — run Isaac Sim, inspect `simready_prim_mapping.json`, then replace `binding_pending` entries with real control bindings.
 6. Task 6 — record and replay LeRobot episodes.
 7. Task 7 — policy rollout smoke test.
 8. Task 8 — sim-to-real safety checklist before hardware.
