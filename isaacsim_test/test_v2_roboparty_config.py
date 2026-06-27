@@ -63,6 +63,40 @@ class RoboPartyV2ConfigTest(unittest.TestCase):
         self.assertNotIn("/workspace/isaacsim/rpo_arm.urdf", compose_text)
         self.assertNotIn("/workspace/isaacsim/rpo_arm.urdf", env_text)
 
+    def test_scene_supports_screenshot_after_lerobot_command(self) -> None:
+        scene_text = _read("isaacsim_test/isaacsim/setup_rpo_arm_scene.py")
+        compose_text = _read("isaacsim_test/docker-compose.yml")
+
+        for env_name in ("SCREENSHOT_AFTER_COMMAND", "SCREENSHOT_PATH", "EXIT_AFTER_SCREENSHOT"):
+            self.assertIn(env_name, scene_text)
+            self.assertIn(env_name, compose_text)
+        isaac_service = compose_text.split("  # LeRobot", maxsplit=1)[0]
+        self.assertIn('user: "0:0"', isaac_service)
+        self.assertIn(
+            "${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:rw",
+            isaac_service,
+        )
+        self.assertIn("rep.orchestrator.step", scene_text)
+        self.assertIn('enable_extension("isaacsim.test.utils")', scene_text)
+        self.assertIn('enable_extension("omni.kit.renderer.capture")', scene_text)
+        self.assertIn("capture_next_frame_rp_resource", scene_text)
+        self.assertIn("capture_viewport_to_file", scene_text)
+        self.assertIn("last_applied_command", scene_text)
+        self.assertIn("threading.Thread(target=rclpy.spin", scene_text)
+        self.assertIn("last_processed_command_seq", scene_text)
+        self.assertIn("_publish_current_state", scene_text)
+
+    def test_lerobot_sitl_verifier_uses_robot_config_and_checks_tolerance(self) -> None:
+        verifier_text = _read("isaacsim_test/lerobot/verify_lerobot_sitl.py")
+
+        self.assertIn("rpo_arm_isaacsim.yaml", verifier_text)
+        self.assertIn("IsaacSimRpoArmRobot", verifier_text)
+        self.assertIn("send_action", verifier_text)
+        self.assertIn("capture_observation", verifier_text)
+        self.assertIn("0.03", verifier_text)
+        for joint_name in FEATURE_JOINTS:
+            self.assertIn(joint_name, verifier_text)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
