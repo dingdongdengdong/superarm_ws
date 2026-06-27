@@ -19,3 +19,6 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Local Isaac Sim test env overrides (copy from .env.example)
+/isaacsim_test/.env

@@ -1,0 +1,22 @@
+# LeRobot config for the Isaac Sim OpenArm follower.
+#
+# IMPORTANT: Update joint_names to match the values printed by setup_openarm_scene.py
+# at startup (e.g. "[setup_openarm_scene] Loaded 6 joints: [...]").
+# The placeholders below assume a 6-DOF UR-style URDF.
+
+_type: isaacsim_openarm
+
+joint_names:
+  - shoulder_pan_joint
+  - shoulder_lift_joint
+  - elbow_joint
+  - wrist_1_joint
+  - wrist_2_joint
+  - wrist_3_joint
+
+joint_state_topic: /follower/joint_states
+joint_command_topic: /follower/joint_commands
+phone_command_topic: /leader/joint_commands
+
+connect_timeout_s: 10.0
+mock: false
