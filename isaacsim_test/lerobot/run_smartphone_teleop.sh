@@ -6,14 +6,16 @@ WS_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 LEROBOT_PATH="${LEROBOT_PATH:-${WS_DIR}/lerobot}"
 PHONE_PORT="${PHONE_PORT:-8766}"
 ROS_DOMAIN_ID="${ROS_DOMAIN_ID:-42}"
-NUM_JOINTS="${NUM_JOINTS:-7}"    # Franka has 7 DOF; update if using a 6-DOF arm
+NUM_JOINTS="${NUM_JOINTS:-6}"
+JOINT_NAMES="${JOINT_NAMES:-right_arm_pitch_joint,right_arm_roll_joint,right_arm_yaw_joint,right_elbow_pitch_joint,right_elbow_yaw_joint,amazinghand_grasp}"
 
 # Recording settings — override via environment or .env
-REPO_ID="${REPO_ID:-local/openarm_isaacsim_v1}"
+REPO_ID="${REPO_ID:-local/rpo_v2_right_arm_isaacsim_v1}"
 NUM_EPISODES="${NUM_EPISODES:-10}"
 EPISODE_TIME_S="${EPISODE_TIME_S:-30}"
 PUSH_TO_HUB="${PUSH_TO_HUB:-false}"
 FPS="${FPS:-30}"
+SINGLE_TASK="${SINGLE_TASK:-Teleoperate the RoboParty V2.0 right arm and AmazingHand grasp in Isaac Sim.}"
 
 export ROS_DOMAIN_ID
 export PYTHONPATH="${SCRIPT_DIR}:${PYTHONPATH:-}"
@@ -21,7 +23,7 @@ export PYTHONPATH="${SCRIPT_DIR}:${PYTHONPATH:-}"
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 
 echo "=========================================="
-echo "  Isaac Sim OpenArm Smartphone Teleop"
+echo "  RoboParty V2.0 Right Arm + AmazingHand Smartphone Teleop"
 echo "  Teleop UI : http://${LOCAL_IP}:${PHONE_PORT}"
 echo "  (phone must be on the same WiFi/LAN)"
 echo "  Recording : ${REPO_ID}"
@@ -33,6 +35,7 @@ echo ""
 python3 "${SCRIPT_DIR}/phone_teleop_server.py" \
     --port "${PHONE_PORT}" \
     --num-joints "${NUM_JOINTS}" \
+    --joint-names "${JOINT_NAMES}" \
     --topic "/leader/joint_commands" \
     --ros-domain-id "${ROS_DOMAIN_ID}" &
 SERVER_PID=$!
@@ -65,9 +68,10 @@ echo ""
 echo "Starting LeRobot recorder..."
 cd "${LEROBOT_PATH}"
 python lerobot/scripts/control_robot.py \
-    --robot.type=isaacsim_openarm \
+    --robot.type=isaacsim_rpo_arm \
     --control.type=record \
     --control.repo_id="${REPO_ID}" \
+    --control.single_task="${SINGLE_TASK}" \
     --control.num_episodes="${NUM_EPISODES}" \
     --control.episode_time_s="${EPISODE_TIME_S}" \
     --control.fps="${FPS}" \
