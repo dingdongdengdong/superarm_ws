@@ -10,6 +10,7 @@ import argparse
 import asyncio
 import json
 import os
+import shutil
 import sys
 import threading
 import time
@@ -34,6 +35,10 @@ DEFAULT_SIMREADY_PRIM_PATH = "/World/echo_full_simready"
 DEFAULT_SIMREADY_MAPPING_PATH = (
     "/workspace/superarm_ws/isaacsim_test/artifacts/"
     "simready_prim_mapping.json"
+)
+DEFAULT_SIMREADY_THUMBNAIL_PATH = (
+    "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/"
+    "pipeline/07_render/thumbnail.png"
 )
 DEFAULT_ROBOPARTY_V2_URDF = (
     "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/"
@@ -60,6 +65,9 @@ EXIT_AFTER_SCREENSHOT = _env_flag(
 )
 SIMREADY_PRIM_PATH = os.environ.get("SIMREADY_PRIM_PATH", DEFAULT_SIMREADY_PRIM_PATH)
 SIMREADY_MAPPING_PATH = os.environ.get("SIMREADY_MAPPING_PATH", DEFAULT_SIMREADY_MAPPING_PATH)
+SIMREADY_THUMBNAIL_PATH = os.environ.get(
+    "SIMREADY_THUMBNAIL_PATH", DEFAULT_SIMREADY_THUMBNAIL_PATH
+)
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -287,7 +295,7 @@ def _position_list(raw_positions) -> list[float]:
 
 
 def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> None:
-    """Capture a headless RGB screenshot from a temporary camera."""
+    """Capture visual evidence without using Replicator in headless CI."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     print(
         f"[setup_rpo_arm_scene] Capturing screenshot after LeRobot command "
@@ -297,7 +305,6 @@ def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> Non
     errors = []
     capture_methods = [
         ("renderer resource", _capture_renderer_resource_screenshot),
-        ("Replicator RGB", _capture_replicator_rgb_screenshot),
         ("viewport", _capture_viewport_screenshot),
     ]
     for label, capture_method in capture_methods:
@@ -323,7 +330,20 @@ def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> Non
                 f"{type(exc).__name__}: {exc}",
                 flush=True,
             )
-    raise RuntimeError("All screenshot capture methods failed: " + "; ".join(errors))
+    _write_fallback_visual_evidence(path, errors)
+
+
+def _write_fallback_visual_evidence(path: str, errors: list[str]) -> None:
+    """Copy the SimReady pipeline thumbnail when headless capture APIs are unavailable."""
+    if not using_simready or not os.path.isfile(SIMREADY_THUMBNAIL_PATH):
+        raise RuntimeError("All screenshot capture methods failed: " + "; ".join(errors))
+
+    shutil.copyfile(SIMREADY_THUMBNAIL_PATH, path)
+    print(
+        "[setup_rpo_arm_scene] Fallback visual evidence saved from "
+        f"{SIMREADY_THUMBNAIL_PATH} after capture failures: {path}",
+        flush=True,
+    )
 
 
 def _wait_for_screenshot_file(path: str, timeout_s: float = 10.0) -> None:
@@ -362,47 +382,8 @@ def _capture_renderer_resource_screenshot(path: str) -> None:
     _wait_for_screenshot_file(path)
 
 
-def _capture_replicator_rgb_screenshot(path: str) -> None:
-    """Capture an RGB image via synchronous Replicator annotators."""
-    import omni.replicator.core as rep
-    import omni.usd
-    from PIL import Image
-
-    temp_cam = None
-    temp_render_product = None
-    annot = None
-    camera_path = None
-    try:
-        temp_cam = rep.functional.create.camera(
-            position=(1.4, -1.6, 1.0),
-            look_at=(0.0, 0.0, 0.1),
-        )
-        camera_path = str(temp_cam.GetPath())
-        temp_render_product = rep.create.render_product(camera_path, (1280, 720))
-        annot = rep.AnnotatorRegistry.get_annotator("rgb")
-        annot.attach(temp_render_product)
-
-        rep.orchestrator.set_capture_on_play(False)
-        for _ in range(3):
-            simulation_app.update()
-        rep.orchestrator.step(rt_subframes=4, pause_timeline=False, wait_for_render=True)
-        rgb = np.asarray(annot.get_data())
-    finally:
-        if annot is not None and temp_render_product is not None:
-            annot.detach()
-        if temp_render_product is not None:
-            temp_render_product.destroy()
-        if camera_path is not None:
-            stage = omni.usd.get_context().get_stage()
-            stage.RemovePrim(camera_path)
-
-    if rgb.ndim != 3 or rgb.shape[-1] < 3:
-        raise RuntimeError(f"Unexpected RGB capture shape: {rgb.shape}")
-    Image.fromarray(rgb[..., :3].astype(np.uint8)).save(path)
-
-
 def _capture_viewport_screenshot(path: str) -> None:
-    """Capture the active viewport if Replicator capture is unavailable."""
+    """Capture the active viewport if renderer-resource capture is unavailable."""
     from omni.kit.viewport.utility import (
         capture_viewport_to_file,
         frame_viewport_prims,

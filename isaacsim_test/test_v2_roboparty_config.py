@@ -81,6 +81,15 @@ class RoboPartyV2ConfigTest(unittest.TestCase):
             self.assertIn("SIMREADY_USD_PATH", text)
             self.assertIn(expected_path, text)
 
+    def test_compose_and_env_expose_simready_thumbnail_fallback_path(self) -> None:
+        compose_text = _read("isaacsim_test/docker-compose.yml")
+        env_text = _read("isaacsim_test/.env.example")
+        expected_path = "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png"
+
+        for text in (compose_text, env_text):
+            self.assertIn("SIMREADY_THUMBNAIL_PATH", text)
+            self.assertIn(expected_path, text)
+
     def test_scene_supports_simready_usd_import_and_mapping_evidence(self) -> None:
         scene_text = _read("isaacsim_test/isaacsim/setup_rpo_arm_scene.py")
 
@@ -110,7 +119,11 @@ class RoboPartyV2ConfigTest(unittest.TestCase):
             "${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:rw",
             isaac_service,
         )
-        self.assertIn("rep.orchestrator.step", scene_text)
+        self.assertIn("SIMREADY_THUMBNAIL_PATH", scene_text)
+        self.assertIn("thumbnail.png", scene_text)
+        self.assertIn("_write_fallback_visual_evidence", scene_text)
+        self.assertIn("Fallback visual evidence saved", scene_text)
+        self.assertNotIn("rep.orchestrator.step", scene_text)
         self.assertIn('enable_extension("isaacsim.test.utils")', scene_text)
         self.assertIn('enable_extension("omni.kit.renderer.capture")', scene_text)
         self.assertIn("capture_next_frame_rp_resource", scene_text)

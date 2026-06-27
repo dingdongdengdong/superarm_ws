@@ -88,9 +88,10 @@ cd isaacsim_test && docker compose config >/tmp/isaacsim-compose.yml
 SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd \
   SCREENSHOT_ON_STARTUP=1 \
   SCREENSHOT_PATH=/workspace/superarm_ws/isaacsim_test/artifacts/echo_full_simready_startup.png \
-  docker compose up isaac-sim-51
+  docker compose up --force-recreate --abort-on-container-exit --exit-code-from isaac-sim-51 isaac-sim-51
 # expect: Loading SimReady USD ... echo_full_robot_arm_hand.usd
 # expect: Controlled LeRobot joints: ['right_arm_pitch_joint', ..., 'amazinghand_grasp']
+# note: in headless/no-window containers, visual evidence may fall back to the committed SimReady thumbnail instead of a live viewport capture.
 
 # Command round-trip
 ros2 topic pub /leader/joint_commands std_msgs/msg/Float64MultiArray \
@@ -102,7 +103,6 @@ ros2 topic echo /follower/joint_states --once
 
 ## Next work
 
-- Run Isaac Sim with the default `SIMREADY_USD_PATH` and save a startup screenshot.
-- Inspect `isaacsim_test/artifacts/simready_prim_mapping.json` after startup and choose the initial control/articulation mapping.
+- Inspect the full USD prim hierarchy and choose the initial control/articulation mapping.
 - Bind the existing 6D ROS2/LeRobot command interface to that mapping, replacing per-feature `binding_pending` entries as each binding becomes real.
 - Rerun the LeRobot SITL verifier and update the evidence artifacts.

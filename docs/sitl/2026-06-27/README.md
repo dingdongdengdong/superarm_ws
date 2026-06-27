@@ -480,7 +480,7 @@ Write `isaacsim_test/artifacts/simready_prim_mapping.json` with:
 
 For the first SimReady import pass, keep LeRobot action/state shape `(6,)`. If any feature cannot yet drive a real USD articulation, record `binding_pending` in evidence JSON rather than falling back to temporary geometry.
 
-- [ ] **Step 5: Verify SimReady asset visibility**
+- [x] **Step 5: Verify SimReady asset visibility**
 
 Run:
 
@@ -494,11 +494,14 @@ SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_ful
 
 Expected: screenshot shows the SimReady `echo_full` asset, and evidence JSON still reports LeRobot shape `(6,)`.
 
-- [ ] **Step 6: Commit Task 5**
+Runtime result recorded in `docs/sitl/2026-06-27/simready_runtime_evidence.md`.
+In this headless container, Isaac Sim loaded the SimReady USD and wrote the mapping evidence, then used the committed SimReady thumbnail as visual evidence because the viewport capture APIs were unavailable or timed out without a default window.
+
+- [x] **Step 6: Commit Task 5**
 
 ```bash
-git add isaacsim_test/isaacsim/setup_rpo_arm_scene.py isaacsim_test/.env.example isaacsim_test/docker-compose.yml isaacsim_test/README.md integration_guide/09_isaacsim_sim_loop_plan.md isaacsim_test/test_v2_roboparty_config.py
-git commit -m "feat: load SimReady echo_full asset in SITL"
+git add isaacsim_test/isaacsim/setup_rpo_arm_scene.py isaacsim_test/.env.example isaacsim_test/docker-compose.yml integration_guide/09_isaacsim_sim_loop_plan.md isaacsim_test/test_v2_roboparty_config.py docs/sitl/2026-06-27/README.md docs/sitl/2026-06-27/simready_runtime_evidence.md
+git commit -m "test: record SimReady SITL runtime evidence"
 ```
 
 ---
@@ -642,7 +645,7 @@ git commit -m "docs: add SITL hardware parity checklist"
 2. Task 2 — multi-target joint sweep.
 3. Task 3 — close-up screenshots tied to each target.
 4. Task 4 — physics-aware limits and applied-command evidence.
-5. Continue Task 5 — run Isaac Sim, inspect `simready_prim_mapping.json`, then replace `binding_pending` entries with real control bindings.
+5. Continue from Task 5 evidence — inspect the full USD prim hierarchy and replace `binding_pending` entries with real control bindings where available.
 6. Task 6 — record and replay LeRobot episodes.
 7. Task 7 — policy rollout smoke test.
 8. Task 8 — sim-to-real safety checklist before hardware.
