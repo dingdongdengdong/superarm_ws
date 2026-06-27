@@ -2,7 +2,7 @@
 set -euo pipefail
 
 IMAGES=(
-    "nvcr.io/nvidia/isaac-sim:4.5.0"
+    "nvcr.io/nvidia/isaac-sim:5.1.0"
     "nvcr.io/nvidia/isaac-sim:6.0.0"
 )
 

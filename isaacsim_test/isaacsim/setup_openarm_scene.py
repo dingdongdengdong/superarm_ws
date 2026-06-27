@@ -25,11 +25,11 @@ from omni.isaac.core.utils.extensions import enable_extension  # noqa: E402
 
 enable_extension("omni.isaac.ros2_bridge")
 
-# URDF importer extension was renamed in Isaac Sim 5.x
+# Isaac Sim 5.x uses omni.importer.urdf (renamed from omni.isaac.urdf in 4.x)
 try:
-    enable_extension("omni.isaac.urdf")
-except Exception:
     enable_extension("omni.importer.urdf")
+except Exception:
+    enable_extension("omni.isaac.urdf")
 
 simulation_app.update()  # flush extension loads before importing their APIs
 

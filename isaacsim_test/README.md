@@ -9,7 +9,7 @@ Phone browser → phone_teleop_server → /leader/joint_commands (ROS2)
                                               ↓
                             /follower/joint_commands (ROS2)
                                               ↓
-                          setup_openarm_scene.py (isaac-sim-45 container)
+                          setup_openarm_scene.py (isaac-sim-51 container)
                                               ↓
                             /follower/joint_states → observation recording
 ```
@@ -46,7 +46,7 @@ export OPENARM_URDF_PATH="${SUPERARM_WS_PATH}/lerobot/lerobot/robots/openarm/ass
 
 If the OpenArm URDF doesn't exist at that path, use Isaac Sim's built-in Franka as a stand-in:
 ```bash
-# Inside the isaac-sim-45 container the Franka URDF is at:
+# Inside the isaac-sim-51 container the Franka URDF is at:
 export OPENARM_URDF_PATH=/isaac-sim/exts/omni.isaac.franka/data/urdf/robots/panda_arm_hand.urdf
 # (7-DOF Panda instead of 6-DOF OpenArm, but the ROS2 bridge is identical)
 ```
@@ -63,7 +63,7 @@ bash pull_images.sh
 To pull both images **in parallel** (recommended — saves time):
 ```bash
 # Terminal 1:
-docker pull nvcr.io/nvidia/isaac-sim:4.5.0
+docker pull nvcr.io/nvidia/isaac-sim:5.1.0
 # Terminal 2:
 docker pull nvcr.io/nvidia/isaac-sim:6.0.0
 ```
@@ -104,7 +104,7 @@ xhost +local:docker   # only needed if HEADLESS=0 in .env
 
 ```bash
 cd isaacsim_test
-docker compose up isaac-sim-45
+docker compose up isaac-sim-51
 ```
 
 Wait for:

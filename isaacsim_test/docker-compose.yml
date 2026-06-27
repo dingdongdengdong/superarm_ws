@@ -1,8 +1,8 @@
 services:
 
-  # Isaac Sim 4.5 — runs the simulated OpenArm follower
-  isaac-sim-45:
-    image: nvcr.io/nvidia/isaac-sim:4.5.0
+  # Isaac Sim 5.1 — runs the simulated OpenArm follower
+  isaac-sim-51:
+    image: nvcr.io/nvidia/isaac-sim:5.1.0
     container_name: isaacsim-test-sim
     network_mode: host
     environment:
