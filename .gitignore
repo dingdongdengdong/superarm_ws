@@ -1,6 +1,4 @@
 # External upstream checkouts kept outside this repo's committed source.
-/AmazingHand/
-/lerobot/
 /roboto_origin/
 
 # Local worktrees and generated outputs.
