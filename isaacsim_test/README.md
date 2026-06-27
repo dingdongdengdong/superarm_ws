@@ -1,15 +1,28 @@
-# Isaac Sim 5.1 — RoboParty V2.0 Right Arm + AmazingHand Sim-in-the-Loop
+# Isaac Sim 5.1 — SimReady `echo_full` Arm + Hand Sim-in-the-Loop
 
-Runs the official RoboParty / Roboto Origin **V2.0 right arm** from the RoboParty GitHub URDF as a simulated follower in Isaac Sim 5.1, controlled by your phone browser over WiFi.
+The current source of truth for Isaac Sim work is the validated SimReady USD produced from the real CAD file:
 
-The LeRobot side uses `robot_type=isaacsim_rpo_arm` with a 6D state/action contract:
+| Artifact | Path |
+|---|---|
+| Source CAD | `arm_with_hand_with_robot_file/echo_full.step` |
+| Final SimReady USD | `isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd` |
+| Conversion / validation report | `isaacsim_test/outputs/simready/echo_full/omniverse-cad-to-simready-report.md` |
+| Render thumbnail | `isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png` |
+
+The earlier RoboParty V2.0 URDF path remains a **legacy control-reference baseline** for joint names and the existing ROS2/LeRobot bridge. New simulation scene work should load the SimReady USD first, then bind its useful arm/hand prims to the ROS2 and LeRobot control contract.
+
+---
+
+## Current LeRobot control contract
+
+Keep the first working control surface stable while the USD articulation binding is added:
 
 1. `right_arm_pitch_joint.pos`
 2. `right_arm_roll_joint.pos`
 3. `right_arm_yaw_joint.pos`
 4. `right_elbow_pitch_joint.pos`
 5. `right_elbow_yaw_joint.pos`
-6. `amazinghand_grasp.pos` synthetic scalar in `[0.0, 1.0]`
+6. `amazinghand_grasp.pos`
 
 ```
 Phone browser → phone_teleop_server → /leader/joint_commands (ROS2, 6 floats)
@@ -18,19 +31,20 @@ Phone browser → phone_teleop_server → /leader/joint_commands (ROS2, 6 floats
                                               ↓
                             /follower/joint_commands (ROS2, 6 floats)
                                               ↓
-      setup_rpo_arm_scene.py imports official RoboParty V2.0 URDF and controls 5 right-arm joints
+      Isaac Sim scene loads the SimReady USD and maps commands onto selected arm/hand prims
                                               ↓
                             /follower/joint_states → observation recording
 ```
 
----
-
 > Next SITL roadmap/checklist: `docs/sitl/2026-06-27/README.md`.
+
+---
 
 ## Prerequisites
 
 | Requirement | Check |
 |---|---|
+| SimReady USD generated | `test -f isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd` |
 | NGC account + API key | https://ngc.nvidia.com → Setup → API Key |
 | ~55 GB free disk | `df -h .` |
 | NVIDIA Container Toolkit | `sudo apt install nvidia-container-toolkit && sudo systemctl restart docker` |
@@ -48,22 +62,21 @@ cp isaacsim_test/.env.example isaacsim_test/.env
 # Edit .env and set SUPERARM_WS_PATH if your checkout path differs
 ```
 
+Recommended current defaults:
+
 ```bash
-# Quick defaults (bash):
 export SUPERARM_WS_PATH=/home/sim/Documents/superarm_ws
 export ROS_DOMAIN_ID=42
-export RPO_ARM_URDF_PATH=/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf
+export SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
 export NUM_JOINTS=6
 export JOINT_NAMES=right_arm_pitch_joint,right_arm_roll_joint,right_arm_yaw_joint,right_elbow_pitch_joint,right_elbow_yaw_joint,amazinghand_grasp
 ```
 
-The default URDF is the official RoboParty V2.0 model at:
+Legacy URDF baseline, kept only for existing bridge tests until the SimReady USD binding replaces it:
 
-```text
-roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf
+```bash
+export RPO_ARM_URDF_PATH=/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf
 ```
-
-The scene imports the full V2.0 robot and bridges only the right-arm chain. `amazinghand_grasp` is a synthetic LeRobot scalar for now; a physical AmazingHand URDF mount is a later step.
 
 ---
 
@@ -89,6 +102,8 @@ docker pull nvcr.io/nvidia/isaac-sim:6.0.0
 
 The local checkout is patched to register `robot.type=isaacsim_rpo_arm` and load `isaacsim_test/lerobot/isaacsim_rpo_arm_robot.py`.
 
+The current LeRobot interface remains a 6D command/state bridge while the Isaac scene moves from the legacy URDF import to the SimReady USD import.
+
 ---
 
 ## Step 4 — Allow X11 (headed mode only)
@@ -106,10 +121,10 @@ cd isaacsim_test
 docker compose up isaac-sim-51
 ```
 
-Wait for logs like:
+Current bridge logs may still mention the legacy URDF until the next implementation phase lands. The target log after the SimReady scene update should include:
 
 ```text
-[setup_rpo_arm_scene] Loading RoboParty V2.0 URDF: /workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf
+[setup_rpo_arm_scene] Loading SimReady USD: /workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
 [setup_rpo_arm_scene] Controlled LeRobot joints: ['right_arm_pitch_joint', 'right_arm_roll_joint', 'right_arm_yaw_joint', 'right_elbow_pitch_joint', 'right_elbow_yaw_joint', 'amazinghand_grasp']
 [setup_rpo_arm_scene] Simulation running.
 ```
@@ -135,7 +150,7 @@ Open on your phone: http://192.168.x.x:8766
 
 ### Option A — Custom slider UI (teleoperation)
 
-Open `http://<host-ip>:8766` in your phone's browser on the same WiFi. The first five sliders are right-arm joint radians; the last slider is `amazinghand_grasp` in `[0.0, 1.0]`.
+Open `http://<host-ip>:8766` in your phone's browser on the same WiFi. The first five sliders are arm joint command values; the last slider is `amazinghand_grasp` in `[0.0, 1.0]`.
 
 ### Option B — Foxglove (visualization + publishing)
 
@@ -147,7 +162,7 @@ The Foxglove WebSocket bridge runs on port **8765**.
 
 Once connected you can:
 - Visualize `/follower/joint_states` in a Plot or Raw Messages panel
-- Add a 3D panel and load the RoboParty V2.0 URDF to see the right arm move
+- Add a 3D panel and load the SimReady USD scene after the binding phase
 - Use the **Publish** panel to send a one-shot `Float64MultiArray` to `/leader/joint_commands`
 
 | Port | Service | Use |
@@ -160,25 +175,38 @@ Once connected you can:
 ## Verification gates
 
 ```bash
-# Gate 1 — images present
+# Gate 1 — SimReady asset exists
+test -f isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
+
+# Gate 2 — SimReady validation passed
+python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path('isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/simready-profile.json')
+data = json.loads(p.read_text())
+assert data['passed'] is True, data
+print('SimReady profile passed:', data['profile_target'])
+PY
+
+# Gate 3 — images present
 docker images | grep "isaac-sim"
 
-# Gate 2 — Isaac Sim started (check container logs)
-docker logs isaacsim-test-sim | grep "RoboParty V2.0\|Controlled LeRobot joints\|ERROR"
+# Gate 4 — Isaac Sim started (check container logs)
+docker logs isaacsim-test-sim | grep "SimReady\|Controlled LeRobot joints\|ERROR"
 
-# Gate 3 — ROS2 topics visible
+# Gate 5 — ROS2 topics visible
 export ROS_DOMAIN_ID=42 && source /opt/ros/humble/setup.bash
 ros2 topic list
 
-# Gate 4 — joint states publishing at ~60 Hz
+# Gate 6 — joint states publishing at ~60 Hz
 ros2 topic hz /follower/joint_states
 
-# Gate 5a — phone slider server reachable
+# Gate 7a — phone slider server reachable
 curl http://localhost:8766 | head -5
-# Gate 5b — Foxglove bridge reachable
+# Gate 7b — Foxglove bridge reachable
 curl -s --include --no-buffer -H "Upgrade: websocket" http://localhost:8765 | head -3
 
-# Gate 6 — command round-trip
+# Gate 8 — command round-trip
 ros2 topic pub /leader/joint_commands std_msgs/msg/Float64MultiArray \
   "data: [0.1, 0.2, 0.3, 0.0, 0.0, 0.5]" --once
 ros2 topic echo /follower/joint_states --once
@@ -196,13 +224,13 @@ docker exec isaacsim-test-lerobot bash -c '
   python lerobot/scripts/control_robot.py \
     --robot.type=isaacsim_rpo_arm \
     --control.type=record \
-    --control.repo_id=YOUR_HF_USER/rpo_v2_right_arm_isaacsim_v1 \
-    --control.single_task="Teleoperate the RoboParty V2.0 right arm and AmazingHand grasp in Isaac Sim." \
+    --control.repo_id=YOUR_HF_USER/echo_full_simready_isaacsim_v1 \
+    --control.single_task="Teleoperate the SimReady echo_full robot arm and hand in Isaac Sim." \
     --control.fps=30 \
     --control.num_episodes=5'
 ```
 
-Dataset feature names are the five official V2 right-arm joints plus `amazinghand_grasp.pos` in LeRobot `observation.state` and `action` metadata, shape `(6,)`.
+Dataset feature names stay the five arm command keys plus `amazinghand_grasp.pos` in LeRobot `observation.state` and `action` metadata, shape `(6,)`, until a richer multi-DOF hand policy contract is intentionally introduced.
 
 ---
 
@@ -211,10 +239,10 @@ Dataset feature names are the five official V2 right-arm joints plus `amazinghan
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `pull_images.sh` → 401 Unauthorized | NGC not logged in | `docker login nvcr.io` (`$oauthtoken` / API key) |
-| Isaac Sim exits immediately | URDF not found | Confirm `RPO_ARM_URDF_PATH` points to the V2.0 URDF under `/workspace/superarm_ws/roboparty/...` |
+| SimReady USD not found | Conversion artifact missing or path typo | Confirm `SIMREADY_USD_PATH` points to `isaacsim_test/outputs/simready/echo_full/.../echo_full_robot_arm_hand.usd` |
+| Isaac Sim still logs URDF import | Scene setup has not yet been updated to load the SimReady USD | Implement the next SITL task: import SimReady USD and bind controls |
 | No topics on `ros2 topic list` | Wrong `ROS_DOMAIN_ID` | Ensure both containers use `ROS_DOMAIN_ID=42` |
 | Phone can't reach server | Different subnet or VPN | Ensure phone and host are on the same WiFi |
-| Arm doesn't move | Phone server not publishing | `ros2 topic echo /leader/joint_commands` — should update when you move sliders |
-| Right-arm joint missing at startup | Wrong/old URDF | Use `roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf` |
+| Arm doesn't move | Phone server not publishing, or USD control binding missing | `ros2 topic echo /leader/joint_commands`; then verify SimReady prim binding |
 | Out of VRAM | Native Isaac Sim still running | Close the native app before starting the container |
 | DDS discovery fails | Firewall blocking multicast | `sudo ufw allow in on lo` or set `FASTRTPS_DEFAULT_PROFILES_FILE` |

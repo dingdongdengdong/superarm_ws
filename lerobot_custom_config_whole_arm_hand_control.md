@@ -270,7 +270,7 @@ joint_limits_rad:
   rpo_arm_j5: [measured_min, measured_max]
 ```
 
-Do not trust placeholder limits for real movement. Use conservative limits first, around 50-70% of the real mechanical range.
+Do not trust unmeasured limits for real movement. Use conservative limits first, around 50-70% of the real mechanical range.
 
 ### 5.2 AmazingHand section
 
@@ -295,7 +295,7 @@ amazinghand:
     servo_8: [-95, 45]
 ```
 
-The `middle_pos_deg` and `safe_limits_deg` values are placeholders until measured on your assembled hand.
+The `middle_pos_deg` and `safe_limits_deg` values must come from measurement on your assembled hand before real movement.
 
 ---
 

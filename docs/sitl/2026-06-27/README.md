@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn the current verified Isaac Sim 5.1 + RoboParty V2.0 right-arm LeRobot command test into a repeatable SITL pipeline for actuation, perception, data recording, policy replay, and later hardware parity.
+**Goal:** Turn the validated SimReady `echo_full` USD plus the existing LeRobot/ROS2 bridge into a repeatable SITL pipeline for asset loading, control binding, perception, data recording, policy replay, and later hardware parity.
 
-**Architecture:** Keep Isaac Sim as the simulated follower, LeRobot as the control/record/replay interface, and ROS2 as the transport boundary. Every phase must produce machine-checkable artifacts under `isaacsim_test/artifacts/` and a short human-readable run log so regressions can be found quickly.
+**Architecture:** Keep Isaac Sim as the simulated follower, load the SimReady USD as the scene asset, use LeRobot as the control/record/replay interface, and use ROS2 as the transport boundary. Every phase must produce machine-checkable artifacts under `isaacsim_test/artifacts/` and a short human-readable run log so regressions can be found quickly.
 
-**Tech Stack:** Isaac Sim 5.1 container, official RoboParty V2.0 URDF, ROS2 Humble, local LeRobot `isaacsim_rpo_arm` robot type, Docker Compose, Python verifier scripts, NVIDIA Agent Skills catalog for NVIDIA/Omniverse-specific work.
+**Tech Stack:** Isaac Sim 5.1 container, validated SimReady USD from `echo_full.step`, ROS2 Humble, local LeRobot `isaacsim_rpo_arm` robot type, Docker Compose, Python verifier scripts, NVIDIA Agent Skills catalog for NVIDIA/Omniverse-specific work.
 
 **Created:** 2026-06-27, Asia/Seoul
 
@@ -14,9 +14,11 @@
 
 **Baseline commit:** `04ef79a test: add LeRobot SITL verifier with screenshots`
 
+**Current asset commit:** `68787fa Add SimReady conversion artifacts for echo_full CAD`
+
 ---
 
-## Baseline already verified on 2026-06-27
+## Historical baseline verified on 2026-06-27
 
 - [x] Isaac Sim image: `nvcr.io/nvidia/isaac-sim:5.1.0`.
 - [x] Source robot: official RoboParty / Roboto Origin V2.0 URDF at `roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf`.
@@ -35,18 +37,23 @@
 - [x] Screenshot artifact captured from Isaac Sim: `isaacsim_test/artifacts/rpo_v2_lerobot_target.png`.
 - [x] Evidence artifact written by verifier: `isaacsim_test/artifacts/lerobot_sitl_verify.json`.
 
-Known limits of this baseline:
+Known limits of that historical baseline:
 
 - The current arm motion is a command/state bridge test; it is not yet a physics-quality actuator validation.
-- `amazinghand_grasp` is still a synthetic scalar, not a mounted multi-DOF hand model.
+- The historical bridge represented hand intent as one `amazinghand_grasp` value. The new SimReady asset contains visible hand geometry, but Isaac articulation/control binding is still next work.
 - The screenshot proves Isaac Sim rendering after command, but the camera framing is not yet an arm-pose measurement tool.
 - The verifier checks one pose; it does not sweep joint limits, trajectories, contact, collisions, or policy rollouts.
 
 ---
 
-## Non-negotiable source rules
+## Current source of truth
 
-- [ ] Use RoboParty V2.0 assets by default. Do not recreate the V2 right-arm URDF while the official URDF exists.
+- [x] Source CAD: `arm_with_hand_with_robot_file/echo_full.step`.
+- [x] Final SimReady USD: `isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd`.
+- [x] SimReady validation report: `isaacsim_test/outputs/simready/echo_full/omniverse-cad-to-simready-report.md`.
+- [x] Profile validation: `Prop-Robotics-Neutral` v`1.0.0` passed with no remaining requirement failures.
+- [ ] Treat the RoboParty V2.0 URDF as a legacy joint-name/control reference, not the primary scene asset.
+- [ ] Do not recreate temporary arm/hand geometry while the SimReady USD exists.
 - [ ] Before any NVIDIA/Isaac/Omniverse-specific task, check the NVIDIA skills catalog at <https://github.com/NVIDIA/skills>.
 - [ ] Treat NVIDIA skills as agent guidance, not runtime project dependencies, unless a specific skill becomes part of a reproducible command.
 - [ ] Save all generated runtime evidence under `isaacsim_test/artifacts/` so it stays out of git.
@@ -420,50 +427,76 @@ git commit -m "test: add physics-aware SITL joint limit checks"
 
 ---
 
-## Task 5: Replace synthetic AmazingHand scalar with a mounted hand model
+## Task 5: Load SimReady USD and establish control binding
 
-**Purpose:** Move from `amazinghand_grasp` as metadata to a visible simulated hand attached to the RoboParty V2 right-arm chain.
+**Purpose:** Move the Isaac scene from the historical URDF baseline to the validated SimReady `echo_full` USD, then document which USD prims are bound to the existing 6D LeRobot/ROS2 command interface.
 
 **Files:**
 - Modify: `isaacsim_test/isaacsim/setup_rpo_arm_scene.py`
+- Modify: `isaacsim_test/.env.example`
+- Modify: `isaacsim_test/docker-compose.yml`
 - Modify: `isaacsim_test/README.md`
 - Modify: `integration_guide/09_isaacsim_sim_loop_plan.md`
 - Add tests in: `isaacsim_test/test_v2_roboparty_config.py`
 
-- [ ] **Step 1: Decide mount link from imported model evidence**
+- [ ] **Step 1: Add SimReady asset configuration**
 
-Run Isaac Sim metadata export and confirm the available right-arm terminal link. Expected candidate from the current contract is near `right_elbow_yaw_joint`; record the exact link name in `isaacsim_test/artifacts/joint_metadata.json`.
-
-- [ ] **Step 2: Add a hand asset mount configuration**
-
-Add environment variables:
+Add this default path to `.env.example` and Docker Compose:
 
 ```text
-AMAZINGHAND_ASSET_PATH=/workspace/superarm_ws/AmazingHand/...
-AMAZINGHAND_MOUNT_LINK=<exact terminal link from metadata>
-AMAZINGHAND_MOUNT_ENABLED=1
+SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
 ```
 
-- [ ] **Step 3: Keep the 6D LeRobot contract stable first**
+- [ ] **Step 2: Load the SimReady USD in Isaac Sim**
 
-For the first hand mount pass, keep LeRobot action/state shape `(6,)`. Map `amazinghand_grasp` to a simple visual open/close state or logged scalar while the visible hand is attached.
+Update `setup_rpo_arm_scene.py` so startup loads `SIMREADY_USD_PATH` and logs:
 
-- [ ] **Step 4: Verify hand visibility**
+```text
+[setup_rpo_arm_scene] Loading SimReady USD: .../echo_full_robot_arm_hand.usd
+```
+
+The historical URDF import may remain behind an explicit fallback flag, but it must not be the default for new SITL work.
+
+- [ ] **Step 3: Export prim/control mapping evidence**
+
+Write `isaacsim_test/artifacts/simready_prim_mapping.json` with:
+
+```json
+{
+  "asset": "echo_full_robot_arm_hand.usd",
+  "control_contract": [
+    "right_arm_pitch_joint.pos",
+    "right_arm_roll_joint.pos",
+    "right_arm_yaw_joint.pos",
+    "right_elbow_pitch_joint.pos",
+    "right_elbow_yaw_joint.pos",
+    "amazinghand_grasp.pos"
+  ],
+  "binding_status": "bound_or_binding_pending_per_feature"
+}
+```
+
+- [ ] **Step 4: Keep the 6D LeRobot contract stable first**
+
+For the first SimReady import pass, keep LeRobot action/state shape `(6,)`. If any feature cannot yet drive a real USD articulation, record `binding_pending` in evidence JSON rather than falling back to temporary geometry.
+
+- [ ] **Step 5: Verify SimReady asset visibility**
 
 Run:
 
 ```bash
 cd isaacsim_test
-AMAZINGHAND_MOUNT_ENABLED=1 SCREENSHOT_VIEW=right_arm_closeup bash run_lerobot_sitl_check.sh
+SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd \
+  SCREENSHOT_VIEW=right_arm_closeup bash run_lerobot_sitl_check.sh
 ```
 
-Expected: screenshot shows the right arm with the mounted hand, and evidence JSON still reports shape `(6,)`.
+Expected: screenshot shows the SimReady `echo_full` asset, and evidence JSON still reports LeRobot shape `(6,)`.
 
-- [ ] **Step 5: Commit Task 5**
+- [ ] **Step 6: Commit Task 5**
 
 ```bash
-git add isaacsim_test/isaacsim/setup_rpo_arm_scene.py isaacsim_test/README.md integration_guide/09_isaacsim_sim_loop_plan.md isaacsim_test/test_v2_roboparty_config.py
-git commit -m "feat: mount AmazingHand asset in RoboParty SITL"
+git add isaacsim_test/isaacsim/setup_rpo_arm_scene.py isaacsim_test/.env.example isaacsim_test/docker-compose.yml isaacsim_test/README.md integration_guide/09_isaacsim_sim_loop_plan.md isaacsim_test/test_v2_roboparty_config.py
+git commit -m "feat: load SimReady echo_full asset in SITL"
 ```
 
 ---
@@ -516,14 +549,14 @@ git commit -m "test: add LeRobot SITL record and replay gates"
 
 ## Task 7: Add policy rollout smoke test
 
-**Purpose:** Verify a trained or dummy LeRobot policy can drive the same Isaac Sim robot interface used for teleop and recording.
+**Purpose:** Verify a trained or deterministic LeRobot policy can drive the same Isaac Sim robot interface used for teleop and recording.
 
 **Files:**
 - Create: `isaacsim_test/lerobot/run_policy_sitl_smoke.py`
 - Modify: `isaacsim_test/README.md`
 - Modify: `isaacsim_test/test_v2_roboparty_config.py`
 
-- [ ] **Step 1: Implement a deterministic dummy policy first**
+- [ ] **Step 1: Implement a deterministic policy smoke sequence first**
 
 Create a Python script that loads `IsaacSimRpoArmRobot`, connects, and sends this sequence at 10 Hz:
 
@@ -578,7 +611,7 @@ Create `docs/sitl/2026-06-27/hardware_parity_checklist.md` with this table:
 | right_arm_yaw_joint.pos | RoboParty V2 URDF | CAN/motor mapping pending hardware check | radians | no |
 | right_elbow_pitch_joint.pos | RoboParty V2 URDF | CAN/motor mapping pending hardware check | radians | no |
 | right_elbow_yaw_joint.pos | RoboParty V2 URDF | CAN/motor mapping pending hardware check | radians | no |
-| amazinghand_grasp.pos | synthetic scalar or mounted hand model | AmazingHand command mapping pending hardware check | normalized 0..1 | no |
+| amazinghand_grasp.pos | SimReady USD hand/body prims, binding pending | AmazingHand command mapping pending hardware check | normalized 0..1 | no |
 ```
 
 - [ ] **Step 2: Add validation gates before hardware power-on**
@@ -607,7 +640,7 @@ git commit -m "docs: add SITL hardware parity checklist"
 2. Task 2 — multi-target joint sweep.
 3. Task 3 — close-up screenshots tied to each target.
 4. Task 4 — physics-aware limits and applied-command evidence.
-5. Task 5 — visible AmazingHand mount while keeping 6D LeRobot compatibility.
+5. Task 5 — SimReady USD import and prim/control binding while keeping 6D LeRobot compatibility.
 6. Task 6 — record and replay LeRobot episodes.
 7. Task 7 — policy rollout smoke test.
 8. Task 8 — sim-to-real safety checklist before hardware.

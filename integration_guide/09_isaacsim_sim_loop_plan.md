@@ -1,10 +1,23 @@
-# 09 — Isaac Sim 5.1 Sim-in-the-Loop Plan (RoboParty V2.0 Right Arm + AmazingHand)
+# 09 — Isaac Sim 5.1 Sim-in-the-Loop Plan (SimReady `echo_full`)
 
 ## Goal
 
-Use the official RoboParty / Roboto Origin **V2.0** URDF from the RoboParty GitHub checkout for the Isaac Sim testbed instead of a handmade arm URDF.
+Use the validated SimReady USD generated from the real `echo_full.step` CAD as the primary Isaac Sim test asset.
 
-The LeRobot sim contract is 6D:
+```text
+Source CAD:       arm_with_hand_with_robot_file/echo_full.step
+Final SimReady:  isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
+Report:          isaacsim_test/outputs/simready/echo_full/omniverse-cad-to-simready-report.md
+Thumbnail:       isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png
+```
+
+The older RoboParty V2.0 URDF remains useful as a historical joint-name and control-reference baseline, but new scene work should not design around a stand-in arm or a separate hand mount. The SimReady USD already contains the visible robot/mobile-base/arm/hand asset and passed `Prop-Robotics-Neutral` v`1.0.0` validation.
+
+---
+
+## LeRobot control contract
+
+Keep the first integration pass compatible with the existing 6D LeRobot interface:
 
 ```text
 right_arm_pitch_joint.pos
@@ -15,38 +28,41 @@ right_elbow_yaw_joint.pos
 amazinghand_grasp.pos
 ```
 
-The first five names come directly from the official V2.0 URDF. `amazinghand_grasp` is a synthetic scalar in `[0.0, 1.0]` until a physical AmazingHand URDF/USD mount is added.
+The task is now to map this stable command/state interface onto the imported SimReady USD prims. If the USD does not expose true articulated joints yet, the first pass should still load the SimReady asset, publish observation state, and record which prims need articulation authoring.
 
 ---
 
 ## Source geometry
 
-Use:
+Primary source:
+
+```text
+isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
+```
+
+Supporting evidence:
+
+```text
+isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/simready-profile.json
+isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png
+```
+
+Legacy reference only:
 
 ```text
 roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf
-roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/
-```
-
-Do **not** use the old primitive `isaacsim_test/isaacsim/rpo_arm.urdf` approach. The official V2.0 URDF already includes the right-arm chain and meshes:
-
-```text
-right_arm_pitch_joint
-right_arm_roll_joint
-right_arm_yaw_joint
-right_elbow_pitch_joint
-right_elbow_yaw_joint
 ```
 
 ---
 
 ## Implementation contract
 
-- `setup_rpo_arm_scene.py` imports the full official V2.0 URDF.
-- Isaac Sim controls only the five official right-arm DOFs.
-- ROS2 `/follower/joint_states` publishes six names: the five right-arm joints plus synthetic `amazinghand_grasp`.
-- ROS2 `/follower/joint_commands` accepts six floats; the first five are applied to the right arm, the sixth is clipped to `[0.0, 1.0]` and mirrored into joint state.
-- LeRobot `robot.type=isaacsim_rpo_arm` records `observation.state` and `action` with shape `(6,)` and the feature names above.
+- Add `SIMREADY_USD_PATH` to the Isaac Sim runtime environment and default it to the final SimReady USD path.
+- Update `setup_rpo_arm_scene.py` to load the SimReady USD as the scene asset before any command binding work.
+- Inspect the loaded USD prim hierarchy and write the chosen control/articulation mapping to `isaacsim_test/artifacts/simready_prim_mapping.json`.
+- Keep ROS2 `/follower/joint_commands` accepting six floats and `/follower/joint_states` publishing the same six feature names during the first binding pass.
+- If an arm/hand command cannot yet move a real USD articulation, log that as `binding_pending` in evidence JSON instead of silently falling back to a stand-in model.
+- Keep generated runtime evidence under `isaacsim_test/artifacts/` so it stays out of git.
 
 ---
 
@@ -56,12 +72,22 @@ right_elbow_yaw_joint
 # Static contract
 python3 isaacsim_test/test_v2_roboparty_config.py
 
+# SimReady asset exists and profile passed
+test -f isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd
+python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path('isaacsim_test/outputs/simready/echo_full/pipeline/06_validation_final/simready-profile.json')
+assert json.loads(p.read_text())['passed'] is True
+PY
+
 # Compose syntax
 cd isaacsim_test && docker compose config >/tmp/isaacsim-compose.yml
 
-# Isaac Sim startup
-docker compose up isaac-sim-51
-# expect: Loading RoboParty V2.0 URDF ... roboto_origin.urdf
+# Isaac Sim startup target after scene update
+SIMREADY_USD_PATH=/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd \
+  docker compose up isaac-sim-51
+# expect: Loading SimReady USD ... echo_full_robot_arm_hand.usd
 # expect: Controlled LeRobot joints: ['right_arm_pitch_joint', ..., 'amazinghand_grasp']
 
 # Command round-trip
@@ -72,8 +98,10 @@ ros2 topic echo /follower/joint_states --once
 
 ---
 
-## Later work
+## Next work
 
-- Add a proper AmazingHand URDF/USD mount to `right_elbow_yaw_link` or a dedicated wrist adapter.
-- Replace the synthetic `amazinghand_grasp` scalar with real hand state/control if multi-DOF hand simulation becomes necessary.
-- Move the LeRobot custom robot shim into a separate installable `lerobot_rpo_arm` package if upstream cleanliness becomes more important than local test speed.
+- Add `SIMREADY_USD_PATH` to `.env.example` and Docker Compose.
+- Load the SimReady USD in Isaac Sim and save a startup screenshot.
+- Export the SimReady prim hierarchy and choose the initial control/articulation mapping.
+- Bind the existing 6D ROS2/LeRobot command interface to that mapping or record explicit `binding_pending` evidence for prims that need articulation authoring.
+- Rerun the LeRobot SITL verifier and update the evidence artifacts.
