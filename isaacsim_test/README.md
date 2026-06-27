@@ -25,6 +25,8 @@ Phone browser → phone_teleop_server → /leader/joint_commands (ROS2, 6 floats
 
 ---
 
+> Next SITL roadmap/checklist: `docs/sitl/2026-06-27/README.md`.
+
 ## Prerequisites
 
 | Requirement | Check |
