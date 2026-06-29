@@ -2,15 +2,21 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn the validated SimReady `echo_full` USD plus the existing LeRobot/ROS2 bridge into a repeatable SITL pipeline for asset loading, control binding, perception, data recording, policy replay, and later hardware parity.
+**Goal:** Turn the validated SimReady `echo_full` USD plus the existing local LeRobot wrapper and ROS2/Isaac Sim bridge into a repeatable SITL pipeline for asset loading, control binding, perception, data recording, policy replay, and later hardware parity.
 
-**Architecture:** Keep Isaac Sim as the simulated follower, load the SimReady USD as the scene asset, use LeRobot as the control/record/replay interface, and use ROS2 as the transport boundary. Every phase must produce machine-checkable artifacts under `isaacsim_test/artifacts/` and a short human-readable run log so regressions can be found quickly.
+**Architecture:** Keep Isaac Sim as the simulated follower, load the SimReady USD as the scene asset, and use LeRobot as the control/record/replay interface. Official LeRobot does not require ROS2, and Isaac Sim can run without ROS2. In this repo only the local `isaacsim_rpo_arm` wrapper and Isaac Sim scene script use ROS2 as the chosen transport bridge. Every phase must produce machine-checkable artifacts under `isaacsim_test/artifacts/` and a short human-readable run log so regressions can be found quickly.
 
 **Tech Stack:** Isaac Sim 5.1 container, validated SimReady USD from `echo_full.step`, ROS2 Humble, local LeRobot `isaacsim_rpo_arm` robot type, Docker Compose, Python verifier scripts, NVIDIA Agent Skills catalog for NVIDIA/Omniverse-specific work.
 
 **Created:** 2026-06-27, Asia/Seoul
 
 **Directory:** `docs/sitl/2026-06-27/`
+
+**Related docs:**
+
+- [Task separation: LeRobot, Isaac Sim, and arm SITL](task_separation_lerobot_isaac_sim_arm_sitl.md)
+- [Team tiny tasks for SITL](team_tiny_tasks_sitl.md)
+- [LeRobot direct hardware custom robot, non-ROS2](../../task_guides/08_lerobot_direct_hardware_non_ros2.md)
 
 **Baseline commit:** `04ef79a test: add LeRobot SITL verifier with screenshots`
 
@@ -429,7 +435,7 @@ git commit -m "test: add physics-aware SITL joint limit checks"
 
 ## Task 5: Load SimReady USD and establish control binding
 
-**Purpose:** Move the Isaac scene from the historical URDF baseline to the validated SimReady `echo_full` USD, then document which USD prims are bound to the existing 6D LeRobot/ROS2 command interface.
+**Purpose:** Move the Isaac scene from the historical URDF baseline to the validated SimReady `echo_full` USD, then document which USD prims are bound to the existing 6D local LeRobot-wrapper/ROS2 command interface.
 
 **Files:**
 - Modify: `isaacsim_test/isaacsim/setup_rpo_arm_scene.py`
