@@ -14,6 +14,8 @@ from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
 )
 from isaacsim_test.isaacsim.graspable_hand_urdf import (
     HAND_ACTUATED_JOINT_NAMES,
+    VISUAL_MODE_PARTITIONED_LINKS,
+    VISUAL_MODE_STATIC_SHELL,
     build_graspable_hand_model_spec,
     generate_graspable_hand_urdf,
     grasp_scalar_to_hand_joint_targets,
@@ -60,6 +62,8 @@ class GraspableHandUrdfTests(unittest.TestCase):
         self.assertIn("proximal_shell.stl", spec["visual_mesh_files"])
         self.assertIn("distal.stl", spec["visual_mesh_files"])
         self.assertIn("distal_shell.stl", spec["visual_mesh_files"])
+        self.assertEqual(spec["default_visual_mode"], VISUAL_MODE_STATIC_SHELL)
+        self.assertIn(VISUAL_MODE_PARTITIONED_LINKS, spec["available_visual_modes"])
 
     def test_grasp_scalar_targets_clamp_and_close_monotonically(self) -> None:
         open_targets = grasp_scalar_to_hand_joint_targets(0.0)
@@ -85,30 +89,33 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(report["status"], "PASS")
             self.assertEqual(report["root_link"], "r_wrist_interface")
             self.assertEqual(report["actuated_joint_names"], HAND_ACTUATED_JOINT_NAMES)
+            self.assertEqual(report["visual_mode"], VISUAL_MODE_STATIC_SHELL)
             self.assertEqual(report["missing_visual_meshes"], [])
             self.assertEqual(report["collision_primitive_count"], 13)
             self.assertTrue(output_urdf.is_file())
             self.assertEqual(
                 report["mjcf_visual_shell"]["visual_attachment_mode"],
-                "mjcf_visuals_partitioned_to_tree_links",
+                "mjcf_static_visual_shell",
             )
             self.assertEqual(report["mjcf_visual_shell"]["mjcf_visual_geom_count"], 162)
             self.assertEqual(report["mjcf_visual_shell"]["missing_mjcf_visual_meshes"], [])
-            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["r_wrist_interface"], 0)
-            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_proximal"], 0)
-            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_distal"], 0)
+            self.assertEqual(
+                report["mjcf_visual_shell"]["link_visual_counts"]["amazinghand_visual_shell"],
+                162,
+            )
 
             root = ET.parse(output_urdf).getroot()
             links = {link.attrib["name"]: link for link in root.findall("link")}
             joints = {joint.attrib["name"]: joint for joint in root.findall("joint")}
 
             self.assertIn("r_wrist_interface", links)
-            self.assertNotIn("amazinghand_visual_shell", links)
+            self.assertIn("amazinghand_visual_shell", links)
             self.assertIn("palm", links)
             self.assertEqual(len([name for name in links if name.endswith("_proximal")]), 4)
             self.assertEqual(len([name for name in links if name.endswith("_distal")]), 4)
-            self.assertEqual(len(joints), 9)
+            self.assertEqual(len(joints), 10)
             self.assertEqual(joints["wrist_to_palm"].attrib["type"], "fixed")
+            self.assertEqual(joints["wrist_to_amazinghand_visual_shell"].attrib["type"], "fixed")
             for joint_name in HAND_ACTUATED_JOINT_NAMES:
                 joint = joints[joint_name]
                 self.assertEqual(joint.attrib["type"], "revolute")
@@ -129,7 +136,7 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertIn("proximal.stl", visual_mesh_names)
             self.assertIn("distal.stl", visual_mesh_names)
             root_visual_origin = root.find(
-                ".//link[@name='r_wrist_interface']/visual/origin"
+                ".//link[@name='amazinghand_visual_shell']/visual/origin"
             )
             proximal_visual_origin = root.find(
                 ".//link[@name='finger1_proximal']/visual/origin"
@@ -138,11 +145,9 @@ class GraspableHandUrdfTests(unittest.TestCase):
                 ".//link[@name='finger1_distal']/visual/origin"
             )
             self.assertIsNotNone(root_visual_origin)
-            self.assertIsNotNone(proximal_visual_origin)
-            self.assertIsNotNone(distal_visual_origin)
+            self.assertIsNone(proximal_visual_origin)
+            self.assertIsNone(distal_visual_origin)
             self.assertNotEqual(root_visual_origin.attrib["xyz"], "0 0 0")  # type: ignore[union-attr]
-            self.assertNotEqual(proximal_visual_origin.attrib["xyz"], "0 0 0")  # type: ignore[union-attr]
-            self.assertNotEqual(distal_visual_origin.attrib["xyz"], "0 0 0")  # type: ignore[union-attr]
 
             proximal_box = root.find(".//collision[@name='finger1_proximal_contact_box']/geometry/box")
             distal_box = root.find(".//collision[@name='finger1_distal_contact_box']/geometry/box")
@@ -167,6 +172,37 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(len(collisions), 13)
             self.assertEqual(len(inertials), len(links))
             self.assertNotIn("equality", output_urdf.read_text(encoding="utf-8").lower())
+
+    def test_generate_urdf_can_write_experimental_partitioned_moving_visuals(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            package_root = extract_robot_arm_hand_package(ZIP_PATH, Path(tmp) / "inputs")
+            output_urdf = Path(tmp) / "amazinghand_graspable_partitioned.urdf"
+
+            report = generate_graspable_hand_urdf(
+                package_root,
+                output_urdf,
+                visual_mode=VISUAL_MODE_PARTITIONED_LINKS,
+            )
+
+            self.assertEqual(report["status"], "PASS")
+            self.assertEqual(report["visual_mode"], VISUAL_MODE_PARTITIONED_LINKS)
+            self.assertEqual(
+                report["mjcf_visual_shell"]["visual_attachment_mode"],
+                "mjcf_visuals_partitioned_to_tree_links",
+            )
+            self.assertEqual(report["mjcf_visual_shell"]["mjcf_visual_geom_count"], 162)
+            self.assertEqual(report["mjcf_visual_shell"]["missing_mjcf_visual_meshes"], [])
+            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["r_wrist_interface"], 0)
+            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_proximal"], 0)
+            self.assertGreater(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_distal"], 0)
+
+            root = ET.parse(output_urdf).getroot()
+            links = {link.attrib["name"]: link for link in root.findall("link")}
+            joints = {joint.attrib["name"]: joint for joint in root.findall("joint")}
+            self.assertNotIn("amazinghand_visual_shell", links)
+            self.assertEqual(len(joints), 9)
+            self.assertIsNotNone(root.find(".//link[@name='finger1_proximal']/visual/origin"))
+            self.assertIsNotNone(root.find(".//link[@name='finger1_distal']/visual/origin"))
 
 
 if __name__ == "__main__":

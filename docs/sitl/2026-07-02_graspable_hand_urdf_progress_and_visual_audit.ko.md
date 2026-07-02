@@ -333,3 +333,76 @@ Isaac 검증:
 - MJCF closed-loop의 모든 passive linkage 운동학을 그대로 복원한 것은 아니다.
 - visual 분배는 Isaac tree articulation에 맞춘 근사다.
 - 다음 단계는 distal/proximal visual 분류를 더 정밀하게 하고, fingertip collision pad와 실제 물체 grasp/lift-retain 검증을 붙이는 것이다.
+
+## 2026-07-02 손가락 구동 visual 깨짐 디버깅
+
+사용자 재지적 사항:
+
+- 손가락이 움직일 때 다시 visual이 깨지는 것처럼 보인다.
+- 손 부분에 집중해서 원인을 찾아야 한다.
+- 프로젝트 메모리도 계속 남기고 git commit에 포함해야 한다.
+
+확인한 사실:
+
+- 기존 canonical project memory 위치인 `omx_wiki/`에는 아직 기록 파일이 없었다.
+- 앞 단계의 per-link visual partition은 Isaac report와 정적 테스트는 통과했다.
+- `robot_arm_hand_graspable_20260702_visualpartition/contact_sheet.png`를 다시 판독하면, 손가락 부품들이 움직이는 link를 따라가지만 원본 AmazingHand closed-loop linkage처럼 움직이지는 않는다.
+
+Root cause:
+
+- 원본 AmazingHand MJCF는 단순 2-link serial finger가 아니다.
+- 각 finger는 servo horn, ball, passive link, pin, shell이 equality/connect constraint로 닫힌 기구를 만든다.
+- 현재 Isaac용 손은 안정성을 위해 closed-loop를 버리고 `palm -> proximal -> distal` tree articulation으로 단순화했다.
+- per-link visual partition은 MJCF visual의 초기 world transform을 보존한 뒤 임의의 tree link에 나눠 붙인 근사다.
+- 따라서 초기 자세에서는 AmazingHand처럼 보이지만, 손가락을 굽힐 때 visual 부품들이 원본 MJCF의 pivot/axis가 아니라 단순 URDF pivot/axis를 따라 회전한다.
+- 이 차이가 사용자가 본 "움직일 때 깨짐"의 직접 원인이다.
+
+수정 결정:
+
+- 기본 visual mode를 `mjcf_visuals_partitioned_to_tree_links`에서 `mjcf_static_visual_shell`로 되돌렸다.
+- `amazinghand_visual_shell`은 원본 MJCF의 162개 visual geom을 wrist 기준 fixed link에 그대로 보존한다.
+- 물체 접촉과 집기 동작은 계속 primitive collision finger tree가 담당한다.
+- per-link moving visual은 `visual_mode="partitioned_links"` 옵션으로만 남기고, 실험 모드로 취급한다.
+
+이 결정의 의미:
+
+- 장점: 손가락을 구동해도 원본 AmazingHand visual 조립체가 잘못된 pivot으로 찢어져 보이지 않는다.
+- 장점: Isaac import 안정성과 primitive collision 기반 접촉 물리는 유지된다.
+- 단점: 기본 모드에서는 원본 STL visual 손가락 자체가 굽혀 보이지 않는다. 움직이는 것은 collision finger tree다.
+- 다음에 진짜 animated visual까지 맞추려면 MJCF closed-loop의 passive linkage 운동학을 tree용 구동 joint와 별도로 재구성하거나, USD에서 visual-only follower linkage를 계산해야 한다.
+
+검증 기준:
+
+- default generated URDF:
+  - visual mode: `static_shell`
+  - attachment mode: `mjcf_static_visual_shell`
+  - visual geom count: `162`
+  - `amazinghand_visual_shell` fixed link 존재
+- optional partitioned URDF:
+  - visual mode: `partitioned_links`
+  - attachment mode: `mjcf_visuals_partitioned_to_tree_links`
+  - 실험 모드로 유지
+
+수정 후 정적 검증:
+
+- `python3 isaacsim_test/test_graspable_hand_urdf.py`: `OK`, 4 tests
+- `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: `OK`, 14 tests
+
+수정 후 Isaac 검증:
+
+- output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_visualfix_static`
+- artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_visualfix_static`
+- report: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_visualfix_static/robot_arm_hand_connected_report.json`
+- overall status: `PASS_WITH_FALLBACK`
+- runtime validation: `PASS`
+- generated hand visual mode: `static_shell`
+- generated hand attachment mode: `mjcf_static_visual_shell`
+- generated hand MJCF visual geom count: `162`
+- missing MJCF visual meshes: `[]`
+
+수정 후 이미지 판독:
+
+- `contact_sheet.png`에서 손목 위 AmazingHand 조립체가 팔 끝에 안정적으로 붙어 있다.
+- 손가락 구동 pose에서도 per-link partition처럼 visual 부품이 잘못된 pivot으로 벌어지는 현상은 보이지 않는다.
+- 이는 기본 모드가 원본 visual shell을 wrist 기준 fixed link로 유지하기 때문이다.
+- 단, 이 상태는 visual 안정성 우선 모드다. 작은 물체를 실제로 집는 기능은 계속 primitive collision finger tree와 drive target으로 검증해야 한다.

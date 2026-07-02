@@ -26,6 +26,9 @@ HAND_ACTUATED_JOINT_NAMES = [
     "finger4_motor2",
 ]
 
+VISUAL_MODE_STATIC_SHELL = "static_shell"
+VISUAL_MODE_PARTITIONED_LINKS = "partitioned_links"
+
 _FINGER_LAYOUTS = {
     1: {
         "role": "index",
@@ -374,6 +377,52 @@ def _add_mjcf_visuals_to_tree_links(
     }
 
 
+def _add_mjcf_visual_shell(
+    robot: ET.Element,
+    *,
+    package_root: Path,
+) -> dict[str, Any]:
+    visual_shell = _add_link(
+        robot,
+        "amazinghand_visual_shell",
+        mass=0.001,
+        inertia=(1.0e-8, 1.0e-8, 1.0e-8),
+    )
+    _add_fixed_joint(
+        robot,
+        name="wrist_to_amazinghand_visual_shell",
+        parent="r_wrist_interface",
+        child="amazinghand_visual_shell",
+        xyz=(0.0, 0.0, 0.0),
+    )
+
+    visual_geoms = _collect_mjcf_visual_geoms(package_root)
+    missing_meshes: list[str] = []
+    for visual in visual_geoms:
+        mesh_path = Path(visual["mesh_path"])
+        if not mesh_path.is_file():
+            missing_meshes.append(str(mesh_path))
+            continue
+        _add_visual(
+            visual_shell,
+            name=visual["name"],
+            mesh_path=mesh_path,
+            xyz=visual["xyz"],
+            rpy=visual["rpy"],
+        )
+    return {
+        "visual_attachment_mode": "mjcf_static_visual_shell",
+        "mjcf_visual_geom_count": len(visual_geoms),
+        "missing_mjcf_visual_meshes": missing_meshes,
+        "link_visual_counts": {"amazinghand_visual_shell": len(visual_geoms) - len(missing_meshes)},
+        "motion_caveat": (
+            "Original AmazingHand MJCF visual assembly is fixed to the wrist. "
+            "Primitive collision fingers still move for contact; this avoids "
+            "tearing closed-loop visual parts around approximate URDF pivots."
+        ),
+    }
+
+
 def _add_box_collision(
     link: ET.Element,
     *,
@@ -460,6 +509,13 @@ def build_graspable_hand_model_spec() -> dict[str, Any]:
             "STL files are used only as visual geometry.",
             "Primitive box collisions are used for stable Isaac contact.",
             "The model is a tree articulation with four two-joint fingers.",
+            "Default visual mode keeps the original MJCF visual assembly fixed to the wrist.",
+            "Partitioned moving visuals are available only as an experimental mode.",
+        ],
+        "default_visual_mode": VISUAL_MODE_STATIC_SHELL,
+        "available_visual_modes": [
+            VISUAL_MODE_STATIC_SHELL,
+            VISUAL_MODE_PARTITIONED_LINKS,
         ],
     }
 
@@ -483,6 +539,7 @@ def generate_graspable_hand_urdf(
     output_urdf: str | Path,
     *,
     robot_name: str = "amazinghand_graspable",
+    visual_mode: str = VISUAL_MODE_STATIC_SHELL,
 ) -> dict[str, Any]:
     """Generate a simplified tree hand URDF that Isaac can import as an articulation."""
     package = Path(package_root)
@@ -490,6 +547,11 @@ def generate_graspable_hand_urdf(
     asset_root = package / "hand_mjcf" / "assets"
     if not asset_root.is_dir():
         raise FileNotFoundError(f"Hand asset directory not found: {asset_root}")
+    if visual_mode not in {VISUAL_MODE_STATIC_SHELL, VISUAL_MODE_PARTITIONED_LINKS}:
+        raise ValueError(
+            f"Unsupported visual_mode {visual_mode!r}; expected "
+            f"{VISUAL_MODE_STATIC_SHELL!r} or {VISUAL_MODE_PARTITIONED_LINKS!r}"
+        )
 
     spec = build_graspable_hand_model_spec()
     missing_meshes = [
@@ -592,7 +654,10 @@ def generate_graspable_hand_urdf(
             limit=(0.0, 1.2),
         )
 
-    visual_shell_report = _add_mjcf_visuals_to_tree_links(links, package_root=package)
+    if visual_mode == VISUAL_MODE_STATIC_SHELL:
+        visual_shell_report = _add_mjcf_visual_shell(robot, package_root=package)
+    else:
+        visual_shell_report = _add_mjcf_visuals_to_tree_links(links, package_root=package)
 
     ET.indent(robot, space="  ")
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -611,6 +676,7 @@ def generate_graspable_hand_urdf(
         "link_count": link_count,
         "joint_count": len(joints),
         "actuated_joint_names": list(HAND_ACTUATED_JOINT_NAMES),
+        "visual_mode": visual_mode,
         "visual_mesh_files": list(spec["visual_mesh_files"]),
         "missing_visual_meshes": missing_meshes + visual_shell_report["missing_mjcf_visual_meshes"],
         "mjcf_visual_shell": visual_shell_report,
