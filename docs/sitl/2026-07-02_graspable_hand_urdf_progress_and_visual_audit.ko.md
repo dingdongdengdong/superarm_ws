@@ -481,3 +481,63 @@ Finger별 readback:
 - 손가락별 2-link motor command는 Isaac 물리환경에서 동작한다.
 - 기본 visual mode가 `static_shell`이므로 STL visual 손가락 자체는 구부러져 보이지 않는다. 이번 테스트의 판정 기준은 물리 DOF readback이다.
 - 다음 단계로 작은 쓰레기 집기를 위한 collision pad, friction, drive gain, lift-retain 테스트를 진행할 수 있다.
+
+## 2026-07-02 접촉 proxy 및 lift-retain 디버깅
+
+문제 재정의:
+
+- 손가락 2-link/2-motor articulation은 정상 동작했다.
+- 하지만 실제 작은 물체를 집으려면 visual shell이 아니라 손바닥/손가락 물리 collision이 필요하다.
+- Isaac URDF import 결과에는 `/World/RobotArmHandFromZip/Hand/<link>/collisions` Xform은 있었지만 실제 `CollisionAPI` geometry가 비어 있었다.
+- 그래서 단순히 마찰 재질을 바인딩하는 방식은 `bound_collision_count=0`이 되어 물체 파지 검증이 되지 않았다.
+
+수정:
+
+- runtime stage에서 손바닥과 손가락 링크 아래에 명시적 collision proxy cube를 authoring했다.
+- proxy는 화면에서는 숨기고 physics collision만 유지한다.
+- 생성 수량은 13개다.
+  - palm 1개
+  - finger1-4 각각 proximal 1개, distal 1개, distal tip pad 1개
+- 고마찰 물리 재질을 proxy에 바인딩했다.
+  - static friction: `1.6`
+  - dynamic friction: `1.35`
+  - restitution: `0.02`
+- grasp/lift 테스트에서 open settle 동안 물체가 먼저 떨어지던 문제를 수정했다.
+  - close 직전에 grasp object를 hand 기준 target 위치로 reset한다.
+  - reset 시 linear/angular velocity를 0으로 만든다.
+
+정적 검증:
+
+- `python3 isaacsim_test/test_graspable_hand_urdf.py`: `OK`, 4 tests
+- `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: `OK`, 16 tests
+
+Isaac 검증:
+
+- output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_objectreset`
+- artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_objectreset`
+- overall status: `PASS_WITH_FALLBACK`
+- runtime validation: `PASS`
+- contact tuning: `PASS`
+- `authored_proxy_count`: `13`
+- `bound_collision_count`: `13`
+- `missing_link_paths`: `[]`
+- finger motion validation: `PASS`
+- grasp smoke: `PASS`
+
+Lift-retain 결과:
+
+- `lift_retain_validation`: `WARN`
+- object reset target: `[0.005, 0.02986, 0.645003]`
+- close 직전 object 위치: `[0.005, 0.02986, 0.642278]`
+- close 직후 object 위치: `[0.005, 0.02986, 0.465153]`
+- close 직후 object-hand distance: `0.1381 m`
+- lift 이후 object 위치: `[0.082027, 0.052758, 0.063341]`
+- lift 이후 object-hand distance: `0.5447 m`
+- object z delta after lift: `-0.5789 m`
+- 판정: 물체가 close 직후에는 손 근처에 오지만, 지속 파지/들어올리기는 아직 실패한다.
+
+현재 결론:
+
+- 손가락 관절 제어와 기본 접촉 proxy authoring은 해결됐다.
+- 남은 물리 문제는 파지 기하와 유지력이다.
+- 다음 단계는 작은 쓰레기 object가 손가락 안쪽에 실제로 envelop되도록 palm/finger proxy 위치, object spawn 위치, finger close target, drive force/damping, solver/contact offset을 함께 튜닝하는 것이다.

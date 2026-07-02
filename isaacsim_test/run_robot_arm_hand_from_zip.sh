@@ -25,6 +25,7 @@ SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
   -e ROBOT_ARM_HAND_SETTLE_STEPS="${ROBOT_ARM_HAND_SETTLE_STEPS:-20}" \
   -e ROBOT_ARM_HAND_GRASP_STEPS="${ROBOT_ARM_HAND_GRASP_STEPS:-90}" \
   -e ROBOT_ARM_HAND_FINGER_MOTION_STEPS="${ROBOT_ARM_HAND_FINGER_MOTION_STEPS:-45}" \
+  -e ROBOT_ARM_HAND_LIFT_RETAIN_STEPS="${ROBOT_ARM_HAND_LIFT_RETAIN_STEPS:-75}" \
   isaac-sim-51 \
   "exec /isaac-sim/python.sh /workspace/isaacsim/robot_arm_hand_from_zip.py --mode convert" \
   2>&1 | tee "$RUNTIME_LOG_HOST"
@@ -40,6 +41,7 @@ SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
   -e ROBOT_ARM_HAND_SETTLE_STEPS="${ROBOT_ARM_HAND_SETTLE_STEPS:-20}" \
   -e ROBOT_ARM_HAND_GRASP_STEPS="${ROBOT_ARM_HAND_GRASP_STEPS:-90}" \
   -e ROBOT_ARM_HAND_FINGER_MOTION_STEPS="${ROBOT_ARM_HAND_FINGER_MOTION_STEPS:-45}" \
+  -e ROBOT_ARM_HAND_LIFT_RETAIN_STEPS="${ROBOT_ARM_HAND_LIFT_RETAIN_STEPS:-75}" \
   isaac-sim-51 \
   "exec /isaac-sim/python.sh /workspace/isaacsim/robot_arm_hand_from_zip.py --mode runtime" \
   2>&1 | tee -a "$RUNTIME_LOG_HOST"

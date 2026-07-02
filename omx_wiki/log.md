@@ -40,3 +40,31 @@
   - screenshots: `finger1_two_link_motion.png` through `finger4_two_link_motion.png`.
 - Next step:
   - proceed to small-trash grasp physics: collision pad placement, friction, drive gains, solver settings, and lift-retain validation.
+
+## 2026-07-02 Contact Proxy And Lift-Retain Debug
+
+- Added explicit runtime hand collision proxies because the imported hand stage exposed empty `collisions` Xforms without usable `CollisionAPI` geometry.
+- Contact proxy contract:
+  - 13 hidden cube collision proxies total.
+  - palm: 1 proxy.
+  - each of 4 fingers: proximal, distal, distal tip pad.
+  - high-friction material: static `1.6`, dynamic `1.35`, restitution `0.02`.
+- Fixed a validation bug where the grasp object fell during open/settle before close:
+  - reset object to the hand-local target immediately before close.
+  - zero linear/angular velocity on reset.
+- Static tests:
+  - `python3 isaacsim_test/test_graspable_hand_urdf.py`: passed, 4 tests.
+  - `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: passed, 16 tests.
+- Isaac run:
+  - output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_objectreset`
+  - artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_objectreset`
+  - runtime validation: `PASS`
+  - contact tuning: `PASS`
+  - authored/bound collision proxies: `13/13`
+  - finger motion validation: `PASS`
+  - grasp smoke: `PASS`
+  - lift-retain validation: `WARN`
+- Current physical limitation:
+  - close starts with the object at the hand target and brings it near the hand.
+  - the object still drops during retain/lift.
+  - next work must tune proxy geometry, object placement, drive strength, damping, and contact solver settings for sustained grasp.

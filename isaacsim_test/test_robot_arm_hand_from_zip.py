@@ -29,6 +29,7 @@ from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
     analyze_hand_mjcf,
     build_arm_joint_position_command,
     build_grasp_validation_object_specs,
+    build_hand_contact_proxy_specs,
     build_hand_grasp_position_command,
     build_hand_proxy_primitives,
     build_named_joint_position_command,
@@ -213,6 +214,30 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertGreater(spec["mass_kg"], 0.0)
         self.assertLess(spec["mass_kg"], 0.05)
         self.assertEqual(len(spec["local_xyz"]), 3)
+
+    def test_hand_contact_proxy_specs_cover_palm_and_two_link_fingers(self) -> None:
+        specs = build_hand_contact_proxy_specs()
+
+        self.assertEqual(len(specs), 13)
+        self.assertEqual(specs[0]["link_name"], "palm")
+        for finger_index in range(1, 5):
+            names_for_finger = {
+                spec["name"]
+                for spec in specs
+                if spec["link_name"].startswith(f"finger{finger_index}_")
+            }
+            self.assertEqual(
+                names_for_finger,
+                {
+                    f"finger{finger_index}_proximal_contact_proxy",
+                    f"finger{finger_index}_distal_contact_proxy",
+                    f"finger{finger_index}_distal_tip_pad_proxy",
+                },
+            )
+        for spec in specs:
+            self.assertEqual(len(spec["local_xyz"]), 3)
+            self.assertEqual(len(spec["scale"]), 3)
+            self.assertTrue(all(value > 0.0 for value in spec["scale"]))
 
     def test_proxy_hand_authors_physics_body_and_collision_shapes(self) -> None:
         from pxr import Usd, UsdPhysics

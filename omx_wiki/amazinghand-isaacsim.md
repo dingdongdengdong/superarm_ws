@@ -93,3 +93,18 @@ Latest two-link finger physics validation:
 - finger2 achieved `[0.7785, 0.9614]` for target `[0.78, 0.96]`
 - finger3 achieved `[0.7785, 0.9614]` for target `[0.78, 0.96]`
 - finger4 achieved `[0.7795, 0.9366]` for target `[0.78, 0.96]`
+
+Latest contact/lift-retain state:
+
+- Isaac output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_objectreset`
+- Runtime validation: `PASS`
+- Contact tuning: `PASS`
+- Authored hidden hand collision proxies: `13`
+- Bound high-friction collision proxies: `13`
+- Missing hand link paths for proxy authoring: `[]`
+- Finger motion validation: `PASS`
+- Grasp smoke: `PASS`
+- Lift-retain validation: `WARN`
+- Object reset before close works; close starts with object at `[0.005, 0.02986, 0.642278]`.
+- Close brings the object near the hand (`0.1381 m` from hand root), but it still drops during the retain/lift phase.
+- Next physics work: tune palm/finger proxy geometry, object spawn pose, close targets, drive force/damping, and solver/contact offsets for sustained small-trash grasping.

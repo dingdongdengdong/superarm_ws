@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import math
 import os
 import shutil
 import sys
@@ -489,6 +490,42 @@ def build_grasp_validation_object_specs() -> list[dict[str, Any]]:
     ]
 
 
+def build_hand_contact_proxy_specs() -> list[dict[str, Any]]:
+    """Return link-local collision proxies for the generated two-link hand."""
+    specs: list[dict[str, Any]] = [
+        {
+            "link_name": "palm",
+            "name": "palm_contact_proxy",
+            "local_xyz": (0.0, -0.038, 0.0),
+            "scale": (0.09, 0.085, 0.035),
+        }
+    ]
+    for finger_index in range(1, 5):
+        specs.extend(
+            [
+                {
+                    "link_name": f"finger{finger_index}_proximal",
+                    "name": f"finger{finger_index}_proximal_contact_proxy",
+                    "local_xyz": (0.0, 0.029, 0.0),
+                    "scale": (0.02, 0.06, 0.02),
+                },
+                {
+                    "link_name": f"finger{finger_index}_distal",
+                    "name": f"finger{finger_index}_distal_contact_proxy",
+                    "local_xyz": (0.0, 0.025, 0.0),
+                    "scale": (0.018, 0.052, 0.018),
+                },
+                {
+                    "link_name": f"finger{finger_index}_distal",
+                    "name": f"finger{finger_index}_distal_tip_pad_proxy",
+                    "local_xyz": (0.0, 0.055, 0.0),
+                    "scale": (0.03, 0.016, 0.026),
+                },
+            ]
+        )
+    return specs
+
+
 def _world_translation(stage: Any, prim_path: str) -> tuple[float, float, float] | None:
     from pxr import Usd, UsdGeom
 
@@ -513,6 +550,42 @@ def _transform_local_point(
     matrix = UsdGeom.XformCache(Usd.TimeCode.Default()).GetLocalToWorldTransform(anchor)
     world = matrix.Transform(Gf.Vec3d(*local_xyz))
     return tuple(float(world[index]) for index in range(3))
+
+
+def _set_world_translation(
+    stage: Any,
+    prim_path: str,
+    world_xyz: tuple[float, float, float],
+) -> tuple[float, float, float] | None:
+    from pxr import Gf, UsdGeom, UsdPhysics
+
+    prim = stage.GetPrimAtPath(prim_path)
+    if not prim.IsValid():
+        return None
+    xformable = UsdGeom.Xformable(prim)
+    translate_op = None
+    for op in xformable.GetOrderedXformOps():
+        if op.GetOpType() == UsdGeom.XformOp.TypeTranslate:
+            translate_op = op
+            break
+    if translate_op is None:
+        translate_op = xformable.AddTranslateOp()
+    translate_op.Set(Gf.Vec3d(*world_xyz))
+    if prim.HasAPI(UsdPhysics.RigidBodyAPI):
+        body_api = UsdPhysics.RigidBodyAPI(prim)
+        body_api.CreateVelocityAttr().Set(Gf.Vec3f(0.0, 0.0, 0.0))
+        body_api.CreateAngularVelocityAttr().Set(Gf.Vec3f(0.0, 0.0, 0.0))
+    return world_xyz
+
+
+def _reset_grasp_object_pose(stage: Any, object_path: str) -> tuple[float, float, float] | None:
+    specs = build_grasp_validation_object_specs()
+    local_xyz = tuple(specs[0]["local_xyz"]) if specs else (0.0, 0.03, 0.045)
+    hand_world = _world_translation(stage, CONNECTED_HAND_PRIM_PATH)
+    if hand_world is None:
+        return None
+    target = tuple(hand_world[index] + float(local_xyz[index]) for index in range(3))
+    return _set_world_translation(stage, object_path, target)
 
 
 def _author_grasp_validation_objects(stage: Any) -> list[dict[str, Any]]:
@@ -559,6 +632,68 @@ def _author_grasp_validation_objects(stage: Any) -> list[dict[str, Any]]:
         "Small rigid-object smoke test for early hand contact tuning."
     )
     return authored
+
+
+def _bind_hand_contact_material(stage: Any) -> dict[str, Any]:
+    from pxr import Gf, Sdf, UsdGeom, UsdPhysics, UsdShade
+
+    material_path = f"{CONNECTED_ROOT_PRIM_PATH}/HandHighFrictionMaterial"
+    material = UsdShade.Material.Define(stage, material_path)
+    physics_material = UsdPhysics.MaterialAPI.Apply(material.GetPrim())
+    physics_material.CreateStaticFrictionAttr().Set(1.6)
+    physics_material.CreateDynamicFrictionAttr().Set(1.35)
+    physics_material.CreateRestitutionAttr().Set(0.02)
+
+    bound_paths: list[str] = []
+    authored_proxy_paths: list[str] = []
+    missing_link_paths: list[str] = []
+    for spec in build_hand_contact_proxy_specs():
+        link_path = f"{CONNECTED_HAND_PRIM_PATH}/{spec['link_name']}"
+        link_prim = stage.GetPrimAtPath(link_path)
+        if not link_prim.IsValid():
+            missing_link_paths.append(link_path)
+            continue
+        proxy_root_path = f"{link_path}/contact_proxies"
+        UsdGeom.Scope.Define(stage, proxy_root_path)
+        proxy_path = f"{proxy_root_path}/{spec['name']}"
+        cube = UsdGeom.Cube.Define(stage, proxy_path)
+        cube.CreateSizeAttr(1.0)
+        cube.CreateDisplayColorAttr([Gf.Vec3f(0.95, 0.54, 0.18)])
+        UsdGeom.Imageable(cube.GetPrim()).MakeInvisible()
+        xformable = UsdGeom.Xformable(cube.GetPrim())
+        xformable.AddTranslateOp().Set(Gf.Vec3d(*spec["local_xyz"]))
+        xformable.AddScaleOp().Set(Gf.Vec3d(*spec["scale"]))
+        UsdPhysics.CollisionAPI.Apply(cube.GetPrim())
+        UsdShade.MaterialBindingAPI(cube.GetPrim()).Bind(material)
+        cube.GetPrim().CreateAttribute("contact_proxy_link", Sdf.ValueTypeNames.String).Set(
+            spec["link_name"]
+        )
+        authored_proxy_paths.append(proxy_path)
+        bound_paths.append(proxy_path)
+
+    for prim in stage.Traverse():
+        prim_path = str(prim.GetPath())
+        is_hand_collision = prim_path.startswith(CONNECTED_HAND_PRIM_PATH)
+        is_importer_collider = prim_path.startswith("/colliders/")
+        if not (is_hand_collision or is_importer_collider):
+            continue
+        if prim.HasAPI(UsdPhysics.CollisionAPI):
+            UsdShade.MaterialBindingAPI(prim).Bind(material)
+            if prim_path not in bound_paths:
+                bound_paths.append(prim_path)
+
+    return {
+        "status": "PASS" if bound_paths else "WARN",
+        "material_path": material_path,
+        "static_friction": 1.6,
+        "dynamic_friction": 1.35,
+        "restitution": 0.02,
+        "authored_proxy_count": len(authored_proxy_paths),
+        "authored_proxy_paths": authored_proxy_paths[:20],
+        "missing_link_paths": missing_link_paths,
+        "bound_collision_count": len(bound_paths),
+        "bound_collision_paths": bound_paths[:20],
+    }
 
 
 def _author_proxy_hand_usd(
@@ -1117,6 +1252,7 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
         app.update()
         stage = context.get_stage()
         authored_grasp_objects = _author_grasp_validation_objects(stage)
+        hand_contact_tuning = _bind_hand_contact_material(stage)
         app.update()
 
         world = World(stage_units_in_meters=1.0)
@@ -1206,11 +1342,13 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
             object_path = (
                 authored_grasp_objects[0]["prim_path"] if authored_grasp_objects else None
             )
-            object_before = _world_translation(stage, object_path) if object_path else None
+            object_initial = _world_translation(stage, object_path) if object_path else None
+            object_before = None
             command_error = None
             control_status = "APPLIED"
             controlled_joint_names: list[str] = []
             target_values: list[float] = []
+            object_reset_world_xyz = None
             try:
                 _ensure_articulation_ready()
                 open_command = build_hand_grasp_position_command(
@@ -1232,12 +1370,19 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     )
                     for _ in range(max(10, args.settle_steps)):
                         world.step(render=True)
+                    if object_path:
+                        object_reset_world_xyz = _reset_grasp_object_pose(stage, object_path)
+                        app.update()
+                    object_before = _world_translation(stage, object_path) if object_path else None
                     art.set_joint_position_targets(
                         np.array(close_command["target_values"], dtype=np.float32),
                         joint_indices=np.array(close_command["controlled_indices"], dtype=np.int32),
                     )
                 else:
                     control_status = "DIRECT_POSITION_FALLBACK"
+                    if object_path:
+                        object_reset_world_xyz = _reset_grasp_object_pose(stage, object_path)
+                    object_before = _world_translation(stage, object_path) if object_path else None
                     art.set_joint_positions(
                         np.array([close_command["positions"]], dtype=np.float32)
                     )
@@ -1264,6 +1409,8 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                 "status": "PASS" if size_bytes > 0 and control_status != "FAILED" else "WARN",
                 "authored_objects": authored_grasp_objects,
                 "object_prim_path": object_path,
+                "object_world_xyz_initial": list(object_initial) if object_initial else None,
+                "object_reset_world_xyz": list(object_reset_world_xyz) if object_reset_world_xyz else None,
                 "object_world_xyz_before": list(object_before) if object_before else None,
                 "object_world_xyz_after": list(object_after) if object_after else None,
                 "control_status": control_status,
@@ -1424,6 +1571,165 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
 
         finger_motion_validation = _run_two_link_finger_motion_validation()
 
+        def _distance(
+            left: tuple[float, float, float] | None,
+            right: tuple[float, float, float] | None,
+        ) -> float | None:
+            if left is None or right is None:
+                return None
+            return math.sqrt(sum((left[index] - right[index]) ** 2 for index in range(3)))
+
+        def _run_lift_retain_smoke() -> dict[str, Any]:
+            nonlocal current_positions, controlled_indices
+
+            if art is None:
+                return {
+                    "status": "WARN",
+                    "reason": "No initialized articulation is available for lift-retain validation.",
+                }
+            object_path = (
+                authored_grasp_objects[0]["prim_path"] if authored_grasp_objects else None
+            )
+            if not object_path:
+                return {"status": "WARN", "reason": "No grasp validation object was authored."}
+
+            command_error = None
+            control_status = "APPLIED"
+            object_initial = _world_translation(stage, object_path)
+            object_reset_world_xyz = None
+            object_before = None
+            hand_before = _world_translation(stage, CONNECTED_HAND_PRIM_PATH)
+            object_after_close = None
+            hand_after_close = None
+            object_after_lift = None
+            hand_after_lift = None
+            try:
+                _ensure_articulation_ready()
+                open_command = build_hand_grasp_position_command(
+                    current_positions=current_positions,
+                    dof_names=dof_names,
+                    grasp=0.0,
+                )
+                if hasattr(art, "set_joint_position_targets"):
+                    art.set_joint_position_targets(
+                        np.array(open_command["target_values"], dtype=np.float32),
+                        joint_indices=np.array(open_command["controlled_indices"], dtype=np.int32),
+                    )
+                else:
+                    art.set_joint_positions(np.array([open_command["positions"]], dtype=np.float32))
+                for _ in range(max(10, args.settle_steps)):
+                    world.step(render=True)
+                current_positions = _flat_float_list(art.get_joint_positions())
+                object_reset_world_xyz = _reset_grasp_object_pose(stage, object_path)
+                app.update()
+                object_before = _world_translation(stage, object_path)
+
+                close_command = build_hand_grasp_position_command(
+                    current_positions=current_positions,
+                    dof_names=dof_names,
+                    grasp=1.0,
+                )
+                if hasattr(art, "set_joint_position_targets"):
+                    art.set_joint_position_targets(
+                        np.array(close_command["target_values"], dtype=np.float32),
+                        joint_indices=np.array(close_command["controlled_indices"], dtype=np.int32),
+                    )
+                else:
+                    control_status = "DIRECT_POSITION_FALLBACK"
+                    art.set_joint_positions(
+                        np.array([close_command["positions"]], dtype=np.float32)
+                    )
+                for _ in range(args.grasp_steps):
+                    world.step(render=True)
+                current_positions = _flat_float_list(art.get_joint_positions())
+                object_after_close = _world_translation(stage, object_path)
+                hand_after_close = _world_translation(stage, CONNECTED_HAND_PRIM_PATH)
+
+                lift_command = build_arm_joint_position_command(
+                    current_positions=current_positions,
+                    dof_names=dof_names,
+                    command=[0.0, -0.32, 0.42, 0.18],
+                )
+                current_positions = list(lift_command["positions"])
+                controlled_indices = list(lift_command["controlled_indices"])
+                if hasattr(art, "set_joint_position_targets"):
+                    art.set_joint_position_targets(
+                        np.array(lift_command["target_values"], dtype=np.float32),
+                        joint_indices=np.array(controlled_indices, dtype=np.int32),
+                    )
+                else:
+                    art.set_joint_positions(np.array([current_positions], dtype=np.float32))
+                for _ in range(args.lift_retain_steps):
+                    world.step(render=True)
+                app.update()
+                current_positions = _flat_float_list(art.get_joint_positions())
+                object_after_lift = _world_translation(stage, object_path)
+                hand_after_lift = _world_translation(stage, CONNECTED_HAND_PRIM_PATH)
+            except Exception as exc:
+                control_status = "FAILED"
+                command_error = f"{type(exc).__name__}: {exc}"
+
+            screenshot = screenshot_root / "lift_retain_smoke.png"
+            size_bytes = 0
+            try:
+                _capture_screenshot(screenshot, CONNECTED_ROOT_PRIM_PATH)
+                size_bytes = screenshot.stat().st_size
+                screenshots.append(screenshot)
+            except Exception as exc:
+                if command_error is None:
+                    command_error = f"screenshot {type(exc).__name__}: {exc}"
+
+            close_distance = _distance(object_after_close, hand_after_close)
+            lift_distance = _distance(object_after_lift, hand_after_lift)
+            object_z_delta = (
+                object_after_lift[2] - object_before[2]
+                if object_after_lift is not None and object_before is not None
+                else None
+            )
+            retained_near_hand = lift_distance is not None and lift_distance <= 0.16
+            lifted_or_held = object_z_delta is not None and object_z_delta >= -0.01
+            return {
+                "status": "PASS"
+                if size_bytes > 0
+                and control_status != "FAILED"
+                and retained_near_hand
+                and lifted_or_held
+                else "WARN",
+                "object_prim_path": object_path,
+                "object_world_xyz_initial": list(object_initial) if object_initial else None,
+                "object_reset_world_xyz": list(object_reset_world_xyz)
+                if object_reset_world_xyz
+                else None,
+                "object_world_xyz_before": list(object_before) if object_before else None,
+                "hand_world_xyz_before": list(hand_before) if hand_before else None,
+                "object_world_xyz_after_close": list(object_after_close)
+                if object_after_close
+                else None,
+                "hand_world_xyz_after_close": list(hand_after_close)
+                if hand_after_close
+                else None,
+                "object_world_xyz_after_lift": list(object_after_lift)
+                if object_after_lift
+                else None,
+                "hand_world_xyz_after_lift": list(hand_after_lift) if hand_after_lift else None,
+                "object_hand_distance_after_close_m": close_distance,
+                "object_hand_distance_after_lift_m": lift_distance,
+                "object_z_delta_after_lift_m": object_z_delta,
+                "retained_near_hand": retained_near_hand,
+                "lifted_or_held": lifted_or_held,
+                "control_status": control_status,
+                "command_error": command_error,
+                "screenshot": _repo_relative_path(screenshot) if size_bytes else None,
+                "size_bytes": size_bytes,
+                "evidence_summary": (
+                    "Closed all hand joints around the authored small rigid object, "
+                    "then commanded an arm lift pose while physics was stepping. PASS "
+                    "requires the object to remain near the hand and not drop in Z."
+                ),
+            }
+
+        lift_retain_validation = _run_lift_retain_smoke()
+
         cases = [
             ("startup", []),
             ("home", [0.0, 0.0, 0.0, 0.0]),
@@ -1507,8 +1813,10 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
             "controlled_joint_names": [
                 name for name in ARM_JOINT_NAMES if name in dof_names
             ],
+            "hand_contact_tuning": hand_contact_tuning,
             "grasp_validation": grasp_validation,
             "finger_motion_validation": finger_motion_validation,
+            "lift_retain_validation": lift_retain_validation,
             "motion_cases": pose_results,
             "screenshot_output_dir": _repo_relative_path(screenshot_root),
             "contact_sheet": _repo_relative_path(contact_sheet),
@@ -1583,6 +1891,11 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         "--finger-motion-steps",
         type=int,
         default=int(os.environ.get("ROBOT_ARM_HAND_FINGER_MOTION_STEPS", "45")),
+    )
+    parser.add_argument(
+        "--lift-retain-steps",
+        type=int,
+        default=int(os.environ.get("ROBOT_ARM_HAND_LIFT_RETAIN_STEPS", "75")),
     )
     parser.add_argument(
         "--headless",
