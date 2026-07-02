@@ -32,6 +32,7 @@ from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
     build_hand_grasp_position_command,
     build_hand_proxy_primitives,
     build_named_joint_position_command,
+    build_single_finger_two_link_position_command,
     extract_robot_arm_hand_package,
     sanitize_arm_urdf,
     sanitize_hand_mjcf,
@@ -163,6 +164,44 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertEqual(result["controlled_indices"], list(range(1, 9)))
         self.assertTrue(all(value > 0.9 for value in result["target_values"][::2]))
         self.assertTrue(all(value > 1.0 for value in result["target_values"][1::2]))
+
+    def test_single_finger_two_link_command_targets_only_one_motor_pair(self) -> None:
+        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
+        current = [0.1] * len(dof_names)
+
+        result = build_single_finger_two_link_position_command(
+            current_positions=current,
+            dof_names=dof_names,
+            finger_index=3,
+            motor1=0.78,
+            motor2=0.96,
+        )
+
+        self.assertEqual(
+            result["controlled_joint_names"],
+            ["finger3_motor1", "finger3_motor2"],
+        )
+        self.assertEqual(
+            result["controlled_indices"],
+            [dof_names.index("finger3_motor1"), dof_names.index("finger3_motor2")],
+        )
+        self.assertEqual(result["target_values"], [0.78, 0.96])
+        for index, name in enumerate(dof_names):
+            if name == "finger3_motor1":
+                self.assertEqual(result["positions"][index], 0.78)
+            elif name == "finger3_motor2":
+                self.assertEqual(result["positions"][index], 0.96)
+            else:
+                self.assertEqual(result["positions"][index], 0.1)
+
+        with self.assertRaises(ValueError):
+            build_single_finger_two_link_position_command(
+                current_positions=current,
+                dof_names=dof_names,
+                finger_index=5,
+                motor1=0.0,
+                motor2=0.0,
+            )
 
     def test_grasp_validation_object_specs_are_small_rigid_trash_like_objects(self) -> None:
         specs = build_grasp_validation_object_specs()

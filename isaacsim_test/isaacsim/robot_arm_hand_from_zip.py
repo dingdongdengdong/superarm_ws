@@ -158,6 +158,27 @@ def build_hand_grasp_position_command(
     )
 
 
+def build_single_finger_two_link_position_command(
+    current_positions: Any,
+    dof_names: list[str],
+    finger_index: int,
+    *,
+    motor1: float,
+    motor2: float,
+) -> dict[str, Any]:
+    """Build a command for one generated two-link finger."""
+    if finger_index < 1 or finger_index > 4:
+        raise ValueError(f"Expected finger_index from 1 to 4, got {finger_index}")
+    return build_named_joint_position_command(
+        current_positions=current_positions,
+        dof_names=dof_names,
+        joint_targets={
+            f"finger{finger_index}_motor1": float(motor1),
+            f"finger{finger_index}_motor2": float(motor2),
+        },
+    )
+
+
 def _host_path(path: str | Path) -> Path:
     raw = str(path)
     if raw.startswith(CONTAINER_ROOT + "/"):
@@ -1261,6 +1282,148 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
 
         grasp_validation = _run_grasp_contact_smoke()
 
+        def _run_two_link_finger_motion_validation() -> dict[str, Any]:
+            nonlocal current_positions
+
+            if art is None:
+                return {
+                    "status": "WARN",
+                    "reason": "No initialized articulation is available for finger motion validation.",
+                    "finger_results": [],
+                }
+            finger_results: list[dict[str, Any]] = []
+            try:
+                _ensure_articulation_ready()
+                open_command = build_hand_grasp_position_command(
+                    current_positions=current_positions,
+                    dof_names=dof_names,
+                    grasp=0.0,
+                )
+                if hasattr(art, "set_joint_position_targets"):
+                    art.set_joint_position_targets(
+                        np.array(open_command["target_values"], dtype=np.float32),
+                        joint_indices=np.array(open_command["controlled_indices"], dtype=np.int32),
+                    )
+                else:
+                    art.set_joint_positions(
+                        np.array([open_command["positions"]], dtype=np.float32)
+                    )
+                for _ in range(max(10, args.settle_steps)):
+                    world.step(render=True)
+                current_positions = _flat_float_list(art.get_joint_positions())
+            except Exception as exc:
+                return {
+                    "status": "WARN",
+                    "reason": f"Could not reset hand open before finger validation: {type(exc).__name__}: {exc}",
+                    "finger_results": finger_results,
+                }
+
+            for finger_index in range(1, 5):
+                joint_names = [
+                    f"finger{finger_index}_motor1",
+                    f"finger{finger_index}_motor2",
+                ]
+                command_error = None
+                target_positions = [0.78, 0.96]
+                before_positions: list[float] = []
+                achieved_positions: list[float] = []
+                controlled_indices_for_finger: list[int] = []
+                control_status = "APPLIED"
+                screenshot = screenshot_root / f"finger{finger_index}_two_link_motion.png"
+                size_bytes = 0
+                try:
+                    _ensure_articulation_ready()
+                    refreshed = _flat_float_list(art.get_joint_positions())
+                    if len(refreshed) == len(dof_names):
+                        current_positions = refreshed
+                    controlled_indices_for_finger = [
+                        dof_names.index(name) for name in joint_names
+                    ]
+                    before_positions = [
+                        current_positions[index] for index in controlled_indices_for_finger
+                    ]
+                    finger_command = build_single_finger_two_link_position_command(
+                        current_positions=current_positions,
+                        dof_names=dof_names,
+                        finger_index=finger_index,
+                        motor1=target_positions[0],
+                        motor2=target_positions[1],
+                    )
+                    if hasattr(art, "set_joint_position_targets"):
+                        art.set_joint_position_targets(
+                            np.array(finger_command["target_values"], dtype=np.float32),
+                            joint_indices=np.array(
+                                finger_command["controlled_indices"], dtype=np.int32
+                            ),
+                        )
+                    else:
+                        control_status = "DIRECT_POSITION_FALLBACK"
+                        art.set_joint_positions(
+                            np.array([finger_command["positions"]], dtype=np.float32)
+                        )
+                    for _ in range(args.finger_motion_steps):
+                        world.step(render=True)
+                    app.update()
+                    achieved_all_positions = _flat_float_list(art.get_joint_positions())
+                    achieved_positions = [
+                        achieved_all_positions[index]
+                        for index in finger_command["controlled_indices"]
+                    ]
+                    current_positions = achieved_all_positions
+                    _capture_screenshot(screenshot, CONNECTED_ROOT_PRIM_PATH)
+                    size_bytes = screenshot.stat().st_size
+                    screenshots.append(screenshot)
+                except Exception as exc:
+                    control_status = "FAILED"
+                    command_error = f"{type(exc).__name__}: {exc}"
+
+                deltas = [
+                    abs(after - before)
+                    for before, after in zip(before_positions, achieved_positions)
+                ]
+                target_errors = [
+                    abs(after - target)
+                    for after, target in zip(achieved_positions, target_positions)
+                ]
+                moved = len(deltas) == 2 and all(delta >= 0.20 for delta in deltas)
+                reached = len(target_errors) == 2 and all(error <= 0.25 for error in target_errors)
+                finger_results.append(
+                    {
+                        "finger_index": finger_index,
+                        "joint_names": joint_names,
+                        "controlled_indices": controlled_indices_for_finger,
+                        "before_positions_rad": before_positions,
+                        "target_positions_rad": target_positions,
+                        "achieved_positions_rad": achieved_positions,
+                        "position_deltas_rad": deltas,
+                        "target_errors_rad": target_errors,
+                        "control_status": control_status,
+                        "command_error": command_error,
+                        "screenshot": _repo_relative_path(screenshot) if size_bytes else None,
+                        "size_bytes": size_bytes,
+                        "status": "PASS"
+                        if size_bytes > 0 and control_status != "FAILED" and moved and reached
+                        else "WARN",
+                    }
+                )
+
+            return {
+                "status": "PASS"
+                if finger_results
+                and all(item["status"] == "PASS" for item in finger_results)
+                else "WARN",
+                "finger_results": finger_results,
+                "evidence_summary": (
+                    "Commanded each generated AmazingHand finger independently in Isaac "
+                    "physics. Each finger uses two revolute joints: motor1 for palm-to-"
+                    "proximal and motor2 for proximal-to-distal. Validation checks joint "
+                    "position readback movement and screenshot capture; visual STL shell "
+                    "is intentionally fixed in the default stable mode."
+                ),
+            }
+
+        finger_motion_validation = _run_two_link_finger_motion_validation()
+
         cases = [
             ("startup", []),
             ("home", [0.0, 0.0, 0.0, 0.0]),
@@ -1345,6 +1508,7 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                 name for name in ARM_JOINT_NAMES if name in dof_names
             ],
             "grasp_validation": grasp_validation,
+            "finger_motion_validation": finger_motion_validation,
             "motion_cases": pose_results,
             "screenshot_output_dir": _repo_relative_path(screenshot_root),
             "contact_sheet": _repo_relative_path(contact_sheet),
@@ -1415,6 +1579,11 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--settle-steps", type=int, default=int(os.environ.get("ROBOT_ARM_HAND_SETTLE_STEPS", "20")))
     parser.add_argument("--grasp-steps", type=int, default=int(os.environ.get("ROBOT_ARM_HAND_GRASP_STEPS", "90")))
+    parser.add_argument(
+        "--finger-motion-steps",
+        type=int,
+        default=int(os.environ.get("ROBOT_ARM_HAND_FINGER_MOTION_STEPS", "45")),
+    )
     parser.add_argument(
         "--headless",
         action="store_true",

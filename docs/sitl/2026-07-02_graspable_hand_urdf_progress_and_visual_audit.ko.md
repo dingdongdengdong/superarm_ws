@@ -406,3 +406,78 @@ Root cause:
 - 손가락 구동 pose에서도 per-link partition처럼 visual 부품이 잘못된 pivot으로 벌어지는 현상은 보이지 않는다.
 - 이는 기본 모드가 원본 visual shell을 wrist 기준 fixed link로 유지하기 때문이다.
 - 단, 이 상태는 visual 안정성 우선 모드다. 작은 물체를 실제로 집는 기능은 계속 primitive collision finger tree와 drive target으로 검증해야 한다.
+
+## 2026-07-02 손가락별 2-link 물리 구동 검증
+
+사용자 확인 사항:
+
+- 손가락 하나당 link가 두 개다.
+- 각 손가락은 `motor1`과 `motor2` 두 motor가 조종한다.
+- 이를 기준으로 물리환경에서 손가락 움직임이 잘 동작하는지 먼저 테스트해야 한다.
+
+현재 Isaac용 hand topology:
+
+- `finger*_motor1`: `palm`에서 `finger*_proximal`을 구동한다.
+- `finger*_motor2`: `finger*_proximal`에서 `finger*_distal`을 구동한다.
+- 즉 손가락 하나는 `proximal`과 `distal` 두 link, 두 revolute motor로 구성된다.
+- 이 구조는 `isaacsim_test/test_graspable_hand_urdf.py`의 topology assertion으로 고정했다.
+
+추가한 runtime 검증:
+
+- `robot_arm_hand_from_zip.py`에 `finger_motion_validation`을 추가했다.
+- Isaac runtime에서 finger1부터 finger4까지 한 손가락씩 독립적으로 구동한다.
+- 각 손가락에 대해 `motor1=0.78 rad`, `motor2=0.96 rad` target을 넣는다.
+- physics step 후 Articulation joint position readback을 기록한다.
+- 각 finger별 screenshot도 별도로 저장한다.
+
+정적 검증:
+
+- `python3 isaacsim_test/test_graspable_hand_urdf.py`: `OK`, 4 tests
+- `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: `OK`, 15 tests
+
+Isaac 검증:
+
+- output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_finger2link`
+- artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_finger2link`
+- report: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_finger2link/robot_arm_hand_connected_report.json`
+- overall status: `PASS_WITH_FALLBACK`
+- runtime validation: `PASS`
+- finger motion validation: `PASS`
+- loaded DOF count: `12`
+- hand DOF:
+  - `finger1_motor1`, `finger2_motor1`, `finger3_motor1`, `finger4_motor1`
+  - `finger1_motor2`, `finger2_motor2`, `finger3_motor2`, `finger4_motor2`
+
+Finger별 readback:
+
+- finger1:
+  - before: `[0.0493, 0.0151]`
+  - target: `[0.78, 0.96]`
+  - achieved: `[0.7791, 0.9622]`
+  - delta: `[0.7297, 0.9471]`
+  - target error: `[0.0009, 0.0022]`
+- finger2:
+  - before: `[-0.0003, -0.0]`
+  - target: `[0.78, 0.96]`
+  - achieved: `[0.7785, 0.9614]`
+  - delta: `[0.7787, 0.9614]`
+  - target error: `[0.0015, 0.0014]`
+- finger3:
+  - before: `[-0.0003, 0.0]`
+  - target: `[0.78, 0.96]`
+  - achieved: `[0.7785, 0.9614]`
+  - delta: `[0.7787, 0.9614]`
+  - target error: `[0.0015, 0.0014]`
+- finger4:
+  - before: `[-0.0, 0.0]`
+  - target: `[0.78, 0.96]`
+  - achieved: `[0.7795, 0.9366]`
+  - delta: `[0.7795, 0.9366]`
+  - target error: `[0.0005, 0.0234]`
+
+판정:
+
+- 네 손가락 모두 두 motor가 physics articulation에서 목표 위치 근처까지 움직였다.
+- 손가락별 2-link motor command는 Isaac 물리환경에서 동작한다.
+- 기본 visual mode가 `static_shell`이므로 STL visual 손가락 자체는 구부러져 보이지 않는다. 이번 테스트의 판정 기준은 물리 DOF readback이다.
+- 다음 단계로 작은 쓰레기 집기를 위한 collision pad, friction, drive gain, lift-retain 테스트를 진행할 수 있다.

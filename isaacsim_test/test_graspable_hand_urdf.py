@@ -116,6 +116,22 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(len(joints), 10)
             self.assertEqual(joints["wrist_to_palm"].attrib["type"], "fixed")
             self.assertEqual(joints["wrist_to_amazinghand_visual_shell"].attrib["type"], "fixed")
+            for finger_index in range(1, 5):
+                motor1 = joints[f"finger{finger_index}_motor1"]
+                motor2 = joints[f"finger{finger_index}_motor2"]
+                self.assertEqual(motor1.find("parent").attrib["link"], "palm")  # type: ignore[union-attr]
+                self.assertEqual(
+                    motor1.find("child").attrib["link"],  # type: ignore[union-attr]
+                    f"finger{finger_index}_proximal",
+                )
+                self.assertEqual(
+                    motor2.find("parent").attrib["link"],  # type: ignore[union-attr]
+                    f"finger{finger_index}_proximal",
+                )
+                self.assertEqual(
+                    motor2.find("child").attrib["link"],  # type: ignore[union-attr]
+                    f"finger{finger_index}_distal",
+                )
             for joint_name in HAND_ACTUATED_JOINT_NAMES:
                 joint = joints[joint_name]
                 self.assertEqual(joint.attrib["type"], "revolute")

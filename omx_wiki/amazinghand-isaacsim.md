@@ -56,6 +56,15 @@ In the default stable mode, STL finger visuals do not visibly curl with the coll
 
 To get both accurate animated visual and physical grasping later, implement a visual follower system derived from the MJCF linkage pivots or a proper tree-compatible USD/URDF visual decomposition.
 
+## Finger Physics Contract
+
+Each generated finger is a two-link tree chain:
+
+- `finger*_motor1`: `palm -> finger*_proximal`
+- `finger*_motor2`: `finger*_proximal -> finger*_distal`
+
+The runtime validation now includes `finger_motion_validation`. It commands each finger independently with two motor targets and records Isaac Articulation joint-position readback.
+
 ## Validation Evidence
 
 Latest validation after the static-shell default fix:
@@ -72,3 +81,15 @@ Latest validation after the static-shell default fix:
 - Isaac artifact reviewed: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_visualfix_static/contact_sheet.png`
 
 The reviewed contact sheet shows the AmazingHand assembly stable at the arm tip during pose changes. This fixes the visible tearing caused by approximate partitioned visual links. The physical grasping surface is still the primitive collision finger tree.
+
+Latest two-link finger physics validation:
+
+- Isaac output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_finger2link`
+- Isaac artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_finger2link`
+- Overall status: `PASS_WITH_FALLBACK`
+- Runtime validation: `PASS`
+- Finger motion validation: `PASS`
+- finger1 achieved `[0.7791, 0.9622]` for target `[0.78, 0.96]`
+- finger2 achieved `[0.7785, 0.9614]` for target `[0.78, 0.96]`
+- finger3 achieved `[0.7785, 0.9614]` for target `[0.78, 0.96]`
+- finger4 achieved `[0.7795, 0.9366]` for target `[0.78, 0.96]`

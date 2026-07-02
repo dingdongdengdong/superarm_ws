@@ -20,3 +20,23 @@
 - Next technical focus:
   - tune contact pads, friction, drive gains, and lift-retain tests for small trash grasping.
   - reconstruct a true animated visual follower only after the MJCF linkage pivots are mapped.
+
+## 2026-07-02 Finger Two-Link Physics Validation
+
+- Added runtime `finger_motion_validation`.
+- Confirmed generated topology:
+  - `finger*_motor1` drives `palm -> finger*_proximal`.
+  - `finger*_motor2` drives `finger*_proximal -> finger*_distal`.
+- Static tests:
+  - `python3 isaacsim_test/test_graspable_hand_urdf.py`: passed, 4 tests.
+  - `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: passed, 15 tests.
+- Isaac run:
+  - output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_finger2link`
+  - artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_finger2link`
+  - runtime validation: `PASS`
+  - finger motion validation: `PASS`
+- Evidence:
+  - all four fingers reached target `[0.78, 0.96]` rad within small readback error.
+  - screenshots: `finger1_two_link_motion.png` through `finger4_two_link_motion.png`.
+- Next step:
+  - proceed to small-trash grasp physics: collision pad placement, friction, drive gains, solver settings, and lift-retain validation.
