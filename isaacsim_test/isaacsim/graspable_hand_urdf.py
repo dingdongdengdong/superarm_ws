@@ -74,6 +74,26 @@ _VISUAL_MESH_FILES = [
     "std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default.stl",
     "std00447_thermoplastique_m2_5x6__configuration_default.stl",
 ]
+_DISTAL_VISUAL_MESHES = {
+    "distal",
+    "distal_shell",
+    "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999",
+}
+_PROXIMAL_VISUAL_MESHES = {
+    "proximal",
+    "proximal_shell",
+    "parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b",
+}
+_MJCF_ACTUATED_BODY_TO_LINK_PREFIX = {
+    "custom_servo_horn": "finger1",
+    "rotule_ball_2": "finger1",
+    "custom_servo_horn_2": "finger2",
+    "rotule_ball_4": "finger2",
+    "custom_servo_horn_3": "finger3",
+    "rotule_ball_6": "finger3",
+    "custom_servo_horn_4": "finger4",
+    "rotule_ball_8": "finger4",
+}
 
 
 def _format_float(value: float) -> str:
@@ -240,6 +260,7 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
         body: ET.Element,
         parent_xyz: tuple[float, float, float],
         parent_quat: tuple[float, float, float, float],
+        parent_chain: tuple[str, ...],
     ) -> None:
         body_xyz, body_quat = _compose_transform(
             parent_xyz,
@@ -248,6 +269,7 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
             _parse_quat(body.attrib.get("quat")),
         )
         body_name = body.attrib.get("name", "body")
+        body_chain = (*parent_chain, body_name)
         for geom_index, geom in enumerate(body.findall("geom")):
             mesh_name = geom.attrib.get("mesh")
             if not mesh_name:
@@ -263,6 +285,7 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
                 {
                     "name": f"mjcf_{len(visuals):03d}_{body_name}_{mesh_name}_{geom_index}",
                     "body_name": body_name,
+                    "body_chain": body_chain,
                     "mesh_name": mesh_name,
                     "mesh_path": mesh_path,
                     "xyz": geom_xyz,
@@ -270,42 +293,84 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
                 }
             )
         for child in body.findall("body"):
-            walk_body(child, body_xyz, body_quat)
+            walk_body(child, body_xyz, body_quat, body_chain)
 
     for body in worldbody.findall("body"):
-        walk_body(body, (0.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0))
+        walk_body(body, (0.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0), ())
     return visuals
 
 
-def _add_mjcf_visual_shell(
-    robot: ET.Element,
+def _finger_link_initial_xyz() -> dict[str, tuple[float, float, float]]:
+    link_xyz = {
+        "r_wrist_interface": (0.0, 0.0, 0.0),
+        "palm": (0.0, 0.0, 0.0),
+    }
+    for finger_index, layout in sorted(_FINGER_LAYOUTS.items()):
+        base_xyz = layout["base_xyz"]
+        link_xyz[f"finger{finger_index}_proximal"] = base_xyz
+        link_xyz[f"finger{finger_index}_distal"] = (
+            base_xyz[0],
+            base_xyz[1] + 0.058,
+            base_xyz[2],
+        )
+    return link_xyz
+
+
+def _classify_mjcf_visual_link(visual: dict[str, Any]) -> str:
+    mesh_name = visual["mesh_name"]
+    body_chain = visual["body_chain"]
+    finger_prefix = None
+    for body_name in body_chain:
+        if body_name in _MJCF_ACTUATED_BODY_TO_LINK_PREFIX:
+            finger_prefix = _MJCF_ACTUATED_BODY_TO_LINK_PREFIX[body_name]
+            break
+    if finger_prefix is None:
+        return "r_wrist_interface"
+    if mesh_name in _DISTAL_VISUAL_MESHES:
+        return f"{finger_prefix}_distal"
+    if mesh_name in _PROXIMAL_VISUAL_MESHES:
+        return f"{finger_prefix}_proximal"
+    return f"{finger_prefix}_proximal"
+
+
+def _add_mjcf_visuals_to_tree_links(
+    links: dict[str, ET.Element],
     *,
     package_root: Path,
 ) -> dict[str, Any]:
-    visual_link = _add_link(
-        robot,
-        "amazinghand_visual_shell",
-        mass=0.001,
-        inertia=(1.0e-7, 1.0e-7, 1.0e-7),
-    )
     visual_geoms = _collect_mjcf_visual_geoms(package_root)
+    link_initial_xyz = _finger_link_initial_xyz()
+    link_visual_counts = {link_name: 0 for link_name in links}
     missing_meshes: list[str] = []
     for visual in visual_geoms:
         mesh_path = Path(visual["mesh_path"])
         if not mesh_path.is_file():
             missing_meshes.append(str(mesh_path))
             continue
+        link_name = _classify_mjcf_visual_link(visual)
+        link_origin = link_initial_xyz[link_name]
+        local_xyz = (
+            visual["xyz"][0] - link_origin[0],
+            visual["xyz"][1] - link_origin[1],
+            visual["xyz"][2] - link_origin[2],
+        )
         _add_visual(
-            visual_link,
+            links[link_name],
             name=visual["name"],
             mesh_path=mesh_path,
-            xyz=visual["xyz"],
+            xyz=local_xyz,
             rpy=visual["rpy"],
         )
+        link_visual_counts[link_name] += 1
     return {
-        "visual_link": "amazinghand_visual_shell",
+        "visual_attachment_mode": "mjcf_visuals_partitioned_to_tree_links",
         "mjcf_visual_geom_count": len(visual_geoms),
         "missing_mjcf_visual_meshes": missing_meshes,
+        "link_visual_counts": {
+            link_name: count
+            for link_name, count in sorted(link_visual_counts.items())
+            if count
+        },
     }
 
 
@@ -447,14 +512,7 @@ def generate_graspable_hand_urdf(
         mass=0.055,
         inertia=(2.0e-5, 2.0e-5, 2.0e-5),
     )
-    visual_shell_report = _add_mjcf_visual_shell(robot, package_root=package)
-    _add_fixed_joint(
-        robot,
-        name="wrist_to_amazinghand_visual_shell",
-        parent="r_wrist_interface",
-        child="amazinghand_visual_shell",
-        xyz=(0.0, 0.0, 0.0),
-    )
+    links = {"r_wrist_interface": wrist}
 
     palm = _add_link(
         robot,
@@ -462,6 +520,7 @@ def generate_graspable_hand_urdf(
         mass=0.14,
         inertia=(8.0e-5, 8.0e-5, 1.0e-4),
     )
+    links["palm"] = palm
     _add_box_collision(
         palm,
         name="palm_contact_box",
@@ -486,6 +545,7 @@ def generate_graspable_hand_urdf(
             mass=0.028,
             inertia=(1.1e-5, 1.1e-5, 3.0e-6),
         )
+        links[proximal_name] = proximal
         _add_box_collision(
             proximal,
             name=f"{proximal_name}_contact_box",
@@ -499,6 +559,7 @@ def generate_graspable_hand_urdf(
             mass=0.022,
             inertia=(8.0e-6, 8.0e-6, 2.0e-6),
         )
+        links[distal_name] = distal
         _add_box_collision(
             distal,
             name=f"{distal_name}_contact_box",
@@ -530,6 +591,8 @@ def generate_graspable_hand_urdf(
             axis=layout["axis"],
             limit=(0.0, 1.2),
         )
+
+    visual_shell_report = _add_mjcf_visuals_to_tree_links(links, package_root=package)
 
     ET.indent(robot, space="  ")
     output.parent.mkdir(parents=True, exist_ok=True)

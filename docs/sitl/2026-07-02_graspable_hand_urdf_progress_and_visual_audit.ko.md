@@ -277,3 +277,59 @@ Isaac 검증:
 - Isaac용 변환에서는 "physics import 가능성"과 "visual fidelity"를 별도 요구사항으로 다뤄야 한다.
 - closed-loop hand는 물리 articulation으로 그대로 가져오지 말고, tree physics와 original visual shell을 분리해서 결합하는 편이 안정적이다.
 - 이미지 검증은 artifact 존재 여부가 아니라 사람이 contact sheet를 판독하고, 원본 구조와 비교하는 단계까지 포함해야 한다.
+
+## 2026-07-02 per-link visual partition
+
+이 단계의 목적:
+
+- 이전 단계의 `amazinghand_visual_shell`은 원본 손 모양을 잘 보여줬지만, 손목 기준 fixed visual이었다.
+- 실제 손가락 DOF를 움직일 때 visual도 같이 움직이려면 MJCF visual들을 URDF tree link에 나눠 붙여야 한다.
+
+수정 내용:
+
+- `amazinghand_visual_shell` fixed link를 제거했다.
+- MJCF visual 162개를 다음 link로 분배했다.
+  - `r_wrist_interface`: 손목/손바닥/고정 frame visual
+  - `finger*_proximal`: servo horn, proximal shell, linkage 대부분
+  - `finger*_distal`: distal/distal shell 계열 visual
+- 각 visual은 MJCF root 기준 world transform을 먼저 계산한 뒤, 해당 URDF link의 초기 frame으로 다시 변환해서 붙였다.
+- 초기 자세에서는 원본 AmazingHand 모양을 유지하고, 이후 articulation motion에서는 해당 link와 함께 움직이도록 했다.
+
+정적 검증:
+
+- `python3 isaacsim_test/test_graspable_hand_urdf.py`: `OK`, 3 tests
+- `python3 isaacsim_test/test_robot_arm_hand_from_zip.py`: `OK`, 14 tests
+- visual attachment mode: `mjcf_visuals_partitioned_to_tree_links`
+- `mjcf_visual_geom_count`: `162`
+- `missing_mjcf_visual_meshes`: `[]`
+- link visual count:
+  - `r_wrist_interface`: 26
+  - `finger1_proximal`: 30
+  - `finger1_distal`: 4
+  - `finger2_proximal`: 30
+  - `finger2_distal`: 4
+  - `finger3_proximal`: 30
+  - `finger3_distal`: 4
+  - `finger4_proximal`: 30
+  - `finger4_distal`: 4
+
+Isaac 검증:
+
+- output root: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_visualpartition`
+- artifact root: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_visualpartition`
+- report: `isaacsim_test/outputs/robot_arm_hand_graspable_20260702_visualpartition/robot_arm_hand_connected_report.json`
+- overall status: `PASS_WITH_FALLBACK`
+- runtime validation: `PASS`
+- contact sheet: `isaacsim_test/artifacts/robot_arm_hand_graspable_20260702_visualpartition/contact_sheet.png`
+
+이미지 판독:
+
+- contact sheet에서 AmazingHand의 조립식 손 형상이 유지된다.
+- `reach`, `fold`, `side_sweep` 자세에서도 손 visual이 팔 끝에 붙어 있고, 손가락 부분이 손목 기준 고정 덩어리처럼만 남지 않는다.
+- 이전 static shell보다 다음 물리 단계에 더 적합하다. collision tree와 visual tree가 같은 link 구조를 공유하기 때문이다.
+
+현재 남은 한계:
+
+- MJCF closed-loop의 모든 passive linkage 운동학을 그대로 복원한 것은 아니다.
+- visual 분배는 Isaac tree articulation에 맞춘 근사다.
+- 다음 단계는 distal/proximal visual 분류를 더 정밀하게 하고, fingertip collision pad와 실제 물체 grasp/lift-retain 검증을 붙이는 것이다.
