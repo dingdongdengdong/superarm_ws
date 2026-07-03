@@ -27,6 +27,8 @@ HAND_ACTUATED_JOINT_NAMES = [
     "finger4_motor2",
 ]
 HAND_GRASP_TYPES = ("wrap", "pinch", "wide")
+AMAZINGHAND_SERVO_MODEL = "SCS0009"
+AMAZINGHAND_DEFAULT_SPEED = 6
 
 VISUAL_MODE_STATIC_SHELL = "static_shell"
 VISUAL_MODE_PARTITIONED_LINKS = "partitioned_links"
@@ -60,6 +62,64 @@ _FINGER_LAYOUTS = {
         "mjcf_anchor_body": "custom_servo_horn_4",
         "mjcf_proximal_xyz": (0.02816, 0.02426, 0.02970),
         "axis": (0.0, 0.0, 1.0),
+    },
+}
+_AMAZINGHAND_MOTOR_CONFIG = {
+    "finger1_motor1": {
+        "finger_index": 1,
+        "motor_index": 1,
+        "servo_id": 1,
+        "offset_rad": math.radians(7.0),
+        "invert": False,
+    },
+    "finger1_motor2": {
+        "finger_index": 1,
+        "motor_index": 2,
+        "servo_id": 2,
+        "offset_rad": math.radians(5.0),
+        "invert": False,
+    },
+    "finger2_motor1": {
+        "finger_index": 2,
+        "motor_index": 1,
+        "servo_id": 3,
+        "offset_rad": 0.0,
+        "invert": False,
+    },
+    "finger2_motor2": {
+        "finger_index": 2,
+        "motor_index": 2,
+        "servo_id": 4,
+        "offset_rad": math.radians(7.0),
+        "invert": False,
+    },
+    "finger3_motor1": {
+        "finger_index": 3,
+        "motor_index": 1,
+        "servo_id": 5,
+        "offset_rad": math.radians(5.0),
+        "invert": False,
+    },
+    "finger3_motor2": {
+        "finger_index": 3,
+        "motor_index": 2,
+        "servo_id": 6,
+        "offset_rad": math.radians(7.0),
+        "invert": False,
+    },
+    "finger4_motor1": {
+        "finger_index": 4,
+        "motor_index": 1,
+        "servo_id": 7,
+        "offset_rad": 0.0,
+        "invert": False,
+    },
+    "finger4_motor2": {
+        "finger_index": 4,
+        "motor_index": 2,
+        "servo_id": 8,
+        "offset_rad": math.radians(7.0),
+        "invert": False,
     },
 }
 
@@ -752,6 +812,7 @@ def build_graspable_hand_model_spec() -> dict[str, Any]:
         },
         "excluded_human_finger": "pinky",
         "actuated_joint_names": list(HAND_ACTUATED_JOINT_NAMES),
+        "motor_contract": build_amazinghand_motor_contract(),
         "grasp_types": list(HAND_GRASP_TYPES),
         "default_grasp_type": "wrap",
         "visual_mesh_files": list(_VISUAL_MESH_FILES),
@@ -772,6 +833,51 @@ def build_graspable_hand_model_spec() -> dict[str, Any]:
             VISUAL_MODE_IMPLEMENTED_ONLY,
         ],
     }
+
+
+def build_amazinghand_motor_contract() -> dict[str, Any]:
+    """Return the AmazingHand SCS0009 servo contract mirrored from r_hand.toml."""
+    motors = {
+        joint_name: {
+            **config,
+            "model": AMAZINGHAND_SERVO_MODEL,
+            "joint_name": joint_name,
+        }
+        for joint_name, config in _AMAZINGHAND_MOTOR_CONFIG.items()
+    }
+    return {
+        "source": "AmazingHand/Demo/AHControl/config/r_hand.toml",
+        "servo_model": AMAZINGHAND_SERVO_MODEL,
+        "default_speed": AMAZINGHAND_DEFAULT_SPEED,
+        "servo_ids": [motors[name]["servo_id"] for name in HAND_ACTUATED_JOINT_NAMES],
+        "joint_to_servo_id": {
+            name: motors[name]["servo_id"] for name in HAND_ACTUATED_JOINT_NAMES
+        },
+        "motors": motors,
+        "servo_command_policy": (
+            "Apply the r_hand.toml offset in radians to each generated motor target; "
+            "invert the final target only when the upstream config marks that motor inverted."
+        ),
+    }
+
+
+def _grasp_type_motor_scales(
+    grasp_type: str,
+) -> tuple[dict[int, float], dict[int, float]]:
+    if grasp_type == "wrap":
+        return (
+            {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0},
+            {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0},
+        )
+    if grasp_type == "pinch":
+        return (
+            {1: 1.0, 2: 0.45, 3: 0.45, 4: 1.0},
+            {1: 1.0, 2: 0.40, 3: 0.40, 4: 1.0},
+        )
+    return (
+        {1: 0.62, 2: 0.62, 3: 0.62, 4: 0.62},
+        {1: 0.58, 2: 0.58, 3: 0.58, 4: 0.58},
+    )
 
 
 def grasp_scalar_to_hand_joint_targets(grasp: float) -> dict[str, float]:
@@ -796,15 +902,7 @@ def grasp_preshape_to_hand_joint_targets(
             f"{', '.join(HAND_GRASP_TYPES)}"
         )
     closedness = max(0.0, min(1.0, float(grasp_amount)))
-    if grasp_type == "wrap":
-        motor1_scale = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
-        motor2_scale = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
-    elif grasp_type == "pinch":
-        motor1_scale = {1: 1.0, 2: 0.45, 3: 0.45, 4: 1.0}
-        motor2_scale = {1: 1.0, 2: 0.40, 3: 0.40, 4: 1.0}
-    else:
-        motor1_scale = {1: 0.62, 2: 0.62, 3: 0.62, 4: 0.62}
-        motor2_scale = {1: 0.58, 2: 0.58, 3: 0.58, 4: 0.58}
+    motor1_scale, motor2_scale = _grasp_type_motor_scales(grasp_type)
     targets: dict[str, float] = {}
     for finger_index in range(1, 5):
         targets[f"finger{finger_index}_motor1"] = (
@@ -813,6 +911,41 @@ def grasp_preshape_to_hand_joint_targets(
         targets[f"finger{finger_index}_motor2"] = (
             0.02 + closedness * 1.08 * motor2_scale[finger_index]
         )
+    return targets
+
+
+def grasp_preshape_to_servo_targets(
+    grasp_amount: float,
+    grasp_type: str = "wrap",
+) -> dict[int, float]:
+    """Map a normalized preshape to real AmazingHand SCS0009 servo targets.
+
+    The generated Isaac hand uses positive revolute joints for stable tree
+    articulation.  The hardware hand uses paired SCS0009 servos where motor1
+    and motor2 close in opposite angular directions.  This helper preserves the
+    real command convention from the upstream Python examples while keeping the
+    generated joint targets available for simulation.
+    """
+    if grasp_type not in HAND_GRASP_TYPES:
+        raise ValueError(
+            f"Unsupported grasp_type {grasp_type!r}; supported grasp types: "
+            f"{', '.join(HAND_GRASP_TYPES)}"
+        )
+    closedness = max(0.0, min(1.0, float(grasp_amount)))
+    motor1_scale, motor2_scale = _grasp_type_motor_scales(grasp_type)
+    targets: dict[int, float] = {}
+    for joint_name in HAND_ACTUATED_JOINT_NAMES:
+        config = _AMAZINGHAND_MOTOR_CONFIG[joint_name]
+        finger_index = int(config["finger_index"])
+        motor_index = int(config["motor_index"])
+        scale = motor1_scale[finger_index] if motor_index == 1 else motor2_scale[finger_index]
+        open_deg = -30.0 if motor_index == 1 else 30.0
+        closed_deg = 90.0 * scale if motor_index == 1 else -90.0 * scale
+        relative_rad = math.radians(open_deg + closedness * (closed_deg - open_deg))
+        servo_target = relative_rad + float(config["offset_rad"])
+        if config["invert"]:
+            servo_target = -servo_target
+        targets[int(config["servo_id"])] = servo_target
     return targets
 
 
@@ -1081,6 +1214,7 @@ def generate_graspable_hand_urdf(
         "link_count": link_count,
         "joint_count": len(joints),
         "actuated_joint_names": list(HAND_ACTUATED_JOINT_NAMES),
+        "motor_contract": spec["motor_contract"],
         "visual_mode": visual_mode,
         "finger_base_anchor_policy": spec["finger_base_anchor_policy"],
         "finger_base_layouts": spec["finger_base_layouts"],

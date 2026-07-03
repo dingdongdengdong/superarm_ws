@@ -225,6 +225,25 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertGreater(targets["finger1_motor1"], targets["finger2_motor1"])
         self.assertGreater(targets["finger4_motor1"], targets["finger3_motor1"])
 
+    def test_hand_grasp_command_reports_servo_targets_and_motor_contract(self) -> None:
+        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
+
+        result = self._hand_grasp_command(
+            dof_names=dof_names,
+            grasp=1.0,
+            grasp_type="wrap",
+        )
+
+        self.assertEqual(result["controlled_servo_ids"], list(range(1, 9)))
+        self.assertEqual(result["motor_contract"]["servo_model"], "SCS0009")
+        self.assertEqual(result["joint_to_servo_id"]["finger1_motor1"], 1)
+        self.assertAlmostEqual(
+            result["servo_targets_rad"][1],
+            result["motor_targets"]["finger1_motor1"]["servo_target_rad"],
+        )
+        self.assertGreater(result["servo_targets_rad"][1], 1.0)
+        self.assertLess(result["servo_targets_rad"][2], -1.0)
+
     def test_hand_grasp_command_rejects_invalid_preshape(self) -> None:
         dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
 
@@ -273,6 +292,29 @@ class RobotArmHandFromZipTests(unittest.TestCase):
                 motor2=0.0,
             )
 
+    def test_finger_motor_frame_report_carries_servo_pair_offsets_and_anchor(self) -> None:
+        self.assertTrue(hasattr(rah, "build_finger_motor_frame_report"))
+
+        report = rah.build_finger_motor_frame_report(
+            finger_index=2,
+            target_positions_rad=[0.78, 0.96],
+            achieved_positions_rad=[0.77, 0.95],
+            link_translation_deltas_m={"proximal": 0.001, "distal": 0.041},
+        )
+
+        self.assertEqual(report["finger_index"], 2)
+        self.assertEqual(report["servo_ids"], [3, 4])
+        self.assertEqual(report["mjcf_anchor_body"], "custom_servo_horn_2")
+        self.assertEqual(report["base_xyz_m"], [-0.00505, 0.0011, 0.06456])
+        self.assertEqual(
+            [motor["joint_name"] for motor in report["motors"]],
+            ["finger2_motor1", "finger2_motor2"],
+        )
+        self.assertEqual(report["motors"][0]["servo_id"], 3)
+        self.assertEqual(report["motors"][0]["target_rad"], 0.78)
+        self.assertEqual(report["motors"][1]["achieved_rad"], 0.95)
+        self.assertEqual(report["link_translation_deltas_m"]["distal"], 0.041)
+
     def test_hand_preshape_command_supports_single_finger_pinch_and_wrap(self) -> None:
         self.assertTrue(hasattr(rah, "build_hand_preshape_position_command"))
         dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
@@ -291,6 +333,8 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         )
         self.assertEqual(single["preshape"], "single_finger")
         self.assertEqual(single["active_fingers"], [3])
+        self.assertEqual(single["controlled_servo_ids"], [5, 6])
+        self.assertEqual(set(single["servo_targets_rad"]), {5, 6})
 
         pinch = rah.build_hand_preshape_position_command(
             current_positions=current,
@@ -406,6 +450,114 @@ class RobotArmHandFromZipTests(unittest.TestCase):
             palm_spec["local_xyz"][2] + palm_spec["scale"][2] / 2.0,
             object_spec["local_xyz"][2] + object_spec["scale"][2] / 2.0,
         )
+
+    def test_preshape_object_reset_stability_flags_far_settled_objects(self) -> None:
+        self.assertTrue(
+            hasattr(rah, "_evaluate_preshape_object_reset_stability"),
+            "preshape validation must report when the reset object drifts away before command",
+        )
+
+        stable = rah._evaluate_preshape_object_reset_stability(  # type: ignore[attr-defined]
+            object_reset_world_xyz=(0.0, 0.0, 0.0),
+            settled_object_world_xyz=(0.01, 0.02, 0.03),
+        )
+        self.assertEqual(stable["object_reset_status"], "PASS")
+        self.assertTrue(stable["object_reset_stable"])
+        self.assertLess(stable["object_reset_drift_m"], stable["object_reset_max_drift_m"])
+
+        escaped = rah._evaluate_preshape_object_reset_stability(  # type: ignore[attr-defined]
+            object_reset_world_xyz=(-0.035, 0.311, 0.673),
+            settled_object_world_xyz=(-0.609, 1.182, 0.099),
+        )
+        self.assertEqual(escaped["object_reset_status"], "WARN")
+        self.assertFalse(escaped["object_reset_stable"])
+        self.assertGreater(escaped["object_reset_drift_m"], 1.0)
+
+    def test_target_error_threshold_flags_wrap_finger3_underreach(self) -> None:
+        self.assertTrue(
+            hasattr(rah, "_target_errors_within_threshold"),
+            "runtime validation should use one explicit target-error threshold helper",
+        )
+
+        self.assertTrue(
+            rah._target_errors_within_threshold(  # type: ignore[attr-defined]
+                [0.0017, 0.0013, 0.1540],
+                threshold_rad=0.30,
+            )
+        )
+        self.assertFalse(
+            rah._target_errors_within_threshold(  # type: ignore[attr-defined]
+                [0.0017, 0.0013, 0.1540, 0.3487],
+                threshold_rad=0.30,
+            )
+        )
+
+    def test_single_finger_preshape_uses_finger_local_object_reset(self) -> None:
+        single = rah.build_preshape_grasp_validation_stage_specs()[0]
+
+        self.assertEqual(single["label"], "single_finger")
+        self.assertEqual(
+            single["object_reset_anchor_path"],
+            f"{CONNECTED_HAND_PRIM_PATH}/finger1_proximal",
+        )
+        self.assertEqual(tuple(single["object_reset_local_xyz"]), (0.0, 0.055, 0.010))
+        self.assertLessEqual(rah.PRESHAPE_OBJECT_RESET_MAX_DRIFT_M, 0.06)
+
+    def test_repair_urdf_import_visual_library_adds_empty_missing_sources(self) -> None:
+        from pxr import Usd, UsdGeom
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            hand = tmp_path / "hand.usd"
+            config = tmp_path / "configuration"
+            config.mkdir()
+            base = config / "hand_base.usd"
+
+            hand_stage = Usd.Stage.CreateNew(str(hand))
+            UsdGeom.Xform.Define(hand_stage, "/amazinghand_graspable")
+            hand_stage.GetRootLayer().Save()
+
+            base_stage = Usd.Stage.CreateNew(str(base))
+            UsdGeom.Xform.Define(base_stage, "/amazinghand_graspable/palm/visuals")
+            UsdGeom.Xform.Define(base_stage, "/amazinghand_graspable/finger1_base/visuals")
+            existing = UsdGeom.Xform.Define(base_stage, "/visuals/r_wrist_interface").GetPrim()
+            UsdGeom.Xform.Define(base_stage, f"{existing.GetPath()}/mesh")
+            base_stage.GetRootLayer().Save()
+
+            report = rah._repair_urdf_import_visual_library(hand)
+
+            self.assertEqual(report["status"], "PASS")
+            self.assertIn("/visuals/palm", report["created_placeholder_paths"])
+            self.assertIn("/visuals/finger1_base", report["created_placeholder_paths"])
+            repaired_stage = Usd.Stage.Open(str(base))
+            self.assertTrue(repaired_stage.GetPrimAtPath("/visuals/palm").IsValid())
+            self.assertTrue(repaired_stage.GetPrimAtPath("/visuals/finger1_base").IsValid())
+            self.assertTrue(repaired_stage.GetPrimAtPath("/visuals/r_wrist_interface/mesh").IsValid())
+            repaired_hand_stage = Usd.Stage.Open(str(hand))
+            self.assertTrue(repaired_hand_stage.GetPrimAtPath("/visuals/palm").IsValid())
+
+    def test_write_image_log_records_screenshots_and_contact_sheet(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            screenshot_root = Path(tmp)
+            image_a = screenshot_root / "00_start.png"
+            image_b = screenshot_root / "01_motion.png"
+            contact_sheet = screenshot_root / "contact_sheet.png"
+            image_a.write_bytes(b"a" * 3)
+            image_b.write_bytes(b"b" * 4)
+            contact_sheet.write_bytes(b"c" * 5)
+
+            log_path = rah._write_image_log(
+                screenshot_root=screenshot_root,
+                image_paths=[image_a, image_b],
+                contact_sheet_path=contact_sheet,
+            )
+
+            text = log_path.read_text(encoding="utf-8")
+            self.assertIn("# Image Log", text)
+            self.assertIn("- Image count: 3", text)
+            self.assertIn("`00_start.png` - 3 bytes", text)
+            self.assertIn("`01_motion.png` - 4 bytes", text)
+            self.assertIn("`contact_sheet.png` - 5 bytes", text)
 
     def test_palm_retention_shelf_sits_under_grasp_object_for_lift_retain(self) -> None:
         object_spec = build_grasp_validation_object_specs()[0]

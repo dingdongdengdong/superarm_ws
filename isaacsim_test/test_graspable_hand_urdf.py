@@ -3,6 +3,7 @@ from __future__ import annotations
 import tempfile
 import sys
 import unittest
+import math
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -78,6 +79,64 @@ class GraspableHandUrdfTests(unittest.TestCase):
         self.assertEqual(spec["default_visual_mode"], VISUAL_MODE_PARTITIONED_LINKS)
         self.assertIn(VISUAL_MODE_STATIC_SHELL, spec["available_visual_modes"])
         self.assertIn(VISUAL_MODE_IMPLEMENTED_ONLY, spec["available_visual_modes"])
+
+    def test_motor_contract_matches_amazinghand_scs0009_config(self) -> None:
+        self.assertTrue(hasattr(graspable_hand_urdf, "build_amazinghand_motor_contract"))
+
+        contract = graspable_hand_urdf.build_amazinghand_motor_contract()  # type: ignore[attr-defined]
+
+        self.assertEqual(contract["servo_model"], "SCS0009")
+        self.assertEqual(contract["servo_ids"], [1, 2, 3, 4, 5, 6, 7, 8])
+        self.assertEqual(
+            contract["joint_to_servo_id"],
+            {
+                "finger1_motor1": 1,
+                "finger1_motor2": 2,
+                "finger2_motor1": 3,
+                "finger2_motor2": 4,
+                "finger3_motor1": 5,
+                "finger3_motor2": 6,
+                "finger4_motor1": 7,
+                "finger4_motor2": 8,
+            },
+        )
+        self.assertAlmostEqual(
+            contract["motors"]["finger1_motor1"]["offset_rad"],
+            math.radians(7.0),
+        )
+        self.assertAlmostEqual(
+            contract["motors"]["finger4_motor2"]["offset_rad"],
+            math.radians(7.0),
+        )
+        self.assertFalse(contract["motors"]["finger4_motor2"]["invert"])
+        spec = build_graspable_hand_model_spec()
+        self.assertEqual(spec["motor_contract"]["servo_model"], "SCS0009")
+        self.assertEqual(spec["motor_contract"]["servo_ids"], list(range(1, 9)))
+
+    def test_servo_targets_apply_offsets_and_opposed_pair_directions(self) -> None:
+        self.assertTrue(
+            hasattr(graspable_hand_urdf, "grasp_preshape_to_servo_targets")
+        )
+
+        open_targets = graspable_hand_urdf.grasp_preshape_to_servo_targets(  # type: ignore[attr-defined]
+            0.0,
+            "wrap",
+        )
+        closed_targets = graspable_hand_urdf.grasp_preshape_to_servo_targets(  # type: ignore[attr-defined]
+            1.0,
+            "wrap",
+        )
+        pinch_targets = graspable_hand_urdf.grasp_preshape_to_servo_targets(  # type: ignore[attr-defined]
+            1.0,
+            "pinch",
+        )
+
+        self.assertAlmostEqual(open_targets[1], math.radians(7.0 - 30.0))
+        self.assertAlmostEqual(open_targets[2], math.radians(5.0 + 30.0))
+        self.assertAlmostEqual(closed_targets[1], math.radians(7.0 + 90.0))
+        self.assertAlmostEqual(closed_targets[2], math.radians(5.0 - 90.0))
+        self.assertGreater(pinch_targets[1], pinch_targets[3])
+        self.assertLess(pinch_targets[2], pinch_targets[4])
 
     def test_grasp_scalar_targets_clamp_and_close_monotonically(self) -> None:
         open_targets = grasp_scalar_to_hand_joint_targets(0.0)

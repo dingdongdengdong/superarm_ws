@@ -29,8 +29,11 @@ try:
         VISUAL_MODE_IMPLEMENTED_ONLY,
         VISUAL_MODE_PARTITIONED_LINKS,
         VISUAL_MODE_STATIC_SHELL,
+        build_amazinghand_motor_contract,
+        build_graspable_hand_model_spec,
         generate_graspable_hand_urdf,
         grasp_preshape_to_hand_joint_targets,
+        grasp_preshape_to_servo_targets,
         grasp_scalar_to_hand_joint_targets,
     )
 except ModuleNotFoundError:
@@ -39,8 +42,11 @@ except ModuleNotFoundError:
         VISUAL_MODE_IMPLEMENTED_ONLY,
         VISUAL_MODE_PARTITIONED_LINKS,
         VISUAL_MODE_STATIC_SHELL,
+        build_amazinghand_motor_contract,
+        build_graspable_hand_model_spec,
         generate_graspable_hand_urdf,
         grasp_preshape_to_hand_joint_targets,
+        grasp_preshape_to_servo_targets,
         grasp_scalar_to_hand_joint_targets,
     )
 
@@ -68,6 +74,9 @@ ARM_HAND_ATTACHMENT_BODY0_PATH = f"{CONNECTED_ARM_PRIM_PATH}/wrist_adapter_hand"
 ARM_HAND_ATTACHMENT_BODY1_PATH = CONNECTED_HAND_PRIM_PATH
 ARM_JOINT_NAMES = ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"]
 FINGER_PROXY_DISTANCE_THRESHOLD_M = 0.065
+PRESHAPE_OBJECT_RESET_MAX_DRIFT_M = 0.06
+PRESHAPE_TARGET_ERROR_THRESHOLD_RAD = 0.30
+FINGER_MOTION_TARGET_ERROR_THRESHOLD_RAD = 0.25
 # Use the side-sweep pose already validated by the arm motion smoke test.  The
 # previous fold-like target lowered the palm anchor during "lift" validation,
 # which made the strict no-drop criterion fail even before testing retention.
@@ -212,7 +221,7 @@ def build_hand_grasp_position_command(
     grasp_type: str = "wrap",
 ) -> dict[str, Any]:
     """Build a named hand closing command from a normalized grasp value."""
-    return build_named_joint_position_command(
+    command = build_named_joint_position_command(
         current_positions=current_positions,
         dof_names=dof_names,
         joint_targets=build_hand_preshape_joint_targets(
@@ -220,6 +229,48 @@ def build_hand_grasp_position_command(
             grasp_type=grasp_type,
         ),
     )
+    _attach_motor_command_metadata(command, grasp=grasp, grasp_type=grasp_type)
+    return command
+
+
+def _attach_motor_command_metadata(
+    command: dict[str, Any],
+    *,
+    grasp: float,
+    grasp_type: str,
+) -> None:
+    """Attach AmazingHand servo IDs, offsets, and targets to a hand command."""
+    contract = build_amazinghand_motor_contract()
+    servo_grasp_type = grasp_type if grasp_type in HAND_GRASP_TYPES else "wrap"
+    all_servo_targets = grasp_preshape_to_servo_targets(grasp, servo_grasp_type)
+    joint_to_servo = contract["joint_to_servo_id"]
+    controlled_servo_ids = [
+        int(joint_to_servo[name]) for name in command["controlled_joint_names"]
+    ]
+    command["motor_contract"] = contract
+    command["joint_to_servo_id"] = {
+        name: int(joint_to_servo[name]) for name in command["controlled_joint_names"]
+    }
+    command["controlled_servo_ids"] = controlled_servo_ids
+    command["servo_targets_rad"] = {
+        servo_id: all_servo_targets[servo_id] for servo_id in controlled_servo_ids
+    }
+    command["motor_targets"] = {
+        name: {
+            "servo_id": int(joint_to_servo[name]),
+            "joint_target_rad": float(target),
+            "servo_target_rad": all_servo_targets[int(joint_to_servo[name])],
+            "servo_model": contract["servo_model"],
+            "default_speed": contract["default_speed"],
+            "offset_rad": contract["motors"][name]["offset_rad"],
+            "invert": contract["motors"][name]["invert"],
+        }
+        for name, target in zip(
+            command["controlled_joint_names"],
+            command["target_values"],
+            strict=True,
+        )
+    }
 
 
 def _validate_finger_index(finger_index: int) -> None:
@@ -302,6 +353,7 @@ def build_hand_preshape_position_command(
         dof_names=dof_names,
         joint_targets=active_targets,
     )
+    _attach_motor_command_metadata(command, grasp=amount, grasp_type=preshape)
     command["preshape"] = preshape
     command["amount"] = float(amount)
     command["active_fingers"] = active_fingers
@@ -318,6 +370,8 @@ def build_preshape_grasp_validation_stage_specs() -> list[dict[str, Any]]:
             "finger_index": 1,
             "active_fingers": [1],
             "required_finger_proxy_count": 1,
+            "object_reset_anchor_path": f"{CONNECTED_HAND_PRIM_PATH}/finger1_proximal",
+            "object_reset_local_xyz": (0.0, 0.055, 0.010),
         },
         {
             "label": "pinch",
@@ -440,6 +494,51 @@ def build_single_finger_two_link_position_command(
     )
 
 
+def build_finger_motor_frame_report(
+    *,
+    finger_index: int,
+    target_positions_rad: list[float],
+    achieved_positions_rad: list[float],
+    link_translation_deltas_m: dict[str, float | None],
+) -> dict[str, Any]:
+    """Return servo and base-frame evidence for one generated AmazingHand finger."""
+    _validate_finger_index(finger_index)
+    spec = build_graspable_hand_model_spec()
+    contract = build_amazinghand_motor_contract()
+    finger_key = f"finger{finger_index}"
+    base_layout = spec["finger_base_layouts"][finger_key]
+    joint_names = [f"{finger_key}_motor1", f"{finger_key}_motor2"]
+    motors = []
+    for slot, joint_name in enumerate(joint_names):
+        motor_contract = contract["motors"][joint_name]
+        motors.append(
+            {
+                "joint_name": joint_name,
+                "servo_id": int(motor_contract["servo_id"]),
+                "servo_model": contract["servo_model"],
+                "default_speed": contract["default_speed"],
+                "offset_rad": float(motor_contract["offset_rad"]),
+                "invert": bool(motor_contract["invert"]),
+                "target_rad": float(target_positions_rad[slot])
+                if slot < len(target_positions_rad)
+                else None,
+                "achieved_rad": float(achieved_positions_rad[slot])
+                if slot < len(achieved_positions_rad)
+                else None,
+            }
+        )
+    return {
+        "finger_index": finger_index,
+        "role": base_layout["role"],
+        "base_xyz_m": list(base_layout["base_xyz"]),
+        "mjcf_anchor_body": base_layout["mjcf_anchor_body"],
+        "mjcf_proximal_xyz_m": list(base_layout["mjcf_proximal_xyz"]),
+        "servo_ids": [motor["servo_id"] for motor in motors],
+        "motors": motors,
+        "link_translation_deltas_m": dict(link_translation_deltas_m),
+    }
+
+
 def _distance(
     left: tuple[float, float, float] | None,
     right: tuple[float, float, float] | None,
@@ -447,6 +546,38 @@ def _distance(
     if left is None or right is None:
         return None
     return math.sqrt(sum((left[index] - right[index]) ** 2 for index in range(3)))
+
+
+def _target_errors_within_threshold(
+    target_errors: list[float] | tuple[float, ...],
+    *,
+    threshold_rad: float,
+) -> bool:
+    return bool(target_errors) and all(
+        float(error) <= float(threshold_rad) for error in target_errors
+    )
+
+
+def _evaluate_preshape_object_reset_stability(
+    *,
+    object_reset_world_xyz: tuple[float, float, float] | None,
+    settled_object_world_xyz: tuple[float, float, float] | None,
+    max_drift_m: float = PRESHAPE_OBJECT_RESET_MAX_DRIFT_M,
+) -> dict[str, Any]:
+    drift_m = _distance(object_reset_world_xyz, settled_object_world_xyz)
+    stable = drift_m is not None and drift_m <= max_drift_m
+    return {
+        "object_reset_status": "PASS" if stable else "WARN",
+        "object_reset_stable": stable,
+        "object_reset_drift_m": drift_m,
+        "object_reset_max_drift_m": float(max_drift_m),
+        "object_reset_world_xyz": list(object_reset_world_xyz)
+        if object_reset_world_xyz is not None
+        else None,
+        "settled_object_world_xyz": list(settled_object_world_xyz)
+        if settled_object_world_xyz is not None
+        else None,
+    }
 
 
 def _finger_proxy_close_count(
@@ -1047,10 +1178,17 @@ def _finger_contact_proxy_distances_by_finger_to_object(
 def _grasp_anchor_world_point(
     stage: Any,
     local_xyz: tuple[float, float, float],
+    *,
+    anchor_path: str | None = None,
 ) -> tuple[tuple[float, float, float], str] | tuple[None, str]:
-    for anchor_path in (grasp_object_reset_anchor_path(), CONNECTED_HAND_PRIM_PATH):
-        if _world_translation(stage, anchor_path) is not None:
-            return _transform_local_point(stage, anchor_path, local_xyz), anchor_path
+    anchor_candidates = (
+        [anchor_path, grasp_object_reset_anchor_path(), CONNECTED_HAND_PRIM_PATH]
+        if anchor_path
+        else [grasp_object_reset_anchor_path(), CONNECTED_HAND_PRIM_PATH]
+    )
+    for candidate_path in anchor_candidates:
+        if candidate_path and _world_translation(stage, candidate_path) is not None:
+            return _transform_local_point(stage, candidate_path, local_xyz), candidate_path
     return None, grasp_object_reset_anchor_path()
 
 
@@ -1121,10 +1259,20 @@ def _set_world_translation(
     return world_xyz
 
 
-def _reset_grasp_object_pose(stage: Any, object_path: str) -> tuple[float, float, float] | None:
+def _reset_grasp_object_pose(
+    stage: Any,
+    object_path: str,
+    *,
+    local_xyz: tuple[float, float, float] | None = None,
+    anchor_path: str | None = None,
+) -> tuple[float, float, float] | None:
     specs = build_grasp_validation_object_specs()
-    local_xyz = tuple(specs[0]["local_xyz"]) if specs else (0.0, 0.028, 0.030)
-    target, _ = _grasp_anchor_world_point(stage, local_xyz)
+    reset_local_xyz = (
+        local_xyz
+        if local_xyz is not None
+        else tuple(specs[0]["local_xyz"]) if specs else (0.0, 0.028, 0.030)
+    )
+    target, _ = _grasp_anchor_world_point(stage, reset_local_xyz, anchor_path=anchor_path)
     if target is None:
         return None
     return _set_world_translation(stage, object_path, target)
@@ -1557,6 +1705,7 @@ def _import_hand_urdf_to_usd(urdf_path: str, hand_usd_path: str) -> dict[str, An
         hand_usd_path,
         preferred_leaf_name=HAND_ROOT_LINK_NAME,
     )
+    visual_library_repair = _repair_urdf_import_visual_library(hand_usd_path)
     return {
         "status": "PASS",
         "input_urdf": _repo_relative_path(urdf_path),
@@ -1565,6 +1714,7 @@ def _import_hand_urdf_to_usd(urdf_path: str, hand_usd_path: str) -> dict[str, An
         "root_rigid_body_path": root_rigid_body_path,
         "api": api,
         "generated_usd_path": generated_usd_path,
+        "visual_library_repair": visual_library_repair,
         "import_config": {
             "fix_base": False,
             "import_inertia_tensor": True,
@@ -1573,6 +1723,94 @@ def _import_hand_urdf_to_usd(urdf_path: str, hand_usd_path: str) -> dict[str, An
             "default_drive_strength": 45.0,
             "default_position_drive_damping": 4.0,
         },
+    }
+
+
+def _hand_visual_link_names() -> list[str]:
+    return [
+        HAND_ROOT_LINK_NAME,
+        "palm",
+        *(
+            f"finger{finger_index}_{segment}"
+            for finger_index in range(1, 5)
+            for segment in ("base", "proximal", "distal")
+        ),
+    ]
+
+
+def _repair_urdf_import_visual_library(hand_usd_path: str | Path) -> dict[str, Any]:
+    """Define empty visual-library placeholders for importer-authored empty visuals.
+
+    Isaac Sim 5.1's URDF importer may author link-local ``visuals`` prims that
+    reference ``/visuals/<link>`` even when the source URDF link had no visual
+    meshes.  In partitioned AmazingHand mode this happens for palm and
+    finger-base links.  The missing source prims are harmless physically but
+    produce unresolved-reference warnings every time the hand USD is opened.
+    Add empty library prims only for those missing, link-local visuals so USD
+    composition stays clean without inventing geometry or changing contacts.
+    """
+    from pxr import Usd, UsdGeom
+
+    hand_path = _host_path(hand_usd_path)
+    layer_paths = [
+        hand_path.parent / "configuration" / "hand_base.usd",
+        hand_path.parent / "configuration" / "hand_physics.usd",
+        hand_path,
+    ]
+    existing_layer_paths = [path for path in layer_paths if path.is_file()]
+    if not existing_layer_paths:
+        return {
+            "status": "SKIPPED",
+            "reason": "no generated hand USD layers found",
+            "created_placeholder_paths": [],
+        }
+
+    created_by_layer: dict[str, list[str]] = {}
+    open_failures: list[str] = []
+    for layer_path in existing_layer_paths:
+        stage = Usd.Stage.Open(str(layer_path))
+        if stage is None:
+            open_failures.append(_repo_relative_path(layer_path))
+            continue
+        created: list[str] = []
+        stage.SetEditTarget(stage.GetRootLayer())
+        for link_name in _hand_visual_link_names():
+            link_visuals_path = f"/amazinghand_graspable/{link_name}/visuals"
+            nested_link_visuals_path = (
+                f"/amazinghand_graspable/{HAND_ROOT_LINK_NAME}/{link_name}/visuals"
+            )
+            source_path = f"/visuals/{link_name}"
+            has_link_visuals = (
+                stage.GetPrimAtPath(link_visuals_path).IsValid()
+                or stage.GetPrimAtPath(nested_link_visuals_path).IsValid()
+            )
+            has_unresolved_import_reference = link_name in {
+                "palm",
+                "finger1_base",
+                "finger2_base",
+                "finger3_base",
+                "finger4_base",
+            }
+            if not (has_link_visuals or has_unresolved_import_reference):
+                continue
+            if stage.GetPrimAtPath(source_path).IsValid():
+                continue
+            UsdGeom.Xform.Define(stage, source_path)
+            created.append(source_path)
+        if created:
+            stage.GetRootLayer().Save()
+            created_by_layer[_repo_relative_path(layer_path)] = created
+
+    created_placeholder_paths = sorted(
+        {path for paths in created_by_layer.values() for path in paths}
+    )
+    return {
+        "status": "PASS",
+        "repaired_layer_paths": [_repo_relative_path(path) for path in existing_layer_paths],
+        "created_placeholder_paths": created_placeholder_paths,
+        "created_placeholders_by_layer": created_by_layer,
+        "created_placeholder_count": sum(len(paths) for paths in created_by_layer.values()),
+        "open_failures": open_failures,
     }
 
 
@@ -1663,18 +1901,36 @@ def _author_connected_usd(
     # link back to the importer-authored visual library so the real STL meshes
     # are present under the moving physics links.
     hand_visual_library_references: list[dict[str, str]] = []
+    skipped_hand_visual_library_references: list[dict[str, str]] = []
     hand_base_usd_path = _host_path(hand_usd_path).parent / "configuration" / "hand_base.usd"
     if hand_base_usd_path.is_file():
-        hand_visual_link_names = [HAND_ROOT_LINK_NAME]
-        hand_visual_link_names.extend(
-            f"finger{finger_index}_{segment}"
-            for finger_index in range(1, 5)
-            for segment in ("proximal", "distal")
-        )
+        hand_base_stage = Usd.Stage.Open(str(hand_base_usd_path), load=Usd.Stage.LoadNone)
+        hand_visual_link_names = [
+            HAND_ROOT_LINK_NAME,
+            *(
+                f"finger{finger_index}_{segment}"
+                for finger_index in range(1, 5)
+                for segment in ("proximal", "distal")
+            ),
+        ]
         for link_name in hand_visual_link_names:
             destination_path = f"{CONNECTED_HAND_PRIM_PATH}/{link_name}/resolved_visuals"
-            destination = UsdGeom.Xform.Define(stage, destination_path)
             source_path = f"/visuals/{link_name}"
+            source_prim = (
+                hand_base_stage.GetPrimAtPath(source_path)
+                if hand_base_stage is not None
+                else None
+            )
+            if source_prim is None or not source_prim.IsValid() or not list(source_prim.GetChildren()):
+                skipped_hand_visual_library_references.append(
+                    {
+                        "destination": destination_path,
+                        "source": source_path,
+                        "reason": "missing_or_empty_source_visual_library",
+                    }
+                )
+                continue
+            destination = UsdGeom.Xform.Define(stage, destination_path)
             destination.GetPrim().GetReferences().AddReference(
                 _asset_reference(hand_base_usd_path, connected_usd_path),
                 Sdf.Path(source_path),
@@ -1719,6 +1975,7 @@ def _author_connected_usd(
         "arm_source_prim_path": arm_reference_prim_path,
         "hand_source_prim_path": hand_reference_prim_path,
         "hand_visual_library_references": hand_visual_library_references,
+        "skipped_hand_visual_library_references": skipped_hand_visual_library_references,
     }
 
 
@@ -2180,6 +2437,30 @@ def _make_contact_sheet(image_paths: list[Path], contact_sheet_path: Path) -> No
     sheet.save(contact_sheet_path)
 
 
+def _write_image_log(
+    *,
+    screenshot_root: Path,
+    image_paths: list[Path],
+    contact_sheet_path: Path | None = None,
+) -> Path:
+    log_path = screenshot_root / "IMAGE_LOG.md"
+    entries = list(image_paths)
+    if contact_sheet_path is not None and contact_sheet_path.is_file():
+        entries.append(contact_sheet_path)
+    lines = [
+        "# Image Log",
+        "",
+        f"- Folder: `{_repo_relative_path(screenshot_root)}`",
+        f"- Image count: {len(entries)}",
+        "",
+    ]
+    for image_path in entries:
+        size_bytes = image_path.stat().st_size if image_path.is_file() else 0
+        lines.append(f"- `{image_path.name}` - {size_bytes} bytes")
+    log_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return log_path
+
+
 def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
     from isaacsim import SimulationApp
 
@@ -2339,6 +2620,7 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
             control_status = "APPLIED"
             controlled_joint_names: list[str] = []
             target_values: list[float] = []
+            close_command: dict[str, Any] = {}
             object_reset_world_xyz = None
             try:
                 _ensure_articulation_ready()
@@ -2406,7 +2688,11 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                 "object_world_xyz_after": list(object_after) if object_after else None,
                 "control_status": control_status,
                 "controlled_joint_names": controlled_joint_names,
+                "controlled_servo_ids": close_command.get("controlled_servo_ids", []),
                 "target_positions_rad": target_values,
+                "servo_targets_rad": close_command.get("servo_targets_rad", {}),
+                "motor_targets": close_command.get("motor_targets", {}),
+                "motor_contract": close_command.get("motor_contract", {}),
                 "command_error": command_error,
                 "screenshot": _repo_relative_path(screenshot) if size_bytes else None,
                 "size_bytes": size_bytes,
@@ -2596,7 +2882,10 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     else None
                 )
                 moved = len(deltas) == 2 and all(delta >= 0.20 for delta in deltas)
-                reached = len(target_errors) == 2 and all(error <= 0.25 for error in target_errors)
+                reached = _target_errors_within_threshold(
+                    target_errors,
+                    threshold_rad=FINGER_MOTION_TARGET_ERROR_THRESHOLD_RAD,
+                )
                 independent = (
                     other_hand_joint_max_abs_rad is not None
                     and other_hand_joint_max_abs_rad <= 0.20
@@ -2613,8 +2902,16 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                         "before_positions_rad": before_positions,
                         "target_positions_rad": target_positions,
                         "achieved_positions_rad": achieved_positions,
+                        "motor_frame_report": build_finger_motor_frame_report(
+                            finger_index=finger_index,
+                            target_positions_rad=target_positions,
+                            achieved_positions_rad=achieved_positions,
+                            link_translation_deltas_m=link_translation_deltas_m,
+                        ),
                         "position_deltas_rad": deltas,
                         "target_errors_rad": target_errors,
+                        "target_reached": reached,
+                        "target_error_threshold_rad": FINGER_MOTION_TARGET_ERROR_THRESHOLD_RAD,
                         "other_hand_joint_positions_rad": other_hand_joint_positions_rad,
                         "other_hand_joint_max_abs_rad": other_hand_joint_max_abs_rad,
                         "link_world_xyz_before": {
@@ -2719,6 +3016,13 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                 screenshot_capture: dict[str, Any] | None = None
                 controlled_joint_names: list[str] = []
                 target_values: list[float] = []
+                preshape_command: dict[str, Any] = {}
+                object_reset_world_xyz: tuple[float, float, float] | None = None
+                object_reset_retry_count = 0
+                object_reset_stability = _evaluate_preshape_object_reset_stability(
+                    object_reset_world_xyz=None,
+                    settled_object_world_xyz=None,
+                )
                 try:
                     _ensure_articulation_ready()
                     open_command = build_hand_grasp_position_command(
@@ -2740,11 +3044,46 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     for _ in range(max(6, args.settle_steps // 2)):
                         world.step(render=True)
                     current_positions = _flat_float_list(art.get_joint_positions())
-                    _reset_grasp_object_pose(stage, object_path)
+                    object_reset_world_xyz = _reset_grasp_object_pose(
+                        stage,
+                        object_path,
+                        local_xyz=tuple(spec["object_reset_local_xyz"])
+                        if "object_reset_local_xyz" in spec
+                        else None,
+                        anchor_path=str(spec["object_reset_anchor_path"])
+                        if "object_reset_anchor_path" in spec
+                        else None,
+                    )
                     for _ in range(max(6, args.settle_steps // 2)):
                         world.step(render=True)
                     app.update()
                     before_object = _world_translation(stage, object_path)
+                    object_reset_stability = _evaluate_preshape_object_reset_stability(
+                        object_reset_world_xyz=object_reset_world_xyz,
+                        settled_object_world_xyz=before_object,
+                    )
+                    if not object_reset_stability["object_reset_stable"]:
+                        retry_world_xyz = _reset_grasp_object_pose(
+                            stage,
+                            object_path,
+                            local_xyz=tuple(spec["object_reset_local_xyz"])
+                            if "object_reset_local_xyz" in spec
+                            else None,
+                            anchor_path=str(spec["object_reset_anchor_path"])
+                            if "object_reset_anchor_path" in spec
+                            else None,
+                        )
+                        object_reset_retry_count += 1
+                        if retry_world_xyz is not None:
+                            object_reset_world_xyz = retry_world_xyz
+                        for _ in range(max(2, args.settle_steps // 4)):
+                            world.step(render=True)
+                        app.update()
+                        before_object = _world_translation(stage, object_path)
+                        object_reset_stability = _evaluate_preshape_object_reset_stability(
+                            object_reset_world_xyz=object_reset_world_xyz,
+                            settled_object_world_xyz=before_object,
+                        )
 
                     preshape_command = build_hand_preshape_position_command(
                         current_positions=current_positions,
@@ -2807,8 +3146,12 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     control_status = "FAILED"
                     command_error = f"{type(exc).__name__}: {exc}"
 
-                reached = bool(target_errors) and all(error <= 0.30 for error in target_errors)
+                reached = _target_errors_within_threshold(
+                    target_errors,
+                    threshold_rad=PRESHAPE_TARGET_ERROR_THRESHOLD_RAD,
+                )
                 contact_pass = active_close_count >= int(spec["required_finger_proxy_count"])
+                reset_stable = bool(object_reset_stability["object_reset_stable"])
                 stage_results.append(
                     {
                         "label": label,
@@ -2819,10 +3162,29 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                             "required_finger_proxy_count"
                         ],
                         "controlled_joint_names": controlled_joint_names,
+                        "controlled_servo_ids": preshape_command.get(
+                            "controlled_servo_ids",
+                            [],
+                        ),
                         "target_positions_rad": target_values,
+                        "servo_targets_rad": preshape_command.get("servo_targets_rad", {}),
+                        "motor_targets": preshape_command.get("motor_targets", {}),
                         "achieved_positions_rad": achieved_positions,
                         "target_errors_rad": target_errors,
                         "target_reached": reached,
+                        "target_error_threshold_rad": PRESHAPE_TARGET_ERROR_THRESHOLD_RAD,
+                        **object_reset_stability,
+                        "object_reset_retry_count": object_reset_retry_count,
+                        "object_reset_anchor_path": spec.get(
+                            "object_reset_anchor_path",
+                            grasp_object_reset_anchor_path(),
+                        ),
+                        "object_reset_local_xyz": list(
+                            spec.get(
+                                "object_reset_local_xyz",
+                                build_grasp_validation_object_specs()[0]["local_xyz"],
+                            )
+                        ),
                         "finger_proxy_distance_threshold_m": FINGER_PROXY_DISTANCE_THRESHOLD_M,
                         "finger_proxy_distances_by_finger_m": {
                             str(key): value for key, value in distances_by_finger.items()
@@ -2850,6 +3212,7 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                         "status": "PASS"
                         if size_bytes > 0
                         and control_status != "FAILED"
+                        and reset_stable
                         and reached
                         and contact_pass
                         else "WARN",
@@ -3239,6 +3602,11 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
 
         contact_sheet = screenshot_root / "contact_sheet.png"
         _make_contact_sheet(screenshots, contact_sheet)
+        image_log = _write_image_log(
+            screenshot_root=screenshot_root,
+            image_paths=screenshots,
+            contact_sheet_path=contact_sheet,
+        )
         runtime = {
             "status": "PASS"
             if screenshots and all(item.get("status") in {"PASS", "WARN"} for item in pose_results)
@@ -3259,6 +3627,7 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
             "motion_cases": pose_results,
             "screenshot_output_dir": _repo_relative_path(screenshot_root),
             "contact_sheet": _repo_relative_path(contact_sheet),
+            "image_log": _repo_relative_path(image_log),
             "hand_mount_local_xyz_m": list(HAND_MOUNT_LOCAL_XYZ),
             "evidence_summary": (
                 "Isaac Sim opened the fresh connected USD, stepped physics for the named "
