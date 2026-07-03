@@ -21,6 +21,7 @@ tasks/so100-leader-follower-data
 tasks/roboparty-arm-bringup
 tasks/amazinghand-integration
 tasks/lerobot-custom-robot
+tasks/lerobot-direct-hardware-non-ros2
 tasks/dataset-training-eval
 tasks/validation-gates
 ```
@@ -36,8 +37,9 @@ steps from that guide, update the matching log/checklist, and push the branch.
 4. [RoboParty arm bring-up](03_roboparty_arm_bringup.md)
 5. [AmazingHand integration](04_amazinghand_integration.md)
 6. [LeRobot custom robot wrapper](05_lerobot_custom_robot.md)
-7. [Dataset, training, and evaluation](06_dataset_training_eval.md)
-8. [Validation gates](07_validation_gates.md)
+7. [LeRobot direct hardware custom robot, non-ROS2](08_lerobot_direct_hardware_non_ros2.md)
+8. [Dataset, training, and evaluation](06_dataset_training_eval.md)
+9. [Validation gates](07_validation_gates.md)
 
 ## Project rule
 

@@ -1,0 +1,125 @@
+2026-06-27T15:39:50Z [Info] [carb] Logging to file: /home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/logs/Kit/kit/110.1/kit_20260628_003950.log
+2026-06-27T15:39:50Z [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+[0.025s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.057s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.057s] [ext: omni.kit.async_engine-0.0.3] startup
+[0.058s] [ext: omni.client.lib-1.1.1] startup
+[0.066s] [ext: omni.kit.registry.nucleus-0.0.0] startup
+[0.075s] [ext: omni.client-1.3.0] startup
+[0.079s] [ext: omni.usd.config-1.0.7] startup
+2026-06-27T15:39:50Z [61ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+[0.081s] [ext: omni.usd.libs-1.0.3] startup
+[0.127s] [ext: omni.usd.schema.audio-0.0.1] startup
+[0.190s] [ext: omni.assets.plugins-0.0.0] startup
+[0.191s] [ext: carb.audio-0.1.0] startup
+[0.193s] [ext: omni.graph.exec-0.9.6] startup
+[0.193s] [ext: omni.kit.actions.core-1.0.0] startup
+[0.194s] [ext: omni.kit.audiodeviceenum-1.0.2] startup
+[0.195s] [ext: omni.kit.commands-1.5.0] startup
+[0.197s] [ext: omni.kit.exec.core-0.13.5] startup
+[0.198s] [ext: omni.kit.usd_undo-0.1.8] startup
+[0.198s] [ext: omni.timeline-1.1.0] startup
+[0.199s] [ext: omni.usd_resolver-1.0.0] startup
+[0.201s] [ext: omni.usd.core-1.8.3] startup
+[0.203s] [ext: omni.usd-1.15.2] startup
+[0.229s] [ext: omni.scene.optimizer.core-110.1.0] startup
+[0.245s] [ext: omni.usdex.libs-2.2.2] startup
+[0.249s] [ext: omni.kit.converter.common-510.1.3] startup
+[0.252s] [ext: omni.kit.converter.hoops_core-511.3.2] startup
+[omni.converter.hoops_log]*status*HOOPS Converter version: 10.6.1
+[omni.converter.hoops_log]*status*HOOPS Converter build: 10.6.1+v10-6-1.4099.e46ada55.gl
+[omni.converter.hoops_log]*status*Parameters:
+[omni.converter.hoops_log]*status*  accurateSurfaceCurvatures: true
+[omni.converter.hoops_log]*status*  accurateTessellation: false
+[omni.converter.hoops_log]*status*  compositionStyle: 0
+[omni.converter.hoops_log]*status*  convertCurves: false
+[omni.converter.hoops_log]*status*  convertMetadata: false
+[omni.converter.hoops_log]*status*  convertPhysicsData: false
+[omni.converter.hoops_log]*status*  dedup: true
+[omni.converter.hoops_log]*status*  filterStyle: 1
+[omni.converter.hoops_log]*status*  globalXforms: false
+[omni.converter.hoops_log]*status*  instancingStyle: 2
+[omni.converter.hoops_log]*status*  materialType: 1
+[omni.converter.hoops_log]*status*  omitHiddenOnLoad: true
+[omni.converter.hoops_log]*status*  physicsAccuracyLevel: 0.99
+[omni.converter.hoops_log]*status*  physicsUseGeometryOnRiBRep: false
+[omni.converter.hoops_log]*status*  reportProgress: true
+[omni.converter.hoops_log]*status*  reportProgressFreq: 4
+[omni.converter.hoops_log]*status*  tessLOD: 2
+[omni.converter.hoops_log]*status*  upAxis: 0
+[omni.converter.hoops_log]*status*  useMaterials: true
+[omni.converter.hoops_log]*status*  useNormals: true
+[omni.converter.hoops_log]*status*  viewLayerName: 
+[omni.converter.hoops_log]*status*Input file: /home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step
+[omni.converter.hoops_log]*status*Output info: /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd
+[omni.converter.hoops_progress]*step*1:2*prog*0.0*Begin Reading CAD model...
+[omni.converter.hoops_progress]*step*1:2*prog*100.0*Completed Reading CAD model...
+[omni.converter.hoops_progress]*step*2:2*prog*0.0*Begin Writing to USD...
+[omni.converter.hoops_log]*status*Modeler Unit Info:
+[omni.converter.hoops_log]*status*  depth = 0
+[omni.converter.hoops_log]*status*  modeler = kA3DModellerStep
+[omni.converter.hoops_log]*status*  unit from CAD = Yes
+[omni.converter.hoops_log]*status*  mm / unit = 1.000000
+[omni.converter.hoops_log]*status*  usd scale = mmpu / 10.0 = 0.100000
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdGeom/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdHydra/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdRender/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdSkel/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdRi/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdVol/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdPhysics/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usd/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdLux/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdMtlx/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdMedia/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdSemantics/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdUI/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdProc/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.schema.audio-0.0.1+6312fa25.lx64.r.cp312/plugins/omniAudioSchema/resources/generatedSchema.usda' for read
+OmniUsdResolver: Opening filesystem asset '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/data/Kit/kit/110.1/exts/3/omni.usd.libs-1.0.3+6312fa25.lx64.r.cp312/bin/usd/usdShade/resources/generatedSchema.usda' for read
+[omni.converter.hoops_progress]*step*2:2*prog*1.484375*/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB
+[omni.converter.hoops_log]*status*Result:
+[omni.converter.hoops_log]*status*  Total Meshes in USD = 55
+[omni.converter.hoops_log]*status*  Total Triangles in USD = 104399
+[omni.converter.hoops_log]*status*  Total Curves in USD = 0
+
+[omni.converter.hoops_progress]*step*2:2*prog*100.0*Completed Writing to USD...
+Exporting "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd"
+OmniUsdResolver: Opening filesystem asset '/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd' for write
+OmniUsdResolver: Opening filesystem asset '/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd' for read
+[omni.converter.hoops_progress]*end*0*
+[omni.converter.hoops_log]*status*CAD File Read
+[omni.converter.hoops_log]*status*  Start Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  End Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  Duration: 0.552 seconds
+[omni.converter.hoops_log]*status*Conversion to USD
+[omni.converter.hoops_log]*status*  Start Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  End Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  Duration: 0.126 seconds
+[omni.converter.hoops_log]*status*Hierarchy Authoring
+[omni.converter.hoops_log]*status*  Duration: 0.063 seconds
+[omni.converter.hoops_log]*status*Geometry Authoring
+[omni.converter.hoops_log]*status*  Duration: 0.058 seconds
+[omni.converter.hoops_log]*status*Material Authoring
+[omni.converter.hoops_log]*status*  Duration: 0.000 seconds
+[omni.converter.hoops_log]*status*Instancing Authoring
+[omni.converter.hoops_log]*status*  Start Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  End Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  Duration: 0.002 seconds
+[omni.converter.hoops_log]*status*USD Disk Write
+[omni.converter.hoops_log]*status*  Start Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  End Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  Duration: 0.009 seconds
+[omni.converter.hoops_log]*status*Overall Time
+[omni.converter.hoops_log]*status*  Start Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  End Time: 2026-06-28 00:39:52
+[omni.converter.hoops_log]*status*  Duration: 0.927 seconds
+OmniUsdResolver: Opening filesystem asset '/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd' for read
+Executed deletePrims (0s)
+Executed generateProjectionUVs (0.011s)
+OmniUsdResolver: Opening filesystem asset '/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd' for write
+OmniUsdResolver: Opening filesystem asset '/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd' for read
+[omni.converter.hoops_progress]*end*0*
+[OK] /home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step -> /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd
+Report: /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full_usd_convert_cad_status.json
+2026-06-27T15:39:52Z [2,519ms] [Warning] [carb] Recursive unloadAllPlugins() detected!

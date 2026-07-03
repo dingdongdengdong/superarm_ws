@@ -146,7 +146,7 @@ arm:
   max_relative_target_rad: 0.02
 ```
 
-The joint limits above are placeholders. Replace them with measured or URDF-derived values.
+The joint limits above are provisional safety values. Replace them with measured or SimReady/URDF-derived values before real movement.
 
 ## 6. Left arm config example
 

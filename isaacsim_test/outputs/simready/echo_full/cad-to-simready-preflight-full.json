@@ -1,0 +1,296 @@
+{
+  "blockers": [
+    "asset_validator: omni_asset_validate CLI and omni.asset_validator module are unavailable",
+    "openusd_python: OpenUSD Python APIs are not importable",
+    "usd_convert_cad: usd-convert-cad install or validation failed"
+  ],
+  "conversion_tools": [
+    "usd-convert-cad"
+  ],
+  "dependency_policy": "selected-target-dependencies",
+  "env": {
+    "CONTENT_AGENTS_MATERIAL_AGENT_BASE_URL": "http://localhost:8100",
+    "CONTENT_AGENTS_PHYSICS_AGENT_BASE_URL": "http://localhost:8200",
+    "OVRTX_RENDER_ENDPOINT": "http://localhost:8001",
+    "RENDER_ENDPOINT": "http://localhost:8001"
+  },
+  "generated_at": "2026-06-27T15:35:28.195132+00:00",
+  "legacy_options_ignored": [],
+  "manifest_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight-full.json",
+  "paths": {
+    "home": "/home/sim/.physical-ai-skill-hub",
+    "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+    "project_root": "",
+    "state_root": "/home/sim/.physical-ai-skill-hub/state",
+    "upstream_root": "/home/sim/.physical-ai-skill-hub/upstreams",
+    "venv_root": "/home/sim/.physical-ai-skill-hub/venvs"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "system": "linux"
+  },
+  "preflight_mode": "route-aware-dependency-bootstrap",
+  "route_selection": {
+    "conversion_tools_reason": "source-format",
+    "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "source_format": "cad"
+  },
+  "runtimes": {
+    "asset_validator": {
+      "executable": "/usr/bin/python3",
+      "message": "omni_asset_validate CLI and omni.asset_validator module are unavailable",
+      "status": "blocked"
+    },
+    "content_agents": {
+      "message": "Content Agents services are already healthy",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "ready"
+    },
+    "git_lfs": {
+      "executable": "/home/sim/.local/bin/git-lfs",
+      "message": "Git LFS is available",
+      "status": "ready"
+    },
+    "openusd_python": {
+      "executable": "/usr/bin/python3",
+      "message": "OpenUSD Python APIs are not importable",
+      "status": "blocked"
+    },
+    "repo_python": {
+      "executable": "/usr/bin/python3",
+      "message": "no pyproject.toml found near cwd or preflight script",
+      "status": "skipped"
+    },
+    "request": {
+      "checks": [
+        {
+          "message": "source asset exists and is readable",
+          "name": "source_asset",
+          "status": "ready"
+        },
+        {
+          "message": "output root exists and is writable",
+          "name": "output_root",
+          "status": "ready"
+        }
+      ],
+      "message": "request inputs are ready",
+      "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+      "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "status": "ready"
+    },
+    "simready_validate": {
+      "executable": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/simready-validate",
+      "message": "simready-validate was installed into the preflight venv",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+      "status": "ready",
+      "venv": "/home/sim/.physical-ai-skill-hub/venvs/simready-validate"
+    },
+    "usd_convert_cad": {
+      "executable": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/convert.py",
+      "message": "usd-convert-cad install or validation failed",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad",
+      "status": "blocked"
+    }
+  },
+  "schema_version": "1.0",
+  "services": {
+    "material": {
+      "base_url": "http://localhost:8100",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Material Agent Service\",\"version\":\"0.0.0\",\"api_keys_configured\":true,\"image_gen_configured\":false,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8100/health",
+      "message": "material health endpoint responded with HTTP 200",
+      "status": "ready"
+    },
+    "ovrtx": {
+      "base_url": "http://localhost:8001",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"ovrtx-rendering-api\",\"version\":\"0.1.0\",\"renderer\":\"ovrtx\",\"gpu_initialized\":true,\"renderer_initialized\":true,\"daemon_running\":true,\"ready_workers\":null,\"total_workers\":null,\"workers\":null}",
+      "health_url": "http://localhost:8001/health",
+      "message": "ovrtx health endpoint and render smoke responded with HTTP 200",
+      "render_smoke": {
+        "message": "render smoke returned base64 PNG",
+        "render_url": "http://localhost:8001/render",
+        "response_bytes": 1116,
+        "response_content_type": "application/json",
+        "response_status": 200,
+        "status": "ready"
+      },
+      "status": "ready"
+    },
+    "physics": {
+      "base_url": "http://localhost:8200",
+      "health_response": "{\"status\":\"healthy\",\"service\":\"Physics Agent Service\",\"version\":\"0.1.0\",\"api_keys_configured\":true,\"max_active_sessions\":1}",
+      "health_url": "http://localhost:8200/health",
+      "message": "physics health endpoint responded with HTTP 200",
+      "status": "ready"
+    }
+  },
+  "skill": "cad-to-simready-preflight",
+  "status": "blocked",
+  "steps": [
+    {
+      "command": [
+        "git",
+        "clone",
+        "https://github.com/NVIDIA-Omniverse/usd-convert-cad",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Cloning into '/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad'...\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/validate.py"
+      ],
+      "message": "command failed with exit 1",
+      "name": "python3",
+      "returncode": 1,
+      "status": "blocked",
+      "stdout_tail": "  [ERROR] config.env not found and .venv Python not found. Run install.py first.\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/install.py"
+      ],
+      "message": "command failed with exit 1",
+      "name": "python3",
+      "returncode": 1,
+      "status": "blocked",
+      "stdout_tail": "\n ============================================================\n  usd-convert-cad - Setup\n ============================================================\n\n [OK] Using Python: /usr/bin/python3\n Creating virtual environment...\nThe virtual environment was not created successfully because ensurepip is not\navailable.  On Debian/Ubuntu systems, you need to install the python3-venv\npackage using the following command.\n\n    apt install python3.12-venv\n\nYou may need to use sudo with that command.  After installing the python3-venv\npackage, recreate your virtual environment.\n\nFailing command: /home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/bin/python3\n\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/validate.py"
+      ],
+      "message": "command failed with exit 1",
+      "name": "python3",
+      "returncode": 1,
+      "status": "blocked",
+      "stdout_tail": "\n============================================================\n usd-convert-cad environment check\n============================================================\n\n  [OK] Python 3.12\n  [FAIL] omniverse-kit importable\n       No module named 'omni'\n [FAIL] Environment not ready. See output above. (exit 1)\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "from pxr import Usd, UsdGeom, UsdPhysics; print(Usd.GetVersion())"
+      ],
+      "message": "command failed with exit 1",
+      "name": "python3",
+      "returncode": 1,
+      "status": "blocked",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'pxr'\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import omni.asset_validator"
+      ],
+      "message": "command failed with exit 1",
+      "name": "python3",
+      "returncode": 1,
+      "status": "blocked",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'omni'\n"
+    },
+    {
+      "command": [
+        "git",
+        "clone",
+        "--branch",
+        "main",
+        "https://github.com/NVIDIA/simready-foundation",
+        "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "...s\nFiltering content:  61% (366/600), 2.10 GiB | 35.81 MiB/s\nFiltering content:  62% (372/600), 2.10 GiB | 35.81 MiB/s\nFiltering content:  63% (378/600), 2.10 GiB | 35.81 MiB/s\nFiltering content:  63% (380/600), 2.33 GiB | 10.25 MiB/s\nFiltering content:  63% (381/600), 2.56 GiB | 13.86 MiB/s\nFiltering content:  63% (382/600), 2.57 GiB | 13.29 MiB/s\nFiltering content:  64% (384/600), 2.59 GiB | 13.13 MiB/s\nFiltering content:  64% (386/600), 2.62 GiB | 12.66 MiB/s\nFiltering content:  64% (387/600), 2.64 GiB | 12.49 MiB/s\nFiltering content:  64% (388/600), 2.65 GiB | 12.41 MiB/s\nFiltering content:  65% (390/600), 2.65 GiB | 11.94 MiB/s\nFiltering content:  65% (391/600), 2.65 GiB | 11.94 MiB/s\nFiltering content:  65% (392/600), 2.67 GiB | 11.67 MiB/s\nFiltering content:  65% (394/600), 2.68 GiB | 10.62 MiB/s\nFiltering content:  66% (396/600), 2.68 GiB | 10.62 MiB/s\nFiltering content:  66% (399/600), 2.70 GiB | 12.61 MiB/s\nFiltering content:  66% (400/600), 2.71 GiB | 12.11 MiB/s\nFiltering content:  67% (402/600), 2.71 GiB | 12.31 MiB/s\nFiltering content:  68% (408/600), 2.76 GiB | 14.91 MiB/s\nFiltering content:  69% (414/600), 2.77 GiB | 18.07 MiB/s\nFiltering content:  69% (415/600), 2.77 GiB | 18.07 MiB/s\nFiltering content:  70% (420/600), 2.79 GiB | 17.76 MiB/s\nFiltering content:  70% (422/600), 2.80 GiB | 18.98 MiB/s\nFiltering content:  71% (426/600), 2.80 GiB | 18.98 MiB/s\nFiltering content:  72% (432/600), 2.81 GiB | 20.05 MiB/s\nFiltering content:  73% (438/600), 2.82 GiB | 19.67 MiB/s\nFiltering content:  74% (444/600), 2.82 GiB | 20.58 MiB/s\nFiltering content:  75% (450/600), 2.82 GiB | 20.58 MiB/s\nFiltering content:  75% (451/600), 2.82 GiB | 20.58 MiB/s\nFiltering content:  76% (456/600), 2.83 GiB | 21.79 MiB/s\nFiltering content:  77% (462/600), 2.83 GiB | 21.79 MiB/s\nFiltering content:  78% (468/600), 2.84 GiB | 22.67 MiB/s\nFiltering content:  78% (473/600), 2.84 GiB | 22.67 MiB/s\nFiltering content:  79% (474/600), 2.84 GiB | 22.67 MiB/s\nFiltering content:  80% (480/600), 2.84 GiB | 22.67 MiB/s\nFiltering content:  81% (486/600), 2.85 GiB | 15.52 MiB/s\nFiltering content:  81% (491/600), 2.85 GiB | 15.52 MiB/s\nFiltering content:  82% (492/600), 2.89 GiB | 21.36 MiB/s\nFiltering content:  83% (498/600), 2.89 GiB | 21.36 MiB/s\nFiltering content:  84% (504/600), 2.89 GiB | 21.36 MiB/s\nFiltering content:  85% (510/600), 2.90 GiB | 19.97 MiB/s\nFiltering content:  85% (515/600), 2.90 GiB | 19.97 MiB/s\nFiltering content:  86% (516/600), 2.90 GiB | 19.97 MiB/s\nFiltering content:  86% (521/600), 2.90 GiB | 18.06 MiB/s\nFiltering content:  87% (522/600), 3.02 GiB | 6.58 MiB/s \nFiltering content:  87% (523/600), 3.15 GiB | 9.21 MiB/s\nFiltering content:  87% (524/600), 3.16 GiB | 8.69 MiB/s\nFiltering content:  87% (526/600), 3.16 GiB | 8.69 MiB/s\nFiltering content:  88% (528/600), 3.17 GiB | 8.71 MiB/s\nFiltering content:  88% (529/600), 3.17 GiB | 8.71 MiB/s\nFiltering content:  88% (530/600), 3.18 GiB | 8.69 MiB/s\nFiltering content:  89% (534/600), 3.19 GiB | 7.52 MiB/s\nFiltering content:  89% (536/600), 3.19 GiB | 7.52 MiB/s\nFiltering content:  90% (540/600), 3.24 GiB | 8.57 MiB/s\nFiltering content:  90% (543/600), 3.24 GiB | 8.57 MiB/s\nFiltering content:  91% (546/600), 3.24 GiB | 8.60 MiB/s\nFiltering content:  92% (552/600), 3.24 GiB | 16.99 MiB/s\nFiltering content:  92% (555/600), 3.24 GiB | 16.99 MiB/s\nFiltering content:  93% (558/600), 3.24 GiB | 10.85 MiB/s\nFiltering content:  94% (564/600), 3.24 GiB | 10.85 MiB/s\nFiltering content:  95% (570/600), 3.24 GiB | 10.85 MiB/s\nFiltering content:  96% (576/600), 3.25 GiB | 13.24 MiB/s\nFiltering content:  97% (582/600), 3.25 GiB | 13.24 MiB/s\nFiltering content:  97% (583/600), 3.25 GiB | 13.24 MiB/s\nFiltering content:  98% (588/600), 3.25 GiB | 13.24 MiB/s\nFiltering content:  99% (594/600), 3.25 GiB | 12.56 MiB/s\nFiltering content:  99% (599/600), 3.27 GiB | 15.86 MiB/s\nFiltering content: 100% (600/600), 3.29 GiB | 19.71 MiB/s\nFiltering content: 100% (600/600), 3.33 GiB | 15.84 MiB/s, done.\n"
+    },
+    {
+      "command": [
+        "/home/sim/.local/bin/uv",
+        "venv",
+        "--python",
+        "3.12",
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate"
+      ],
+      "message": "command completed",
+      "name": "uv",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Using CPython 3.12.3 interpreter at: /usr/bin/python3.12\nCreating virtual environment at: /home/sim/.physical-ai-skill-hub/venvs/simready-validate\nActivate with: source /home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/activate\n"
+    },
+    {
+      "command": [
+        "/home/sim/.local/bin/uv",
+        "pip",
+        "install",
+        "--python",
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python",
+        "-r",
+        "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation/requirements.txt",
+        "numpy>=1.24,<3"
+      ],
+      "message": "command completed",
+      "name": "uv",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Using Python 3.12.3 environment at: /home/sim/.physical-ai-skill-hub/venvs/simready-validate\nResolved 9 packages in 1.24s\nDownloading numpy (15.9MiB)\nDownloading usd-core (27.4MiB)\n Downloaded numpy\n Downloaded usd-core\nPrepared 9 packages in 826ms\nInstalled 9 packages in 13ms\n + jinja2==3.1.6\n + markdown-it-py==4.2.0\n + markupsafe==3.0.3\n + mdurl==0.1.2\n + numpy==2.5.0\n + omniverse-asset-validator==1.18.0\n + omniverse-usd-profiles==1.10.22\n + simready-validate==2026.4.9\n + usd-core==26.5\n"
+    },
+    {
+      "command": [
+        "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/python",
+        "-c",
+        "import numpy"
+      ],
+      "message": "command completed",
+      "name": "python",
+      "returncode": 0,
+      "status": "ready"
+    },
+    {
+      "message": "checkout has local changes; skipped automatic update",
+      "name": "content_agents_update",
+      "status": "skipped"
+    }
+  ],
+  "targets": [
+    "conversion",
+    "validation",
+    "content-agents"
+  ],
+  "upstreams": {
+    "content_agents": {
+      "branch": "main",
+      "commit": "5be4f88b380430ba02f9fc9fa756aa12826b8a55",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "present",
+      "url": "https://github.com/nvidia-omniverse/content-agents"
+    },
+    "simready_foundation": {
+      "branch": "main",
+      "commit": "a1e9dd68ee2d107f74dc6cd6da875b54ad3f8fd3",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/simready-foundation",
+      "status": "present",
+      "url": "https://github.com/NVIDIA/simready-foundation"
+    },
+    "usd_convert_cad": {
+      "branch": null,
+      "commit": "4226fd49c06420adf193f821e2ddee805bb38eef",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad",
+      "status": "present",
+      "url": "https://github.com/NVIDIA-Omniverse/usd-convert-cad"
+    }
+  }
+}

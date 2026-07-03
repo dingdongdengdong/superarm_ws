@@ -1,0 +1,17 @@
+{
+  "command": [],
+  "errors": [],
+  "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+  "name": "FET_005_SIMULATE_GRASP_PHYSICS",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet004-multibody/echo_full_robot_arm_hand.usd",
+  "passed": false,
+  "reason": "GSP.001 requires at least two explicit --grasp-point values selected from visual evidence.",
+  "report_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-01/fet005-grasp/fet005-grasp.json",
+  "requirements_blocked": [
+    "GSP.001"
+  ],
+  "requirements_repaired": [],
+  "requirements_skipped": [],
+  "status": "BLOCKED",
+  "warnings": []
+}

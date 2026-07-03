@@ -1,29 +1,40 @@
 services:
 
-  # Isaac Sim 5.1 — runs the simulated OpenArm follower
+  # Isaac Sim 5.1 - loads the SimReady echo_full asset and ROS2 bridge
   isaac-sim-51:
     image: nvcr.io/nvidia/isaac-sim:5.1.0
     container_name: isaacsim-test-sim
     network_mode: host
+    user: "0:0"
     environment:
       DISPLAY: "${DISPLAY:-:0}"
       NVIDIA_VISIBLE_DEVICES: all
       NVIDIA_DRIVER_CAPABILITIES: all
       ACCEPT_EULA: "Y"
       ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+      ROS_DISTRO: humble
       RMW_IMPLEMENTATION: rmw_fastrtps_cpp
-      OPENARM_URDF_PATH: "${OPENARM_URDF_PATH:-}"
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
+      PYTHONUNBUFFERED: "1"
+      LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
+      PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
+      SIMREADY_USD_PATH: "${SIMREADY_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd}"
+      SIMREADY_THUMBNAIL_PATH: "${SIMREADY_THUMBNAIL_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png}"
+      RPO_ARM_URDF_PATH: "${RPO_ARM_URDF_PATH:-/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf}"
       HEADLESS: "${HEADLESS:-1}"
+      SCREENSHOT_AFTER_COMMAND: "${SCREENSHOT_AFTER_COMMAND:-0}"
+      SCREENSHOT_ON_STARTUP: "${SCREENSHOT_ON_STARTUP:-0}"
+      SCREENSHOT_PATH: "${SCREENSHOT_PATH:-/workspace/superarm_ws/isaacsim_test/artifacts/echo_full_simready_target.png}"
+      EXIT_AFTER_SCREENSHOT: "${EXIT_AFTER_SCREENSHOT:-1}"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./isaacsim:/workspace/isaacsim:ro
-      - ${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:ro
+      - ${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:rw
       - isaac_sim_cache:/root/.cache/ov
       - isaac_nucleus_cache:/root/.local/share/ov/data
-    entrypoint: ["/bin/bash", "-c"]
-    command: >
-      source /opt/ros/humble/setup.bash &&
-      exec /isaac-sim/python.sh /workspace/isaacsim/setup_openarm_scene.py
+    entrypoint: ["/bin/bash", "-lc"]
+    command:
+      - exec /isaac-sim/python.sh /workspace/isaacsim/setup_rpo_arm_scene.py
     deploy:
       resources:
         reservations:
@@ -44,18 +55,22 @@ services:
       NVIDIA_DRIVER_CAPABILITIES: all
       ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
       RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
       PHONE_PORT: "${PHONE_PORT:-8766}"
+      NUM_JOINTS: "${NUM_JOINTS:-6}"
+      JOINT_NAMES: "${JOINT_NAMES:-right_arm_pitch_joint,right_arm_roll_joint,right_arm_yaw_joint,right_elbow_pitch_joint,right_elbow_yaw_joint,amazinghand_grasp}"
+      PIP_BREAK_SYSTEM_PACKAGES: "1"
       PYTHONPATH: "/workspace/superarm_ws/isaacsim_test/lerobot"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${SUPERARM_WS_PATH:?Set SUPERARM_WS_PATH in isaacsim_test/.env}:/workspace/superarm_ws:rw
     working_dir: /workspace/superarm_ws
-    entrypoint: ["/bin/bash", "-c"]
-    command: >
-      source /opt/ros/humble/setup.bash &&
-      cd /workspace/superarm_ws/lerobot &&
-      pip install -e . --quiet &&
-      bash /workspace/superarm_ws/isaacsim_test/lerobot/run_smartphone_teleop.sh
+    entrypoint: ["/bin/bash", "-lc"]
+    command:
+      - source /opt/ros/humble/setup.bash &&
+        cd /workspace/superarm_ws/lerobot &&
+        pip install -e . --quiet --break-system-packages --ignore-installed blinker &&
+        bash /workspace/superarm_ws/isaacsim_test/lerobot/run_smartphone_teleop.sh
     deploy:
       resources:
         reservations:
@@ -75,13 +90,14 @@ services:
     environment:
       ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
       RMW_IMPLEMENTATION: rmw_fastrtps_cpp
-    entrypoint: ["/bin/bash", "-c"]
-    command: >
-      source /opt/ros/humble/setup.bash &&
-      apt-get install -y -q ros-humble-foxglove-bridge 2>/dev/null || true &&
-      ros2 launch foxglove_bridge foxglove_bridge_launch.xml
-      port:=${FOXGLOVE_PORT:-8765}
-      address:=0.0.0.0
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
+    entrypoint: ["/bin/bash", "-lc"]
+    command:
+      - source /opt/ros/humble/setup.bash &&
+        (apt-get install -y -q ros-humble-foxglove-bridge 2>/dev/null || true) &&
+        ros2 launch foxglove_bridge foxglove_bridge_launch.xml
+        port:=${FOXGLOVE_PORT:-8765}
+        address:=0.0.0.0
     restart: "no"
 
 volumes:

@@ -134,7 +134,7 @@ amazinghand:
     servo_8: [-95, 45]
 ```
 
-These values are placeholders. Measure your assembled hand.
+These values are provisional calibration values. Measure your assembled hand before commanding real servos.
 
 ## 6. Scalar grasp mapping
 

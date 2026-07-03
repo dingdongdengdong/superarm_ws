@@ -1,0 +1,156 @@
+{
+  "blockers": [
+    "content_agents: NVIDIA_API_KEY is required for managed local Content Agents deployment",
+    "git_lfs: `git-lfs` was not found on PATH",
+    "material: material health endpoint did not respond",
+    "ovrtx: ovrtx health endpoint did not respond",
+    "physics: physics health endpoint did not respond"
+  ],
+  "conversion_tools": [
+    "usd-convert-cad"
+  ],
+  "dependency_policy": "selected-target-dependencies",
+  "env": {},
+  "generated_at": "2026-06-27T15:00:53.493537+00:00",
+  "legacy_options_ignored": [],
+  "manifest_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight.json",
+  "paths": {
+    "home": "/home/sim/.physical-ai-skill-hub",
+    "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+    "project_root": "",
+    "state_root": "/home/sim/.physical-ai-skill-hub/state",
+    "upstream_root": "/home/sim/.physical-ai-skill-hub/upstreams",
+    "venv_root": "/home/sim/.physical-ai-skill-hub/venvs"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "system": "linux"
+  },
+  "preflight_mode": "route-aware-dependency-bootstrap",
+  "route_selection": {
+    "conversion_tools_reason": "source-format",
+    "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+    "source_format": "cad"
+  },
+  "runtimes": {
+    "content_agents": {
+      "deployment_host": {
+        "checks": [
+          {
+            "executable": "/usr/bin/nvidia-smi",
+            "message": "nvidia-smi reported at least one GPU",
+            "name": "nvidia_smi",
+            "status": "ready"
+          },
+          {
+            "executable": "/usr/bin/docker",
+            "message": "Docker daemon is reachable",
+            "name": "docker_daemon",
+            "status": "ready"
+          },
+          {
+            "executable": "/usr/bin/docker",
+            "message": "Docker Compose v2 is available",
+            "name": "docker_compose_v2",
+            "status": "ready"
+          }
+        ],
+        "message": "local Content Agents deployment host is ready",
+        "status": "ready"
+      },
+      "message": "NVIDIA_API_KEY is required for managed local Content Agents deployment",
+      "root": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "blocked"
+    },
+    "git_lfs": {
+      "message": "`git-lfs` was not found on PATH",
+      "status": "blocked"
+    },
+    "repo_python": {
+      "executable": "/usr/bin/python3",
+      "message": "no pyproject.toml found near cwd or preflight script",
+      "status": "skipped"
+    },
+    "request": {
+      "checks": [
+        {
+          "message": "source asset exists and is readable",
+          "name": "source_asset",
+          "status": "ready"
+        },
+        {
+          "message": "output root exists and is writable",
+          "name": "output_root",
+          "status": "ready"
+        }
+      ],
+      "message": "request inputs are ready",
+      "output_root": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full",
+      "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+      "status": "ready"
+    }
+  },
+  "schema_version": "1.0",
+  "services": {
+    "material": {
+      "base_url": "http://localhost:8100",
+      "errors": [
+        "http://localhost:8100/health: [Errno 111] Connection refused",
+        "http://localhost:8100/v2/health/ready: [Errno 111] Connection refused"
+      ],
+      "message": "material health endpoint did not respond",
+      "status": "blocked"
+    },
+    "ovrtx": {
+      "base_url": "http://localhost:8001",
+      "errors": [
+        "http://localhost:8001/health: [Errno 111] Connection refused",
+        "http://localhost:8001/v2/health/ready: [Errno 111] Connection refused"
+      ],
+      "message": "ovrtx health endpoint did not respond",
+      "status": "blocked"
+    },
+    "physics": {
+      "base_url": "http://localhost:8200",
+      "errors": [
+        "http://localhost:8200/health: [Errno 111] Connection refused",
+        "http://localhost:8200/v2/health/ready: [Errno 111] Connection refused"
+      ],
+      "message": "physics health endpoint did not respond",
+      "status": "blocked"
+    }
+  },
+  "skill": "cad-to-simready-preflight",
+  "status": "blocked",
+  "steps": [
+    {
+      "command": [
+        "git",
+        "clone",
+        "--branch",
+        "main",
+        "https://github.com/nvidia-omniverse/content-agents",
+        "/home/sim/.physical-ai-skill-hub/upstreams/content-agents"
+      ],
+      "message": "command completed",
+      "name": "git",
+      "returncode": 0,
+      "status": "ready",
+      "stderr_tail": "Cloning into '/home/sim/.physical-ai-skill-hub/upstreams/content-agents'...\n"
+    }
+  ],
+  "targets": [
+    "content-agents"
+  ],
+  "upstreams": {
+    "content_agents": {
+      "branch": "main",
+      "commit": "5be4f88b380430ba02f9fc9fa756aa12826b8a55",
+      "message": "checkout is present",
+      "path": "/home/sim/.physical-ai-skill-hub/upstreams/content-agents",
+      "status": "present",
+      "url": "https://github.com/nvidia-omniverse/content-agents"
+    }
+  }
+}

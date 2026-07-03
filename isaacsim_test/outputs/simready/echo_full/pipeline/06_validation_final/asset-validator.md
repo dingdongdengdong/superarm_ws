@@ -1,0 +1,276 @@
+# Asset Validator Report
+
+- Asset: `/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd`
+- Validator skill: `omni-asset-validate`
+- Validator tool: `omni_asset_validate`
+- Passed: `True`
+- Status: `PASS`
+- Next step: `omni-asset-validate-geometry`
+
+## Issue Counts
+
+- `ERROR`: 0
+- `FAILURE`: 0
+- `WARNING`: 125
+- `INFO`: 0
+
+## Issues
+
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `IndexedPrimvarChecker`: primvars:st contains repeated values that can be indexed.
+- `WARNING` `ManifoldChecker`: 192 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 70 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 192 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 73 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 192 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 70 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 192 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 73 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 192 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 2 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 7 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 32 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 3 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 132 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 13 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 6 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 225 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 32 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 32 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 3 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 3 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 7 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 7 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 32 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 3 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 7 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 2 vertices are non-manifold.
+- `WARNING` `ManifoldChecker`: 2 vertices are non-manifold.
+
+## Errors
+
+- None
+
+## Warnings
+
+- nvidia_usd_validate CLI was not found on PATH; using legacy omni_asset_validate CLI with /home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/omni_asset_validate.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.
+- ManifoldChecker: 192 vertices are non-manifold.
+- ManifoldChecker: 70 vertices are non-manifold.
+- ManifoldChecker: 192 vertices are non-manifold.
+- ManifoldChecker: 73 vertices are non-manifold.
+- ManifoldChecker: 192 vertices are non-manifold.
+- ManifoldChecker: 70 vertices are non-manifold.
+- ManifoldChecker: 192 vertices are non-manifold.
+- ManifoldChecker: 73 vertices are non-manifold.
+- ManifoldChecker: 192 vertices are non-manifold.
+- ManifoldChecker: 2 vertices are non-manifold.
+- ManifoldChecker: 7 vertices are non-manifold.
+- ManifoldChecker: 32 vertices are non-manifold.
+- ManifoldChecker: 3 vertices are non-manifold.
+- ManifoldChecker: 132 vertices are non-manifold.
+- ManifoldChecker: 13 vertices are non-manifold.
+- ManifoldChecker: 6 vertices are non-manifold.
+- ManifoldChecker: 225 vertices are non-manifold.
+- ManifoldChecker: 32 vertices are non-manifold.
+- ManifoldChecker: 32 vertices are non-manifold.
+- ManifoldChecker: 3 vertices are non-manifold.
+- ManifoldChecker: 3 vertices are non-manifold.
+- ManifoldChecker: 7 vertices are non-manifold.
+- ManifoldChecker: 7 vertices are non-manifold.
+- ManifoldChecker: 32 vertices are non-manifold.
+- ManifoldChecker: 3 vertices are non-manifold.
+- ManifoldChecker: 7 vertices are non-manifold.
+- ManifoldChecker: 2 vertices are non-manifold.
+- ManifoldChecker: 2 vertices are non-manifold.

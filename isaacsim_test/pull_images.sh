@@ -8,7 +8,7 @@ IMAGES=(
 
 echo "================================================================"
 echo "  Isaac Sim Image Pull Script"
-echo "  Images: 4.5.0 (~22 GB) + 6.0.0 (~25 GB)"
+echo "  Images: 5.1.0 (~22 GB) + 6.0.0 (~25 GB)"
 echo "  Ensure you have at least 55 GB of free disk space."
 echo "================================================================"
 echo ""
@@ -49,7 +49,7 @@ echo "================================================================"
 echo "  Pulled images:"
 echo "================================================================"
 docker images --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}\t{{.CreatedAt}}" \
-    | grep -E "REPO|isaac-sim:(4\.5\.0|6\.0\.0)"
+    | grep -E "REPO|isaac-sim:(5\.1\.0|6\.0\.0)"
 
 echo ""
 echo "  Version strings:"
@@ -60,5 +60,5 @@ for IMAGE in "${IMAGES[@]}"; do
 done
 
 echo ""
-echo "Done. Test with Isaac Sim 4.5.0:"
-echo "  cd $(dirname "$0") && docker compose up isaac-sim-45"
+echo "Done. Test with Isaac Sim 5.1.0:"
+echo "  cd $(dirname "$0") && docker compose up isaac-sim-51"

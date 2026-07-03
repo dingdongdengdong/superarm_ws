@@ -63,9 +63,14 @@ function buildUI() {{
     const div = document.createElement("div");
     div.className = "joint";
     const name = JOINT_NAMES[i] || ("joint_" + i);
+    const isGrasp = name.includes("grasp");
+    const min = isGrasp ? "0.0" : "-3.14";
+    const max = isGrasp ? "1.0" : "3.14";
+    const step = isGrasp ? "0.01" : "0.01";
+    const unit = isGrasp ? "" : " rad";
     div.innerHTML = `
-      <label><span>${{name}}</span><span id="val${{i}}">0.00 rad</span></label>
-      <input type="range" id="sl${{i}}" min="-3.14" max="3.14" step="0.01" value="0"
+      <label><span>${{name}}</span><span id="val${{i}}">0.00${{unit}}</span></label>
+      <input type="range" id="sl${{i}}" min="${{min}}" max="${{max}}" step="${{step}}" value="0"
              oninput="onSlider(${{i}}, this.value)">`;
     container.appendChild(div);
     sliders.push(div.querySelector("input"));
@@ -73,7 +78,9 @@ function buildUI() {{
 }}
 
 function onSlider(i, val) {{
-  document.getElementById("val" + i).textContent = parseFloat(val).toFixed(2) + " rad";
+  const name = JOINT_NAMES[i] || "";
+  const unit = name.includes("grasp") ? "" : " rad";
+  document.getElementById("val" + i).textContent = parseFloat(val).toFixed(2) + unit;
 }}
 
 function getPositions() {{
@@ -149,7 +156,14 @@ async def handle_ws(request, node: TeleopPublisherNode):
 async def main_async(args, node: TeleopPublisherNode):
     from aiohttp import web
 
-    joint_names = [f"joint_{i}" for i in range(args.num_joints)]
+    joint_names = (
+        [name.strip() for name in args.joint_names.split(",") if name.strip()]
+        if args.joint_names
+        else [f"joint_{i}" for i in range(args.num_joints)]
+    )
+    if len(joint_names) < args.num_joints:
+        joint_names.extend(f"joint_{i}" for i in range(len(joint_names), args.num_joints))
+    joint_names = joint_names[:args.num_joints]
     html = _HTML_TEMPLATE.format(
         num_joints=args.num_joints,
         joint_names_json=json.dumps(joint_names),
@@ -185,6 +199,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--num-joints", type=int, default=6)
+    parser.add_argument("--joint-names", default="")
     parser.add_argument("--topic", default="/leader/joint_commands")
     parser.add_argument("--ros-domain-id", type=int, default=42)
     args = parser.parse_args()

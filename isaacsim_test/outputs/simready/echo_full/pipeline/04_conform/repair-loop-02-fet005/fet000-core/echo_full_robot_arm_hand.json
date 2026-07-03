@@ -1,0 +1,14 @@
+{
+  "description": "SimReady metadata for echo_full_robot_arm_hand",
+  "generated_by": "physical-ai-skill-hub",
+  "identifier": "echo_full_robot_arm_hand",
+  "pipeline": [
+    "convert-to-usd",
+    "material-agent-client",
+    "physics-agent-client"
+  ],
+  "profile": "Prop-Robotics-Neutral",
+  "profile_version": "1.0.0",
+  "source_asset": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+  "version": "1.0.0"
+}

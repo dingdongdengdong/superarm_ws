@@ -1,0 +1,1156 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd",
+  "categories": [
+    "Geometry"
+  ],
+  "command": [
+    "/home/sim/.physical-ai-skill-hub/venvs/simready-validate/bin/omni_asset_validate",
+    "--category",
+    "Geometry",
+    "--json-output",
+    "/tmp/tmpkpuniajo/asset-validator-report.json",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/fet001-minimal/echo_full_robot_arm_hand.usd"
+  ],
+  "errors": [],
+  "issue_counts": {
+    "ERROR": 0,
+    "FAILURE": 0,
+    "INFO": 0,
+    "WARNING": 125
+  },
+  "issues": [
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "192 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "70 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "192 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "73 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "192 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "70 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "192 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body1/Mesh",
+      "message": "73 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "192 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v11_b4a4iZg9jXSVlF4rxHjo7/Body9/Mesh",
+      "message": "2 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "7 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh",
+      "message": "32 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "3 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRHand_Platev11_cV0CIJV0rEMYG/Body1/Mesh",
+      "message": "132 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRPalm_Shellv11_cV0CIJV0rEMYG/Body1/Mesh",
+      "message": "13 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRTop_Shellv11_bUCIJUeEMpF/Body1/Mesh",
+      "message": "6 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRWrist_Interfacev11_ha0CIJa0uGMgI/Body1/Mesh",
+      "message": "225 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv12_XQCIJQoChD/Body1/Mesh",
+      "message": "32 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv13_XQCIJQoChD/Body1/Mesh",
+      "message": "32 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv12_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "3 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv13_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "3 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv12_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "7 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv13_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "7 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv14_XQCIJQoChD/Body1/Mesh",
+      "message": "32 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv14_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "3 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv14_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "7 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_1",
+      "message": "2 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_2",
+      "message": "2 vertices are non-manifold.",
+      "requirement": "VG.007@1.0.0",
+      "rule": "ManifoldChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v42_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v42_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v72_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v43_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v43_rCZB/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000160_02_v11_xFsDiuuIbc3/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body3/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body4/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body2/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v12_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v12_zGoEffzEbog4/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v31_b4a4iZg9jXSVlF4rxHjo7/tn__Body11_h6d1H/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v11_b4a4iZg9jXSVlF4rxHjo7/Body9/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame2v11_eX0CIJX0mFX0VH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRHand_Platev11_cV0CIJV0rEMYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRPalm_Shellv11_cV0CIJV0rEMYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRTop_Shellv11_bUCIJUeEMpF/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRWrist_Interfacev11_ha0CIJa0uGMgI/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v12_eX0CIJX0mFX0VH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv12_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv12_VOCIJOtBkC/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv12_ZSCIJSjDeE/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv12_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v13_eX0CIJX0mFX0VH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv13_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv13_VOCIJOtBkC/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv13_ZSCIJSjDeE/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv14_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv12_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv13_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv12_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv13_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v14_eX0CIJX0mFX0VH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv14_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv14_VOCIJOtBkC/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv14_ZSCIJSjDeE/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv15_XQCIJQoChD/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv14_fY0CIJY0zFVH/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv14_dW0CIJW0ZFYG/Body1/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body5/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    },
+    {
+      "location": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body6/Mesh",
+      "message": "primvars:st contains repeated values that can be indexed.",
+      "requirement": "VG.009@1.0.0",
+      "rule": "IndexedPrimvarChecker",
+      "severity": "WARNING",
+      "suggestion": null
+    }
+  ],
+  "next_step": "omni-asset-validate-physics",
+  "passed": true,
+  "rules": [],
+  "status": "PASS",
+  "validator_skill": "omni-asset-validate-geometry",
+  "validator_tool": "omni_asset_validate",
+  "warnings": [
+    "ManifoldChecker: 192 vertices are non-manifold.",
+    "ManifoldChecker: 70 vertices are non-manifold.",
+    "ManifoldChecker: 192 vertices are non-manifold.",
+    "ManifoldChecker: 73 vertices are non-manifold.",
+    "ManifoldChecker: 192 vertices are non-manifold.",
+    "ManifoldChecker: 70 vertices are non-manifold.",
+    "ManifoldChecker: 192 vertices are non-manifold.",
+    "ManifoldChecker: 73 vertices are non-manifold.",
+    "ManifoldChecker: 192 vertices are non-manifold.",
+    "ManifoldChecker: 2 vertices are non-manifold.",
+    "ManifoldChecker: 7 vertices are non-manifold.",
+    "ManifoldChecker: 32 vertices are non-manifold.",
+    "ManifoldChecker: 3 vertices are non-manifold.",
+    "ManifoldChecker: 132 vertices are non-manifold.",
+    "ManifoldChecker: 13 vertices are non-manifold.",
+    "ManifoldChecker: 6 vertices are non-manifold.",
+    "ManifoldChecker: 225 vertices are non-manifold.",
+    "ManifoldChecker: 32 vertices are non-manifold.",
+    "ManifoldChecker: 32 vertices are non-manifold.",
+    "ManifoldChecker: 3 vertices are non-manifold.",
+    "ManifoldChecker: 3 vertices are non-manifold.",
+    "ManifoldChecker: 7 vertices are non-manifold.",
+    "ManifoldChecker: 7 vertices are non-manifold.",
+    "ManifoldChecker: 32 vertices are non-manifold.",
+    "ManifoldChecker: 3 vertices are non-manifold.",
+    "ManifoldChecker: 7 vertices are non-manifold.",
+    "ManifoldChecker: 2 vertices are non-manifold.",
+    "ManifoldChecker: 2 vertices are non-manifold.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed.",
+    "IndexedPrimvarChecker: primvars:st contains repeated values that can be indexed."
+  ]
+}

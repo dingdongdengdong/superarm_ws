@@ -1,0 +1,196 @@
+{
+  "checks": [
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset uses a supported editable USD extension",
+      "name": "supported_usd_extension",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Output mode is valid",
+      "name": "output_mode_valid",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "OpenUSD Python modules are available",
+      "name": "openusd_python_available",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Copied source asset to /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/echo_full_robot_arm_hand.usd",
+      "name": "output_prepared",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Stage opens",
+      "name": "stage_opens",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Default prim is /echo_full",
+      "name": "default_prim_valid",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "metersPerUnit is 1.0",
+      "name": "meters_per_unit_declared",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "upAxis is Z",
+      "name": "up_axis_declared",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Stage reopens after repair",
+      "name": "stage_reopens_after_repair",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "metersPerUnit after repair is 1.0",
+      "name": "meters_per_unit_normalized",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "errors": [],
+  "fet001_version": "0.1.0",
+  "input_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.usd",
+  "metadata": {
+    "bounds_after": {
+      "meters": {
+        "center": [
+          -0.2619501132202512,
+          0.29086011664759565,
+          0.3683463855590792
+        ],
+        "max": [
+          0.10279988677969104,
+          0.5333601200748626,
+          0.8043777711182385
+        ],
+        "min": [
+          -0.6267001132201935,
+          0.04836011322032877,
+          -0.06768500000008
+        ],
+        "size": [
+          0.7294999999998846,
+          0.48500000685453376,
+          0.8720627711183185
+        ]
+      },
+      "stage_units": {
+        "center": [
+          -0.2619501132202512,
+          0.29086011664759565,
+          0.3683463855590792
+        ],
+        "max": [
+          0.10279988677969104,
+          0.5333601200748626,
+          0.8043777711182385
+        ],
+        "min": [
+          -0.6267001132201935,
+          0.04836011322032877,
+          -0.06768500000008
+        ],
+        "size": [
+          0.7294999999998846,
+          0.48500000685453376,
+          0.8720627711183185
+        ]
+      }
+    },
+    "bounds_before": {
+      "meters": {
+        "center": [
+          -0.2619501132202512,
+          0.29086011664759565,
+          0.3683463855590792
+        ],
+        "max": [
+          0.10279988677969104,
+          0.5333601200748626,
+          0.8043777711182385
+        ],
+        "min": [
+          -0.6267001132201935,
+          0.04836011322032877,
+          -0.06768500000008
+        ],
+        "size": [
+          0.7294999999998846,
+          0.48500000685453376,
+          0.8720627711183185
+        ]
+      },
+      "stage_units": {
+        "center": [
+          -0.2619501132202512,
+          0.29086011664759565,
+          0.3683463855590792
+        ],
+        "max": [
+          0.10279988677969104,
+          0.5333601200748626,
+          0.8043777711182385
+        ],
+        "min": [
+          -0.6267001132201935,
+          0.04836011322032877,
+          -0.06768500000008
+        ],
+        "size": [
+          0.7294999999998846,
+          0.48500000685453376,
+          0.8720627711183185
+        ]
+      }
+    },
+    "max_meter_center_delta": 0.0,
+    "max_meter_size_delta": 0.0,
+    "new_meters_per_unit": 1.0,
+    "new_up_axis": "Z",
+    "old_meters_per_unit": 1.0,
+    "old_up_axis": "Z",
+    "repair_strategy": "root-scale",
+    "save_backend": "root-layer",
+    "scale_factor": 1.0,
+    "scale_preserved": true
+  },
+  "next_step": "validate-usd-minimum then simready-validate",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet001-minimal/echo_full_robot_arm_hand.usd",
+  "passed": true,
+  "profile": "Prop-Robotics-Neutral",
+  "profile_version": "1.0.0",
+  "requirements_already_passed": [
+    "UN.007"
+  ],
+  "requirements_blocked": [],
+  "requirements_repaired": [],
+  "scale_preserved": true,
+  "skill": "FET_001_MINIMAL",
+  "status": "PASS",
+  "tool": "pxr.Usd/UsdGeom unit normalization",
+  "unit_repair_invoked": false,
+  "warnings": [
+    "Copied sidecar metadata from /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet000-core/echo_full_robot_arm_hand.json",
+    "metersPerUnit already satisfies UN.007"
+  ]
+}

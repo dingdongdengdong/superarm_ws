@@ -22,3 +22,4 @@ __pycache__/
 
 # Local Isaac Sim test env overrides (copy from .env.example)
 /isaacsim_test/.env
+/isaacsim_test/artifacts/

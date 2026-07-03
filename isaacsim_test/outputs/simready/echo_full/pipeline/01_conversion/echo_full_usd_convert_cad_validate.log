@@ -1,0 +1,29 @@
+2026-06-27T15:39:50Z [Info] [carb] Logging to file: /home/sim/.physical-ai-skill-hub/upstreams/usd-convert-cad/.venv/lib/python3.12/site-packages/omni/logs/Kit/kit/110.1/kit_20260628_003950.log
+2026-06-27T15:39:50Z [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+[0.027s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.062s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.062s] [ext: omni.kit.async_engine-0.0.3] startup
+[0.063s] [ext: omni.client.lib-1.1.1] startup
+[0.072s] [ext: omni.kit.registry.nucleus-0.0.0] startup
+[0.084s] [ext: omni.client-1.3.0] startup
+[0.088s] [ext: omni.usd.config-1.0.7] startup
+2026-06-27T15:39:50Z [71ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+[0.092s] [ext: omni.usd.libs-1.0.3] startup
+[0.139s] [ext: omni.usd.schema.audio-0.0.1] startup
+[0.202s] [ext: omni.assets.plugins-0.0.0] startup
+[0.203s] [ext: carb.audio-0.1.0] startup
+[0.205s] [ext: omni.graph.exec-0.9.6] startup
+[0.205s] [ext: omni.kit.actions.core-1.0.0] startup
+[0.206s] [ext: omni.kit.audiodeviceenum-1.0.2] startup
+[0.207s] [ext: omni.kit.commands-1.5.0] startup
+[0.210s] [ext: omni.kit.exec.core-0.13.5] startup
+[0.211s] [ext: omni.kit.usd_undo-0.1.8] startup
+[0.211s] [ext: omni.timeline-1.1.0] startup
+[0.213s] [ext: omni.usd_resolver-1.0.0] startup
+[0.214s] [ext: omni.usd.core-1.8.3] startup
+[0.216s] [ext: omni.usd-1.15.2] startup
+[0.242s] [ext: omni.scene.optimizer.core-110.1.0] startup
+[0.259s] [ext: omni.usdex.libs-2.2.2] startup
+[0.264s] [ext: omni.kit.converter.common-510.1.3] startup
+[0.267s] [ext: omni.kit.converter.hoops_core-511.3.2] startup
+ [OK] Environment ready.

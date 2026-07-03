@@ -1,0 +1,222 @@
+{
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+  "bounds": {
+    "center": [
+      -0.2619501132202512,
+      0.29086011664759565,
+      0.3683463855590792
+    ],
+    "max": [
+      0.10279988677969104,
+      0.5333601200748626,
+      0.8043777711182385
+    ],
+    "min": [
+      -0.6267001132201935,
+      0.04836011322032877,
+      -0.06768500000008
+    ],
+    "size": [
+      0.7294999999998846,
+      0.48500000685453376,
+      0.8720627711183185
+    ]
+  },
+  "camera_path": "/Camera",
+  "checks": [
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset uses a supported USD extension",
+      "name": "supported_usd_extension",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Using renderer endpoint http://localhost:8001/render",
+      "name": "render_endpoint_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Resolved renderer endpoint from cli",
+      "name": "render_endpoint_from_cli",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Renderer endpoint does not require a bearer token before request",
+      "name": "render_token_not_required",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "USD stage opened",
+      "name": "openusd_stage_opened",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Renderable mesh prims found",
+      "name": "renderable_meshes_found",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Prepared composition-preserving, camera-fit render stage",
+      "name": "render_stage_prepared",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Renderer returned PNG data",
+      "name": "renderer_returned_png",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Wrote /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png",
+      "name": "output_png_written",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Pillow is unavailable: No module named 'PIL'",
+      "name": "output_png_pixel_inspected",
+      "passed": false,
+      "severity": "warning"
+    }
+  ],
+  "default_prim": "/echo_full",
+  "errors": [],
+  "fallback_camera": {
+    "clipping_range": [
+      0.7620713671529629,
+      7.620713671529629
+    ],
+    "eye": [
+      1.43857229046047,
+      -2.32532819670736,
+      1.8072499579043049
+    ],
+    "target": [
+      -0.2619501132202512,
+      0.29086011664759565,
+      0.3683463855590792
+    ],
+    "transform": [
+      [
+        0.8384436163006372,
+        0.5449883505954143,
+        0.0,
+        0.0
+      ],
+      [
+        -0.2282208712033717,
+        0.3511090326205718,
+        0.9080956343686607,
+        -0.0
+      ],
+      [
+        0.4949015419574726,
+        -0.761386987626881,
+        0.4187628431947845,
+        0.0
+      ],
+      [
+        1.4385722904604703,
+        -2.3253281967073605,
+        1.8072499579043049,
+        1.0
+      ]
+    ]
+  },
+  "fit_margin": 1.2,
+  "generated_files": [
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png"
+  ],
+  "height": 768,
+  "legacy_backend": "",
+  "mesh_count": 110,
+  "next_step": "inspect-render-output",
+  "output_image_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png",
+  "passed": true,
+  "pixel_inspection": {
+    "available": false,
+    "warning": "Pillow is unavailable: No module named 'PIL'"
+  },
+  "point_count": 187859,
+  "renderer_auth_mode": "none",
+  "renderer_backend": "local-service",
+  "renderer_endpoint": "http://localhost:8001/render",
+  "renderer_endpoint_kind": "local-service",
+  "renderer_skill": "ovrtx-render-service",
+  "renderer_tool": "OVRTX rendering service",
+  "stage_construction": {
+    "bounds": {
+      "center": [
+        -0.2619501132202512,
+        0.29086011664759565,
+        0.3683463855590792
+      ],
+      "empty": false,
+      "max": [
+        0.10279988677969104,
+        0.5333601200748626,
+        0.8043777711182385
+      ],
+      "min": [
+        -0.6267001132201935,
+        0.04836011322032877,
+        -0.06768500000008
+      ],
+      "radius": 0.6180389820673309,
+      "size": [
+        0.7294999999998846,
+        0.48500000685453376,
+        0.8720627711183185
+      ]
+    },
+    "camera": {
+      "distance": 2.7468399202992484,
+      "far": 6.181007859655376,
+      "focal_length": 50.0,
+      "generated": true,
+      "horizontal_aperture": 36.0,
+      "look_at": [
+        -0.2619501132202512,
+        0.29086011664759565,
+        0.3683463855590792
+      ],
+      "near": 0.0006180389820673309,
+      "path": "/Camera",
+      "position": [
+        1.6265480696047079,
+        -1.5976380661773635,
+        1.0104357677195654
+      ],
+      "vertical_aperture": 27.0
+    },
+    "copied_local_assets": [],
+    "default_lights_added": true,
+    "flattened": false,
+    "local_asset_count": 0,
+    "meters_per_unit": 1.0,
+    "package_format": "usda",
+    "root_asset": "main.usda",
+    "source_default_prim": "/echo_full",
+    "source_root_layer": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+    "target_prim_path": "/echo_full",
+    "turntable_angle": null,
+    "up_axis": "Z"
+  },
+  "triangle_count": 196478,
+  "warnings": [
+    "Pillow is unavailable: No module named 'PIL'"
+  ],
+  "width": 1024
+}

@@ -272,7 +272,7 @@ joint_limits_rad:
   rpo_arm_j5: [measured_min, measured_max]
 ```
 
-실제 movement에는 placeholder limit을 믿지 않습니다. 처음에는 실제 mechanical range의
+실제 movement에는 측정되지 않은 limit을 믿지 않습니다. 처음에는 실제 mechanical range의
 약 50-70% 수준으로 보수적인 limit을 사용합니다.
 
 ### 5.2 AmazingHand section
@@ -299,7 +299,7 @@ amazinghand:
 ```
 
 `middle_pos_deg`와 `safe_limits_deg`는 실제 assembled hand에서 측정하기 전까지
-placeholder입니다.
+실측 전 임시 calibration 값입니다.
 
 ---
 

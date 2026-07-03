@@ -1,0 +1,20 @@
+{
+  "conversion_id": "20260627T153950Z-bab789d0d139",
+  "converter_extension": "omni.kit.converter.hoops_core",
+  "converter_module": "omni.kit.converter.hoops_core",
+  "converter_options": {
+    "compositionStyle": 0,
+    "filterStyle": 1,
+    "instancingStyle": 2,
+    "tessLOD": 2,
+    "useMaterials": true
+  },
+  "created_at_utc": "20260627T153950Z",
+  "elapsed_seconds": 2.5587863870023284,
+  "errors": [],
+  "output_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+  "passed": true,
+  "source_file_type": ".step",
+  "source_path": "/home/sim/Documents/superarm_ws/arm_with_hand_with_robot_file/echo_full.step",
+  "warnings": []
+}

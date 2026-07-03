@@ -1,0 +1,837 @@
+{
+  "agent": "material-agent",
+  "artifacts": [
+    {
+      "attempts": 1,
+      "content_type": "application/octet-stream",
+      "downloaded": true,
+      "error": null,
+      "name": "materialized_usd",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+      "required": true,
+      "retry_count": 0,
+      "url": "http://localhost:8100/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/output"
+    },
+    {
+      "attempts": 1,
+      "content_type": "application/x-ndjson",
+      "downloaded": true,
+      "error": null,
+      "name": "predictions",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material_predictions.jsonl",
+      "required": false,
+      "retry_count": 0,
+      "url": "http://localhost:8100/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/predictions"
+    },
+    {
+      "attempts": 1,
+      "content_type": "text/html; charset=utf-8",
+      "downloaded": true,
+      "error": null,
+      "name": "report",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material_report.html",
+      "required": false,
+      "retry_count": 0,
+      "url": "http://localhost:8100/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/report"
+    }
+  ],
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+  "attempts": [],
+  "base_url": "http://localhost:8100",
+  "checks": [
+    {
+      "message": "Preflight manifest: /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight-full-ready.json; material status: ready",
+      "name": "preflight_material-agent-client_ready",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset uses a supported USD extension",
+      "name": "supported_usd_extension",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Using Material Agent optimize_usd path after USD topology inspection",
+      "name": "material_optimizer_default_enabled",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Using Content Agents service http://localhost:8100",
+      "name": "base_url_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Resolved base URL from env_base_url",
+      "name": "base_url_from_env_base_url",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "No external USD dependencies detected for upload",
+      "name": "upload_asset_single_file",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Started Content Agents session 322020f8-39fc-411a-96b0-84060d3096e2",
+      "name": "session_started",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Content Agents session status: completed",
+      "name": "session_completed",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "No unbound material subtrees with broken sourceAsset shader references were found",
+      "name": "material_output_cleanup_noop",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Downloaded required output artifact",
+      "name": "required_artifacts_downloaded",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "command": [
+    "python3",
+    "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/content-agents/scripts/content_agent_client.py",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material",
+    "--base-url",
+    "http://localhost:8100",
+    "--prompt",
+    "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry.",
+    "--optimize-usd"
+  ],
+  "errors": [],
+  "material_optimizer": {
+    "auto_disabled_optimizer": false,
+    "auto_reasons": [],
+    "default_optimize_usd": true,
+    "optimize_usd": true,
+    "requested_optimize_usd": null,
+    "skip_existing_materials": false,
+    "skip_instances": false,
+    "skip_prototypes": false
+  },
+  "material_output_cleanup": {
+    "attempted": true,
+    "bound_material_count": 2,
+    "inspected_material_count": 24,
+    "invalid_shader_count": 0,
+    "invalid_shaders": [],
+    "kept_bound_invalid_shader_count": 0,
+    "kept_bound_materials_with_invalid_shaders": [],
+    "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "removed_invalid_shader_count": 0,
+    "removed_material_count": 0,
+    "removed_materials": [],
+    "repaired_bound_shader_count": 0,
+    "repaired_bound_shaders": [],
+    "skipped_reason": null,
+    "warning": null
+  },
+  "material_upload_info": {
+    "cleared_unresolved_service_asset_paths": 0,
+    "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+    "staged": false,
+    "stripped_mdl_source_assets": 0,
+    "warning": null
+  },
+  "next_step": "physics-agent-client",
+  "operation": "service_pipeline",
+  "output_directory": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+  "passed": true,
+  "physics_optimizer": null,
+  "physics_upload_info": null,
+  "prompt": "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry.",
+  "service_results": {
+    "completed_at": "2026-06-27T16:11:23.210993+00:00",
+    "download_urls": {
+      "output_usd": "/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/output",
+      "predictions": "/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/predictions",
+      "report": "/artifacts/322020f8-39fc-411a-96b0-84060d3096e2/report"
+    },
+    "duration_seconds": 1836,
+    "session_id": "322020f8-39fc-411a-96b0-84060d3096e2",
+    "stats": {
+      "cluster_capped_count": 0,
+      "cluster_count": 0,
+      "cluster_max_size": null,
+      "cluster_multi_member_count": 0,
+      "cluster_prims_ran": false,
+      "cluster_reduction_percent": 0.0,
+      "cluster_representative_count": 0,
+      "cluster_singleton_count": 0,
+      "cluster_total_prims": 0,
+      "images_generated": 285,
+      "materials_applied": 12,
+      "original_prim_count": 3,
+      "predictions_made": 56,
+      "prims_processed": 57
+    },
+    "status": "completed",
+    "timings": null
+  },
+  "service_status": {
+    "can_cancel": false,
+    "completed_steps": [
+      {
+        "completed_at": "2026-06-27T15:40:48.330642+00:00",
+        "display_name": "optimize_usd",
+        "duration_seconds": 0,
+        "name": "optimize_usd",
+        "started_at": "2026-06-27T15:40:47.623867+00:00",
+        "stats": {
+          "outputs": {
+            "optimization_metadata": {
+              "correspondence_map": {
+                "deduplication_mapping": {
+                  "instance_to_prototype": {
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v42_rCZB/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v72_rCZB/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v42_rCZB/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v43_rCZB/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v43_rCZB/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv12_dW0CIJW0ZFYG/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv13_dW0CIJW0ZFYG/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv14_dW0CIJW0ZFYG/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv12_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv14_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv15_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v12_eX0CIJX0mFX0VH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v13_eX0CIJX0mFX0VH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v14_eX0CIJX0mFX0VH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv12_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv13_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv14_XQCIJQoChD/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv12_VOCIJOtBkC/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv13_VOCIJOtBkC/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv14_VOCIJOtBkC/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv12_fY0CIJY0zFVH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv13_fY0CIJY0zFVH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv14_fY0CIJY0zFVH/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv12_ZSCIJSjDeE/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv13_ZSCIJSjDeE/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv14_ZSCIJSjDeE/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body3/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body4/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body5/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body3/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body4/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body5/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v12_zGoEffzEbog4/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v12_zGoEffzEbog4/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body3/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body5/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body1/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body3/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body4/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body2/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh/Geometry",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body5/Mesh/Geometry": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh/Geometry"
+                  }
+                },
+                "deinstance_mapping": {},
+                "full_mapping": {
+                  "original_to_prototype": {
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v42_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v72_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v42_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v43_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB/Body2/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v43_rCZB/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv12_dW0CIJW0ZFYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv13_dW0CIJW0ZFYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv14_dW0CIJW0ZFYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv12_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv14_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv15_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v12_eX0CIJX0mFX0VH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v13_eX0CIJX0mFX0VH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v14_eX0CIJX0mFX0VH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame1v11_eX0CIJX0mFX0VH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame2v11_eX0CIJX0mFX0VH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsFinger_Frame2v11_eX0CIJX0mFX0VH/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv12_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv13_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv14_XQCIJQoChD/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsGimbalv11_XQCIJQoChD/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv12_VOCIJOtBkC/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv13_VOCIJOtBkC/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv14_VOCIJOtBkC/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsLinkv11_VOCIJOtBkC/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv12_fY0CIJY0zFVH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv13_fY0CIJY0zFVH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv14_fY0CIJY0zFVH/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximal_Shellv11_fY0CIJY0zFVH/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv12_ZSCIJSjDeE/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv13_ZSCIJSjDeE/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv14_ZSCIJSjDeE/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsProximalv11_ZSCIJSjDeE/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRHand_Platev11_cV0CIJV0rEMYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRHand_Platev11_cV0CIJV0rEMYG/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRPalm_Shellv11_cV0CIJV0rEMYG/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRPalm_Shellv11_cV0CIJV0rEMYG/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRTop_Shellv11_bUCIJUeEMpF/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRTop_Shellv11_bUCIJUeEMpF/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRWrist_Interfacev11_ha0CIJa0uGMgI/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsRWrist_Interfacev11_ha0CIJa0uGMgI/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v12_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v12_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000160_02_v11_xFsDiuuIbc3/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000160_02_v11_xFsDiuuIbc3/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000179_01_5v11_zGoEffzEbog4/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part_1"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part_1"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_1",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_2"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part_1"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body5/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body6/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body6/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_1",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_2",
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_3"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body3/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body4/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v11_b4a4iZg9jXSVlF4rxHjo7/Body9/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v11_b4a4iZg9jXSVlF4rxHjo7/Body9/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v31_b4a4iZg9jXSVlF4rxHjo7/tn__Body11_h6d1H/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn___v31_b4a4iZg9jXSVlF4rxHjo7/tn__Body11_h6d1H/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body2/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh/Geometry"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body5/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh/Geometry"
+                    ]
+                  }
+                },
+                "split_mapping": {
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_1",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_2"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_1",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_2",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_3"
+                  ]
+                },
+                "summary": {
+                  "instances_tracked": 53,
+                  "meshes_after_deinstance": 102,
+                  "meshes_before_deinstance": 102,
+                  "meshes_deinstanced": 0,
+                  "meshes_split": 5,
+                  "note": "Tracks deinstancing, split, and deduplication for material mapping",
+                  "operations_run": {
+                    "deduplicate": true,
+                    "deinstance": false,
+                    "split": true
+                  },
+                  "total_original_prims": 102
+                }
+              },
+              "operations_executed": [
+                {
+                  "name": "utilityFunction",
+                  "success": true,
+                  "time": 0.007197141647338867
+                },
+                {
+                  "name": "splitMeshes",
+                  "success": true,
+                  "time": 0.010944366455078125
+                },
+                {
+                  "name": "deduplicateGeometry",
+                  "success": true,
+                  "time": 0.019086837768554688
+                }
+              ],
+              "optimization_config": {
+                "flatten_prototypes": true,
+                "scene_optimizer_settings": {
+                  "capture_stats": true,
+                  "deduplicate": {
+                    "allow_scaling": false,
+                    "consider_deep_transforms": true,
+                    "fuzzy": false,
+                    "ignore_attributes": [],
+                    "mesh_prim_paths": [],
+                    "tolerance": 0.001,
+                    "use_gpu": false
+                  },
+                  "deinstance": {
+                    "prim_paths": []
+                  },
+                  "enable_deduplicate": true,
+                  "enable_deinstance": true,
+                  "enable_split_meshes": true,
+                  "extract_geom_subset_indices": true,
+                  "generate_report": true,
+                  "output_format": "usdc",
+                  "split_meshes": {
+                    "paths": []
+                  },
+                  "stage_timeout": 180.0,
+                  "verbose": false,
+                  "wait_for_assets": false
+                }
+              },
+              "optimization_time": 0.37960124015808105,
+              "original_prim_count": 3,
+              "prototypes_converted_pre": 1,
+              "report": "",
+              "stage_size_bytes": 3025530
+            },
+            "optimization_success": true,
+            "optimized_usd_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/cache/optimized/optimized_input.usd",
+            "original_prim_count": 3,
+            "original_usd_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/input/scene.usd"
+          },
+          "step_name": "optimize_usd"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T15:56:11.379286+00:00",
+        "display_name": "Rendering USD Scene",
+        "duration_seconds": 923,
+        "name": "build_dataset_usd",
+        "started_at": "2026-06-27T15:40:48.330689+00:00",
+        "stats": {
+          "failed_batches": 0,
+          "num_views": 8,
+          "rendering_modes": [
+            "prim_only",
+            "composition"
+          ],
+          "skipped_prims": 0,
+          "total_images": 285,
+          "total_prims": 57
+        }
+      },
+      {
+        "completed_at": "2026-06-27T15:56:11.509104+00:00",
+        "display_name": "Preparing Dataset",
+        "duration_seconds": 0,
+        "name": "build_dataset_prepare_dataset",
+        "started_at": "2026-06-27T15:56:11.464050+00:00",
+        "stats": {
+          "outputs": {
+            "dataset_jsonl_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/cache/dataset/dataset.jsonl",
+            "dataset_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/cache/dataset",
+            "num_entries": 57,
+            "vlm_prompt_path": null
+          },
+          "step_name": "build_dataset_prepare_dataset"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:04:40.048960+00:00",
+        "display_name": "Running VLM Predictions",
+        "duration_seconds": 508,
+        "name": "predict",
+        "started_at": "2026-06-27T15:56:11.509141+00:00",
+        "stats": {
+          "failed": 1,
+          "successful": 56,
+          "task_name": "VLMInference",
+          "total": 57
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:10:56.601285+00:00",
+        "display_name": "restore_usd",
+        "duration_seconds": 0,
+        "name": "restore_usd",
+        "started_at": "2026-06-27T16:10:56.488654+00:00",
+        "stats": {
+          "outputs": {
+            "predictions_count": 108,
+            "restore_success": true,
+            "restored_predictions_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/cache/restored/restored_predictions.jsonl",
+            "restored_usd_path": null
+          },
+          "step_name": "restore_usd"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:10:57.605307+00:00",
+        "display_name": "MaterialRetrieval",
+        "duration_seconds": 0,
+        "name": "MaterialRetrieval",
+        "started_at": "2026-06-27T16:10:56.617214+00:00",
+        "stats": {
+          "outputs": {
+            "materials_applied": {
+              "Aluminum": "/echo_full/Looks/Aluminum",
+              "Aluminum Matte": "/echo_full/Looks/Aluminum_Matte",
+              "Plastic Black": "/echo_full/Looks/Plastic_Black",
+              "Plastic Dark Gray": "/echo_full/Looks/Plastic_Dark_Gray",
+              "Rubber Black Matte": "/echo_full/Looks/Rubber_Black_Matte",
+              "Stainless Steel": "/echo_full/Looks/Stainless_Steel",
+              "Stainless Steel Matte": "/echo_full/Looks/Stainless_Steel_Matte",
+              "Steel Carbon": "/echo_full/Looks/Steel_Carbon",
+              "Steel Painted Black": "/echo_full/Looks/Steel_Painted_Black",
+              "Steel Painted Dark Gray": "/echo_full/Looks/Steel_Painted_Dark_Gray",
+              "Steel Painted Gray": "/echo_full/Looks/Steel_Painted_Gray",
+              "Steel Painted Orange": "/echo_full/Looks/Steel_Painted_Orange"
+            },
+            "output_usd_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/output/scene_with_materials.usd"
+          },
+          "step_name": "apply"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:11:23.207638+00:00",
+        "display_name": "Rendering Final Output",
+        "duration_seconds": 0,
+        "name": "render",
+        "started_at": "2026-06-27T16:11:23.207638+00:00",
+        "stats": {
+          "outputs": {
+            "flattened_usd_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/output/scene_with_materials_flat.usd",
+            "rendered_image_path": "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/output/scene_with_materials.png",
+            "rendered_image_paths": [
+              "/var/material-agent/sessions/322020f8-39fc-411a-96b0-84060d3096e2/output/scene_with_materials.png"
+            ]
+          },
+          "step_name": "render"
+        }
+      }
+    ],
+    "created_at": "2026-06-27T15:40:47.623867+00:00",
+    "current_step": null,
+    "elapsed_seconds": 1837,
+    "overall_progress": {
+      "current_step": 7,
+      "estimated_remaining_seconds": null,
+      "percent": 100,
+      "total_steps": 7
+    },
+    "preview_images": [],
+    "session_id": "322020f8-39fc-411a-96b0-84060d3096e2",
+    "status": "completed",
+    "updated_at": "2026-06-27T16:11:23.209187+00:00"
+  },
+  "session_id": "322020f8-39fc-411a-96b0-84060d3096e2",
+  "skill": "material-agent-client",
+  "status": "PASS",
+  "tool": "NVIDIA Omniverse Content Agents service API",
+  "upload_asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+  "upload_dependency_count": 0,
+  "upload_info": {
+    "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+    "dependency_assets": [],
+    "dependency_count": 0,
+    "dependency_layers": [],
+    "inspection_error": null,
+    "package_size_bytes": null,
+    "packaging": "none",
+    "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/01_conversion/echo_full.usd",
+    "unresolved_paths": []
+  },
+  "upload_packaging": "none",
+  "usd_topology": {
+    "component_topology_reasons": [
+      "instances_or_prototypes"
+    ],
+    "default_prim_path": "/echo_full",
+    "geom_subset_count": 0,
+    "has_composed_component_topology": true,
+    "inspected": true,
+    "instance_count": 64,
+    "instance_proxy_count": 0,
+    "mesh_count": 3,
+    "mesh_with_geom_subset_count": 0,
+    "prototype_count": 29,
+    "reason": null
+  },
+  "warnings": []
+}

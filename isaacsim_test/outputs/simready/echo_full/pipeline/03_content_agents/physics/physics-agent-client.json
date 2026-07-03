@@ -1,0 +1,994 @@
+{
+  "agent": "physics-agent",
+  "artifacts": [
+    {
+      "attempts": 1,
+      "content_type": "application/octet-stream",
+      "downloaded": true,
+      "error": null,
+      "name": "physics_usd",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "required": true,
+      "retry_count": 0,
+      "url": "http://localhost:8200/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/output-usd"
+    },
+    {
+      "attempts": 1,
+      "content_type": "application/x-ndjson",
+      "downloaded": true,
+      "error": null,
+      "name": "predictions",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics_predictions.jsonl",
+      "required": false,
+      "retry_count": 0,
+      "url": "http://localhost:8200/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/predictions"
+    },
+    {
+      "attempts": 1,
+      "content_type": "application/x-ndjson",
+      "downloaded": true,
+      "error": null,
+      "name": "dataset",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics_dataset.jsonl",
+      "required": false,
+      "retry_count": 0,
+      "url": "http://localhost:8200/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/dataset"
+    },
+    {
+      "attempts": 1,
+      "content_type": "text/html; charset=utf-8",
+      "downloaded": true,
+      "error": null,
+      "name": "report",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics_report.html",
+      "required": false,
+      "retry_count": 0,
+      "url": "http://localhost:8200/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/report"
+    },
+    {
+      "content_type": "model/vnd.usd",
+      "downloaded": true,
+      "error": null,
+      "name": "physics_usd_crate",
+      "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "required": true,
+      "url": "local:usda-to-usd"
+    }
+  ],
+  "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+  "attempts": [],
+  "base_url": "http://localhost:8200",
+  "checks": [
+    {
+      "message": "Preflight manifest: /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/cad-to-simready-preflight-full-ready.json; physics status: ready",
+      "name": "preflight_physics-agent-client_ready",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset path exists",
+      "name": "asset_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Asset uses a supported USD extension",
+      "name": "supported_usd_extension",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Enabled optimize_usd, deinstance, and split for composed USD topology: instances_or_prototypes",
+      "name": "physics_auto_optimizer_enabled",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Using Content Agents service http://localhost:8200",
+      "name": "base_url_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Resolved base URL from env_base_url",
+      "name": "base_url_from_env_base_url",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "No external USD dependencies detected for upload",
+      "name": "upload_asset_single_file",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Started Content Agents session fc855dc6-8aa1-431a-930a-efdc1078d4a0",
+      "name": "session_started",
+      "passed": true,
+      "severity": "info"
+    },
+    {
+      "message": "Content Agents session status: completed",
+      "name": "session_completed",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Downloaded required output artifact",
+      "name": "required_artifacts_downloaded",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "Physics output is already crate-backed USD: /home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+      "name": "physics_output_converted_to_usd",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "command": [
+    "python3",
+    "/home/sim/Documents/superarm_ws/.agents/skills/omniverse-cad-to-simready/references/content-agents/scripts/content_agent_client.py",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics",
+    "--base-url",
+    "http://localhost:8200",
+    "--prompt",
+    "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry.",
+    "--optimize-usd",
+    "--enable-deinstance",
+    "--enable-split",
+    "--convert-output-to-usd"
+  ],
+  "errors": [],
+  "material_optimizer": null,
+  "material_output_cleanup": null,
+  "material_upload_info": null,
+  "next_step": "simready-conform-profile",
+  "operation": "service_pipeline",
+  "output_directory": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics",
+  "output_usd_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/physics/echo_full_material_physics.usd",
+  "passed": true,
+  "physics_optimizer": {
+    "auto_enabled": true,
+    "auto_optimize_composed_usd": true,
+    "auto_reasons": [
+      "instances_or_prototypes"
+    ],
+    "enable_deinstance": true,
+    "enable_split": true,
+    "optimize_usd": true
+  },
+  "physics_upload_info": {
+    "cleared_unresolved_service_asset_paths": 0,
+    "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "staged": false,
+    "stripped_mdl_source_assets": 0,
+    "warning": null
+  },
+  "prompt": "Asset is a CAD STEP assembly from local folder arm_with_hand_with_robot_file, likely a robot arm with hand/end-effector. No exact public product identity was found from local metadata. Use robotics/CAD visual evidence: assign plausible machined metal/plastic/rubber/electronics materials only where visible or structurally likely; mark uncertain visual assumptions. For physics, prepare a simulation-ready robotic assembly/prop with colliders and rigid bodies based on actual component topology; avoid inventing geometry.",
+  "service_results": {
+    "completed_at": "2026-06-27T16:31:50.838180+00:00",
+    "download_urls": {
+      "dataset": "/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/dataset",
+      "output_usd": "/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/output-usd",
+      "predictions": "/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/predictions",
+      "report": "/artifacts/fc855dc6-8aa1-431a-930a-efdc1078d4a0/report"
+    },
+    "duration_seconds": 1225,
+    "session_id": "fc855dc6-8aa1-431a-930a-efdc1078d4a0",
+    "stats": {
+      "images_generated": 440,
+      "predictions_made": 50,
+      "prims_processed": 110
+    },
+    "status": "completed"
+  },
+  "service_status": {
+    "can_cancel": false,
+    "completed_steps": [
+      {
+        "completed_at": "2026-06-27T16:11:26.293376",
+        "display_name": "Optimizing USD",
+        "duration_seconds": 0,
+        "name": "optimize_usd",
+        "started_at": "2026-06-27T16:11:25.768223",
+        "stats": {
+          "outputs": {
+            "optimization_metadata": {
+              "correspondence_map": {
+                "deduplication_mapping": {
+                  "instance_to_prototype": {}
+                },
+                "deinstance_mapping": {},
+                "full_mapping": {
+                  "original_to_prototype": {
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam/Mesh"
+                    ],
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar/Mesh": [
+                      "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar/Mesh"
+                    ]
+                  }
+                },
+                "split_mapping": {
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body1/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body2/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_1",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body3/Mesh_part_2"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body4/Mesh_part_1"
+                  ],
+                  "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh": [
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_1",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_2",
+                    "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RealSense_D435v11_WIkF/Body7/Mesh_part_3"
+                  ]
+                },
+                "summary": {
+                  "instances_tracked": 0,
+                  "meshes_after_deinstance": 3,
+                  "meshes_before_deinstance": 3,
+                  "meshes_deinstanced": 0,
+                  "meshes_split": 5,
+                  "note": "Tracks deinstancing, split, and deduplication for material mapping",
+                  "operations_run": {
+                    "deduplicate": false,
+                    "deinstance": false,
+                    "split": true
+                  },
+                  "total_original_prims": 3
+                }
+              },
+              "operations_executed": [
+                {
+                  "name": "utilityFunction",
+                  "success": true,
+                  "time": 0.0071828365325927734
+                },
+                {
+                  "name": "splitMeshes",
+                  "success": true,
+                  "time": 0.011602640151977539
+                }
+              ],
+              "optimization_config": {
+                "backend": "local",
+                "flatten_prototypes": false,
+                "scene_optimizer_settings": {
+                  "capture_stats": true,
+                  "deduplicate": {
+                    "allow_scaling": false,
+                    "consider_deep_transforms": true,
+                    "fuzzy": false,
+                    "ignore_attributes": [],
+                    "mesh_prim_paths": [],
+                    "tolerance": 0.001,
+                    "use_gpu": false
+                  },
+                  "deinstance": {
+                    "prim_paths": []
+                  },
+                  "enable_deduplicate": false,
+                  "enable_deinstance": true,
+                  "enable_split_meshes": true,
+                  "extract_geom_subset_indices": true,
+                  "generate_report": true,
+                  "output_format": "usdc",
+                  "split_meshes": {
+                    "paths": []
+                  },
+                  "stage_timeout": 180.0,
+                  "verbose": false,
+                  "wait_for_assets": false
+                }
+              },
+              "optimization_time": 0.3762540817260742,
+              "original_prim_count": 3,
+              "prototypes_converted_pre": 0,
+              "report": "",
+              "stage_size_bytes": 3481252
+            },
+            "optimization_success": true,
+            "optimized_usd_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/optimized/scene_optimized.usdc",
+            "original_usd_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/input/scene.usd"
+          },
+          "step_name": "optimize_usd"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:12:38.090529",
+        "display_name": "Identifying Asset",
+        "duration_seconds": 71,
+        "name": "identify_asset",
+        "started_at": "2026-06-27T16:11:26.293435",
+        "stats": {
+          "outputs": {
+            "identification": {
+              "asset_description": "A wheeled mobile platform featuring an aluminum extrusion frame, a central storage unit with a drawer, and a mounted robotic arm with a gripper.",
+              "asset_subtype": "mobile manipulator",
+              "asset_type": "robot",
+              "confidence": "high",
+              "reasoning": "The object is identified as a robot due to the presence of an articulated robotic arm with a gripper (end-effector) mounted on a mobile base. The base consists of a chassis with wheels (casters) for mobility and a frame constructed from standard aluminum profiles (likely V-slot or T-slot), which is common in DIY and research robotics. The boxy structure serves as the main body, likely housing electronics or batteries, and includes a drawer, suggesting it is designed for tasks involving object interaction or transport."
+            },
+            "identification_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/identification/identification.json"
+          },
+          "step_name": "identify_asset"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:29:56.833193",
+        "display_name": "Rendering USD Scene",
+        "duration_seconds": 1038,
+        "name": "build_dataset_usd",
+        "started_at": "2026-06-27T16:12:38.090572",
+        "stats": {
+          "failed_batches": 0,
+          "num_views": 8,
+          "rendering_modes": [
+            "prim_only",
+            "composition"
+          ],
+          "skipped_prims": 0,
+          "total_images": 440,
+          "total_prims": 110
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:29:56.935769",
+        "display_name": "Preparing Dataset",
+        "duration_seconds": 0,
+        "name": "build_dataset_prepare_dataset",
+        "started_at": "2026-06-27T16:29:56.892232",
+        "stats": {
+          "outputs": {
+            "dataset_jsonl_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/dataset/dataset.jsonl",
+            "dataset_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/dataset"
+          },
+          "step_name": "build_dataset_prepare_dataset"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:31:50.655660",
+        "display_name": "Running VLM Predictions",
+        "duration_seconds": 113,
+        "name": "predict",
+        "started_at": "2026-06-27T16:29:56.935808",
+        "stats": {
+          "outputs": {
+            "failed_count": 60,
+            "output_key": "classification",
+            "predictions_count": 50,
+            "predictions_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/predictions/predictions.jsonl",
+            "token_stats": {
+              "all_usages": [
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 685,
+                  "total_tokens": 3320
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 383,
+                  "total_tokens": 3013
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 527,
+                  "total_tokens": 3169
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 448,
+                  "total_tokens": 3078
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2590,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 349,
+                  "total_tokens": 2939
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 385,
+                  "total_tokens": 3015
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 422,
+                  "total_tokens": 3057
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2637,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 559,
+                  "total_tokens": 3196
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 455,
+                  "total_tokens": 3085
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 521,
+                  "total_tokens": 3163
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2624,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 633,
+                  "total_tokens": 3257
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 613,
+                  "total_tokens": 3248
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 423,
+                  "total_tokens": 3046
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 700,
+                  "total_tokens": 3323
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 457,
+                  "total_tokens": 3092
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 465,
+                  "total_tokens": 3107
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 551,
+                  "total_tokens": 3186
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2636,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 528,
+                  "total_tokens": 3164
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2624,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 490,
+                  "total_tokens": 3114
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 716,
+                  "total_tokens": 3339
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 417,
+                  "total_tokens": 3047
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 448,
+                  "total_tokens": 3078
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 359,
+                  "total_tokens": 2994
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 398,
+                  "total_tokens": 3040
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 874,
+                  "total_tokens": 3509
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 412,
+                  "total_tokens": 3035
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 434,
+                  "total_tokens": 3076
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 438,
+                  "total_tokens": 3068
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 572,
+                  "total_tokens": 3195
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2636,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 468,
+                  "total_tokens": 3104
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 395,
+                  "total_tokens": 3030
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 414,
+                  "total_tokens": 3049
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 480,
+                  "total_tokens": 3110
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 478,
+                  "total_tokens": 3120
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2623,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 544,
+                  "total_tokens": 3167
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2624,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 479,
+                  "total_tokens": 3103
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 522,
+                  "total_tokens": 3164
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 636,
+                  "total_tokens": 3271
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 542,
+                  "total_tokens": 3172
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2624,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 405,
+                  "total_tokens": 3029
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 417,
+                  "total_tokens": 3059
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2591,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 437,
+                  "total_tokens": 3028
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 632,
+                  "total_tokens": 3267
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2635,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 380,
+                  "total_tokens": 3015
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2624,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 480,
+                  "total_tokens": 3104
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2648,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 406,
+                  "total_tokens": 3054
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 637,
+                  "total_tokens": 3279
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2630,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 548,
+                  "total_tokens": 3178
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2642,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 404,
+                  "total_tokens": 3046
+                },
+                {
+                  "input_token_details": null,
+                  "input_tokens": 2645,
+                  "invocation_type": "vlm",
+                  "model_name": "qwen/qwen3.5-397b-a17b",
+                  "output_token_details": null,
+                  "output_tokens": 626,
+                  "total_tokens": 3271
+                }
+              ],
+              "by_model": {
+                "qwen/qwen3.5-397b-a17b": {
+                  "count": 50,
+                  "input_tokens": 131581,
+                  "output_tokens": 24992,
+                  "total_tokens": 156573
+                }
+              },
+              "by_type": {
+                "vlm": {
+                  "count": 50,
+                  "input_tokens": 131581,
+                  "output_tokens": 24992,
+                  "total_tokens": 156573
+                }
+              },
+              "invocation_count": 50,
+              "total_input_tokens": 131581,
+              "total_output_tokens": 24992,
+              "total_tokens": 156573
+            }
+          },
+          "step_name": "predict"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:31:50.666806",
+        "display_name": "Restoring USD Predictions",
+        "duration_seconds": 0,
+        "name": "restore_usd",
+        "started_at": "2026-06-27T16:31:50.655704",
+        "stats": {
+          "outputs": {
+            "predictions_count": 2,
+            "restore_stats": {
+              "dedup_count": 0,
+              "identity_count": 2,
+              "predictions_consumed": 2,
+              "predictions_written": 2,
+              "split_count": 0,
+              "split_dedup_count": 0,
+              "total_originals": 3,
+              "unconsumed_predictions": [
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v42_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v72_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v42_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v43_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v43_rCZB/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body3/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body4/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4/Body5/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body3/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body4/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4/Body5/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4/Body5/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000160_02_v11_xFsDiuuIbc3/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body3/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7/Body4/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body1/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body3/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7/Body4/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body2/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC/Body5/Mesh",
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC/Body5/Mesh"
+              ],
+              "uncovered_originals": [
+                "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Body1/Mesh"
+              ]
+            },
+            "restore_success": true,
+            "restored_predictions_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/restored_predictions.jsonl"
+          },
+          "step_name": "restore_usd"
+        }
+      },
+      {
+        "completed_at": "2026-06-27T16:31:50.823843",
+        "display_name": "Applying Physics Schemas",
+        "duration_seconds": 0,
+        "name": "apply_physics",
+        "started_at": "2026-06-27T16:31:50.666845",
+        "stats": {
+          "outputs": {
+            "output_usd_path": "/var/physics-agent/sessions/fc855dc6-8aa1-431a-930a-efdc1078d4a0/cache/physics/scene_physics.usd"
+          },
+          "step_name": "apply_physics"
+        }
+      }
+    ],
+    "created_at": "2026-06-27T16:11:25.768223",
+    "current_step": null,
+    "elapsed_seconds": 1225,
+    "overall_progress": {
+      "current_step": 5,
+      "estimated_remaining_seconds": null,
+      "percent": 100,
+      "total_steps": 5
+    },
+    "preview_images": [],
+    "session_id": "fc855dc6-8aa1-431a-930a-efdc1078d4a0",
+    "status": "completed",
+    "updated_at": "2026-06-27T16:31:50.832074"
+  },
+  "session_id": "fc855dc6-8aa1-431a-930a-efdc1078d4a0",
+  "skill": "physics-agent-client",
+  "status": "PASS",
+  "tool": "NVIDIA Omniverse Content Agents service API",
+  "upload_asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+  "upload_dependency_count": 0,
+  "upload_info": {
+    "asset_path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "dependency_assets": [],
+    "dependency_count": 0,
+    "dependency_layers": [],
+    "inspection_error": null,
+    "package_size_bytes": null,
+    "packaging": "none",
+    "path": "/home/sim/Documents/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/03_content_agents/material/echo_full_material.usd",
+    "unresolved_paths": []
+  },
+  "upload_packaging": "none",
+  "usd_topology": {
+    "component_topology_reasons": [
+      "instances_or_prototypes"
+    ],
+    "default_prim_path": "/echo_full",
+    "geom_subset_count": 0,
+    "has_composed_component_topology": true,
+    "inspected": true,
+    "instance_count": 64,
+    "instance_proxy_count": 0,
+    "mesh_count": 3,
+    "mesh_with_geom_subset_count": 0,
+    "prototype_count": 29,
+    "reason": null
+  },
+  "warnings": []
+}
