@@ -19,6 +19,9 @@ C01 구조 이해
   -> C08 hardware-free clamp 정책 검증
   -> C09 dataset schema 확인
   -> C10 debug dataset record/replay 계획
+  -> C11 AmazingHand 실제 연결/read-only/tiny-motion 검증
+  -> C12 LeRobot sim-real motor angle parity 확인
+  -> C13 D435i 기반 쓰레기 물체 파지 pipeline 계획
   -> 이후 실제 DM4340P tiny motion 판단
 ```
 
@@ -48,12 +51,15 @@ C01 구조 이해
 | C08 | DM motor command clamp 구현/검증 계획 | 상 | 매우 높음 | [C08](C08_dm_motor_command_clamp.ko.md) |
 | C09 | dataset schema check | 중 | 중 | [C09](C09_dataset_schema_check.ko.md) |
 | C10 | debug dataset 10 episode record/replay 계획 | 중상 | 중 | [C10](C10_debug_dataset_record_replay.ko.md) |
+| C11 | AmazingHand 실제 하드웨어 연결/제어 테스트 | 중상 | 높음 | [C11](C11_amazinghand_hardware_control_test_plan.ko.md) |
+| C12 | LeRobot sim-real motor angle parity | 상 | 매우 높음 | [C12](C12_lerobot_sim_real_motor_angle_parity_plan.ko.md) |
+| C13 | D435i 기반 쓰레기 물체 파지 pipeline | 상 | 높음 | [C13](C13_d435i_trash_grasp_pipeline_plan.ko.md) |
 
-## AI Agent 내부 문서
+## AI 보조 문서
 
-AI agent에게 위임할 때는 사람용 문서가 아니라 내부 실행 문서를 직접 전달합니다.
+AI는 작업의 주체가 아니라 보조 도구입니다. 사람이 task를 이해하고 판단한 뒤, 로그 분석, 표 정리, 코드/명령 초안 작성이 필요할 때 아래 보조 문서를 참고합니다.
 
-| Task | AI Agent 내부 문서 |
+| Task | AI 보조 문서 |
 |---|---|
 | C01 | [AI C01](ai_agent/C01_lerobot_wrapper_layout.ai.ko.md) |
 | C02 | [AI C02](ai_agent/C02_leader_arm_output_shape.ai.ko.md) |
@@ -65,17 +71,22 @@ AI agent에게 위임할 때는 사람용 문서가 아니라 내부 실행 문�
 | C08 | [AI C08](ai_agent/C08_dm_motor_command_clamp.ai.ko.md) |
 | C09 | [AI C09](ai_agent/C09_dataset_schema_check.ai.ko.md) |
 | C10 | [AI C10](ai_agent/C10_debug_dataset_record_replay.ai.ko.md) |
+| C11 | [AI C11](ai_agent/C11_amazinghand_hardware_control_test_plan.ai.ko.md) |
+| C12 | [AI C12](ai_agent/C12_lerobot_sim_real_motor_angle_parity_plan.ai.ko.md) |
+| C13 | [AI C13](ai_agent/C13_d435i_trash_grasp_pipeline_plan.ai.ko.md) |
 
 ## 학습 방식
 
 - 학생은 먼저 각 task의 사람용 문서를 읽고, 학습 목표와 승인 기준을 자기 말로 설명한다.
 - 실습자는 명령을 실행하기 전에 "이 명령이 실제 hardware를 움직이는가?"를 먼저 확인한다.
-- AI agent에게 위임할 때는 `ai_agent/` 문서를 직접 전달하고, 산출물 report를 사람이 다시 검토한다.
+- AI 도움을 받을 때는 `ai_agent/` 문서를 참고하고, 산출물 report와 pass/fail 판단은 사람이 다시 검토한다.
 - Screenshot은 사람이 보는 증거이고, JSON은 pass/fail을 판단하는 증거다. 둘을 구분해서 기록한다.
 
 ## 공통 원칙
 
 - C01-C10은 실제 DM4340P 모터를 움직이지 않는다.
+- C11-C13은 사람이 문제를 풀고 판단하는 후속 실험이다. AI는 로그 해석, 표 정리, script 초안 작성 같은 보조 역할만 한다.
+- C11은 새 adapter 구현이 아니라 upstream AmazingHandControl repo의 테스트/실행 프로그램을 이 컴퓨터에서 잘 동작시키는 task다.
 - 검증/정책 replay는 `IsaacSimRpoArmRobot.send_action()` 경로를 사용한다.
 - live leader teleop/recording은 `/leader/joint_commands` 입력을 받고 `teleop_step()`을 통해 `/follower/joint_commands`로 넘기는 경로를 사용한다.
 - SITL 1차 contract는 6D action/state를 유지한다.
@@ -143,5 +154,8 @@ AI agent에게 위임할 때는 사람용 문서가 아니라 내부 실행 문�
 [ ] C08 clamp 정책과 hardware-free test 결과가 있다.
 [ ] C09 dataset schema report가 있다.
 [ ] C10 debug dataset record/replay QA report 또는 blocker가 있다.
-[ ] C01-C10 결과를 바탕으로 실제 DM4340P tiny motion을 진행할지 판단할 수 있다.
+[ ] C11 AmazingHandControl upstream repo test/run report 또는 blocker가 있다.
+[ ] C12 sim-real parity report 또는 blocker가 있다.
+[ ] C13 D435i synthetic/SITL grasp report 또는 blocker가 있다.
+[ ] C01-C13 결과를 바탕으로 실제 DM4340P/AmazingHand tiny motion과 D435i grasp trial을 진행할지 판단할 수 있다.
 ```
