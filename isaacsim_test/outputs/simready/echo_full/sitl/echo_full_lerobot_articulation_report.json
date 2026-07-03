@@ -510,6 +510,13 @@
   "reference_urdf_source_path": "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf",
   "root_prim": "/echo_full",
   "runtime_validation": {
+    "arm_dofs_commanded": [
+      "right_arm_pitch_joint",
+      "right_arm_roll_joint",
+      "right_arm_yaw_joint",
+      "right_elbow_pitch_joint",
+      "right_elbow_yaw_joint"
+    ],
     "contact_sheet": "isaacsim_test/artifacts/simready_motion_cases_contact_sheet.png",
     "controlled_dofs_moved": [
       "right_arm_pitch_joint",
@@ -528,7 +535,7 @@
     ],
     "custom_visual_prim_path": "/World/echo_full_visual",
     "custom_visual_usd_path": "isaacsim_test/outputs/simready/echo_full/sitl/echo_full_lerobot_articulation.usda",
-    "evidence_summary": "Isaac Sim loaded the custom visual USD, imported the generated physical arm+hand URDF, controlled the five Roboto V2 right-arm DOFs, applied four LeRobot motion cases, saved four non-empty screenshots, and measured the right_elbow_yaw_link endpoint to r_wrist_interface runtime wrist gap.",
+    "evidence_summary": "Isaac Sim loaded the configured visual context, imported the generated physical arm+hand URDF, controlled the five Roboto V2 right-arm DOFs and available AmazingHand motor DOFs from amazinghand_grasp, applied LeRobot motion cases, saved non-empty screenshots, and measured the right_elbow_yaw_link endpoint to r_wrist_interface runtime wrist gap. The URDF path remains a lossy MJCF conversion and does not preserve AmazingHand equality/connect constraints.",
     "hand_motor_control_status": "PASS",
     "hand_motor_dofs_commanded": [
       "finger1_motor1",
@@ -540,7 +547,7 @@
       "finger4_motor1",
       "finger4_motor2"
     ],
-    "isaac_sim_log": "isaacsim_test/artifacts/runtime_logs/direct_urdf_motion_20260701_wrist_gap_main.log",
+    "isaac_sim_log": "isaacsim_test/artifacts/runtime_logs/direct_urdf_motion_20260703T_debug_finger_motion.log",
     "loaded_dof_count": 61,
     "loaded_dof_names": [
       "right_arm_pitch_joint",
@@ -610,6 +617,14 @@
     "motion_case_count": 4,
     "motion_cases": [
       {
+        "applied_command": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
         "command": [
           0.0,
           0.0,
@@ -618,12 +633,40 @@
           0.0,
           0.0
         ],
+        "commanded_hand_motor_targets_rad": {
+          "finger1_motor1": -0.6108652381980153,
+          "finger1_motor2": 0.6108652381980153,
+          "finger2_motor1": -0.6108652381980153,
+          "finger2_motor2": 0.6108652381980153,
+          "finger3_motor1": -0.6108652381980153,
+          "finger3_motor2": 0.6108652381980153,
+          "finger4_motor1": -0.6108652381980153,
+          "finger4_motor2": 0.6108652381980153
+        },
+        "grasp_servo_targets_rad": {
+          "1": -0.6108652381980153,
+          "2": 0.6108652381980153,
+          "3": -0.6108652381980153,
+          "4": 0.6108652381980153,
+          "5": -0.6108652381980153,
+          "6": 0.6108652381980153,
+          "7": -0.6108652381980153,
+          "8": 0.6108652381980153
+        },
         "index": 1,
         "name": "home",
         "screenshot": "isaacsim_test/artifacts/simready_motion_cases/01_home.png",
-        "size_bytes": 777504
+        "size_bytes": 796238
       },
       {
+        "applied_command": [
+          0.35,
+          -0.25,
+          0.4,
+          -0.6,
+          0.3,
+          0.5
+        ],
         "command": [
           0.35,
           -0.25,
@@ -632,12 +675,40 @@
           0.3,
           0.5
         ],
+        "commanded_hand_motor_targets_rad": {
+          "finger1_motor1": 0.4799655442984406,
+          "finger1_motor2": -0.4799655442984406,
+          "finger2_motor1": 0.4799655442984406,
+          "finger2_motor2": -0.4799655442984406,
+          "finger3_motor1": 0.4799655442984406,
+          "finger3_motor2": -0.4799655442984406,
+          "finger4_motor1": 0.4799655442984406,
+          "finger4_motor2": -0.4799655442984406
+        },
+        "grasp_servo_targets_rad": {
+          "1": 0.4799655442984406,
+          "2": -0.4799655442984406,
+          "3": 0.4799655442984406,
+          "4": -0.4799655442984406,
+          "5": 0.4799655442984406,
+          "6": -0.4799655442984406,
+          "7": 0.4799655442984406,
+          "8": -0.4799655442984406
+        },
         "index": 2,
         "name": "reach_forward",
         "screenshot": "isaacsim_test/artifacts/simready_motion_cases/02_reach_forward.png",
-        "size_bytes": 736579
+        "size_bytes": 724021
       },
       {
+        "applied_command": [
+          0.15,
+          0.1,
+          0.0,
+          -0.6,
+          0.45,
+          0.75
+        ],
         "command": [
           0.15,
           0.1,
@@ -646,12 +717,40 @@
           0.45,
           0.75
         ],
+        "commanded_hand_motor_targets_rad": {
+          "finger1_motor1": 1.0253809355466685,
+          "finger1_motor2": -1.0253809355466685,
+          "finger2_motor1": 1.0253809355466685,
+          "finger2_motor2": -1.0253809355466685,
+          "finger3_motor1": 1.0253809355466685,
+          "finger3_motor2": -1.0253809355466685,
+          "finger4_motor1": 1.0253809355466685,
+          "finger4_motor2": -1.0253809355466685
+        },
+        "grasp_servo_targets_rad": {
+          "1": 1.0253809355466685,
+          "2": -1.0253809355466685,
+          "3": 1.0253809355466685,
+          "4": -1.0253809355466685,
+          "5": 1.0253809355466685,
+          "6": -1.0253809355466685,
+          "7": 1.0253809355466685,
+          "8": -1.0253809355466685
+        },
         "index": 3,
         "name": "elbow_fold",
         "screenshot": "isaacsim_test/artifacts/simready_motion_cases/03_elbow_fold.png",
-        "size_bytes": 727578
+        "size_bytes": 731126
       },
       {
+        "applied_command": [
+          -0.3,
+          0.25,
+          -0.35,
+          -0.45,
+          -0.25,
+          0.25
+        ],
         "command": [
           -0.3,
           0.25,
@@ -660,45 +759,63 @@
           -0.25,
           0.25
         ],
+        "commanded_hand_motor_targets_rad": {
+          "finger1_motor1": -0.06544984694978735,
+          "finger1_motor2": 0.06544984694978735,
+          "finger2_motor1": -0.06544984694978735,
+          "finger2_motor2": 0.06544984694978735,
+          "finger3_motor1": -0.06544984694978735,
+          "finger3_motor2": 0.06544984694978735,
+          "finger4_motor1": -0.06544984694978735,
+          "finger4_motor2": 0.06544984694978735
+        },
+        "grasp_servo_targets_rad": {
+          "1": -0.06544984694978735,
+          "2": 0.06544984694978735,
+          "3": -0.06544984694978735,
+          "4": 0.06544984694978735,
+          "5": -0.06544984694978735,
+          "6": 0.06544984694978735,
+          "7": -0.06544984694978735,
+          "8": 0.06544984694978735
+        },
         "index": 4,
         "name": "side_sweep",
         "screenshot": "isaacsim_test/artifacts/simready_motion_cases/04_side_sweep.png",
-        "size_bytes": 730055
+        "size_bytes": 723576
       }
     ],
     "physical_robot_urdf_path": "isaacsim_test/outputs/simready/echo_full/sitl/roboto_v2_right_arm_amazinghand_full.urdf",
     "screenshot_output_dir": "isaacsim_test/artifacts/simready_motion_cases",
     "status": "PASS",
     "urdf_constraint_fidelity": {
-      "ball_joint_count_in_source_mjcf": 12,
-      "equality_connect_count_in_source_mjcf": 20,
       "mjcf_constraints_preserved": false,
+      "note": "AmazingHand is loaded through URDFParseAndImportFile for this scene. The upstream MJCF equality/connect constraints are not represented in URDF.",
       "omitted_mjcf_features": [
         "equality/connect"
       ],
-      "reason": "The runtime physical artifact is a URDF imported with URDFParseAndImportFile. URDF does not encode the upstream AmazingHand MJCF equality/connect closed-loop constraints, so MJCF remains the authoritative hand reference.",
       "status": "LOSSY_MJCF_CONVERSION"
     },
     "wrist_attachment_runtime_validation": {
       "actual_child_world_xyz": [
-        0.19339576363563538,
-        -0.07952351123094559,
-        0.12582898139953613
+        0.19335752725601196,
+        -0.0800749883055687,
+        0.12601779401302338
       ],
       "articulation_root_path": "/roboto_v2_right_arm_amazinghand_full",
       "child_link": "r_wrist_interface",
       "child_link_path": "/roboto_v2_right_arm_amazinghand_full/r_wrist_interface",
       "expected_child_world_xyz": [
-        0.19339573906283725,
-        -0.07952351451846094,
-        0.12582894396590139
+        0.19335744624948775,
+        -0.08007499494691402,
+        0.12601776983490764
       ],
       "expected_parent_local_origin_xyz": [
         0.13825,
         0.0,
         0.0
       ],
-      "gap_m": 4.489885494700732e-08,
+      "gap_m": 8.479826479776547e-08,
       "max_allowed_gap_m": 0.005,
       "parent_link": "right_elbow_yaw_link",
       "parent_link_path": "/roboto_v2_right_arm_amazinghand_full/right_elbow_yaw_link",
