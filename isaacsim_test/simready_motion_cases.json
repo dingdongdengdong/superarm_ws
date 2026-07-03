@@ -1,0 +1,56 @@
+{
+  "joint_names": [
+    "right_arm_pitch_joint",
+    "right_arm_roll_joint",
+    "right_arm_yaw_joint",
+    "right_elbow_pitch_joint",
+    "right_elbow_yaw_joint",
+    "amazinghand_grasp"
+  ],
+  "cases": [
+    {
+      "name": "home",
+      "positions": {
+        "right_arm_pitch_joint": 0.0,
+        "right_arm_roll_joint": 0.0,
+        "right_arm_yaw_joint": 0.0,
+        "right_elbow_pitch_joint": 0.0,
+        "right_elbow_yaw_joint": 0.0,
+        "amazinghand_grasp": 0.0
+      }
+    },
+    {
+      "name": "reach_forward",
+      "positions": {
+        "right_arm_pitch_joint": 0.35,
+        "right_arm_roll_joint": -0.25,
+        "right_arm_yaw_joint": 0.40,
+        "right_elbow_pitch_joint": -0.60,
+        "right_elbow_yaw_joint": 0.30,
+        "amazinghand_grasp": 0.50
+      }
+    },
+    {
+      "name": "elbow_fold",
+      "positions": {
+        "right_arm_pitch_joint": 0.15,
+        "right_arm_roll_joint": 0.10,
+        "right_arm_yaw_joint": 0.0,
+        "right_elbow_pitch_joint": -0.85,
+        "right_elbow_yaw_joint": 0.45,
+        "amazinghand_grasp": 0.75
+      }
+    },
+    {
+      "name": "side_sweep",
+      "positions": {
+        "right_arm_pitch_joint": -0.30,
+        "right_arm_roll_joint": 0.25,
+        "right_arm_yaw_joint": -0.35,
+        "right_elbow_pitch_joint": -0.45,
+        "right_elbow_yaw_joint": -0.25,
+        "amazinghand_grasp": 0.25
+      }
+    }
+  ]
+}

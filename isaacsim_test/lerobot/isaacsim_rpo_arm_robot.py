@@ -11,16 +11,7 @@ import numpy as np
 
 from lerobot.common.robot_devices.robots.configs import RobotConfig
 
-
-JOINT_NAMES = [
-    "right_arm_pitch_joint",
-    "right_arm_roll_joint",
-    "right_arm_yaw_joint",
-    "right_elbow_pitch_joint",
-    "right_elbow_yaw_joint",
-    "amazinghand_grasp",
-]
-FEATURE_KEYS = [f"{name}.pos" for name in JOINT_NAMES]
+from rpo_arm_contract import FEATURE_KEYS, JOINT_NAMES, normalize_action
 
 
 @RobotConfig.register_subclass("isaacsim_rpo_arm")
@@ -137,12 +128,7 @@ class IsaacSimRpoArmRobot:
             self._latest_phone_cmd = self._normalize_vector(list(msg.data))
 
     def _normalize_vector(self, values: list[float]) -> list[float]:
-        target_len = len(self.config.joint_names)
-        values = [float(v) for v in values[:target_len]]
-        if len(values) < target_len:
-            values.extend([0.0] * (target_len - len(values)))
-        values[-1] = float(np.clip(values[-1], 0.0, 1.0))
-        return values
+        return normalize_action(values, joint_names=self.config.joint_names)
 
     def run_calibration(self):
         print("[IsaacSimRpoArmRobot] Simulated robot - no calibration needed.")

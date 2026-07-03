@@ -29,15 +29,8 @@ for path in (SCRIPT_DIR, LEROBOT_PATH):
         sys.path.insert(0, path_str)
 
 from isaacsim_rpo_arm_robot import IsaacSimRpoArmConfig, IsaacSimRpoArmRobot  # noqa: E402
+from rpo_arm_contract import JOINT_NAMES, normalize_action  # noqa: E402
 
-JOINT_NAMES = [
-    "right_arm_pitch_joint",
-    "right_arm_roll_joint",
-    "right_arm_yaw_joint",
-    "right_elbow_pitch_joint",
-    "right_elbow_yaw_joint",
-    "amazinghand_grasp",
-]
 DEFAULT_TARGET = [0.2, 0.1, -0.2, 0.3, 0.1, 0.5]
 DEFAULT_TOLERANCE = 0.03
 DEFAULT_CONFIG = SCRIPT_DIR / "rpo_arm_isaacsim.yaml"
@@ -84,7 +77,7 @@ def main() -> int:
     if list(config.joint_names) != JOINT_NAMES:
         raise ValueError(f"Unexpected config joint_names: {config.joint_names}")
 
-    target = np.asarray(args.target, dtype=np.float32)
+    target = np.asarray(normalize_action(args.target), dtype=np.float32)
     tolerance = np.full(target.shape, float(args.tolerance), dtype=np.float32)
     robot = IsaacSimRpoArmRobot(config)
     deadline = time.time() + args.timeout_s

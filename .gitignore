@@ -23,3 +23,21 @@ __pycache__/
 # Local Isaac Sim test env overrides (copy from .env.example)
 /isaacsim_test/.env
 /isaacsim_test/artifacts/
+# Local Isaac Sim generated/runtime outputs. Keep intentional tracked fixtures explicit.
+/isaacsim_test/outputs/robot_arm_hand_from_zip/
+/isaacsim_test/outputs/robot_arm_hand_graspable_*/
+/isaacsim_test/outputs/tmp_inspect_inputs/
+/isaacsim_test/outputs/amazinghand_onshape_live_latest.path
+/isaacsim_test/outputs/simready/echo_full/20260702_arm_only/
+/isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/
+/isaacsim_test/outputs/simready/echo_full/sitl/configuration/
+/isaacsim_test/outputs/simready/echo_full/sitl/*.bak
+/isaacsim_test/outputs/simready/echo_full/sitl/*contact*.usda
+/isaacsim_test/outputs/simready/echo_full/sitl/*contact*_report.json
+/isaacsim_test/outputs/simready/echo_full/sitl/*joint_pose_fix*.usda
+/isaacsim_test/outputs/simready/echo_full/sitl/*joint_pose_fix*_report.json
+/isaacsim_test/outputs/simready/echo_full/sitl/*visual_only.usda
+/isaacsim_test/outputs/simready/echo_full/sitl/*arm_only*.urdf
+/isaacsim_test/outputs/simready/echo_full/sitl/*isaac_stable.urdf
+/isaacsim_test/outputs/simready/echo_full/sitl/physics_scene_fix_report.md
+

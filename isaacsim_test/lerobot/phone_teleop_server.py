@@ -19,6 +19,8 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
 
+from rpo_arm_contract import ARM_JOINT_LIMITS, GRASP_JOINT_NAME, JOINT_NAMES, normalize_action
+
 # Inline HTML served to the phone (no external CDN dependencies)
 _HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -50,6 +52,7 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
 <script>
 const NUM_JOINTS = {num_joints};
 const JOINT_NAMES = {joint_names_json};
+const JOINT_LIMITS = {joint_limits_json};
 const WS_URL = "ws://" + location.hostname + ":{port}/ws";
 // Foxglove bridge for visualization: ws://&lt;host&gt;:8765
 
@@ -63,14 +66,15 @@ function buildUI() {{
     const div = document.createElement("div");
     div.className = "joint";
     const name = JOINT_NAMES[i] || ("joint_" + i);
-    const isGrasp = name.includes("grasp");
-    const min = isGrasp ? "0.0" : "-3.14";
-    const max = isGrasp ? "1.0" : "3.14";
-    const step = isGrasp ? "0.01" : "0.01";
-    const unit = isGrasp ? "" : " rad";
+    const limits = JOINT_LIMITS[name] || [-3.14, 3.14];
+    const min = String(limits[0]);
+    const max = String(limits[1]);
+    const step = "0.01";
+    const unit = name.includes("grasp") ? "" : " rad";
     div.innerHTML = `
       <label><span>${{name}}</span><span id="val${{i}}">0.00${{unit}}</span></label>
       <input type="range" id="sl${{i}}" min="${{min}}" max="${{max}}" step="${{step}}" value="0"
+             data-min="${{min}}" data-max="${{max}}"
              oninput="onSlider(${{i}}, this.value)">`;
     container.appendChild(div);
     sliders.push(div.querySelector("input"));
@@ -116,13 +120,14 @@ connect();
 
 
 class TeleopPublisherNode(Node):
-    def __init__(self, topic: str):
+    def __init__(self, topic: str, joint_names: list[str]):
         super().__init__("phone_teleop_server")
+        self._joint_names = joint_names
         self._pub = self.create_publisher(Float64MultiArray, topic, 10)
 
     def publish_positions(self, positions: list[float]):
         msg = Float64MultiArray()
-        msg.data = [float(v) for v in positions]
+        msg.data = normalize_action(positions, joint_names=self._joint_names)
         self._pub.publish(msg)
 
 
@@ -159,7 +164,7 @@ async def main_async(args, node: TeleopPublisherNode):
     joint_names = (
         [name.strip() for name in args.joint_names.split(",") if name.strip()]
         if args.joint_names
-        else [f"joint_{i}" for i in range(args.num_joints)]
+        else list(JOINT_NAMES)
     )
     if len(joint_names) < args.num_joints:
         joint_names.extend(f"joint_{i}" for i in range(len(joint_names), args.num_joints))
@@ -167,6 +172,12 @@ async def main_async(args, node: TeleopPublisherNode):
     html = _HTML_TEMPLATE.format(
         num_joints=args.num_joints,
         joint_names_json=json.dumps(joint_names),
+        joint_limits_json=json.dumps(
+            {
+                **{name: list(limits) for name, limits in ARM_JOINT_LIMITS.items()},
+                GRASP_JOINT_NAME: [0.0, 1.0],
+            }
+        ),
         port=args.port,
     )
 
@@ -199,7 +210,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--num-joints", type=int, default=6)
-    parser.add_argument("--joint-names", default="")
+    parser.add_argument("--joint-names", default=",".join(JOINT_NAMES))
     parser.add_argument("--topic", default="/leader/joint_commands")
     parser.add_argument("--ros-domain-id", type=int, default=42)
     args = parser.parse_args()
@@ -212,7 +223,8 @@ def main():
     except RuntimeError:
         pass
 
-    node = TeleopPublisherNode(args.topic)
+    joint_names = [name.strip() for name in args.joint_names.split(",") if name.strip()]
+    node = TeleopPublisherNode(args.topic, joint_names[: args.num_joints])
     spin_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
     spin_thread.start()
 
