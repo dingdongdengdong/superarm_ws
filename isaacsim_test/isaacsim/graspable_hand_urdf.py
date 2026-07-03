@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import math
+import struct
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -25,29 +26,39 @@ HAND_ACTUATED_JOINT_NAMES = [
     "finger4_motor1",
     "finger4_motor2",
 ]
+HAND_GRASP_TYPES = ("wrap", "pinch", "wide")
 
 VISUAL_MODE_STATIC_SHELL = "static_shell"
 VISUAL_MODE_PARTITIONED_LINKS = "partitioned_links"
+VISUAL_MODE_IMPLEMENTED_ONLY = "implemented_only"
 
 _FINGER_LAYOUTS = {
     1: {
         "role": "index",
-        "base_xyz": (-0.030, -0.030, 0.020),
+        "base_xyz": (-0.00505, 0.03055, 0.06980),
+        "mjcf_anchor_body": "custom_servo_horn",
+        "mjcf_proximal_xyz": (-0.01150, 0.02475, 0.10220),
         "axis": (1.0, 0.0, 0.0),
     },
     2: {
         "role": "middle",
-        "base_xyz": (0.0, -0.033, 0.020),
+        "base_xyz": (-0.00505, 0.00110, 0.06456),
+        "mjcf_anchor_body": "custom_servo_horn_2",
+        "mjcf_proximal_xyz": (-0.01150, -0.00805, 0.09618),
         "axis": (1.0, 0.0, 0.0),
     },
     3: {
         "role": "ring",
-        "base_xyz": (0.030, -0.030, 0.020),
+        "base_xyz": (-0.00505, -0.02705, 0.05505),
+        "mjcf_anchor_body": "custom_servo_horn_3",
+        "mjcf_proximal_xyz": (-0.01150, -0.04026, 0.08520),
         "axis": (1.0, 0.0, 0.0),
     },
     4: {
         "role": "thumb",
-        "base_xyz": (0.044, -0.006, -0.006),
+        "base_xyz": (-0.00030, 0.00773, 0.03615),
+        "mjcf_anchor_body": "custom_servo_horn_4",
+        "mjcf_proximal_xyz": (0.02816, 0.02426, 0.02970),
         "axis": (0.0, 0.0, 1.0),
     },
 }
@@ -80,12 +91,35 @@ _VISUAL_MESH_FILES = [
 _DISTAL_VISUAL_MESHES = {
     "distal",
     "distal_shell",
-    "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999",
 }
 _PROXIMAL_VISUAL_MESHES = {
     "proximal",
     "proximal_shell",
+}
+_MAJOR_PROXIMAL_FOLLOWER_MESHES = {
+    "custom_servo_horn",
+    "gimbal",
+    "m2_rod_l18",
+    "rotule_ball",
+    "rotule_lever",
     "parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b",
+}
+_MAJOR_DISTAL_FOLLOWER_MESHES = {
+    "link",
+}
+_MAJOR_PARALLEL_PIN_10_MESH = "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999"
+_SKELETON_FIRST_FOLLOWER_MESHES = (
+    _MAJOR_PROXIMAL_FOLLOWER_MESHES
+    | _MAJOR_DISTAL_FOLLOWER_MESHES
+    | {_MAJOR_PARALLEL_PIN_10_MESH}
+)
+_OMITTED_SHELL_VISUAL_MESHES = _PROXIMAL_VISUAL_MESHES | _DISTAL_VISUAL_MESHES
+_OMITTED_DETAIL_VISUAL_MESHES = {
+    "ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed",
+    "plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5",
+    "spacer",
+    "std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default",
+    "std00447_thermoplastique_m2_5x6__configuration_default",
 }
 _MJCF_ACTUATED_BODY_TO_LINK_PREFIX = {
     "custom_servo_horn": "finger1",
@@ -249,6 +283,22 @@ def _add_visual(
     ET.SubElement(geometry, "mesh", {"filename": str(mesh_path.resolve())})
 
 
+def _add_box_visual(
+    link: ET.Element,
+    *,
+    name: str,
+    size: tuple[float, float, float],
+    xyz: tuple[float, float, float],
+    color: tuple[float, float, float, float],
+) -> None:
+    visual = ET.SubElement(link, "visual", {"name": name})
+    _add_origin(visual, xyz=xyz)
+    geometry = ET.SubElement(visual, "geometry")
+    ET.SubElement(geometry, "box", {"size": _format_floats(size)})
+    material = ET.SubElement(visual, "material", {"name": f"{name}_material"})
+    ET.SubElement(material, "color", {"rgba": " ".join(_format_float(value) for value in color)})
+
+
 def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
     mjcf_path = package_root / "hand_mjcf" / "robot.xml"
     asset_root = package_root / "hand_mjcf" / "assets"
@@ -273,6 +323,9 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
         )
         body_name = body.attrib.get("name", "body")
         body_chain = (*parent_chain, body_name)
+        body_mesh_names = tuple(
+            geom.attrib["mesh"] for geom in body.findall("geom") if geom.attrib.get("mesh")
+        )
         for geom_index, geom in enumerate(body.findall("geom")):
             mesh_name = geom.attrib.get("mesh")
             if not mesh_name:
@@ -289,6 +342,7 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
                     "name": f"mjcf_{len(visuals):03d}_{body_name}_{mesh_name}_{geom_index}",
                     "body_name": body_name,
                     "body_chain": body_chain,
+                    "body_mesh_names": body_mesh_names,
                     "mesh_name": mesh_name,
                     "mesh_path": mesh_path,
                     "xyz": geom_xyz,
@@ -303,6 +357,46 @@ def _collect_mjcf_visual_geoms(package_root: Path) -> list[dict[str, Any]]:
     return visuals
 
 
+def _stl_bounds(mesh_path: Path) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
+    data = mesh_path.read_bytes()
+    if len(data) < 84:
+        raise ValueError(f"STL file is too small: {mesh_path}")
+    triangle_count = struct.unpack("<I", data[80:84])[0]
+    expected_size = 84 + triangle_count * 50
+    if len(data) < expected_size:
+        raise ValueError(f"Binary STL is truncated: {mesh_path}")
+    mins = [math.inf, math.inf, math.inf]
+    maxs = [-math.inf, -math.inf, -math.inf]
+    offset = 84
+    for _ in range(triangle_count):
+        values = struct.unpack("<12fH", data[offset : offset + 50])
+        coords = values[3:12]
+        for coord_index in range(0, 9, 3):
+            for axis in range(3):
+                value = float(coords[coord_index + axis])
+                mins[axis] = min(mins[axis], value)
+                maxs[axis] = max(maxs[axis], value)
+        offset += 50
+    return (mins[0], mins[1], mins[2]), (maxs[0], maxs[1], maxs[2])
+
+
+def _tree_aligned_segment_visual_origin(
+    mesh_path: Path,
+) -> tuple[float, float, float]:
+    """Return a conservative link-local placement for generated finger visuals.
+
+    The MJCF hand is a closed-loop linkage, but the generated Isaac hand is a
+    simple two-link tree. Using the MJCF world transform on a simplified tree
+    link rotates the STL around the wrong pivot and makes finger parts appear
+    detached/floating. The proximal/distal STL files already use finger-local
+    coordinates, so align their mesh bounds to the generated link frame instead.
+    """
+    bbox_min, bbox_max = _stl_bounds(mesh_path)
+    center_x = (bbox_min[0] + bbox_max[0]) * 0.5
+    center_z = (bbox_min[2] + bbox_max[2]) * 0.5
+    return (-center_x, -bbox_min[1], -center_z)
+
+
 def _finger_link_initial_xyz() -> dict[str, tuple[float, float, float]]:
     link_xyz = {
         "r_wrist_interface": (0.0, 0.0, 0.0),
@@ -310,6 +404,7 @@ def _finger_link_initial_xyz() -> dict[str, tuple[float, float, float]]:
     }
     for finger_index, layout in sorted(_FINGER_LAYOUTS.items()):
         base_xyz = layout["base_xyz"]
+        link_xyz[f"finger{finger_index}_base"] = base_xyz
         link_xyz[f"finger{finger_index}_proximal"] = base_xyz
         link_xyz[f"finger{finger_index}_distal"] = (
             base_xyz[0],
@@ -317,6 +412,10 @@ def _finger_link_initial_xyz() -> dict[str, tuple[float, float, float]]:
             base_xyz[2],
         )
     return link_xyz
+
+
+def _body_chain_contains_prefix(body_chain: tuple[str, ...], prefix: str) -> bool:
+    return any(body_name == prefix or body_name.startswith(f"{prefix}_") for body_name in body_chain)
 
 
 def _classify_mjcf_visual_link(visual: dict[str, Any]) -> str:
@@ -333,40 +432,173 @@ def _classify_mjcf_visual_link(visual: dict[str, Any]) -> str:
         return f"{finger_prefix}_distal"
     if mesh_name in _PROXIMAL_VISUAL_MESHES:
         return f"{finger_prefix}_proximal"
-    return f"{finger_prefix}_proximal"
+    if mesh_name in _MAJOR_DISTAL_FOLLOWER_MESHES:
+        return f"{finger_prefix}_distal"
+    if mesh_name == _MAJOR_PARALLEL_PIN_10_MESH:
+        if _body_chain_contains_prefix(body_chain, _MAJOR_PARALLEL_PIN_10_MESH):
+            return f"{finger_prefix}_distal"
+        return f"{finger_prefix}_proximal"
+    if mesh_name in _MAJOR_PROXIMAL_FOLLOWER_MESHES:
+        return f"{finger_prefix}_proximal"
+    # Small screws, washers, spacers, bushings and exact closed-loop detail are
+    # intentionally outside the skeleton-first pass. Keep them on the wrist so
+    # they do not imply a verified moving linkage.
+    return "r_wrist_interface"
+
+
+def _raw_link_local_visual_origin(
+    visual: dict[str, Any],
+    link_initial_xyz: dict[str, tuple[float, float, float]],
+    link_name: str,
+) -> tuple[float, float, float]:
+    link_origin = link_initial_xyz[link_name]
+    return (
+        visual["xyz"][0] - link_origin[0],
+        visual["xyz"][1] - link_origin[1],
+        visual["xyz"][2] - link_origin[2],
+    )
+
+
+def _moving_link_visual_alignment_offsets(
+    visual_geoms: list[dict[str, Any]],
+    link_initial_xyz: dict[str, tuple[float, float, float]],
+) -> tuple[dict[str, tuple[float, float, float]], dict[str, str]]:
+    """Return per-generated-link corrections from MJCF world space to tree space.
+
+    The generated Isaac hand has simple two-joint links whose local frames do
+    not match the original closed-loop MJCF body graph. Proximal/distal segment
+    meshes are the best available anchors because their STL bounds already fit
+    the generated tree links. Apply the same anchor correction to nearby major
+    linkage/pin visuals so they move with the finger without floating far above
+    the simplified segment.
+    """
+    offsets: dict[str, tuple[float, float, float]] = {}
+    anchor_meshes: dict[str, str] = {}
+    for visual in visual_geoms:
+        mesh_name = visual["mesh_name"]
+        if mesh_name not in {"proximal", "distal"}:
+            continue
+        link_name = _classify_mjcf_visual_link(visual)
+        if not (link_name.endswith("_proximal") or link_name.endswith("_distal")):
+            continue
+        mesh_path = Path(visual["mesh_path"])
+        if not mesh_path.is_file():
+            continue
+        raw_local = _raw_link_local_visual_origin(visual, link_initial_xyz, link_name)
+        tree_local = _tree_aligned_segment_visual_origin(mesh_path)
+        offsets[link_name] = (
+            tree_local[0] - raw_local[0],
+            tree_local[1] - raw_local[1],
+            tree_local[2] - raw_local[2],
+        )
+        anchor_meshes[link_name] = mesh_name
+    return offsets, anchor_meshes
 
 
 def _add_mjcf_visuals_to_tree_links(
     links: dict[str, ET.Element],
     *,
     package_root: Path,
+    include_finger_shells: bool = False,
 ) -> dict[str, Any]:
     visual_geoms = _collect_mjcf_visual_geoms(package_root)
     link_initial_xyz = _finger_link_initial_xyz()
+    link_alignment_offsets, link_alignment_anchor_meshes = _moving_link_visual_alignment_offsets(
+        visual_geoms,
+        link_initial_xyz,
+    )
     link_visual_counts = {link_name: 0 for link_name in links}
+    moving_skeleton_visual_counts = {link_name: 0 for link_name in links}
+    wrist_fixed_major_visuals: list[str] = []
+    omitted_shell_visuals: list[str] = []
+    moving_shell_visual_counts = {link_name: 0 for link_name in links}
+    omitted_detail_visuals: list[str] = []
     missing_meshes: list[str] = []
     for visual in visual_geoms:
+        if (
+            visual["mesh_name"] in _OMITTED_SHELL_VISUAL_MESHES
+            and not include_finger_shells
+        ):
+            omitted_shell_visuals.append(visual["name"])
+            continue
+        if visual["mesh_name"] in _OMITTED_DETAIL_VISUAL_MESHES:
+            omitted_detail_visuals.append(visual["name"])
+            continue
         mesh_path = Path(visual["mesh_path"])
         if not mesh_path.is_file():
             missing_meshes.append(str(mesh_path))
             continue
         link_name = _classify_mjcf_visual_link(visual)
-        link_origin = link_initial_xyz[link_name]
-        local_xyz = (
-            visual["xyz"][0] - link_origin[0],
-            visual["xyz"][1] - link_origin[1],
-            visual["xyz"][2] - link_origin[2],
-        )
+        if (
+            link_name.endswith("_proximal")
+            or link_name.endswith("_distal")
+        ) and visual["mesh_name"] in (_PROXIMAL_VISUAL_MESHES | _DISTAL_VISUAL_MESHES):
+            local_xyz = _tree_aligned_segment_visual_origin(mesh_path)
+            local_rpy = (0.0, 0.0, 0.0)
+        elif (
+            (link_name.endswith("_proximal") or link_name.endswith("_distal"))
+            and visual["mesh_name"] in _SKELETON_FIRST_FOLLOWER_MESHES
+            and link_name in link_alignment_offsets
+        ):
+            raw_local = _raw_link_local_visual_origin(visual, link_initial_xyz, link_name)
+            alignment_offset = link_alignment_offsets[link_name]
+            local_xyz = (
+                raw_local[0] + alignment_offset[0],
+                raw_local[1] + alignment_offset[1],
+                raw_local[2] + alignment_offset[2],
+            )
+            local_rpy = visual["rpy"]
+        else:
+            local_xyz = _raw_link_local_visual_origin(visual, link_initial_xyz, link_name)
+            local_rpy = visual["rpy"]
         _add_visual(
             links[link_name],
             name=visual["name"],
             mesh_path=mesh_path,
             xyz=local_xyz,
-            rpy=visual["rpy"],
+            rpy=local_rpy,
         )
         link_visual_counts[link_name] += 1
+        if visual["mesh_name"] in _SKELETON_FIRST_FOLLOWER_MESHES:
+            if link_name == "r_wrist_interface":
+                wrist_fixed_major_visuals.append(visual["name"])
+            else:
+                moving_skeleton_visual_counts[link_name] += 1
+        if visual["mesh_name"] in _OMITTED_SHELL_VISUAL_MESHES and link_name != "r_wrist_interface":
+            moving_shell_visual_counts[link_name] += 1
+    skeleton_first_exclusions = [
+        "small_screws",
+        "washers",
+        "tiny_spacers",
+        "exact_closed_loop",
+    ]
+    if not include_finger_shells:
+        skeleton_first_exclusions.extend(
+            [
+                "outer_shell_visuals_hidden_for_joint_debug",
+                "shell_alignment_finalization",
+            ]
+        )
     return {
         "visual_attachment_mode": "mjcf_visuals_partitioned_to_tree_links",
+        "skeleton_first_policy": "major_linkage_and_pin_visuals_follow_generated_finger_links",
+        "skeleton_first_exclusions": skeleton_first_exclusions,
+        "finger_shell_visuals_enabled": include_finger_shells,
+        "finger_shell_alignment_policy": (
+            "proximal_and_distal_shell_visuals_follow_generated_finger_links"
+            if include_finger_shells
+            else "finger_shell_visuals_hidden_until_shell_alignment_pass"
+        ),
+        "omitted_shell_visual_count": len(omitted_shell_visuals),
+        "omitted_shell_visuals": omitted_shell_visuals,
+        "moving_shell_visual_count": sum(moving_shell_visual_counts.values()),
+        "moving_shell_visual_counts": {
+            link_name: count
+            for link_name, count in sorted(moving_shell_visual_counts.items())
+            if count
+        },
+        "omitted_detail_visual_count": len(omitted_detail_visuals),
+        "omitted_detail_visuals": omitted_detail_visuals,
         "mjcf_visual_geom_count": len(visual_geoms),
         "missing_mjcf_visual_meshes": missing_meshes,
         "link_visual_counts": {
@@ -374,6 +606,13 @@ def _add_mjcf_visuals_to_tree_links(
             for link_name, count in sorted(link_visual_counts.items())
             if count
         },
+        "moving_skeleton_visual_counts": {
+            link_name: count
+            for link_name, count in sorted(moving_skeleton_visual_counts.items())
+            if count
+        },
+        "tree_alignment_anchor_meshes": dict(sorted(link_alignment_anchor_meshes.items())),
+        "wrist_fixed_major_visuals": wrist_fixed_major_visuals,
     }
 
 
@@ -496,37 +735,84 @@ def build_graspable_hand_model_spec() -> dict[str, Any]:
         "robot_name": "amazinghand_graspable",
         "root_link": "r_wrist_interface",
         "finger_count": 4,
+        "finger_base_frame_count": 4,
+        "finger_base_anchor_policy": "fixed finger_base frames use MJCF custom_servo_horn world positions as palm-local motor-frame anchors",
         "finger_roles": {
             f"finger{index}": layout["role"]
             for index, layout in sorted(_FINGER_LAYOUTS.items())
         },
+        "finger_base_layouts": {
+            f"finger{index}": {
+                "role": layout["role"],
+                "base_xyz": list(layout["base_xyz"]),
+                "mjcf_anchor_body": layout["mjcf_anchor_body"],
+                "mjcf_proximal_xyz": list(layout["mjcf_proximal_xyz"]),
+            }
+            for index, layout in sorted(_FINGER_LAYOUTS.items())
+        },
         "excluded_human_finger": "pinky",
         "actuated_joint_names": list(HAND_ACTUATED_JOINT_NAMES),
+        "grasp_types": list(HAND_GRASP_TYPES),
+        "default_grasp_type": "wrap",
         "visual_mesh_files": list(_VISUAL_MESH_FILES),
         "collision_primitive_count": 13,
         "equality_constraint_count": 0,
         "notes": [
             "STL files are used only as visual geometry.",
             "Primitive box collisions are used for stable Isaac contact.",
-            "The model is a tree articulation with four two-joint fingers.",
-            "Default visual mode keeps the original MJCF visual assembly fixed to the wrist.",
-            "Partitioned moving visuals are available only as an experimental mode.",
+            "The model is a tree articulation with four fixed finger-base frames and four two-joint fingers.",
+            "Finger base frames are aligned to MJCF custom_servo_horn anchor positions for motor-frame debugging.",
+            "Default visual mode partitions MJCF visuals onto moving tree links so grasp motion is visible.",
+            "Static shell mode is available only as a legacy debug fallback.",
         ],
-        "default_visual_mode": VISUAL_MODE_STATIC_SHELL,
+        "default_visual_mode": VISUAL_MODE_PARTITIONED_LINKS,
         "available_visual_modes": [
-            VISUAL_MODE_STATIC_SHELL,
             VISUAL_MODE_PARTITIONED_LINKS,
+            VISUAL_MODE_STATIC_SHELL,
+            VISUAL_MODE_IMPLEMENTED_ONLY,
         ],
     }
 
 
 def grasp_scalar_to_hand_joint_targets(grasp: float) -> dict[str, float]:
     """Map a normalized grasp command to the eight Isaac-friendly hand joints."""
-    closedness = max(0.0, min(1.0, float(grasp)))
+    return grasp_preshape_to_hand_joint_targets(grasp, "wrap")
+
+
+def grasp_preshape_to_hand_joint_targets(
+    grasp_amount: float,
+    grasp_type: str = "wrap",
+) -> dict[str, float]:
+    """Map a normalized preshape command to the eight generated hand joints.
+
+    The generated Isaac hand intentionally starts with low-dimensional control:
+    one grasp amount plus a named preshape.  ``wrap`` is the legacy scalar
+    behavior, while ``pinch`` and ``wide`` provide safer intermediate policies
+    before exposing raw per-servo targets.
+    """
+    if grasp_type not in HAND_GRASP_TYPES:
+        raise ValueError(
+            f"Unsupported grasp_type {grasp_type!r}; supported grasp types: "
+            f"{', '.join(HAND_GRASP_TYPES)}"
+        )
+    closedness = max(0.0, min(1.0, float(grasp_amount)))
+    if grasp_type == "wrap":
+        motor1_scale = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
+        motor2_scale = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
+    elif grasp_type == "pinch":
+        motor1_scale = {1: 1.0, 2: 0.45, 3: 0.45, 4: 1.0}
+        motor2_scale = {1: 1.0, 2: 0.40, 3: 0.40, 4: 1.0}
+    else:
+        motor1_scale = {1: 0.62, 2: 0.62, 3: 0.62, 4: 0.62}
+        motor2_scale = {1: 0.58, 2: 0.58, 3: 0.58, 4: 0.58}
     targets: dict[str, float] = {}
     for finger_index in range(1, 5):
-        targets[f"finger{finger_index}_motor1"] = 0.05 + closedness * 0.90
-        targets[f"finger{finger_index}_motor2"] = 0.02 + closedness * 1.08
+        targets[f"finger{finger_index}_motor1"] = (
+            0.05 + closedness * 0.90 * motor1_scale[finger_index]
+        )
+        targets[f"finger{finger_index}_motor2"] = (
+            0.02 + closedness * 1.08 * motor2_scale[finger_index]
+        )
     return targets
 
 
@@ -539,7 +825,8 @@ def generate_graspable_hand_urdf(
     output_urdf: str | Path,
     *,
     robot_name: str = "amazinghand_graspable",
-    visual_mode: str = VISUAL_MODE_STATIC_SHELL,
+    visual_mode: str = VISUAL_MODE_PARTITIONED_LINKS,
+    include_finger_shells: bool = False,
 ) -> dict[str, Any]:
     """Generate a simplified tree hand URDF that Isaac can import as an articulation."""
     package = Path(package_root)
@@ -547,11 +834,39 @@ def generate_graspable_hand_urdf(
     asset_root = package / "hand_mjcf" / "assets"
     if not asset_root.is_dir():
         raise FileNotFoundError(f"Hand asset directory not found: {asset_root}")
-    if visual_mode not in {VISUAL_MODE_STATIC_SHELL, VISUAL_MODE_PARTITIONED_LINKS}:
+    supported_visual_modes = {
+        VISUAL_MODE_STATIC_SHELL,
+        VISUAL_MODE_PARTITIONED_LINKS,
+        VISUAL_MODE_IMPLEMENTED_ONLY,
+    }
+    if visual_mode not in supported_visual_modes:
         raise ValueError(
-            f"Unsupported visual_mode {visual_mode!r}; expected "
-            f"{VISUAL_MODE_STATIC_SHELL!r} or {VISUAL_MODE_PARTITIONED_LINKS!r}"
+            f"Unsupported visual_mode {visual_mode!r}; expected one of "
+            f"{sorted(supported_visual_modes)!r}"
         )
+
+    implemented_only_visuals = visual_mode == VISUAL_MODE_IMPLEMENTED_ONLY
+    implemented_debug_visual_count = 0
+
+    def add_implemented_box_visual(
+        link: ET.Element,
+        *,
+        name: str,
+        size: tuple[float, float, float],
+        xyz: tuple[float, float, float],
+        color: tuple[float, float, float, float],
+    ) -> None:
+        nonlocal implemented_debug_visual_count
+        if not implemented_only_visuals:
+            return
+        _add_box_visual(
+            link,
+            name=name,
+            size=size,
+            xyz=xyz,
+            color=color,
+        )
+        implemented_debug_visual_count += 1
 
     spec = build_graspable_hand_model_spec()
     missing_meshes = [
@@ -589,6 +904,13 @@ def generate_graspable_hand_urdf(
         size=(0.09, 0.085, 0.035),
         xyz=(0.0, -0.038, 0.0),
     )
+    add_implemented_box_visual(
+        palm,
+        name="palm_contact_box_implemented_visual",
+        size=(0.09, 0.085, 0.035),
+        xyz=(0.0, -0.038, 0.0),
+        color=(0.18, 0.42, 0.95, 0.55),
+    )
     _add_fixed_joint(
         robot,
         name="wrist_to_palm",
@@ -598,9 +920,32 @@ def generate_graspable_hand_urdf(
     )
 
     for finger_index in range(1, 5):
+        base_name = f"finger{finger_index}_base"
         proximal_name = f"finger{finger_index}_proximal"
         distal_name = f"finger{finger_index}_distal"
         layout = _FINGER_LAYOUTS[finger_index]
+        base = _add_link(
+            robot,
+            base_name,
+            mass=0.006,
+            inertia=(1.0e-6, 1.0e-6, 1.0e-6),
+        )
+        links[base_name] = base
+        add_implemented_box_visual(
+            base,
+            name=f"{base_name}_motor_mount_frame_implemented_visual",
+            size=(0.030, 0.024, 0.024),
+            xyz=(0.0, 0.0, 0.0),
+            color=(0.25, 0.65, 1.0, 0.55),
+        )
+        _add_fixed_joint(
+            robot,
+            name=f"palm_to_{base_name}",
+            parent="palm",
+            child=base_name,
+            xyz=layout["base_xyz"],
+        )
+
         proximal = _add_link(
             robot,
             proximal_name,
@@ -613,6 +958,13 @@ def generate_graspable_hand_urdf(
             name=f"{proximal_name}_contact_box",
             size=(0.018, 0.058, 0.018),
             xyz=(0.0, 0.029, 0.0),
+        )
+        add_implemented_box_visual(
+            proximal,
+            name=f"{proximal_name}_contact_box_implemented_visual",
+            size=(0.018, 0.058, 0.018),
+            xyz=(0.0, 0.029, 0.0),
+            color=(0.95, 0.54, 0.18, 0.62),
         )
 
         distal = _add_link(
@@ -628,19 +980,33 @@ def generate_graspable_hand_urdf(
             size=(0.016, 0.050, 0.016),
             xyz=(0.0, 0.025, 0.0),
         )
+        add_implemented_box_visual(
+            distal,
+            name=f"{distal_name}_contact_box_implemented_visual",
+            size=(0.016, 0.050, 0.016),
+            xyz=(0.0, 0.025, 0.0),
+            color=(0.95, 0.54, 0.18, 0.62),
+        )
         _add_box_collision(
             distal,
             name=f"{distal_name}_tip_pad_contact_box",
             size=(0.026, 0.014, 0.022),
             xyz=(0.0, 0.055, 0.0),
         )
+        add_implemented_box_visual(
+            distal,
+            name=f"{distal_name}_tip_pad_contact_box_implemented_visual",
+            size=(0.026, 0.014, 0.022),
+            xyz=(0.0, 0.055, 0.0),
+            color=(0.1, 0.85, 0.35, 0.72),
+        )
 
         _add_revolute_joint(
             robot,
             name=f"finger{finger_index}_motor1",
-            parent="palm",
+            parent=base_name,
             child=proximal_name,
-            xyz=layout["base_xyz"],
+            xyz=(0.0, 0.0, 0.0),
             axis=layout["axis"],
             limit=(-0.05, 1.05),
         )
@@ -656,8 +1022,47 @@ def generate_graspable_hand_urdf(
 
     if visual_mode == VISUAL_MODE_STATIC_SHELL:
         visual_shell_report = _add_mjcf_visual_shell(robot, package_root=package)
+    elif visual_mode == VISUAL_MODE_IMPLEMENTED_ONLY:
+        visual_shell_report = {
+            "visual_attachment_mode": "implemented_collision_primitives_only",
+            "skeleton_first_policy": "hide_mjcf_cad_visuals_show_only_generated_collision_primitives",
+            "skeleton_first_exclusions": [
+                "all_mjcf_cad_visuals_hidden_for_joint_debug",
+                "outer_shell_visuals_hidden_for_joint_debug",
+                "small_screws",
+                "washers",
+                "tiny_spacers",
+                "exact_closed_loop",
+            ],
+            "finger_shell_visuals_enabled": False,
+            "finger_shell_alignment_policy": "finger_shell_visuals_hidden_until_shell_alignment_pass",
+            "omitted_shell_visual_count": 16,
+            "omitted_shell_visuals": [],
+            "moving_shell_visual_count": 0,
+            "moving_shell_visual_counts": {},
+            "omitted_detail_visual_count": 0,
+            "omitted_detail_visuals": [],
+            "mjcf_visual_geom_count": len(_collect_mjcf_visual_geoms(package)),
+            "missing_mjcf_visual_meshes": [],
+            "link_visual_counts": {
+                link.attrib["name"]: len(link.findall("visual"))
+                for link in links.values()
+                if link.findall("visual")
+            },
+            "implemented_debug_visual_count": implemented_debug_visual_count,
+            "implemented_debug_visual_policy": "translucent box visuals for authored collision primitives plus fixed finger-base motor frames",
+            "moving_skeleton_visual_counts": {},
+            "tree_alignment_anchor_meshes": {},
+            "wrist_fixed_major_visuals": [],
+            "finger_base_anchor_policy": spec["finger_base_anchor_policy"],
+            "finger_base_layouts": spec["finger_base_layouts"],
+        }
     else:
-        visual_shell_report = _add_mjcf_visuals_to_tree_links(links, package_root=package)
+        visual_shell_report = _add_mjcf_visuals_to_tree_links(
+            links,
+            package_root=package,
+            include_finger_shells=include_finger_shells,
+        )
 
     ET.indent(robot, space="  ")
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -677,6 +1082,12 @@ def generate_graspable_hand_urdf(
         "joint_count": len(joints),
         "actuated_joint_names": list(HAND_ACTUATED_JOINT_NAMES),
         "visual_mode": visual_mode,
+        "finger_base_anchor_policy": spec["finger_base_anchor_policy"],
+        "finger_base_layouts": spec["finger_base_layouts"],
+        "finger_shell_visuals_enabled": (
+            include_finger_shells and visual_mode == VISUAL_MODE_PARTITIONED_LINKS
+        ),
+        "implemented_debug_visual_count": implemented_debug_visual_count,
         "visual_mesh_files": list(spec["visual_mesh_files"]),
         "missing_visual_meshes": missing_meshes + visual_shell_report["missing_mjcf_visual_meshes"],
         "mjcf_visual_shell": visual_shell_report,

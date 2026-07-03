@@ -3,15 +3,27 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 SUPERARM_WS_PATH=${SUPERARM_WS_PATH:-$(cd -- "$SCRIPT_DIR/.." && pwd)}
-OUTPUT_ROOT=${ROBOT_ARM_HAND_OUTPUT_ROOT:-/workspace/superarm_ws/isaacsim_test/outputs/robot_arm_hand_from_zip}
-SCREENSHOT_ROOT=${ROBOT_ARM_HAND_SCREENSHOT_OUTPUT_DIR:-/workspace/superarm_ws/isaacsim_test/artifacts/robot_arm_hand_from_zip}
+RUN_STAMP=${ROBOT_ARM_HAND_RUN_STAMP:-$(TZ=Asia/Seoul date +%Y%m%d_%H%M%S_KST)}
+RUN_NAME=${ROBOT_ARM_HAND_RUN_NAME:-robot_arm_hand_from_zip}
+OUTPUT_ROOT=${ROBOT_ARM_HAND_OUTPUT_ROOT:-/workspace/superarm_ws/isaacsim_test/outputs/robot_arm_hand_graspable_${RUN_STAMP}_${RUN_NAME}}
+SCREENSHOT_ROOT=${ROBOT_ARM_HAND_SCREENSHOT_OUTPUT_DIR:-/workspace/superarm_ws/isaacsim_test/artifacts/visual_verification_${RUN_STAMP}_${RUN_NAME}}
 REPORT_PATH=${ROBOT_ARM_HAND_REPORT_PATH:-$OUTPUT_ROOT/robot_arm_hand_connected_report.json}
-LOG_STAMP=${ROBOT_ARM_HAND_LOG_STAMP:-$(date -u +%Y%m%dT%H%M%SZ)}
+LOG_STAMP=${ROBOT_ARM_HAND_LOG_STAMP:-$RUN_STAMP}
 RUNTIME_LOG_CONTAINER=${ROBOT_ARM_HAND_RUNTIME_LOG_PATH:-/workspace/superarm_ws/isaacsim_test/artifacts/runtime_logs/robot_arm_hand_from_zip_${LOG_STAMP}.log}
 RUNTIME_LOG_HOST="$SUPERARM_WS_PATH/${RUNTIME_LOG_CONTAINER#/workspace/superarm_ws/}"
 
 cd "$SCRIPT_DIR"
 mkdir -p "$(dirname "$RUNTIME_LOG_HOST")"
+
+fix_artifact_ownership() {
+  local uid gid
+  uid=$(id -u)
+  gid=$(id -g)
+  SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
+    --entrypoint /bin/bash \
+    isaac-sim-51 \
+    -lc "for path in '$OUTPUT_ROOT' '$SCREENSHOT_ROOT' '$RUNTIME_LOG_CONTAINER'; do if [ -e \"\$path\" ]; then chown -R $uid:$gid \"\$path\"; fi; done"
+}
 
 set -o pipefail
 SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
@@ -26,6 +38,11 @@ SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
   -e ROBOT_ARM_HAND_GRASP_STEPS="${ROBOT_ARM_HAND_GRASP_STEPS:-90}" \
   -e ROBOT_ARM_HAND_FINGER_MOTION_STEPS="${ROBOT_ARM_HAND_FINGER_MOTION_STEPS:-45}" \
   -e ROBOT_ARM_HAND_LIFT_RETAIN_STEPS="${ROBOT_ARM_HAND_LIFT_RETAIN_STEPS:-75}" \
+  -e ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS="${ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS:-0}" \
+  -e ROBOT_ARM_HAND_VISUAL_MODE="${ROBOT_ARM_HAND_VISUAL_MODE:-partitioned_links}" \
+  -e ROBOT_ARM_HAND_SHOW_CONTACT_PROXIES="${ROBOT_ARM_HAND_SHOW_CONTACT_PROXIES:-0}" \
+  -e ROBOT_ARM_HAND_CAPTURE_WIDTH="${ROBOT_ARM_HAND_CAPTURE_WIDTH:-1280}" \
+  -e ROBOT_ARM_HAND_CAPTURE_HEIGHT="${ROBOT_ARM_HAND_CAPTURE_HEIGHT:-720}" \
   isaac-sim-51 \
   "exec /isaac-sim/python.sh /workspace/isaacsim/robot_arm_hand_from_zip.py --mode convert" \
   2>&1 | tee "$RUNTIME_LOG_HOST"
@@ -42,9 +59,16 @@ SUPERARM_WS_PATH="$SUPERARM_WS_PATH" docker compose run --rm --no-deps \
   -e ROBOT_ARM_HAND_GRASP_STEPS="${ROBOT_ARM_HAND_GRASP_STEPS:-90}" \
   -e ROBOT_ARM_HAND_FINGER_MOTION_STEPS="${ROBOT_ARM_HAND_FINGER_MOTION_STEPS:-45}" \
   -e ROBOT_ARM_HAND_LIFT_RETAIN_STEPS="${ROBOT_ARM_HAND_LIFT_RETAIN_STEPS:-75}" \
+  -e ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS="${ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS:-0}" \
+  -e ROBOT_ARM_HAND_VISUAL_MODE="${ROBOT_ARM_HAND_VISUAL_MODE:-partitioned_links}" \
+  -e ROBOT_ARM_HAND_SHOW_CONTACT_PROXIES="${ROBOT_ARM_HAND_SHOW_CONTACT_PROXIES:-0}" \
+  -e ROBOT_ARM_HAND_CAPTURE_WIDTH="${ROBOT_ARM_HAND_CAPTURE_WIDTH:-1280}" \
+  -e ROBOT_ARM_HAND_CAPTURE_HEIGHT="${ROBOT_ARM_HAND_CAPTURE_HEIGHT:-720}" \
   isaac-sim-51 \
   "exec /isaac-sim/python.sh /workspace/isaacsim/robot_arm_hand_from_zip.py --mode runtime" \
   2>&1 | tee -a "$RUNTIME_LOG_HOST"
+
+fix_artifact_ownership
 
 python3 - "$SUPERARM_WS_PATH" "$REPORT_PATH" "$RUNTIME_LOG_CONTAINER" <<'PY'
 import json
