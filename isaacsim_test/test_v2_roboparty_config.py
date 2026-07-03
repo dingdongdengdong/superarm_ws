@@ -423,6 +423,22 @@ class IsaacSimAssetConfigTest(unittest.TestCase):
         self.assertEqual(runtime_validation["status"], "PASS")
         self.assertEqual(runtime_validation["hand_motor_control_status"], "PASS")
         self.assertEqual(
+            runtime_validation["hand_motor_dofs_commanded"],
+            [
+                "finger1_motor1",
+                "finger1_motor2",
+                "finger2_motor1",
+                "finger2_motor2",
+                "finger3_motor1",
+                "finger3_motor2",
+                "finger4_motor1",
+                "finger4_motor2",
+            ],
+        )
+        self.assertEqual(runtime_validation["missing_hand_motor_dofs"], [])
+        for motor_joint in runtime_validation["hand_motor_dofs_commanded"]:
+            self.assertIn(motor_joint, runtime_validation["controlled_dofs_moved"])
+        self.assertEqual(
             runtime_validation["urdf_constraint_fidelity"]["status"],
             "LOSSY_MJCF_CONVERSION",
         )

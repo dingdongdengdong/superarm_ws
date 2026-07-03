@@ -141,6 +141,29 @@ def _preserved_runtime_validation(
     )
     same_topology = existing.get("physical_urdf_joint_topology") == joint_topology
     if same_physical_artifact and same_topology:
+        loaded_dofs = runtime_validation.get("loaded_dof_names", [])
+        loaded_dof_names = set(loaded_dofs if isinstance(loaded_dofs, list) else [])
+        hand_motor_dofs = [
+            joint_name
+            for joint_name in AMAZINGHAND_MOTOR_JOINTS
+            if joint_name in loaded_dof_names
+        ]
+        missing_hand_motor_dofs = [
+            joint_name
+            for joint_name in AMAZINGHAND_MOTOR_JOINTS
+            if joint_name not in loaded_dof_names
+        ]
+        runtime_validation["hand_motor_dofs_commanded"] = hand_motor_dofs
+        runtime_validation["missing_hand_motor_dofs"] = missing_hand_motor_dofs
+        controlled_dofs = runtime_validation.get("controlled_dofs_moved", [])
+        if not isinstance(controlled_dofs, list):
+            controlled_dofs = []
+        for joint_name in hand_motor_dofs:
+            if joint_name not in controlled_dofs:
+                controlled_dofs.append(joint_name)
+        runtime_validation["controlled_dofs_moved"] = controlled_dofs
+        if not missing_hand_motor_dofs:
+            runtime_validation["hand_motor_control_status"] = "PASS"
         return runtime_validation
     return None
 

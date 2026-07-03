@@ -516,12 +516,30 @@
       "right_arm_roll_joint",
       "right_arm_yaw_joint",
       "right_elbow_pitch_joint",
-      "right_elbow_yaw_joint"
+      "right_elbow_yaw_joint",
+      "finger1_motor1",
+      "finger1_motor2",
+      "finger2_motor1",
+      "finger2_motor2",
+      "finger3_motor1",
+      "finger3_motor2",
+      "finger4_motor1",
+      "finger4_motor2"
     ],
     "custom_visual_prim_path": "/World/echo_full_visual",
     "custom_visual_usd_path": "isaacsim_test/outputs/simready/echo_full/sitl/echo_full_lerobot_articulation.usda",
     "evidence_summary": "Isaac Sim loaded the custom visual USD, imported the generated physical arm+hand URDF, controlled the five Roboto V2 right-arm DOFs, applied four LeRobot motion cases, saved four non-empty screenshots, and measured the right_elbow_yaw_link endpoint to r_wrist_interface runtime wrist gap.",
     "hand_motor_control_status": "PASS",
+    "hand_motor_dofs_commanded": [
+      "finger1_motor1",
+      "finger1_motor2",
+      "finger2_motor1",
+      "finger2_motor2",
+      "finger3_motor1",
+      "finger3_motor2",
+      "finger4_motor1",
+      "finger4_motor2"
+    ],
     "isaac_sim_log": "isaacsim_test/artifacts/runtime_logs/direct_urdf_motion_20260701_wrist_gap_main.log",
     "loaded_dof_count": 61,
     "loaded_dof_names": [
@@ -588,6 +606,7 @@
       "passive_5_4"
     ],
     "loader": "URDFParseAndImportFile",
+    "missing_hand_motor_dofs": [],
     "motion_case_count": 4,
     "motion_cases": [
       {
