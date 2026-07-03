@@ -151,3 +151,18 @@
 - **Pages:** session-log-2026-07-03-7-jm1lvj.md
 - **Summary:** Auto-captured session log for omx-1782695921407-jm1lvj
 
+## 2026-07-03 Isaac Sim finger motion screenshot/debug evidence
+
+- Non-grasp debug run completed with Isaac Sim 5.1.0 using `isaacsim_test/run_simready_motion_screenshot_cases.sh`.
+- Contact sheet: `isaacsim_test/artifacts/simready_motion_cases_contact_sheet.png`.
+- Raw screenshots:
+  - `isaacsim_test/artifacts/simready_motion_cases/01_home.png`
+  - `isaacsim_test/artifacts/simready_motion_cases/02_reach_forward.png`
+  - `isaacsim_test/artifacts/simready_motion_cases/03_elbow_fold.png`
+  - `isaacsim_test/artifacts/simready_motion_cases/04_side_sweep.png`
+- Runtime log: `isaacsim_test/artifacts/runtime_logs/direct_urdf_motion_20260703T_debug_finger_motion.log`.
+- Runtime report: `isaacsim_test/outputs/simready/echo_full/sitl/echo_full_lerobot_articulation_report.json`.
+- Result: runtime status `PASS`; 61 URDF DOFs loaded; eight AmazingHand motors commanded from `amazinghand_grasp`; missing hand motors `[]`; wrist gap about `8.48e-08 m`.
+- Important limitation from project memory: this contact sheet is a broad scene/motion screenshot, not the required close-up finger visual proof. It does not replace the hand debug camera protocol (`fingerN_two_link_before.png` and `fingerN_two_link_motion.png`, one finger at a time, focused on proximal/distal links).
+- Next screenshot work: run/repair the close-up finger capture path and log `finger{1..4}_two_link_{before,motion}.png` plus a close-up contact sheet under a new timestamped artifact root before claiming visual correctness.
+
