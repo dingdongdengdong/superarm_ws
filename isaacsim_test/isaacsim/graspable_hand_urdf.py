@@ -492,17 +492,11 @@ def _classify_mjcf_visual_link(visual: dict[str, Any]) -> str:
         return f"{finger_prefix}_distal"
     if mesh_name in _PROXIMAL_VISUAL_MESHES:
         return f"{finger_prefix}_proximal"
-    if mesh_name in _MAJOR_DISTAL_FOLLOWER_MESHES:
-        return f"{finger_prefix}_distal"
-    if mesh_name == _MAJOR_PARALLEL_PIN_10_MESH:
-        if _body_chain_contains_prefix(body_chain, _MAJOR_PARALLEL_PIN_10_MESH):
-            return f"{finger_prefix}_distal"
-        return f"{finger_prefix}_proximal"
-    if mesh_name in _MAJOR_PROXIMAL_FOLLOWER_MESHES:
-        return f"{finger_prefix}_proximal"
-    # Small screws, washers, spacers, bushings and exact closed-loop detail are
-    # intentionally outside the skeleton-first pass. Keep them on the wrist so
-    # they do not imply a verified moving linkage.
+    # Passive linkage/rod/pin/servo hardware belongs to the original closed-loop
+    # MJCF mechanism. Moving those meshes with the simplified serial tree makes
+    # visible parts detach from finger1 in close-up renders. Only true proximal
+    # and distal segment shells are allowed to follow the generated tree until a
+    # follower-kinematics pass exists for the closed-loop hardware.
     return "r_wrist_interface"
 
 
@@ -641,7 +635,7 @@ def _add_mjcf_visuals_to_tree_links(
         )
     return {
         "visual_attachment_mode": "mjcf_visuals_partitioned_to_tree_links",
-        "skeleton_first_policy": "major_linkage_and_pin_visuals_follow_generated_finger_links",
+        "skeleton_first_policy": "only_proximal_distal_segment_shells_follow_generated_finger_links",
         "skeleton_first_exclusions": skeleton_first_exclusions,
         "finger_shell_visuals_enabled": include_finger_shells,
         "finger_shell_alignment_policy": (
@@ -959,7 +953,7 @@ def generate_graspable_hand_urdf(
     *,
     robot_name: str = "amazinghand_graspable",
     visual_mode: str = VISUAL_MODE_PARTITIONED_LINKS,
-    include_finger_shells: bool = False,
+    include_finger_shells: bool = True,
 ) -> dict[str, Any]:
     """Generate a simplified tree hand URDF that Isaac can import as an articulation."""
     package = Path(package_root)

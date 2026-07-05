@@ -210,14 +210,14 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(report["mjcf_visual_shell"]["mjcf_visual_geom_count"], 162)
             self.assertEqual(report["mjcf_visual_shell"]["missing_mjcf_visual_meshes"], [])
             counts = report["mjcf_visual_shell"]["link_visual_counts"]
-            self.assertGreaterEqual(counts.get("finger1_proximal", 0), 16)
-            self.assertGreaterEqual(counts.get("finger1_distal", 0), 2)
-            self.assertGreaterEqual(counts.get("finger2_proximal", 0), 16)
-            self.assertGreaterEqual(counts.get("finger2_distal", 0), 2)
-            self.assertLess(counts.get("r_wrist_interface", 0), 146)
+            self.assertEqual(counts.get("finger1_proximal", 0), 2)
+            self.assertEqual(counts.get("finger1_distal", 0), 2)
+            self.assertEqual(counts.get("finger2_proximal", 0), 2)
+            self.assertEqual(counts.get("finger2_distal", 0), 2)
+            self.assertGreaterEqual(counts.get("r_wrist_interface", 0), 90)
             self.assertEqual(
                 report["mjcf_visual_shell"]["skeleton_first_policy"],
-                "major_linkage_and_pin_visuals_follow_generated_finger_links",
+                "only_proximal_distal_segment_shells_follow_generated_finger_links",
             )
 
             root = ET.parse(output_urdf).getroot()
@@ -304,39 +304,18 @@ class GraspableHandUrdfTests(unittest.TestCase):
                 for mesh in root.findall(".//link[@name='finger1_distal']//visual/geometry/mesh")
                 if "filename" in mesh.attrib
             }
-            finger1_major_visual_origins = []
-            for link_name in ("finger1_proximal", "finger1_distal"):
-                for visual in root.findall(f".//link[@name='{link_name}']/visual"):
-                    mesh = visual.find("geometry/mesh")
-                    origin = visual.find("origin")
-                    if mesh is None or origin is None:
-                        continue
-                    mesh_name = Path(mesh.attrib["filename"]).name
-                    if mesh_name in {
-                        "custom_servo_horn.stl",
-                        "gimbal.stl",
-                        "link.stl",
-                        "m2_rod_l18.stl",
-                        "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl",
-                        "parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl",
-                        "rotule_ball.stl",
-                        "rotule_lever.stl",
-                    }:
-                        finger1_major_visual_origins.append(
-                            [float(value) for value in origin.attrib["xyz"].split()]
-                        )
             self.assertGreaterEqual(len(visuals), 90)
             self.assertIn("r_wrist_interface.stl", visual_mesh_names)
             self.assertIn("r_hand_plate.stl", visual_mesh_names)
             self.assertIn("finger_frame_1.stl", visual_mesh_names)
             self.assertIn("scs0009.stl", visual_mesh_names)
-            self.assertNotIn("proximal.stl", visual_mesh_names)
-            self.assertNotIn("proximal_shell.stl", visual_mesh_names)
-            self.assertNotIn("distal.stl", visual_mesh_names)
-            self.assertNotIn("distal_shell.stl", visual_mesh_names)
+            self.assertIn("proximal.stl", visual_mesh_names)
+            self.assertIn("proximal_shell.stl", visual_mesh_names)
+            self.assertIn("distal.stl", visual_mesh_names)
+            self.assertIn("distal_shell.stl", visual_mesh_names)
             self.assertEqual(
                 report["mjcf_visual_shell"]["omitted_shell_visual_count"],
-                16,
+                0,
             )
             self.assertNotIn(
                 "ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl",
@@ -351,22 +330,8 @@ class GraspableHandUrdfTests(unittest.TestCase):
                 report["mjcf_visual_shell"]["omitted_detail_visual_count"],
                 48,
             )
-            self.assertIn("custom_servo_horn.stl", finger1_proximal_mesh_names)
-            self.assertIn(
-                "parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl",
-                finger1_proximal_mesh_names,
-            )
-            self.assertIn("gimbal.stl", finger1_proximal_mesh_names)
-            self.assertIn("link.stl", finger1_distal_mesh_names)
-            self.assertIn(
-                "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl",
-                finger1_distal_mesh_names,
-            )
-            self.assertTrue(finger1_major_visual_origins)
-            self.assertLess(
-                max(abs(origin[2]) for origin in finger1_major_visual_origins),
-                0.06,
-            )
+            self.assertEqual(finger1_proximal_mesh_names, {"proximal.stl", "proximal_shell.stl"})
+            self.assertEqual(finger1_distal_mesh_names, {"distal.stl", "distal_shell.stl"})
             proximal_visual_origin = root.find(
                 ".//link[@name='finger1_proximal']/visual/origin"
             )
@@ -448,12 +413,12 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(report["mjcf_visual_shell"]["missing_mjcf_visual_meshes"], [])
             self.assertEqual(
                 report["mjcf_visual_shell"]["skeleton_first_policy"],
-                "major_linkage_and_pin_visuals_follow_generated_finger_links",
+                "only_proximal_distal_segment_shells_follow_generated_finger_links",
             )
-            self.assertLess(report["mjcf_visual_shell"]["link_visual_counts"]["r_wrist_interface"], 146)
-            self.assertGreaterEqual(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_proximal"], 16)
-            self.assertGreaterEqual(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_distal"], 2)
-            self.assertEqual(report["mjcf_visual_shell"]["omitted_shell_visual_count"], 16)
+            self.assertGreaterEqual(report["mjcf_visual_shell"]["link_visual_counts"]["r_wrist_interface"], 90)
+            self.assertEqual(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_proximal"], 2)
+            self.assertEqual(report["mjcf_visual_shell"]["link_visual_counts"]["finger1_distal"], 2)
+            self.assertEqual(report["mjcf_visual_shell"]["omitted_shell_visual_count"], 0)
 
             root = ET.parse(output_urdf).getroot()
             links = {link.attrib["name"]: link for link in root.findall("link")}
@@ -462,6 +427,44 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertEqual(len(joints), 13)
             self.assertIsNotNone(root.find(".//link[@name='finger1_proximal']/visual/origin"))
             self.assertIsNotNone(root.find(".//link[@name='finger1_distal']/visual/origin"))
+
+    def test_partitioned_default_keeps_only_segment_shells_on_moving_finger1_links(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            package_root = extract_robot_arm_hand_package(ZIP_PATH, Path(tmp) / "inputs")
+            output_urdf = Path(tmp) / "amazinghand_graspable_partitioned.urdf"
+
+            report = generate_graspable_hand_urdf(
+                package_root,
+                output_urdf,
+                visual_mode=VISUAL_MODE_PARTITIONED_LINKS,
+            )
+
+            self.assertTrue(report["finger_shell_visuals_enabled"])
+            shell_report = report["mjcf_visual_shell"]
+            self.assertEqual(shell_report["moving_shell_visual_counts"]["finger1_proximal"], 2)
+            self.assertEqual(shell_report["moving_shell_visual_counts"]["finger1_distal"], 2)
+            self.assertEqual(shell_report["link_visual_counts"]["finger1_proximal"], 2)
+            self.assertEqual(shell_report["link_visual_counts"]["finger1_distal"], 2)
+
+            root = ET.parse(output_urdf).getroot()
+            finger1_proximal_mesh_names = {
+                Path(mesh.attrib["filename"]).name
+                for mesh in root.findall(".//link[@name='finger1_proximal']//visual/geometry/mesh")
+                if "filename" in mesh.attrib
+            }
+            finger1_distal_mesh_names = {
+                Path(mesh.attrib["filename"]).name
+                for mesh in root.findall(".//link[@name='finger1_distal']//visual/geometry/mesh")
+                if "filename" in mesh.attrib
+            }
+
+            self.assertEqual(finger1_proximal_mesh_names, {"proximal.stl", "proximal_shell.stl"})
+            self.assertEqual(finger1_distal_mesh_names, {"distal.stl", "distal_shell.stl"})
+            self.assertNotIn("link.stl", finger1_distal_mesh_names)
+            self.assertNotIn(
+                "parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl",
+                finger1_distal_mesh_names,
+            )
 
     def test_generate_urdf_can_hide_cad_visuals_and_show_only_implemented_primitives(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

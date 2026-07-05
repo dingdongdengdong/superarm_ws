@@ -26,6 +26,7 @@ from typing import Any
 try:
     from isaacsim_test.isaacsim.graspable_hand_urdf import (
         HAND_GRASP_TYPES,
+        HAND_ACTUATED_JOINT_NAMES,
         VISUAL_MODE_IMPLEMENTED_ONLY,
         VISUAL_MODE_PARTITIONED_LINKS,
         VISUAL_MODE_STATIC_SHELL,
@@ -39,6 +40,7 @@ try:
 except ModuleNotFoundError:
     from graspable_hand_urdf import (
         HAND_GRASP_TYPES,
+        HAND_ACTUATED_JOINT_NAMES,
         VISUAL_MODE_IMPLEMENTED_ONLY,
         VISUAL_MODE_PARTITIONED_LINKS,
         VISUAL_MODE_STATIC_SHELL,
@@ -370,8 +372,8 @@ def build_preshape_grasp_validation_stage_specs() -> list[dict[str, Any]]:
             "finger_index": 1,
             "active_fingers": [1],
             "required_finger_proxy_count": 1,
-            "object_reset_anchor_path": f"{CONNECTED_HAND_PRIM_PATH}/finger1_proximal",
-            "object_reset_local_xyz": (0.0, 0.055, 0.010),
+            "object_reset_anchor_path": f"{CONNECTED_HAND_PRIM_PATH}/finger1_distal",
+            "object_reset_local_xyz": (0.0, 0.015, 0.035),
         },
         {
             "label": "pinch",
@@ -508,6 +510,7 @@ def build_finger_motor_frame_report(
     finger_key = f"finger{finger_index}"
     base_layout = spec["finger_base_layouts"][finger_key]
     joint_names = [f"{finger_key}_motor1", f"{finger_key}_motor2"]
+    distal_delta = link_translation_deltas_m.get("distal")
     motors = []
     for slot, joint_name in enumerate(joint_names):
         motor_contract = contract["motors"][joint_name]
@@ -534,8 +537,12 @@ def build_finger_motor_frame_report(
         "mjcf_anchor_body": base_layout["mjcf_anchor_body"],
         "mjcf_proximal_xyz_m": list(base_layout["mjcf_proximal_xyz"]),
         "servo_ids": [motor["servo_id"] for motor in motors],
+        "joint_chain": joint_names,
         "motors": motors,
         "link_translation_deltas_m": dict(link_translation_deltas_m),
+        "movement_status": "PASS"
+        if distal_delta is not None and distal_delta >= 0.005
+        else "WARN",
     }
 
 
@@ -1042,6 +1049,91 @@ def grasp_object_reset_anchor_path() -> str:
     return f"{CONNECTED_HAND_PRIM_PATH}/palm"
 
 
+def resolve_connected_hand_link_path(stage: Any, link_name: str) -> str:
+    """Return the connected-stage path for a hand link across URDF import APIs.
+
+    Isaac's command importer has historically placed links directly below the
+    hand reference prim (`/Hand/finger1_proximal`). Isaac Sim 6.0's class API can
+    wrap the imported articulation under `/Hand/Geometry/r_wrist_interface/...`.
+    Runtime validation must resolve the existing prim path instead of assuming
+    one layout.
+    """
+
+    candidates = [
+        f"{CONNECTED_HAND_PRIM_PATH}/{link_name}",
+        f"{CONNECTED_HAND_PRIM_PATH}/Geometry/{link_name}",
+    ]
+    for path in candidates:
+        try:
+            prim = stage.GetPrimAtPath(path)
+            if prim.IsValid():
+                return path
+        except Exception:
+            continue
+    try:
+        descendant_matches = []
+        for prim in stage.Traverse():
+            try:
+                prim_path = str(prim.GetPath())
+                if (
+                    prim.IsValid()
+                    and prim.GetName() == link_name
+                    and prim_path.startswith(f"{CONNECTED_HAND_PRIM_PATH}/")
+                ):
+                    descendant_matches.append(prim_path)
+            except Exception:
+                continue
+        if descendant_matches:
+            return sorted(descendant_matches, key=lambda path: (len(path), path))[0]
+    except Exception:
+        pass
+    return candidates[0]
+
+
+def resolve_connected_arm_link_path(stage: Any, link_name: str) -> str:
+    """Return the connected-stage path for an arm link across URDF import APIs.
+
+    Isaac Sim 6.0's URDF class importer can nest arm bodies under the default
+    `/Arm/Geometry/...` prim instead of placing the leaf body directly below
+    `/Arm`. The arm-hand fixed joint must target the real rigid body path so the
+    hand does not fall away during runtime validation.
+    """
+
+    candidates = [
+        f"{CONNECTED_ARM_PRIM_PATH}/{link_name}",
+        f"{CONNECTED_ARM_PRIM_PATH}/Geometry/{link_name}",
+    ]
+    for path in candidates:
+        try:
+            prim = stage.GetPrimAtPath(path)
+            if prim.IsValid():
+                return path
+        except Exception:
+            continue
+    try:
+        descendant_matches = []
+        for prim in stage.Traverse():
+            try:
+                prim_path = str(prim.GetPath())
+                if (
+                    prim.IsValid()
+                    and prim.GetName() == link_name
+                    and prim_path.startswith(f"{CONNECTED_ARM_PRIM_PATH}/")
+                ):
+                    descendant_matches.append(prim_path)
+            except Exception:
+                continue
+        if descendant_matches:
+            return sorted(descendant_matches, key=lambda path: (len(path), path))[0]
+    except Exception:
+        pass
+    return candidates[0]
+
+
+def _contact_proxy_path_for_link_path(link_path: str, spec: dict[str, Any]) -> str:
+    return f"{link_path}/contact_proxies/{spec['name']}"
+
+
 def _contact_proxy_path(spec: dict[str, Any]) -> str:
     return (
         f"{CONNECTED_HAND_PRIM_PATH}/{spec['link_name']}"
@@ -1137,7 +1229,8 @@ def _finger_contact_proxy_distances_to_object(
     for spec in build_hand_contact_proxy_specs():
         if not str(spec.get("link_name", "")).startswith("finger"):
             continue
-        proxy_xyz = _world_translation(stage, _contact_proxy_path(spec))
+        link_path = resolve_connected_hand_link_path(stage, spec["link_name"])
+        proxy_xyz = _world_translation(stage, _contact_proxy_path_for_link_path(link_path, spec))
         if proxy_xyz is None:
             continue
         distances.append(_distance(object_xyz, proxy_xyz) or 0.0)
@@ -1163,7 +1256,8 @@ def _finger_contact_proxy_distances_by_finger_to_object(
             finger_index = int(link_name[len("finger")])
         except (ValueError, IndexError):
             continue
-        proxy_xyz = _world_translation(stage, _contact_proxy_path(spec))
+        link_path = resolve_connected_hand_link_path(stage, spec["link_name"])
+        proxy_xyz = _world_translation(stage, _contact_proxy_path_for_link_path(link_path, spec))
         if proxy_xyz is None:
             continue
         distances_by_finger.setdefault(finger_index, []).append(
@@ -1181,10 +1275,18 @@ def _grasp_anchor_world_point(
     *,
     anchor_path: str | None = None,
 ) -> tuple[tuple[float, float, float], str] | tuple[None, str]:
-    anchor_candidates = (
-        [anchor_path, grasp_object_reset_anchor_path(), CONNECTED_HAND_PRIM_PATH]
-        if anchor_path
-        else [grasp_object_reset_anchor_path(), CONNECTED_HAND_PRIM_PATH]
+    anchor_candidates = []
+    if anchor_path:
+        anchor_candidates.append(anchor_path)
+        if anchor_path.startswith(f"{CONNECTED_HAND_PRIM_PATH}/"):
+            link_name = anchor_path.rsplit("/", 1)[-1]
+            anchor_candidates.append(resolve_connected_hand_link_path(stage, link_name))
+    anchor_candidates.extend(
+        [
+            grasp_object_reset_anchor_path(),
+            resolve_connected_hand_link_path(stage, "palm"),
+            CONNECTED_HAND_PRIM_PATH,
+        ]
     )
     for candidate_path in anchor_candidates:
         if candidate_path and _world_translation(stage, candidate_path) is not None:
@@ -1342,7 +1444,7 @@ def _bind_hand_contact_material(stage: Any, *, show_contact_proxies: bool = Fals
     authored_proxy_paths: list[str] = []
     missing_link_paths: list[str] = []
     for spec in build_hand_contact_proxy_specs():
-        link_path = f"{CONNECTED_HAND_PRIM_PATH}/{spec['link_name']}"
+        link_path = resolve_connected_hand_link_path(stage, spec["link_name"])
         link_prim = stage.GetPrimAtPath(link_path)
         if not link_prim.IsValid():
             missing_link_paths.append(link_path)
@@ -1451,7 +1553,7 @@ def _prepare_source_artifacts(args: argparse.Namespace) -> tuple[Path, dict[str,
         package_root,
         graspable_hand_urdf,
         visual_mode=getattr(args, "hand_visual_mode", VISUAL_MODE_PARTITIONED_LINKS),
-        include_finger_shells=getattr(args, "include_finger_shells", False),
+        include_finger_shells=getattr(args, "include_finger_shells", True),
     )
     report = {
         "status": "PASS"
@@ -1939,8 +2041,9 @@ def _author_connected_usd(
                 {"destination": destination_path, "source": source_path}
             )
 
+    fixed_joint_body0_path = resolve_connected_arm_link_path(stage, "wrist_adapter_hand")
     joint = UsdPhysics.FixedJoint.Define(stage, FIXED_JOINT_PATH)
-    joint.CreateBody0Rel().SetTargets([Sdf.Path(ARM_HAND_ATTACHMENT_BODY0_PATH)])
+    joint.CreateBody0Rel().SetTargets([Sdf.Path(fixed_joint_body0_path)])
     joint.CreateBody1Rel().SetTargets([Sdf.Path(hand_fixed_joint_body_path)])
     joint.CreateLocalPos0Attr().Set(Gf.Vec3f(0.0, 0.0, 0.0))
     joint.CreateLocalPos1Attr().Set(Gf.Vec3f(0.0, 0.0, 0.0))
@@ -1969,7 +2072,7 @@ def _author_connected_usd(
         "arm_reference_prim": CONNECTED_ARM_PRIM_PATH,
         "hand_reference_prim": CONNECTED_HAND_PRIM_PATH,
         "fixed_joint_path": FIXED_JOINT_PATH,
-        "fixed_joint_body0": ARM_HAND_ATTACHMENT_BODY0_PATH,
+        "fixed_joint_body0": fixed_joint_body0_path,
         "fixed_joint_body1": hand_fixed_joint_body_path,
         "hand_mount_local_xyz_m": list(HAND_MOUNT_LOCAL_XYZ),
         "arm_source_prim_path": arm_reference_prim_path,
@@ -2114,13 +2217,48 @@ def _close_simulation_app(app: Any) -> None:
         app.close()
 
 
-def _find_first_articulation(stage) -> str | None:
+def _find_articulation_paths(stage) -> list[str]:
     from pxr import UsdPhysics
 
+    paths = []
     for prim in stage.Traverse():
         if prim.HasAPI(UsdPhysics.ArticulationRootAPI):
-            return str(prim.GetPath())
-    return None
+            paths.append(str(prim.GetPath()))
+    return paths
+
+
+def _find_first_articulation(stage) -> str | None:
+    paths = _find_articulation_paths(stage)
+    return paths[0] if paths else None
+
+
+def select_preferred_runtime_articulation_candidate(
+    candidates: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Prefer the articulation that can actually drive the AmazingHand fingers.
+
+    Isaac Sim 6.0 can import the generated hand as a separate articulation under
+    the connected robot stage. Traversal order then finds the arm-only
+    articulation first, which makes finger1 validation report missing hand
+    joints even though the hand articulation is present. Rank candidates by hand
+    joint coverage first, then arm joint coverage.
+    """
+
+    if not candidates:
+        return None
+
+    def score(candidate: dict[str, Any]) -> tuple[int, int, int, int]:
+        dof_names = set(candidate.get("dof_names", []))
+        hand_count = sum(1 for name in HAND_ACTUATED_JOINT_NAMES if name in dof_names)
+        arm_count = sum(1 for name in ARM_JOINT_NAMES if name in dof_names)
+        return (
+            1 if hand_count == len(HAND_ACTUATED_JOINT_NAMES) else 0,
+            hand_count,
+            arm_count,
+            len(dof_names),
+        )
+
+    return max(candidates, key=score)
 
 
 def _frame_camera(stage, root_prim_path: str) -> tuple[tuple[float, float, float], tuple[float, float, float], float]:
@@ -2160,10 +2298,7 @@ def _frame_camera(stage, root_prim_path: str) -> tuple[tuple[float, float, float
         )
         return tuple(float(v) for v in eye), tuple(float(v) for v in target), radius
 
-    if (
-        root_prim_path.startswith(f"{CONNECTED_HAND_PRIM_PATH}/finger")
-        and root_prim_path.endswith("_proximal")
-    ):
+    if root_prim_path.startswith(CONNECTED_HAND_PRIM_PATH) and root_prim_path.endswith("_proximal"):
         # Frame the full generated finger chain, not the whole arm. This is used
         # for visual-vs-physics debugging where the hand must be inspected one
         # finger at a time. Do not use render bounds here: imported articulation
@@ -2178,7 +2313,9 @@ def _frame_camera(stage, root_prim_path: str) -> tuple[tuple[float, float, float
         finger_name = root_prim_path.rsplit("/", 1)[-1].removesuffix("_proximal")
         for spec in build_hand_contact_proxy_specs():
             if spec["link_name"].startswith(finger_name):
-                if (translation := _world_translation(stage, _contact_proxy_path(spec))) is not None:
+                link_path = resolve_connected_hand_link_path(stage, spec["link_name"])
+                proxy_path = _contact_proxy_path_for_link_path(link_path, spec)
+                if (translation := _world_translation(stage, proxy_path)) is not None:
                     points.append(Gf.Vec3d(*translation))
         framed = _frame_points(
             points,
@@ -2197,7 +2334,10 @@ def _frame_camera(stage, root_prim_path: str) -> tuple[tuple[float, float, float
             f"{GRASP_VALIDATION_ROOT_PRIM_PATH}/{build_grasp_validation_object_specs()[0]['name']}",
         ]
         focus_paths.extend(
-            _contact_proxy_path(spec)
+            _contact_proxy_path_for_link_path(
+                resolve_connected_hand_link_path(stage, spec["link_name"]),
+                spec,
+            )
             for spec in build_hand_contact_proxy_specs()
             if str(spec.get("name", "")).endswith("tip_pad_proxy")
         )
@@ -2309,10 +2449,77 @@ def _capture_screenshot(path: str, root_prim_path: str) -> dict[str, Any]:
     output.parent.mkdir(parents=True, exist_ok=True)
     container_output = _container_path(output)
     errors = []
+
+    def _image_has_robot_subject(image_path: Path) -> bool:
+        try:
+            from PIL import Image
+
+            image = Image.open(image_path).convert("RGB")
+            sample = image.resize((160, 90))
+            subject_pixels = 0
+            for red, green, blue in sample.getdata():
+                mean = (red + green + blue) / 3.0
+                spread = max(red, green, blue) - min(red, green, blue)
+                if 35 <= mean <= 225 and spread <= 45:
+                    subject_pixels += 1
+            return subject_pixels >= 12
+        except Exception:
+            return True
+
+    def _crop_robot_subject(image: Any) -> Any:
+        width, height = image.size
+        if os.environ.get("ROBOT_ARM_HAND_CLOSEUP_FORCE_FULL_SCENE_CROP", "1") == "1":
+            crop_box = (
+                int(width * 0.34),
+                int(height * 0.54),
+                int(width * 0.70),
+                int(height * 0.96),
+            )
+            cropped = image.crop(crop_box)
+            return cropped.resize((width, height), Image.Resampling.LANCZOS)
+        pixels = image.load()
+        xs: list[int] = []
+        ys: list[int] = []
+        step = max(1, min(width, height) // 360)
+        for y in range(0, height, step):
+            for x in range(0, width, step):
+                red, green, blue = pixels[x, y]
+                mean = (red + green + blue) / 3.0
+                spread = max(red, green, blue) - min(red, green, blue)
+                # The robot/hand is mostly grey; exclude white grid lines and
+                # blue floor/sky so the crop can recover from headless viewport
+                # cameras that framed only the grid during close-up validation.
+                if 35 <= mean <= 225 and spread <= 45:
+                    xs.append(x)
+                    ys.append(y)
+        if not xs or not ys:
+            crop_box = (
+                int(width * 0.34),
+                int(height * 0.54),
+                int(width * 0.70),
+                int(height * 0.96),
+            )
+        else:
+            min_x, max_x = min(xs), max(xs)
+            min_y, max_y = min(ys), max(ys)
+            pad = max(max_x - min_x, max_y - min_y, 80)
+            center_x = (min_x + max_x) // 2
+            center_y = (min_y + max_y) // 2
+            half_w = max(int(pad * 1.75), 160)
+            half_h = max(int(pad * 1.45), 130)
+            crop_box = (
+                max(0, center_x - half_w),
+                max(0, center_y - half_h),
+                min(width, center_x + half_w),
+                min(height, center_y + half_h),
+            )
+        cropped = image.crop(crop_box)
+        return cropped.resize((width, height), Image.Resampling.LANCZOS)
+
     closeup_focus = (
         root_prim_path == grasp_object_reset_anchor_path()
         or (
-            root_prim_path.startswith(f"{CONNECTED_HAND_PRIM_PATH}/finger")
+            root_prim_path.startswith(CONNECTED_HAND_PRIM_PATH)
             and root_prim_path.endswith("_proximal")
         )
     )
@@ -2327,9 +2534,11 @@ def _capture_screenshot(path: str, root_prim_path: str) -> dict[str, Any]:
             flush=True,
         )
         try:
+            if os.environ.get("ROBOT_ARM_HAND_CLOSEUP_FORCE_FULL_SCENE_CROP", "1") == "1":
+                raise RuntimeError("forced full-scene crop close-up")
             _capture_viewport(container_output, root_prim_path)
             size_bytes = output.stat().st_size if output.is_file() else 0
-            if size_bytes > 0:
+            if size_bytes > 0 and _image_has_robot_subject(output):
                 return {
                     "capture_method": "focused_viewport",
                     "focus_prim_path": root_prim_path,
@@ -2340,6 +2549,7 @@ def _capture_screenshot(path: str, root_prim_path: str) -> dict[str, Any]:
                     "camera_radius": radius,
                     "resolution": list(_capture_resolution_from_env()),
                 }
+            errors.append("focused_viewport: missing visible grey robot subject; using full-scene crop fallback")
             raise TimeoutError(f"focused_viewport did not create a non-empty screenshot: {output}")
         except Exception as exc:
             errors.append(f"focused_viewport: {type(exc).__name__}: {exc}")
@@ -2373,16 +2583,8 @@ def _capture_screenshot(path: str, root_prim_path: str) -> dict[str, Any]:
             raise TimeoutError(f"whole-scene capture did not create {full_scene_output}")
         image = Image.open(full_scene_output).convert("RGB")
         width, height = image.size
-        crop_box = (
-            int(width * 0.42),
-            int(height * 0.16),
-            int(width * 0.62),
-            int(height * 0.48),
-        )
-        cropped = image.crop(crop_box)
-        cropped = cropped.resize((width, height), Image.Resampling.LANCZOS)
+        cropped = _crop_robot_subject(image)
         cropped.save(output)
-        full_scene_output.unlink(missing_ok=True)
         size_bytes = output.stat().st_size if output.is_file() else 0
         return {
             "capture_method": fallback_method,
@@ -2498,30 +2700,45 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
         timeline = omni.timeline.get_timeline_interface()
         timeline.play()
 
-        articulation_root = _find_first_articulation(stage)
+        articulation_root = None
         dof_names: list[str] = []
         pose_results: list[dict[str, Any]] = []
         art = None
         controlled_indices: list[int] = []
         current_positions: list[float] = []
-        if articulation_root:
+        articulation_candidates: list[dict[str, Any]] = []
+        for candidate_root in _find_articulation_paths(stage):
             try:
-                art = Articulation(articulation_root)
-                art.initialize()
-                dof_names = list(art.dof_names)
-                controlled_indices = [
-                    dof_names.index(name) for name in ARM_JOINT_NAMES if name in dof_names
-                ]
-                current_positions = _flat_float_list(art.get_joint_positions())
+                candidate_art = Articulation(candidate_root)
+                candidate_art.initialize()
+                candidate_dof_names = list(candidate_art.dof_names)
+                articulation_candidates.append(
+                    {
+                        "articulation_root": candidate_root,
+                        "dof_names": candidate_dof_names,
+                        "articulation": candidate_art,
+                    }
+                )
             except Exception as exc:
                 pose_results.append(
                     {
                         "name": "articulation_initialize",
+                        "articulation_root": candidate_root,
                         "status": "WARN",
                         "reason": f"{type(exc).__name__}: {exc}",
                     }
                 )
-                art = None
+        selected_articulation = select_preferred_runtime_articulation_candidate(
+            articulation_candidates
+        )
+        if selected_articulation is not None:
+            articulation_root = selected_articulation["articulation_root"]
+            art = selected_articulation["articulation"]
+            dof_names = list(selected_articulation["dof_names"])
+            controlled_indices = [
+                dof_names.index(name) for name in ARM_JOINT_NAMES if name in dof_names
+            ]
+            current_positions = _flat_float_list(art.get_joint_positions())
 
         def _ensure_articulation_ready() -> None:
             nonlocal art, dof_names, controlled_indices, current_positions
@@ -2799,12 +3016,16 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     before_positions = [
                         current_positions[index] for index in controlled_indices_for_finger
                     ]
-                    finger_focus_path = (
-                        f"{CONNECTED_HAND_PRIM_PATH}/finger{finger_index}_proximal"
+                    finger_focus_path = resolve_connected_hand_link_path(
+                        stage,
+                        f"finger{finger_index}_proximal",
                     )
                     finger_link_paths = {
-                        "proximal": f"{CONNECTED_HAND_PRIM_PATH}/finger{finger_index}_proximal",
-                        "distal": f"{CONNECTED_HAND_PRIM_PATH}/finger{finger_index}_distal",
+                        "proximal": finger_focus_path,
+                        "distal": resolve_connected_hand_link_path(
+                            stage,
+                            f"finger{finger_index}_distal",
+                        ),
                     }
                     link_world_xyz_before = {
                         label: _world_translation(stage, path)
@@ -2966,12 +3187,13 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
                     "captured a close-up before image, commanded only that finger's two "
                     "revolute joints, captured a close-up after image, and checked that "
                     "the commanded distal link also moved in world space while the other "
-                    "hand finger motors stayed near open. Generated "
-                    "proximal/distal STL segment visuals plus major linkage and pin "
-                    "visuals are partitioned onto the matching moving tree links by "
-                    "default. Small screws, washers, tiny spacers, exact closed-loop "
-                    "kinematics, final shell alignment, and SimReady are intentionally "
-                    "excluded from this skeleton-first pass."
+                    "hand finger motors stayed near open. Only the generated "
+                    "proximal/distal STL segment shells follow the matching moving tree "
+                    "links by default; passive closed-loop linkage hardware remains "
+                    "wrist/root-attached until follower kinematics are implemented. "
+                    "Small screws, washers, tiny spacers, exact closed-loop kinematics, "
+                    "final shell alignment, and SimReady are intentionally excluded from "
+                    "this skeleton-first pass."
                 ),
             }
 
@@ -3616,6 +3838,13 @@ def run_isaac_runtime(args: argparse.Namespace) -> dict[str, Any]:
             "articulation_root": articulation_root,
             "loaded_dof_count": len(dof_names),
             "loaded_dof_names": dof_names,
+            "articulation_candidates": [
+                {
+                    "articulation_root": candidate["articulation_root"],
+                    "dof_names": candidate["dof_names"],
+                }
+                for candidate in articulation_candidates
+            ],
             "controlled_joint_names": [
                 name for name in ARM_JOINT_NAMES if name in dof_names
             ],
@@ -3718,11 +3947,12 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--include-finger-shells",
         action="store_true",
-        default=os.environ.get("ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS", "0").lower()
-        in {"1", "true", "yes", "on"},
+        default=os.environ.get("ROBOT_ARM_HAND_INCLUDE_FINGER_SHELLS", "1").lower()
+        not in {"0", "false", "no", "off"},
         help=(
             "Overlay proximal/proximal_shell/distal/distal_shell STL visuals on "
-            "the generated moving finger links without changing collision or drives."
+            "the generated moving finger links without changing collision or drives. "
+            "Enabled by default because passive closed-loop linkage visuals stay fixed."
         ),
     )
     parser.add_argument(

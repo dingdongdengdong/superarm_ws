@@ -315,6 +315,130 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertEqual(report["motors"][1]["achieved_rad"], 0.95)
         self.assertEqual(report["link_translation_deltas_m"]["distal"], 0.041)
 
+    def test_finger1_movement_report_marks_distal_motion_pass(self) -> None:
+        report = rah.build_finger_motor_frame_report(
+            finger_index=1,
+            target_positions_rad=[0.78, 0.96],
+            achieved_positions_rad=[0.7787, 0.9635],
+            link_translation_deltas_m={"proximal": 0.0012, "distal": 0.0413},
+        )
+
+        self.assertEqual(report["finger_index"], 1)
+        self.assertEqual(report["role"], "index")
+        self.assertEqual(report["servo_ids"], [1, 2])
+        self.assertEqual(report["joint_chain"], ["finger1_motor1", "finger1_motor2"])
+        self.assertEqual(report["movement_status"], "PASS")
+        self.assertGreaterEqual(report["link_translation_deltas_m"]["distal"], 0.04)
+
+    def test_articulation_selection_prefers_hand_finger_chain_over_arm_only_root(self) -> None:
+        candidates = [
+            {
+                "articulation_root": "/World/RobotArmHandFromZip/Arm",
+                "dof_names": ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"],
+            },
+            {
+                "articulation_root": "/World/RobotArmHandFromZip/Hand/Geometry",
+                "dof_names": HAND_ACTUATED_JOINT_NAMES,
+            },
+        ]
+
+        selected = rah.select_preferred_runtime_articulation_candidate(candidates)
+
+        self.assertEqual(
+            selected["articulation_root"],
+            "/World/RobotArmHandFromZip/Hand/Geometry",
+        )
+        self.assertEqual(selected["dof_names"], HAND_ACTUATED_JOINT_NAMES)
+
+    def test_connected_hand_link_resolver_handles_geometry_wrapped_urdf_import(self) -> None:
+        class Prim:
+            def __init__(self, valid: bool) -> None:
+                self._valid = valid
+
+            def IsValid(self) -> bool:
+                return self._valid
+
+        class Stage:
+            def GetPrimAtPath(self, path: str) -> Prim:
+                return Prim(path == f"{CONNECTED_HAND_PRIM_PATH}/Geometry/finger1_proximal")
+
+        self.assertEqual(
+            rah.resolve_connected_hand_link_path(Stage(), "finger1_proximal"),
+            f"{CONNECTED_HAND_PRIM_PATH}/Geometry/finger1_proximal",
+        )
+
+    def test_connected_hand_link_resolver_handles_nested_isaacsim60_tree(self) -> None:
+        nested_path = (
+            f"{CONNECTED_HAND_PRIM_PATH}/Geometry/r_wrist_interface/palm/"
+            "finger1_base/finger1_proximal"
+        )
+
+        class Prim:
+            def __init__(self, path: str, valid: bool = True) -> None:
+                self._path = path
+                self._valid = valid
+
+            def IsValid(self) -> bool:
+                return self._valid
+
+            def GetPath(self) -> str:
+                return self._path
+
+            def GetName(self) -> str:
+                return self._path.rsplit("/", 1)[-1]
+
+        class Stage:
+            def GetPrimAtPath(self, path: str) -> Prim:
+                return Prim(path, valid=False)
+
+            def Traverse(self) -> list[Prim]:
+                return [
+                    Prim(f"{CONNECTED_HAND_PRIM_PATH}/Geometry/r_wrist_interface"),
+                    Prim(nested_path),
+                ]
+
+        self.assertEqual(
+            rah.resolve_connected_hand_link_path(Stage(), "finger1_proximal"),
+            nested_path,
+        )
+
+    def test_connected_arm_link_resolver_handles_nested_isaacsim60_tree(self) -> None:
+        nested_path = (
+            "/World/RobotArmHandFromZip/Arm/Geometry/base_link/shoulder_bracket/"
+            "motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/"
+            "arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/"
+            "wrist_adapter_arm/wrist_adapter_hand"
+        )
+
+        class Prim:
+            def __init__(self, path: str, valid: bool = True) -> None:
+                self._path = path
+                self._valid = valid
+
+            def IsValid(self) -> bool:
+                return self._valid
+
+            def GetPath(self) -> str:
+                return self._path
+
+            def GetName(self) -> str:
+                return self._path.rsplit("/", 1)[-1]
+
+        class Stage:
+            def GetPrimAtPath(self, path: str) -> Prim:
+                return Prim(path, valid=False)
+
+            def Traverse(self) -> list[Prim]:
+                return [
+                    Prim("/World/RobotArmHandFromZip/Arm/Geometry"),
+                    Prim(nested_path),
+                ]
+
+        self.assertEqual(
+            rah.resolve_connected_arm_link_path(Stage(), "wrist_adapter_hand"),
+            nested_path,
+        )
+
     def test_hand_preshape_command_supports_single_finger_pinch_and_wrap(self) -> None:
         self.assertTrue(hasattr(rah, "build_hand_preshape_position_command"))
         dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
@@ -492,15 +616,15 @@ class RobotArmHandFromZipTests(unittest.TestCase):
             )
         )
 
-    def test_single_finger_preshape_uses_finger_local_object_reset(self) -> None:
+    def test_single_finger_preshape_uses_distal_tip_object_reset(self) -> None:
         single = rah.build_preshape_grasp_validation_stage_specs()[0]
 
         self.assertEqual(single["label"], "single_finger")
         self.assertEqual(
             single["object_reset_anchor_path"],
-            f"{CONNECTED_HAND_PRIM_PATH}/finger1_proximal",
+            f"{CONNECTED_HAND_PRIM_PATH}/finger1_distal",
         )
-        self.assertEqual(tuple(single["object_reset_local_xyz"]), (0.0, 0.055, 0.010))
+        self.assertEqual(tuple(single["object_reset_local_xyz"]), (0.0, 0.015, 0.035))
         self.assertLessEqual(rah.PRESHAPE_OBJECT_RESET_MAX_DRIFT_M, 0.06)
 
     def test_repair_urdf_import_visual_library_adds_empty_missing_sources(self) -> None:
