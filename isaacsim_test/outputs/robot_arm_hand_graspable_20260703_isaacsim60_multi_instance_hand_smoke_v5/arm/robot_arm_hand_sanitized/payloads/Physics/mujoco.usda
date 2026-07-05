@@ -1,0 +1,368 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "robot_arm_hand_urdf"
+    doc = """Generated from Composed Stage of root layer /tmp/tmp7zf4ucqv/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/usdex_robot_arm_hand_sanitized/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/temp_robot_arm_hand_sanitized/robot_arm_hand_sanitized.usd
+
+
+Generated from Composed Stage of root layer /workspace/superarm_ws/isaacsim_test/outputs/robot_arm_hand_graspable_20260703_isaacsim60_multi_instance_hand_smoke_v5/arm/robot_arm_hand_sanitized/payloads/base.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    subLayers = [
+        @./physics.usda@
+    ]
+    upAxis = "Z"
+)
+
+over "robot_arm_hand_urdf"
+{
+    over "Physics"
+    {
+        def MjcActuator "joint_rev_1_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -13.962634086608887, -0.6981316804885864, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = inf
+            uniform double mjc:forceRange:min = -inf
+            uniform double[] mjc:gainPrm = [13.962634086608887, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </robot_arm_hand_urdf/Physics/joint_rev_1>
+        }
+
+        def MjcActuator "joint_rev_2_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -13.962634086608887, -0.6981316804885864, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = inf
+            uniform double mjc:forceRange:min = -inf
+            uniform double[] mjc:gainPrm = [13.962634086608887, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </robot_arm_hand_urdf/Physics/joint_rev_2>
+        }
+
+        def MjcActuator "joint_rev_3_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -13.962634086608887, -0.6981316804885864, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = inf
+            uniform double mjc:forceRange:min = -inf
+            uniform double[] mjc:gainPrm = [13.962634086608887, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </robot_arm_hand_urdf/Physics/joint_rev_3>
+        }
+
+        def MjcActuator "joint_rev_4_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -13.962634086608887, -0.6981316804885864, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = inf
+            uniform double mjc:forceRange:min = -inf
+            uniform double[] mjc:gainPrm = [13.962634086608887, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </robot_arm_hand_urdf/Physics/joint_rev_4>
+        }
+
+        over "root_joint"
+        {
+        }
+
+        over "joint_rev_1" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+        }
+
+        over "joint_rev_2" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+        }
+
+        over "joint_rev_3" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+        }
+
+        over "joint_fix_22"
+        {
+        }
+
+        over "joint_fix_23"
+        {
+        }
+
+        over "joint_rev_4" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+        }
+
+        over "joint_fix_28"
+        {
+        }
+
+        over "joint_fix_30"
+        {
+        }
+
+        over "joint_fix_31"
+        {
+        }
+
+        over "joint_fix_33"
+        {
+        }
+
+        over "joint_fix_37"
+        {
+        }
+
+        over "joint_fix_38"
+        {
+        }
+
+        over "joint_fix_39"
+        {
+        }
+
+        over "joint_fix_40"
+        {
+        }
+
+        over "joint_fix_41"
+        {
+        }
+
+        over "joint_fix_42"
+        {
+        }
+
+        over "joint_fix_43"
+        {
+        }
+    }
+
+    over "Geometry"
+    {
+        over "base_link"
+        {
+            over "shoulder_bracket"
+            {
+                over "motor_1"
+                {
+                    over "arm_link5"
+                    {
+                        over "motor_2"
+                        {
+                            over "arm_link2"
+                            {
+                                over "motor_3"
+                                {
+                                    over "arm_link3"
+                                    {
+                                        over "arm_link4"
+                                        {
+                                            over "arm_link1"
+                                            {
+                                                over "motor_4"
+                                                {
+                                                    over "arm_link2b"
+                                                    {
+                                                        over "motor_5"
+                                                        {
+                                                            over "arm_link3b"
+                                                            {
+                                                                over "arm_link4b"
+                                                                {
+                                                                    over "wrist_adapter_arm"
+                                                                    {
+                                                                        over "wrist_adapter_hand"
+                                                                        {
+                                                                            over "camera_d435"
+                                                                            {
+                                                                                over "camera_d435"
+                                                                                {
+                                                                                }
+
+                                                                                over "camera_d435_1"
+                                                                                {
+                                                                                }
+                                                                            }
+
+                                                                            over "wrist_adapter_hand"
+                                                                            {
+                                                                            }
+
+                                                                            over "wrist_adapter_hand_1"
+                                                                            {
+                                                                            }
+                                                                        }
+
+                                                                        over "wrist_adapter_arm"
+                                                                        {
+                                                                        }
+
+                                                                        over "wrist_adapter_arm_1"
+                                                                        {
+                                                                        }
+                                                                    }
+
+                                                                    over "arm_link4b"
+                                                                    {
+                                                                    }
+
+                                                                    over "arm_link4b_1"
+                                                                    {
+                                                                    }
+                                                                }
+
+                                                                over "arm_link3b"
+                                                                {
+                                                                }
+
+                                                                over "arm_link3b_1"
+                                                                {
+                                                                }
+                                                            }
+
+                                                            over "motor_5"
+                                                            {
+                                                            }
+
+                                                            over "motor_5_1"
+                                                            {
+                                                            }
+                                                        }
+
+                                                        over "arm_link2b"
+                                                        {
+                                                        }
+
+                                                        over "arm_link2b_1"
+                                                        {
+                                                        }
+                                                    }
+
+                                                    over "motor_4"
+                                                    {
+                                                    }
+
+                                                    over "motor_4_1"
+                                                    {
+                                                    }
+                                                }
+
+                                                over "arm_link1"
+                                                {
+                                                }
+
+                                                over "arm_link1_1"
+                                                {
+                                                }
+                                            }
+
+                                            over "arm_link4"
+                                            {
+                                            }
+
+                                            over "arm_link4_1"
+                                            {
+                                            }
+                                        }
+
+                                        over "arm_link3"
+                                        {
+                                        }
+
+                                        over "arm_link3_1"
+                                        {
+                                        }
+                                    }
+
+                                    over "motor_3"
+                                    {
+                                    }
+
+                                    over "motor_3_1"
+                                    {
+                                    }
+                                }
+
+                                over "arm_link2"
+                                {
+                                }
+
+                                over "arm_link2_1"
+                                {
+                                }
+                            }
+
+                            over "motor_2"
+                            {
+                            }
+
+                            over "motor_2_1"
+                            {
+                            }
+                        }
+
+                        over "arm_link5"
+                        {
+                        }
+
+                        over "arm_link5_1"
+                        {
+                        }
+                    }
+
+                    over "motor_1"
+                    {
+                    }
+
+                    over "motor_1_1"
+                    {
+                    }
+                }
+
+                over "shoulder_bracket"
+                {
+                }
+
+                over "shoulder_bracket_1"
+                {
+                }
+            }
+
+            over "base_link"
+            {
+            }
+
+            over "base_link_1"
+            {
+            }
+        }
+    }
+
+    over "Materials"
+    {
+    }
+
+    over "VisualMaterials"
+    {
+    }
+}
+

@@ -1,0 +1,661 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "amazinghand_graspable"
+    doc = """Generated from Composed Stage of root layer /tmp/tmpxmq7syyf/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/usdex_amazinghand_graspable/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/temp_amazinghand_graspable/amazinghand_graspable.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    subLayers = [
+        @./physics.usda@
+    ]
+    upAxis = "Z"
+)
+
+over "amazinghand_graspable"
+{
+    over "Physics"
+    {
+        def MjcActuator "finger1_motor1_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger1_motor1>
+        }
+
+        def MjcActuator "finger1_motor2_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger1_motor2>
+        }
+
+        def MjcActuator "finger2_motor1_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger2_motor1>
+        }
+
+        def MjcActuator "finger2_motor2_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger2_motor2>
+        }
+
+        def MjcActuator "finger3_motor1_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger3_motor1>
+        }
+
+        def MjcActuator "finger3_motor2_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger3_motor2>
+        }
+
+        def MjcActuator "finger4_motor1_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger4_motor1>
+        }
+
+        def MjcActuator "finger4_motor2_actuator"
+        {
+            uniform double[] mjc:biasPrm = [0, -0.7853981852531433, -0.07999999821186066, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:biasType = "affine"
+            uniform double mjc:forceRange:max = 2
+            uniform double mjc:forceRange:min = -2
+            uniform double[] mjc:gainPrm = [0.7853981852531433, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:gainType = "fixed"
+            custom rel mjc:target
+            prepend rel mjc:target = </amazinghand_graspable/Physics/finger4_motor2>
+        }
+
+        over "finger1_motor1" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger1_motor2" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger2_motor1" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger2_motor2" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger3_motor1" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger3_motor2" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger4_motor1" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "finger4_motor2" (
+            delete apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            custom float mjc:frictionloss = 0.02
+        }
+
+        over "wrist_to_palm"
+        {
+        }
+    }
+
+    over "Geometry"
+    {
+        over "r_wrist_interface"
+        {
+            over "palm"
+            {
+                over "finger1_proximal"
+                {
+                    over "finger1_distal"
+                    {
+                        over "mjcf_033_rotule_ball_link_0"
+                        {
+                        }
+
+                        over "mjcf_046_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4"
+                        {
+                        }
+
+                        over "finger1_distal_contact_box"
+                        {
+                        }
+
+                        over "finger1_distal_tip_pad_contact_box"
+                        {
+                        }
+                    }
+
+                    over "mjcf_026_custom_servo_horn_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+                    {
+                    }
+
+                    over "mjcf_029_ball_link_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_030_ball_link_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_031_ball_link_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "mjcf_035_rotule_ball_rotule_ball_2"
+                    {
+                    }
+
+                    over "mjcf_037_rotule_ball_rotule_ball_4"
+                    {
+                    }
+
+                    over "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+                    {
+                    }
+
+                    over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+                    {
+                    }
+
+                    over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+                    {
+                    }
+
+                    over "mjcf_050_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3"
+                    {
+                    }
+
+                    over "mjcf_053_rotule_ball_2_custom_servo_horn_0"
+                    {
+                    }
+
+                    over "mjcf_054_rotule_ball_2_rotule_ball_1"
+                    {
+                    }
+
+                    over "mjcf_056_m2_rod_l18_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_058_m2_rod_l18_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "mjcf_059_m2_rod_l18_rotule_lever_3"
+                    {
+                    }
+
+                    over "finger1_proximal_contact_box"
+                    {
+                    }
+                }
+
+                over "finger2_proximal"
+                {
+                    over "finger2_distal"
+                    {
+                        over "mjcf_069_rotule_ball_3_link_2"
+                        {
+                        }
+
+                        over "mjcf_080_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4"
+                        {
+                        }
+
+                        over "finger2_distal_contact_box"
+                        {
+                        }
+
+                        over "finger2_distal_tip_pad_contact_box"
+                        {
+                        }
+                    }
+
+                    over "mjcf_060_custom_servo_horn_2_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_062_custom_servo_horn_2_custom_servo_horn_2"
+                    {
+                    }
+
+                    over "mjcf_063_ball_link_2_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_064_ball_link_2_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_065_ball_link_2_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "mjcf_067_rotule_ball_3_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_071_rotule_ball_3_rotule_ball_4"
+                    {
+                    }
+
+                    over "mjcf_072_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0"
+                    {
+                    }
+
+                    over "mjcf_075_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_gimbal_3"
+                    {
+                    }
+
+                    over "mjcf_081_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_0"
+                    {
+                    }
+
+                    over "mjcf_086_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5"
+                    {
+                    }
+
+                    over "mjcf_088_rotule_ball_4_rotule_ball_1"
+                    {
+                    }
+
+                    over "mjcf_089_rotule_ball_4_custom_servo_horn_2"
+                    {
+                    }
+
+                    over "mjcf_090_ball_link_3_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_091_ball_link_3_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_092_ball_link_3_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "finger2_proximal_contact_box"
+                    {
+                    }
+                }
+
+                over "finger3_proximal"
+                {
+                    over "finger3_distal"
+                    {
+                        over "mjcf_104_rotule_ball_5_link_3"
+                        {
+                        }
+
+                        over "mjcf_112_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2"
+                        {
+                        }
+
+                        over "finger3_distal_contact_box"
+                        {
+                        }
+
+                        over "finger3_distal_tip_pad_contact_box"
+                        {
+                        }
+                    }
+
+                    over "mjcf_094_custom_servo_horn_3_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_095_custom_servo_horn_3_custom_servo_horn_1"
+                    {
+                    }
+
+                    over "mjcf_097_ball_link_4_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_098_ball_link_4_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_099_ball_link_4_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "mjcf_101_rotule_ball_5_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_102_rotule_ball_5_rotule_ball_1"
+                    {
+                    }
+
+                    over "mjcf_106_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_gimbal_0"
+                    {
+                    }
+
+                    over "mjcf_109_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+                    {
+                    }
+
+                    over "mjcf_118_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3"
+                    {
+                    }
+
+                    over "mjcf_120_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5"
+                    {
+                    }
+
+                    over "mjcf_121_rotule_ball_6_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_122_rotule_ball_6_custom_servo_horn_1"
+                    {
+                    }
+
+                    over "mjcf_124_ball_link_5_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_125_ball_link_5_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_126_ball_link_5_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "finger3_proximal_contact_box"
+                    {
+                    }
+                }
+
+                over "finger4_proximal"
+                {
+                    over "finger4_distal"
+                    {
+                        over "mjcf_136_rotule_ball_7_link_1"
+                        {
+                        }
+
+                        over "mjcf_146_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2"
+                        {
+                        }
+
+                        over "finger4_distal_contact_box"
+                        {
+                        }
+
+                        over "finger4_distal_tip_pad_contact_box"
+                        {
+                        }
+                    }
+
+                    over "mjcf_128_custom_servo_horn_4_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_129_custom_servo_horn_4_custom_servo_horn_1"
+                    {
+                    }
+
+                    over "mjcf_131_ball_link_6_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_132_ball_link_6_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_133_ball_link_6_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "mjcf_135_rotule_ball_7_rotule_ball_0"
+                    {
+                    }
+
+                    over "mjcf_139_rotule_ball_7_rotule_ball_4"
+                    {
+                    }
+
+                    over "mjcf_140_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0"
+                    {
+                    }
+
+                    over "mjcf_142_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_gimbal_2"
+                    {
+                    }
+
+                    over "mjcf_150_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_1"
+                    {
+                    }
+
+                    over "mjcf_151_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+                    {
+                    }
+
+                    over "mjcf_156_rotule_ball_8_rotule_ball_1"
+                    {
+                    }
+
+                    over "mjcf_157_rotule_ball_8_custom_servo_horn_2"
+                    {
+                    }
+
+                    over "mjcf_158_ball_link_7_rotule_lever_0"
+                    {
+                    }
+
+                    over "mjcf_159_ball_link_7_rotule_lever_1"
+                    {
+                    }
+
+                    over "mjcf_160_ball_link_7_m2_rod_l18_2"
+                    {
+                    }
+
+                    over "finger4_proximal_contact_box"
+                    {
+                    }
+                }
+
+                over "palm_contact_box"
+                {
+                }
+            }
+
+            over "mjcf_000_r_wrist_interface_scs0009_0"
+            {
+            }
+
+            over "mjcf_001_r_wrist_interface_finger_frame_1_1"
+            {
+            }
+
+            over "mjcf_002_r_wrist_interface_r_hand_plate_2"
+            {
+            }
+
+            over "mjcf_003_r_wrist_interface_scs0009_3"
+            {
+            }
+
+            over "mjcf_004_r_wrist_interface_finger_frame_2_4"
+            {
+            }
+
+            over "mjcf_005_r_wrist_interface_finger_frame_2_5"
+            {
+            }
+
+            over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+            {
+            }
+
+            over "mjcf_007_r_wrist_interface_bushing_0608_04_7"
+            {
+            }
+
+            over "mjcf_008_r_wrist_interface_bushing_0608_04_8"
+            {
+            }
+
+            over "mjcf_009_r_wrist_interface_bushing_0608_04_9"
+            {
+            }
+
+            over "mjcf_010_r_wrist_interface_finger_frame_2_10"
+            {
+            }
+
+            over "mjcf_011_r_wrist_interface_scs0009_11"
+            {
+            }
+
+            over "mjcf_012_r_wrist_interface_scs0009_12"
+            {
+            }
+
+            over "mjcf_013_r_wrist_interface_finger_frame_2_13"
+            {
+            }
+
+            over "mjcf_014_r_wrist_interface_scs0009_14"
+            {
+            }
+
+            over "mjcf_015_r_wrist_interface_scs0009_15"
+            {
+            }
+
+            over "mjcf_016_r_wrist_interface_finger_frame_1_16"
+            {
+            }
+
+            over "mjcf_017_r_wrist_interface_bushing_0608_04_17"
+            {
+            }
+
+            over "mjcf_018_r_wrist_interface_scs0009_18"
+            {
+            }
+
+            over "mjcf_019_r_wrist_interface_r_wrist_interface_19"
+            {
+            }
+
+            over "mjcf_020_r_wrist_interface_scs0009_20"
+            {
+            }
+
+            over "mjcf_021_r_wrist_interface_bushing_0608_04_21"
+            {
+            }
+
+            over "mjcf_022_r_wrist_interface_bushing_0608_04_22"
+            {
+            }
+
+            over "mjcf_023_r_wrist_interface_bushing_0608_04_23"
+            {
+            }
+
+            over "mjcf_024_r_wrist_interface_finger_frame_1_24"
+            {
+            }
+
+            over "mjcf_025_r_wrist_interface_finger_frame_1_25"
+            {
+            }
+        }
+    }
+}
+

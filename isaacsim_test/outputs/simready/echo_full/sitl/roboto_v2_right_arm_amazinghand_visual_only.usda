@@ -1,0 +1,159 @@
+#usda 1.0
+(
+    defaultPrim = "roboto_v2_right_arm_amazinghand_visual_only"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "roboto_v2_right_arm_amazinghand_visual_only" (
+    prepend references = @echo_full_lerobot_articulation.usda@</echo_full>
+)
+{
+    over "echo_full_lerobot_articulation_metadata" (
+        active = false
+    )
+    {
+    }
+
+    over "simready_visual_context"
+    {
+        over "PhysicsScene" (
+            active = false
+        )
+        {
+        }
+
+        over "grasp_identifier_01" (
+            active = false
+        )
+        {
+        }
+
+        over "tn____xaZ2Ve2pr5yw2tw0WSflDbf1"
+        {
+            over "Body1" (
+                active = false
+            )
+            {
+            }
+
+            over "lidar" (
+                active = false
+            )
+            {
+            }
+
+            over "Cam" (
+                active = false
+            )
+            {
+            }
+
+            over "tn__v341_a4a4XfWAou7zcLveO"
+            {
+                over "tn__40x40x200v41_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x200v42_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x480v31_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x400v41_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x400v42_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x290v71_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x290v72_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x600v41_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x600v43_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__front_wheelv11_vEwC" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__front_wheelv12_vEwC" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__40x40x400v43_rCZB" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__WHEELv11_j8p7" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__WHEELv12_j8p7" (
+                    active = false
+                )
+                {
+                }
+
+                over "tn__RealSense_D435v11_WIkF" (
+                    active = false
+                )
+                {
+                }
+            }
+        }
+    }
+
+    def Scope "arm_hand_visual_metadata"
+    {
+        custom string authoring_mode = "visual_only_arm_hand_wrapper"
+        custom string authoring_note = "Visual-only USDA for Isaac Sim. Physics should be imported from roboto_v2_right_arm_amazinghand_full.urdf; non-arm echo frame, wheels, lidar, camera, and RealSense visual branches are deactivated."
+        custom string[] excluded_visual_content = ["frame", "wheels", "lidar", "Cam", "RealSense_D435", "PhysicsScene", "grasp_identifier_01"]
+        custom string extraction_mode = "arm_hand_visual_only_wrapper"
+        custom string[] kept_visual_content = ["Roboto V2 right arm CAD visual branches under tn__v341_a4a4XfWAou7zcLveO", "tn__AmazingHand_righthandv201_lQjM", "Looks/material bindings from source USDA"]
+        custom string physical_robot_urdf_container_path = "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/sitl/roboto_v2_right_arm_amazinghand_full.urdf"
+        custom string physical_robot_urdf_path = "isaacsim_test/outputs/simready/echo_full/sitl/roboto_v2_right_arm_amazinghand_full.urdf"
+        custom string source_usda = "isaacsim_test/outputs/simready/echo_full/sitl/echo_full_lerobot_articulation.usda"
+    }
+}
+

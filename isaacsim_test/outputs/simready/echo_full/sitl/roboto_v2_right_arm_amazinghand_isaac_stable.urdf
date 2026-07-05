@@ -1,0 +1,1970 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="roboto_v2_right_arm_amazinghand_full">
+  
+  
+  
+  <!--Isaac Sim visual validation variant: only the five right-arm joints remain movable; AmazingHand passive/finger joints are fixed to avoid passive-chain instability during screenshots.--><link name="right_arm_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="right_arm_pitch_link">
+    <inertial>
+      <origin xyz="-0.00436523 -0.04995146 0.0" rpy="0 0 0" />
+      <mass value="0.47284363" />
+      <inertia ixx="0.00015644" ixy="-0.00002207" ixz="0.0" iyy="0.00008197" iyz="0.0" izz="0.00018907" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_pitch_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.055 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_roll_link">
+    <inertial>
+      <origin xyz="-0.0029007 0.0 -0.02197112" rpy="0 0 0" />
+      <mass value="0.08401883" />
+      <inertia ixx="0.00004601" ixy="0.0" ixz="-0.00001743" iyy="0.00005649" iyz="0.0" izz="0.00002712" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_roll_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.10" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_yaw_link">
+    <inertial>
+      <origin xyz="-0.00004328 0.0018211 -0.10615895" rpy="0 0 0" />
+      <mass value="1.15429959" />
+      <inertia ixx="0.0062043" ixy="0.00000007" ixz="-0.00000008" iyy="0.00616498" iyz="0.00017831" izz="0.00033199" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_yaw_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.19" rpy="0 1.57 1.57" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_elbow_pitch_link">
+    <inertial>
+      <origin xyz="0.02378501 0.00433076 0.0" rpy="0 0 0" />
+      <mass value="0.09168684" />
+      <inertia ixx="0.00003059" ixy="-0.00002004" ixz="0.0" iyy="0.00005023" iyz="0.0" izz="0.00006277" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_pitch_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.10 0.02 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.10" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_elbow_yaw_link">
+    <inertial>
+      <origin xyz="0.05317619 0.0000345 -0.00001992" rpy="0 0 0" />
+      <mass value="0.68145595" />
+      <inertia ixx="0.00024481" ixy="0.00000008" ixz="0.00000014" iyy="0.00132562" iyz="-0.0000006" izz="0.00132647" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_yaw_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_arm_pitch_joint" type="revolute">
+    <origin xyz="0 -0.121750000000346 0.206175860781721" rpy="0 0 0" />
+    <parent link="right_arm_base_link" />
+    <child link="right_arm_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_arm_roll_joint" type="revolute">
+    <origin xyz="0.0200000000000407 -0.056 0" rpy="0 0 0" />
+    <parent link="right_arm_pitch_link" />
+    <child link="right_arm_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1" upper="0.25" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_arm_yaw_joint" type="revolute">
+    <origin xyz="-0.02 0 -0.0500000000000019" rpy="0 0 0" />
+    <parent link="right_arm_roll_link" />
+    <child link="right_arm_yaw_link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_elbow_pitch_joint" type="revolute">
+    <origin xyz="0 -0.0200000000000019 -0.18875" rpy="0 0 0" />
+    <parent link="right_arm_yaw_link" />
+    <child link="right_elbow_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.6" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_elbow_yaw_joint" type="revolute">
+    <origin xyz="0.0500000000000002 0.0200000000000004 0" rpy="0 0 0" />
+    <parent link="right_elbow_pitch_link" />
+    <child link="right_elbow_yaw_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <link name="r_wrist_interface">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-09" />
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="r_wrist_interface_visual_01">
+      <origin xyz="-0.022075 0.03055 0.0698" rpy="0 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_02">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+      <material name="finger_frame_1_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_03">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/r_hand_plate.stl" />
+      </geometry>
+      <material name="r_hand_plate_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_04">
+      <origin xyz="-0.00443741 0.0191037 0.019125" rpy="-1.57079632679 0 -1.22173091211" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_05">
+      <origin xyz="-0.0115 -0.0083 0.0961543" rpy="1.57079632679 0.104719793816 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+      <material name="finger_frame_2_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_06">
+      <origin xyz="-0.0115 -0.0405 0.0851417" rpy="1.57079632679 0.235618531958 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+      <material name="finger_frame_2_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_07">
+      <origin xyz="-0.015 -0.0083 0.0961543" rpy="-1.57079632679 0.104719793816 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_08">
+      <origin xyz="-0.015 0.0245 0.1022" rpy="-1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_09">
+      <origin xyz="-0.015 -0.0405 0.0851417" rpy="-1.57079632679 0.235618531958 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_10">
+      <origin xyz="-0.025 -0.0083 0.0961543" rpy="1.57079632679 0.104719793816 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_11">
+      <origin xyz="0.0280778 0.0245 0.0297" rpy="3.14159265359 0 1.91986284126" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+      <material name="finger_frame_2_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_12">
+      <origin xyz="-0.022075 -0.0109301 0.0632994" rpy="0 -0.104719686067 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_13">
+      <origin xyz="-0.022075 0.01845 0.0698" rpy="0 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_14">
+      <origin xyz="-0.0109 0.0245 0.1022" rpy="1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+      <material name="finger_frame_2_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_15">
+      <origin xyz="-0.022075 0.00110358 0.0645642" rpy="0 -0.104719686067 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_16">
+      <origin xyz="-0.022075 -0.0388192 0.0522246" rpy="0 -0.235619621209 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_17">
+      <origin xyz="-0.0115 -0.0083 0.0961543" rpy="1.57079632679 0.104719793816 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+      <material name="finger_frame_1_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_18">
+      <origin xyz="0.0280778 0.0245 0.0262" rpy="0 0 1.91986284126" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_19">
+      <origin xyz="-0.022075 -0.0270535 0.0550493" rpy="0 -0.235619621209 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_20">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/r_wrist_interface.stl" />
+      </geometry>
+      <material name="r_wrist_interface_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_21">
+      <origin xyz="-0.000298971 0.00773341 0.019125" rpy="-1.57079632679 0 -1.22173091211" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/scs0009.stl" />
+      </geometry>
+      <material name="scs0009_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_22">
+      <origin xyz="-0.025 0.0245 0.1022" rpy="1.57079632679 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_23">
+      <origin xyz="-0.025 -0.0405 0.0851417" rpy="1.57079632679 0.235618531958 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_24">
+      <origin xyz="0.0280778 0.0245 0.0162" rpy="3.14159265359 0 1.91986284126" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+      <material name="bushing_0608_04_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_25">
+      <origin xyz="-0.0115 -0.0405 0.0851417" rpy="1.57079632679 0.235618531958 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+      <material name="finger_frame_1_material" />
+    </visual>
+    <visual name="r_wrist_interface_visual_26">
+      <origin xyz="0.0280778 0.0245 0.0297" rpy="3.14159265359 0 1.91986284126" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+      <material name="finger_frame_1_material" />
+    </visual>
+  </link>
+  <link name="custom_servo_horn">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="custom_servo_horn_visual_01">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="custom_servo_horn_visual_02">
+      <origin xyz="-0.005 0 -0.0114" rpy="3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="custom_servo_horn_visual_03">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+  </link>
+  <link name="ball_link">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_visual_01">
+      <origin xyz="0 -0.033 0" rpy="-0.439062094216 -1.57079630572 -0.439062094216" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_visual_02">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_visual_03">
+      <origin xyz="0 -0.03325 0" rpy="0 0 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_visual_04">
+      <origin xyz="0 -0.033 0" rpy="0 0 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball">
+    <inertial>
+      <origin xyz="-0.0054579 -0.0141744 -0.00370248" rpy="0 0 0" />
+      <mass value="0.00277119" />
+      <inertia ixx="7.66485e-07" ixy="1.1411e-07" ixz="-1.27899e-08" iyy="1.05617e-07" iyz="-3.77417e-08" izz="7.96842e-07" />
+    </inertial>
+    <visual name="rotule_ball_visual_01">
+      <origin xyz="-0.0129642 -0.00307086 0.00472763" rpy="-0.432511414831 0.619056339519 -3.01181903992" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/link.stl" />
+      </geometry>
+      <material name="link_material" />
+    </visual>
+    <visual name="rotule_ball_visual_02">
+      <origin xyz="0.0036341 0.000474272 0.0026112" rpy="-0.905423996179 0.348373575786 -1.17928075191" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_visual_03">
+      <origin xyz="0 0 0" rpy="-2.60982222788 0.832224104162 0.801830504162" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_visual_04">
+      <origin xyz="-0.0166361 -0.00217111 -0.0119535" rpy="2.23616865741 0.348373575786 -1.17928075191" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_visual_05">
+      <origin xyz="-0.013002 -0.00169684 -0.0093423" rpy="0.531770425708 0.832224104162 0.801830504162" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+  </link>
+  <link name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default">
+    <inertial>
+      <origin xyz="-0.00530874 -0.00868244 0.00225" rpy="0 0 0" />
+      <mass value="0.00201325" />
+      <inertia ixx="9.34482e-08" ixy="-4.54529e-08" ixz="0" iyy="4.69015e-08" iyz="0" izz="1.16807e-07" />
+    </inertial>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_visual_01">
+      <origin xyz="-0.0113198 -0.0185136 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default.stl" />
+      </geometry>
+      <material name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_visual_02">
+      <origin xyz="-0.0031299 -0.00511895 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/gimbal.stl" />
+      </geometry>
+      <material name="gimbal_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_visual_03">
+      <origin xyz="-0.0103287 -0.0168926 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5.stl" />
+      </geometry>
+      <material name="plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_visual_04">
+      <origin xyz="0 0 0.00225" rpy="0 0 1.02201199437" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999">
+    <inertial>
+      <origin xyz="0.014571 -0.0133924 0.00225" rpy="0 0 0" />
+      <mass value="0.00540375" />
+      <inertia ixx="3.60212e-07" ixy="3.36413e-07" ixz="0" iyy="5.51031e-07" iyz="0" izz="7.69492e-07" />
+    </inertial>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_visual_01">
+      <origin xyz="0.0194851 -0.0165558 -0.00735" rpy="0 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_visual_02">
+      <origin xyz="0.0194851 -0.0165558 0.01185" rpy="3.14159265359 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_visual_03">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal.stl" />
+      </geometry>
+      <material name="distal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_visual_04">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal_shell.stl" />
+      </geometry>
+      <material name="distal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_visual_05">
+      <origin xyz="0 0 0.00225" rpy="-3.14159265359 0 -2.11105162717" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b">
+    <inertial>
+      <origin xyz="-0.0249171 -0.00392936 0.0052354" rpy="0 0 0" />
+      <mass value="0.0101851" />
+      <inertia ixx="4.96149e-07" ixy="2.45138e-08" ixz="1.19032e-10" iyy="2.52849e-06" iyz="3.03943e-10" izz="2.3577e-06" />
+    </inertial>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_01">
+      <origin xyz="-0.022 -0.004 -0.00655" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_02">
+      <origin xyz="-0.022 -0.004 0.01685" rpy="-3.14159265359 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_03">
+      <origin xyz="-0.052 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_04">
+      <origin xyz="0 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_05">
+      <origin xyz="-0.052 0 0.00515" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal_shell.stl" />
+      </geometry>
+      <material name="proximal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_visual_06">
+      <origin xyz="-0.052 0 0.00525" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal.stl" />
+      </geometry>
+      <material name="proximal_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_2">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="rotule_ball_2_visual_01">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+    <visual name="rotule_ball_2_visual_02">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_2_visual_03">
+      <origin xyz="-0.005 0 -0.0114" rpy="-3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+  </link>
+  <link name="m2_rod_l18">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="m2_rod_l18_visual_01">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="m2_rod_l18_visual_02">
+      <origin xyz="0 0 0" rpy="1.11336666544 1.57079630572 1.11336666544" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+    <visual name="m2_rod_l18_visual_03">
+      <origin xyz="0 0.00025 0" rpy="-0.228402441907 1.57079630572 -0.228402441907" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="m2_rod_l18_visual_04">
+      <origin xyz="0 -0.033 0" rpy="-0.00645621597682 -1.57079630572 -0.00645621597682" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+  </link>
+  <link name="custom_servo_horn_2">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="custom_servo_horn_2_visual_01">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="custom_servo_horn_2_visual_02">
+      <origin xyz="-0.005 0 -0.0114" rpy="-3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="custom_servo_horn_2_visual_03">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+  </link>
+  <link name="ball_link_2">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_2_visual_01">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_2_visual_02">
+      <origin xyz="0 -0.033 0" rpy="-0.000594436713642 -1.57079630572 -0.000594436713642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_2_visual_03">
+      <origin xyz="0 0.00025 0" rpy="1.05599092436 1.57079630572 1.05599092436" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_2_visual_04">
+      <origin xyz="0 0 0" rpy="1.33348096809 1.57079630572 1.33348096809" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_3">
+    <inertial>
+      <origin xyz="0.000207771 -0.0141744 0.00659195" rpy="0 0 0" />
+      <mass value="0.00277119" />
+      <inertia ixx="7.98533e-07" ixy="-9.75532e-08" ixz="-1.04582e-08" iyy="1.05617e-07" iyz="-7.02058e-08" izz="7.64793e-07" />
+    </inertial>
+    <visual name="rotule_ball_3_visual_01">
+      <origin xyz="7.23262e-05 -0.00169684 0.0160102" rpy="3.05145251023 -0.0552501186218 2.63574967932" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_3_visual_02">
+      <origin xyz="-2.02154e-05 0.000474272 -0.00447489" rpy="3.08611797181 0.0900023214988 -2.08162968551" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_3_visual_03">
+      <origin xyz="0.0114391 -0.00307086 0.00771803" rpy="-2.12173829682 -1.46511049067 -1.52818932041" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/link.stl" />
+      </geometry>
+      <material name="link_material" />
+    </visual>
+    <visual name="rotule_ball_3_visual_04">
+      <origin xyz="9.25416e-05 -0.00217111 0.0204851" rpy="-0.0554746817836 0.0900023214988 -2.08162968551" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_3_visual_05">
+      <origin xyz="0 0 0" rpy="-0.0901401433621 -0.0552501186218 2.63574967932" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+  </link>
+  <link name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2">
+    <inertial>
+      <origin xyz="-0.00530874 -0.00868244 0.00225" rpy="0 0 0" />
+      <mass value="0.00201325" />
+      <inertia ixx="9.34482e-08" ixy="-4.54529e-08" ixz="0" iyy="4.69015e-08" iyz="0" izz="1.16807e-07" />
+    </inertial>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_visual_01">
+      <origin xyz="0 0 0.00225" rpy="0 0 1.02201199437" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_visual_02">
+      <origin xyz="-0.0113198 -0.0185136 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default.stl" />
+      </geometry>
+      <material name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_visual_03">
+      <origin xyz="-0.0103287 -0.0168926 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5.stl" />
+      </geometry>
+      <material name="plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_visual_04">
+      <origin xyz="-0.0031299 -0.00511895 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/gimbal.stl" />
+      </geometry>
+      <material name="gimbal_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2">
+    <inertial>
+      <origin xyz="0.014571 -0.0133924 0.00225" rpy="0 0 0" />
+      <mass value="0.00540375" />
+      <inertia ixx="3.60212e-07" ixy="3.36413e-07" ixz="0" iyy="5.51031e-07" iyz="0" izz="7.69492e-07" />
+    </inertial>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_visual_01">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal.stl" />
+      </geometry>
+      <material name="distal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_visual_02">
+      <origin xyz="0.0194851 -0.0165558 0.01185" rpy="-3.14159265359 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_visual_03">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal_shell.stl" />
+      </geometry>
+      <material name="distal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_visual_04">
+      <origin xyz="0.0194851 -0.0165558 -0.00735" rpy="0 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_visual_05">
+      <origin xyz="0 0 0.00225" rpy="3.14159265359 0 -2.11105162717" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2">
+    <inertial>
+      <origin xyz="-0.0249171 -0.00392936 0.0052354" rpy="0 0 0" />
+      <mass value="0.0101851" />
+      <inertia ixx="4.96149e-07" ixy="2.45138e-08" ixz="1.19032e-10" iyy="2.52849e-06" iyz="3.03943e-10" izz="2.3577e-06" />
+    </inertial>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_01">
+      <origin xyz="0 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_02">
+      <origin xyz="-0.022 -0.004 0.01685" rpy="3.14159265359 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_03">
+      <origin xyz="-0.022 -0.004 -0.00655" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_04">
+      <origin xyz="-0.052 0 0.00525" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal.stl" />
+      </geometry>
+      <material name="proximal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_05">
+      <origin xyz="-0.052 0 0.00515" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal_shell.stl" />
+      </geometry>
+      <material name="proximal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_visual_06">
+      <origin xyz="-0.052 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_4">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="rotule_ball_4_visual_01">
+      <origin xyz="-0.005 0 -0.0114" rpy="3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_4_visual_02">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_4_visual_03">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+  </link>
+  <link name="ball_link_3">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_3_visual_01">
+      <origin xyz="0 -0.033 0" rpy="1.4699574344 -1.57079630572 1.4699574344" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_3_visual_02">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_3_visual_03">
+      <origin xyz="0 -0.03325 0" rpy="0 0 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_3_visual_04">
+      <origin xyz="0 -0.033 0" rpy="0 0 -3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="custom_servo_horn_3">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="custom_servo_horn_3_visual_01">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="custom_servo_horn_3_visual_02">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+    <visual name="custom_servo_horn_3_visual_03">
+      <origin xyz="-0.005 0 -0.0114" rpy="-3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+  </link>
+  <link name="ball_link_4">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_4_visual_01">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_4_visual_02">
+      <origin xyz="0 -0.033 0" rpy="1.42752121155 -1.57079630572 1.42752121155" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_4_visual_03">
+      <origin xyz="0 0.00025 0" rpy="1.49807600872 1.57079630572 1.49807600872" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_4_visual_04">
+      <origin xyz="0 0 0" rpy="1.4871664178 1.57079630572 1.4871664178" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_5">
+    <inertial>
+      <origin xyz="-0.00392912 -0.0141744 -0.00529707" rpy="0 0 0" />
+      <mass value="0.00277119" />
+      <inertia ixx="7.77768e-07" ixy="1.20172e-07" ixz="-1.94628e-08" iyy="1.05617e-07" iyz="2.05636e-09" izz="7.85559e-07" />
+    </inertial>
+    <visual name="rotule_ball_5_visual_01">
+      <origin xyz="-0.00918769 -0.00169684 -0.0131117" rpy="0.245191879597 0.574431488106 0.614195708602" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_5_visual_02">
+      <origin xyz="0 0 0" rpy="-2.89640077399 0.574431488106 0.614195708602" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_5_visual_03">
+      <origin xyz="-0.0117557 -0.00217111 -0.0167765" rpy="2.55322455745 0.205220395394 -1.09173386572" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_5_visual_04">
+      <origin xyz="-0.0137982 -0.00307086 0.000181431" rpy="-0.358808308227 0.951682100925 -2.95896434413" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/link.stl" />
+      </geometry>
+      <material name="link_material" />
+    </visual>
+    <visual name="rotule_ball_5_visual_05">
+      <origin xyz="0.00256799 0.000474272 0.00366477" rpy="-0.588368096143 0.205220395394 -1.09173386572" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+  </link>
+  <link name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3">
+    <inertial>
+      <origin xyz="-0.00530874 -0.00868244 0.00225" rpy="0 0 0" />
+      <mass value="0.00201325" />
+      <inertia ixx="9.34482e-08" ixy="-4.54529e-08" ixz="0" iyy="4.69015e-08" iyz="0" izz="1.16807e-07" />
+    </inertial>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_visual_01">
+      <origin xyz="-0.0031299 -0.00511895 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/gimbal.stl" />
+      </geometry>
+      <material name="gimbal_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_visual_02">
+      <origin xyz="-0.0113198 -0.0185136 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default.stl" />
+      </geometry>
+      <material name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_visual_03">
+      <origin xyz="-0.0103287 -0.0168926 0.00225" rpy="3.14159265359 1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5.stl" />
+      </geometry>
+      <material name="plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_visual_04">
+      <origin xyz="0 0 0.00225" rpy="0 0 1.02201199437" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3">
+    <inertial>
+      <origin xyz="0.014571 -0.0133924 0.00225" rpy="0 0 0" />
+      <mass value="0.00540375" />
+      <inertia ixx="3.60212e-07" ixy="3.36413e-07" ixz="0" iyy="5.51031e-07" iyz="0" izz="7.69492e-07" />
+    </inertial>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_visual_01">
+      <origin xyz="0.0194851 -0.0165558 -0.00735" rpy="0 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_visual_02">
+      <origin xyz="0.0194851 -0.0165558 0.01185" rpy="-3.14159265359 0 1.03054102642" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_visual_03">
+      <origin xyz="0 0 0.00225" rpy="3.14159265359 0 -2.11105162717" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_visual_04">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal.stl" />
+      </geometry>
+      <material name="distal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_visual_05">
+      <origin xyz="-0.0449404 0.0207565 0.00225" rpy="0 -1.57079631189 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal_shell.stl" />
+      </geometry>
+      <material name="distal_shell_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3">
+    <inertial>
+      <origin xyz="-0.0249171 -0.00392936 0.0052354" rpy="0 0 0" />
+      <mass value="0.0101851" />
+      <inertia ixx="4.96149e-07" ixy="2.45138e-08" ixz="1.19032e-10" iyy="2.52849e-06" iyz="3.03943e-10" izz="2.3577e-06" />
+    </inertial>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_01">
+      <origin xyz="-0.052 0 0.00515" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal_shell.stl" />
+      </geometry>
+      <material name="proximal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_02">
+      <origin xyz="-0.022 -0.004 -0.00655" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_03">
+      <origin xyz="-0.052 0 0.00525" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal.stl" />
+      </geometry>
+      <material name="proximal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_04">
+      <origin xyz="-0.052 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_05">
+      <origin xyz="-0.022 -0.004 0.01685" rpy="-3.14159265359 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_visual_06">
+      <origin xyz="0 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_6">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="rotule_ball_6_visual_01">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_6_visual_02">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+    <visual name="rotule_ball_6_visual_03">
+      <origin xyz="-0.005 0 -0.0114" rpy="-3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+  </link>
+  <link name="ball_link_5">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_5_visual_01">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_5_visual_02">
+      <origin xyz="0 -0.033 0" rpy="1.40060475333 -1.57079630572 1.40060475333" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_5_visual_03">
+      <origin xyz="0 0.00025 0" rpy="-1.42531694759 1.57079630572 -1.42531694759" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_5_visual_04">
+      <origin xyz="0 0 0" rpy="-1.42585703323 1.57079630572 -1.42585703323" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="custom_servo_horn_4">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="custom_servo_horn_4_visual_01">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="custom_servo_horn_4_visual_02">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+    <visual name="custom_servo_horn_4_visual_03">
+      <origin xyz="-0.005 0 -0.0114" rpy="-3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+  </link>
+  <link name="ball_link_6">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_6_visual_01">
+      <origin xyz="0 -0.033 0" rpy="0.739763615857 -1.57079630572 0.739763615857" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_6_visual_02">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_6_visual_03">
+      <origin xyz="0 -0.03325 0" rpy="0 0 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_6_visual_04">
+      <origin xyz="0 -0.033 0" rpy="0 0 -3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_7">
+    <inertial>
+      <origin xyz="0.000502397 -0.0141744 -0.00657609" rpy="0 0 0" />
+      <mass value="0.00277119" />
+      <inertia ixx="8.0038e-07" ixy="8.94343e-08" ixz="-6.60789e-09" iyy="1.05616e-07" iyz="8.02893e-08" izz="7.62947e-07" />
+    </inertial>
+    <visual name="rotule_ball_7_visual_01">
+      <origin xyz="0 0 0" rpy="2.99927556167 -0.0390520751468 0.505417275901" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_7_visual_02">
+      <origin xyz="-0.0105427 -0.00307081 -0.00890361" rpy="1.83960764182 1.4232543779 -0.799351958036" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/link.stl" />
+      </geometry>
+      <material name="link_material" />
+    </visual>
+    <visual name="rotule_ball_7_visual_03">
+      <origin xyz="0.00211128 -0.00217107 -0.0203762" rpy="-3.1021421829 -0.142207848003 -1.07097345582" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_7_visual_04">
+      <origin xyz="-0.000461201 0.000474262 0.00445111" rpy="0.0394504706862 -0.142207848003 -1.07097345582" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_7_visual_05">
+      <origin xyz="0.00165007 -0.0016968 -0.0159251" rpy="-0.142317091917 -0.0390520751468 0.505417275901" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+  </link>
+  <link name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4">
+    <inertial>
+      <origin xyz="-0.00530871 -0.00868246 0.00225" rpy="0 0 0" />
+      <mass value="0.00201325" />
+      <inertia ixx="9.34485e-08" ixy="-4.54527e-08" ixz="0" iyy="4.69012e-08" iyz="0" izz="1.16807e-07" />
+    </inertial>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_visual_01">
+      <origin xyz="0 0 0.00225" rpy="0 0 1.02201471699" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_visual_02">
+      <origin xyz="-0.0103286 -0.0168926 0.00225" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5.stl" />
+      </geometry>
+      <material name="plain_washer_large_grade_a_m2_5__9a369f0dc77bf9c598cdf3fb468977e5_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_visual_03">
+      <origin xyz="-0.00312989 -0.00511896 0.00225" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/gimbal.stl" />
+      </geometry>
+      <material name="gimbal_material" />
+    </visual>
+    <visual name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_visual_04">
+      <origin xyz="-0.0113198 -0.0185136 0.00225" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default.stl" />
+      </geometry>
+      <material name="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4">
+    <inertial>
+      <origin xyz="0.0145711 -0.0133923 0.00225" rpy="0 0 0" />
+      <mass value="0.00540375" />
+      <inertia ixx="3.6021e-07" ixy="3.36412e-07" ixz="0" iyy="5.51033e-07" iyz="0" izz="7.69492e-07" />
+    </inertial>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_visual_01">
+      <origin xyz="-0.0449404 0.0207563 0.00225" rpy="3.14159265359 -1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal_shell.stl" />
+      </geometry>
+      <material name="distal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_visual_02">
+      <origin xyz="0.0194851 -0.0165557 0.01185" rpy="-3.14159265359 0 1.03054276674" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_visual_03">
+      <origin xyz="0 0 0.00225" rpy="3.14159265359 0 -2.11104988685" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_visual_04">
+      <origin xyz="-0.0449404 0.0207563 0.00225" rpy="3.14159265359 -1.57079632679 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/distal.stl" />
+      </geometry>
+      <material name="distal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_visual_05">
+      <origin xyz="0.0194851 -0.0165557 -0.00735" rpy="0 0 1.03054276674" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+  </link>
+  <link name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4">
+    <inertial>
+      <origin xyz="-0.0249171 -0.00392936 0.0052354" rpy="0 0 0" />
+      <mass value="0.0101851" />
+      <inertia ixx="4.96149e-07" ixy="2.45138e-08" ixz="1.19032e-10" iyy="2.52849e-06" iyz="3.03943e-10" izz="2.3577e-06" />
+    </inertial>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_01">
+      <origin xyz="-0.022 -0.004 0.01685" rpy="3.14159265359 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_02">
+      <origin xyz="-0.052 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_03">
+      <origin xyz="0 0 0.00515" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+      <material name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_04">
+      <origin xyz="-0.052 0 0.00515" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal_shell.stl" />
+      </geometry>
+      <material name="proximal_shell_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_05">
+      <origin xyz="-0.052 0 0.00525" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/proximal.stl" />
+      </geometry>
+      <material name="proximal_material" />
+    </visual>
+    <visual name="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_visual_06">
+      <origin xyz="-0.022 -0.004 -0.00655" rpy="0 0 -1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/std00447_thermoplastique_m2_5x6__configuration_default.stl" />
+      </geometry>
+      <material name="std00447_thermoplastique_m2_5x6__configuration_default_material" />
+    </visual>
+  </link>
+  <link name="rotule_ball_8">
+    <inertial>
+      <origin xyz="-0.005 0 -0.00655938" rpy="0 0 0" />
+      <mass value="0.000410988" />
+      <inertia ixx="4.63584e-09" ixy="0" ixz="0" iyy="4.63584e-09" iyz="0" izz="1e-09" />
+    </inertial>
+    <visual name="rotule_ball_8_visual_01">
+      <origin xyz="-0.005 0 -0.0114" rpy="3.14159265359 0 1.57079632679" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed.stl" />
+      </geometry>
+      <material name="ph_pan_head_screw_m2x0_40_x_10__2803432263e518bbd16bccbbef8784ed_material" />
+    </visual>
+    <visual name="rotule_ball_8_visual_02">
+      <origin xyz="-0.005 0 -0.0069" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_ball.stl" />
+      </geometry>
+      <material name="rotule_ball_material" />
+    </visual>
+    <visual name="rotule_ball_8_visual_03">
+      <origin xyz="0 0 -0.0025" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+      <material name="custom_servo_horn_material" />
+    </visual>
+  </link>
+  <link name="ball_link_7">
+    <inertial>
+      <origin xyz="0 -0.0165 0" rpy="0 0 0" />
+      <mass value="0.000463323" />
+      <inertia ixx="6.40121e-08" ixy="0" ixz="0" iyy="1.59688e-09" iyz="0" izz="6.40121e-08" />
+    </inertial>
+    <visual name="ball_link_7_visual_01">
+      <origin xyz="0 -0.033 0" rpy="0.234785864152 -1.57079630572 0.234785864152" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_7_visual_02">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/rotule_lever.stl" />
+      </geometry>
+      <material name="rotule_lever_material" />
+    </visual>
+    <visual name="ball_link_7_visual_03">
+      <origin xyz="0 -0.03325 0" rpy="0 0 -3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+      <material name="m2_rod_l18_material" />
+    </visual>
+    <visual name="ball_link_7_visual_04">
+      <origin xyz="0 -0.033 0" rpy="0 0 3.14159265359" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets/spacer.stl" />
+      </geometry>
+      <material name="spacer_material" />
+    </visual>
+  </link>
+  <joint name="right_elbow_yaw_to_r_wrist_interface" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="right_elbow_yaw_link" />
+    <child link="r_wrist_interface" />
+  </joint>
+  <joint name="finger1_motor1" type="fixed">
+    <origin xyz="-0.00755 0.03055 0.0698" rpy="1.57079632679 0 -1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="custom_servo_horn" />
+    </joint>
+  <link name="ball_link_passive_ball1_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_passive_ball1_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball1_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="3.07273441126 0.942325663768 -0.157455193701" />
+    <parent link="custom_servo_horn" />
+    <child link="ball_link_passive_ball1_ball_x_link" />
+    </joint>
+  <joint name="passive_ball1_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_passive_ball1_ball_x_link" />
+    <child link="ball_link_passive_ball1_ball_y_link" />
+    </joint>
+  <joint name="passive_ball1_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_passive_ball1_ball_y_link" />
+    <child link="ball_link" />
+    </joint>
+  <link name="rotule_ball_passive_ball2_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="rotule_ball_passive_ball2_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball2_x" type="fixed">
+    <origin xyz="0 -0.033 0" rpy="-1.04680945478 -1.57079630572 1.04680945478" />
+    <parent link="ball_link" />
+    <child link="rotule_ball_passive_ball2_ball_x_link" />
+    </joint>
+  <joint name="passive_ball2_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_passive_ball2_ball_x_link" />
+    <child link="rotule_ball_passive_ball2_ball_y_link" />
+    </joint>
+  <joint name="passive_ball2_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_passive_ball2_ball_y_link" />
+    <child link="rotule_ball" />
+    </joint>
+  <joint name="passive2_1" type="fixed">
+    <origin xyz="-0.0116897 -0.000368272 -0.00081146" rpy="-0.905423996179 0.348373575786 -1.17928075191" />
+    <parent link="rotule_ball" />
+    <child link="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default" />
+    </joint>
+  <joint name="passive4_1" type="fixed">
+    <origin xyz="0.00373407 -0.0482013 -0.00704062" rpy="2.23616865741 0.348373575786 -1.17928075191" />
+    <parent link="rotule_ball" />
+    <child link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999" />
+    </joint>
+  <joint name="passive_5_1" type="fixed">
+    <origin xyz="-0.000346366 -0.00598999 0.00655" rpy="-3.14159265359 0 0.00396328273876" />
+    <parent link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999" />
+    <child link="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b" />
+    </joint>
+  <joint name="finger1_motor2" type="fixed">
+    <origin xyz="-0.00755 0.01845 0.0698" rpy="-1.57079632679 0 1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="rotule_ball_2" />
+    </joint>
+  <link name="m2_rod_l18_passive_ball3_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="m2_rod_l18_passive_ball3_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball3_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="3.07996567796 0.854241973535 -3.10757961536" />
+    <parent link="rotule_ball_2" />
+    <child link="m2_rod_l18_passive_ball3_ball_x_link" />
+    </joint>
+  <joint name="passive_ball3_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="m2_rod_l18_passive_ball3_ball_x_link" />
+    <child link="m2_rod_l18_passive_ball3_ball_y_link" />
+    </joint>
+  <joint name="passive_ball3_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="m2_rod_l18_passive_ball3_ball_y_link" />
+    <child link="m2_rod_l18" />
+    </joint>
+  <joint name="finger2_motor1" type="fixed">
+    <origin xyz="-0.00755 0.00110358 0.0645642" rpy="1.57079632679 0.104719793816 -1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="custom_servo_horn_2" />
+    </joint>
+  <link name="ball_link_2_passive_ball4_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_2_passive_ball4_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball4_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="0.0404614264713 -0.000226683202316 3.03985996631" />
+    <parent link="custom_servo_horn_2" />
+    <child link="ball_link_2_passive_ball4_ball_x_link" />
+    </joint>
+  <joint name="passive_ball4_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_2_passive_ball4_ball_x_link" />
+    <child link="ball_link_2_passive_ball4_ball_y_link" />
+    </joint>
+  <joint name="passive_ball4_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_2_passive_ball4_ball_y_link" />
+    <child link="ball_link_2" />
+    </joint>
+  <link name="rotule_ball_3_passive_ball5_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="rotule_ball_3_passive_ball5_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball5_x" type="fixed">
+    <origin xyz="0 -0.033 0" rpy="0.76477229986 -1.57079630572 -0.76477229986" />
+    <parent link="ball_link_2" />
+    <child link="rotule_ball_3_passive_ball5_ball_x_link" />
+    </joint>
+  <joint name="passive_ball5_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_3_passive_ball5_ball_x_link" />
+    <child link="rotule_ball_3_passive_ball5_ball_y_link" />
+    </joint>
+  <joint name="passive_ball5_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_3_passive_ball5_ball_y_link" />
+    <child link="rotule_ball_3" />
+    </joint>
+  <joint name="passive2_2" type="fixed">
+    <origin xyz="0.00620709 -0.000368272 0.00993876" rpy="3.08611797181 0.0900023214988 -2.08162968551" />
+    <parent link="rotule_ball_3" />
+    <child link="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2" />
+    </joint>
+  <joint name="passive4_2" type="fixed">
+    <origin xyz="-0.00789165 -0.0482013 0.00111154" rpy="-0.0554746817836 0.0900023214988 -2.08162968551" />
+    <parent link="rotule_ball_3" />
+    <child link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2" />
+    </joint>
+  <joint name="passive_5_2" type="fixed">
+    <origin xyz="-0.000346366 -0.00598999 0.00655" rpy="3.14159265359 0 0.00396328273876" />
+    <parent link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2" />
+    <child link="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2" />
+    </joint>
+  <joint name="finger2_motor2" type="fixed">
+    <origin xyz="-0.00755 -0.0109301 0.0632994" rpy="-1.57079632679 -0.104719793816 1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="rotule_ball_4" />
+    </joint>
+  <link name="ball_link_3_passive_ball6_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_3_passive_ball6_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball6_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="0.0404614110774 -0.000817719881769 0.0804764301913" />
+    <parent link="rotule_ball_4" />
+    <child link="ball_link_3_passive_ball6_ball_x_link" />
+    </joint>
+  <joint name="passive_ball6_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_3_passive_ball6_ball_x_link" />
+    <child link="ball_link_3_passive_ball6_ball_y_link" />
+    </joint>
+  <joint name="passive_ball6_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_3_passive_ball6_ball_y_link" />
+    <child link="ball_link_3" />
+    </joint>
+  <joint name="finger3_motor1" type="fixed">
+    <origin xyz="-0.00755 -0.0270535 0.0550493" rpy="1.57079632679 0.235618531958 -1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="custom_servo_horn_3" />
+    </joint>
+  <link name="ball_link_4_passive_ball7_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_4_passive_ball7_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball7_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="3.09234702484 0.606351991815 -0.1298027407" />
+    <parent link="custom_servo_horn_3" />
+    <child link="ball_link_4_passive_ball7_ball_x_link" />
+    </joint>
+  <joint name="passive_ball7_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_4_passive_ball7_ball_x_link" />
+    <child link="ball_link_4_passive_ball7_ball_y_link" />
+    </joint>
+  <joint name="passive_ball7_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_4_passive_ball7_ball_y_link" />
+    <child link="ball_link_4" />
+    </joint>
+  <link name="rotule_ball_5_passive_ball8_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="rotule_ball_5_passive_ball8_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball8_x" type="fixed">
+    <origin xyz="0 -0.033 0" rpy="-1.4333273792 -1.57079630572 1.4333273792" />
+    <parent link="ball_link_4" />
+    <child link="rotule_ball_5_passive_ball8_ball_x_link" />
+    </joint>
+  <joint name="passive_ball8_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_5_passive_ball8_ball_x_link" />
+    <child link="rotule_ball_5_passive_ball8_ball_y_link" />
+    </joint>
+  <joint name="passive_ball8_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_5_passive_ball8_ball_y_link" />
+    <child link="rotule_ball_5" />
+    </joint>
+  <joint name="passive2_3" type="fixed">
+    <origin xyz="-0.010766 -0.000368272 -0.00462606" rpy="-0.588368096143 0.205220395394 -1.09173386572" />
+    <parent link="rotule_ball_5" />
+    <child link="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3" />
+    </joint>
+  <joint name="passive4_3" type="fixed">
+    <origin xyz="0.00584954 -0.0482013 -0.00541263" rpy="2.55322455745 0.205220395394 -1.09173386572" />
+    <parent link="rotule_ball_5" />
+    <child link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3" />
+    </joint>
+  <joint name="passive_5_3" type="fixed">
+    <origin xyz="-0.000346366 -0.00598999 0.00655" rpy="3.14159265359 0 0.00396328273876" />
+    <parent link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3" />
+    <child link="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3" />
+    </joint>
+  <joint name="finger3_motor2" type="fixed">
+    <origin xyz="-0.00755 -0.0388192 0.0522246" rpy="-1.57079632679 -0.235618531958 1.57079632679" />
+    <parent link="r_wrist_interface" />
+    <child link="rotule_ball_6" />
+    </joint>
+  <link name="ball_link_5_passive_ball9_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_5_passive_ball9_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball9_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="0.0589622293016 0.814217959966 0.123409747867" />
+    <parent link="rotule_ball_6" />
+    <child link="ball_link_5_passive_ball9_ball_x_link" />
+    </joint>
+  <joint name="passive_ball9_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_5_passive_ball9_ball_x_link" />
+    <child link="ball_link_5_passive_ball9_ball_y_link" />
+    </joint>
+  <joint name="passive_ball9_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_5_passive_ball9_ball_y_link" />
+    <child link="ball_link_5" />
+    </joint>
+  <joint name="finger4_motor1" type="fixed">
+    <origin xyz="-0.000298971 0.00773341 0.03365" rpy="3.14159265359 0 1.91987005048" />
+    <parent link="r_wrist_interface" />
+    <child link="custom_servo_horn_4" />
+    </joint>
+  <link name="ball_link_6_passive_ball10_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_6_passive_ball10_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball10_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="3.10089638507 -0.107448581051 -0.0973495541162" />
+    <parent link="custom_servo_horn_4" />
+    <child link="ball_link_6_passive_ball10_ball_x_link" />
+    </joint>
+  <joint name="passive_ball10_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_6_passive_ball10_ball_x_link" />
+    <child link="ball_link_6_passive_ball10_ball_y_link" />
+    </joint>
+  <joint name="passive_ball10_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_6_passive_ball10_ball_y_link" />
+    <child link="ball_link_6" />
+    </joint>
+  <link name="rotule_ball_7_passive_ball11_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="rotule_ball_7_passive_ball11_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball11_x" type="fixed">
+    <origin xyz="0 -0.033 0" rpy="-0.977419925671 -1.57079630572 0.977419925671" />
+    <parent link="ball_link_6" />
+    <child link="rotule_ball_7_passive_ball11_ball_x_link" />
+    </joint>
+  <joint name="passive_ball11_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_7_passive_ball11_ball_x_link" />
+    <child link="rotule_ball_7_passive_ball11_ball_y_link" />
+    </joint>
+  <joint name="passive_ball11_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="rotule_ball_7_passive_ball11_ball_y_link" />
+    <child link="rotule_ball_7" />
+    </joint>
+  <joint name="passive2_4" type="fixed">
+    <origin xyz="-0.00510212 -0.000368231 -0.0105487" rpy="0.0394504706862 -0.142207848003 -1.07097345582" />
+    <parent link="rotule_ball_7" />
+    <child link="std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4" />
+    </joint>
+  <joint name="passive4_4" type="fixed">
+    <origin xyz="0.00796529 -0.0482013 -0.000256421" rpy="-3.1021421829 -0.142207848003 -1.07097345582" />
+    <parent link="rotule_ball_7" />
+    <child link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4" />
+    </joint>
+  <joint name="passive_5_4" type="fixed">
+    <origin xyz="-0.00034635 -0.00599 0.00655" rpy="3.14159265359 0 0.00396308273914" />
+    <parent link="parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4" />
+    <child link="parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4" />
+    </joint>
+  <joint name="finger4_motor2" type="fixed">
+    <origin xyz="-0.00443741 0.0191037 0.03365" rpy="-3.14159265359 0 -1.22172981233" />
+    <parent link="r_wrist_interface" />
+    <child link="rotule_ball_8" />
+    </joint>
+  <link name="ball_link_7_passive_ball12_ball_x_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="ball_link_7_passive_ball12_ball_y_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <joint name="passive_ball12_x" type="fixed">
+    <origin xyz="-0.005 0 -0.0069" rpy="3.10113114488 0.00190989971611 -3.06116030877" />
+    <parent link="rotule_ball_8" />
+    <child link="ball_link_7_passive_ball12_ball_x_link" />
+    </joint>
+  <joint name="passive_ball12_y" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_7_passive_ball12_ball_x_link" />
+    <child link="ball_link_7_passive_ball12_ball_y_link" />
+    </joint>
+  <joint name="passive_ball12_z" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ball_link_7_passive_ball12_ball_y_link" />
+    <child link="ball_link_7" />
+    </joint>
+</robot>

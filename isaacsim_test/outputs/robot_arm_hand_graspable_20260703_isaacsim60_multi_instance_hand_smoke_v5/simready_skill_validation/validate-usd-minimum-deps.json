@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "message": "Python executable: /usr/bin/python3",
+      "name": "python_available",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "message": "OpenUSD Python modules are available",
+      "name": "openusd_python_available",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "skill": "validate-usd-minimum"
+}

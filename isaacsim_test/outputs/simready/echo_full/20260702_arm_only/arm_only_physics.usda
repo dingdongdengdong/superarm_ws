@@ -1,0 +1,287 @@
+#usda 1.0
+(
+    defaultPrim = "echo_full_arm_only"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "echo_full_arm_only" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+)
+{
+    custom string discarded_scope = "AmazingHand and all finger/hand links"
+    custom string source_reference_urdf = "roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf"
+
+    def Scope "links"
+    {
+        def Xform "torso_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.00234775, -0.00000466, 0.0984446)
+            float3 physics:diagonalInertia = (0.06904132, 0.05679531, 0.03888628)
+            float physics:mass = 7.5818973
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/torso_link.STL"]
+
+            def "collisions"
+            {
+                def Cube "collision_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    double size = 1
+                    custom string urdf_collision_name = "collision_01"
+                    float3 xformOp:scale = (0.16, 0.16, 0.22)
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0.15, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform", "xformOp:scale"]
+                }
+            }
+        }
+
+        def Xform "right_arm_pitch_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.00436523, -0.04995146, 0)
+            float3 physics:diagonalInertia = (0.00015644, 0.00008197, 0.00018907)
+            float physics:mass = 0.47284362
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_pitch_link.STL"]
+
+            def "collisions"
+            {
+                def Cylinder "collision_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    double height = 0.05
+                    double radius = 0.03
+                    custom string urdf_collision_name = "collision_01"
+                    matrix4d xformOp:transform = ( (0.0007963625187414891, 0, -0.9999996829033191, 0), (0, 1, 0, 0), (0.9999996829033191, 0, 0.0007963625187414891, 0), (0, -0.055, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+
+        def Xform "right_arm_roll_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0029007, 0, -0.02197112)
+            float3 physics:diagonalInertia = (0.00004601, 0.00005649, 0.00002712)
+            float physics:mass = 0.08401883
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_roll_link.STL"]
+
+            def "collisions"
+            {
+                def Cylinder "collision_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    double height = 0.1
+                    double radius = 0.03
+                    custom string urdf_collision_name = "collision_01"
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.02, 0, -0.12, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+
+        def Xform "right_arm_yaw_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.00004328, 0.0018211, -0.10615895)
+            float3 physics:diagonalInertia = (0.0062043, 0.00616498, 0.00033199)
+            float physics:mass = 1.1542996
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_yaw_link.STL"]
+
+            def "collisions"
+            {
+                def Cylinder "collision_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    double height = 0.05
+                    double radius = 0.03
+                    custom string urdf_collision_name = "collision_01"
+                    matrix4d xformOp:transform = ( (6.214438874607708e-7, 0.000796324151093597, -0.9999996829336801, 0), (-0.9999996829336801, 0.0007963243934767661, 1.2688660011583863e-8, 0), (0.000796324151093597, 0.9999993658674525, 0.0007963243934767661, 0), (0, 0, -0.19, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+
+        def Xform "right_elbow_pitch_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.02378501, 0.00433076, 0)
+            float3 physics:diagonalInertia = (0.00003059, 0.00005023, 0.00006277)
+            float physics:mass = 0.09168684
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_pitch_link.STL"]
+
+            def "collisions"
+            {
+                def Cylinder "collision_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    double height = 0.1
+                    double radius = 0.03
+                    custom string urdf_collision_name = "collision_01"
+                    matrix4d xformOp:transform = ( (0.0007963625187414891, 0, -0.9999996829033191, 0), (0, 1, 0, 0), (0.9999996829033191, 0, 0.0007963625187414891, 0), (0.1, 0.02, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+
+        def Xform "right_elbow_yaw_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.05317619, 0.0000345, -0.00001992)
+            float3 physics:diagonalInertia = (0.00024481, 0.00132562, 0.00132647)
+            float physics:mass = 0.68145597
+            bool physics:rigidBodyEnabled = 1
+            custom string[] urdf_visual_meshes = ["/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_yaw_link.STL"]
+        }
+    }
+
+    def Scope "joints"
+    {
+        def PhysicsRevoluteJoint "right_arm_pitch_joint" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 52.4
+            float drive:angular:physics:maxForce = 18
+            float drive:angular:physics:stiffness = 1047.2
+            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </echo_full_arm_only/links/torso_link>
+            rel physics:body1 = </echo_full_arm_only/links/right_arm_pitch_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, -0.12175, 0.20617586)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -89.95438
+            float physics:upperLimit = 89.95438
+            custom float3 urdf_axis_xyz = (0, 1, 0)
+            custom float urdf_velocity_limit_rad_s = 3.7692
+        }
+
+        def PhysicsRevoluteJoint "right_arm_roll_joint" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 52.4
+            float drive:angular:physics:maxForce = 18
+            float drive:angular:physics:stiffness = 1047.2
+            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </echo_full_arm_only/links/right_arm_pitch_link>
+            rel physics:body1 = </echo_full_arm_only/links/right_arm_roll_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.02, -0.056, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -57.29578
+            float physics:upperLimit = 14.323945
+            custom float3 urdf_axis_xyz = (1, 0, 0)
+            custom float urdf_velocity_limit_rad_s = 3.7692
+        }
+
+        def PhysicsRevoluteJoint "right_arm_yaw_joint" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 52.4
+            float drive:angular:physics:maxForce = 18
+            float drive:angular:physics:stiffness = 1047.2
+            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </echo_full_arm_only/links/right_arm_roll_link>
+            rel physics:body1 = </echo_full_arm_only/links/right_arm_yaw_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.02, 0, -0.05)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -89.95438
+            float physics:upperLimit = 89.95438
+            custom float3 urdf_axis_xyz = (0, 0, -1)
+            custom float urdf_velocity_limit_rad_s = 3.7692
+        }
+
+        def PhysicsRevoluteJoint "right_elbow_pitch_joint" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 52.4
+            float drive:angular:physics:maxForce = 18
+            float drive:angular:physics:stiffness = 1047.2
+            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </echo_full_arm_only/links/right_arm_yaw_link>
+            rel physics:body1 = </echo_full_arm_only/links/right_elbow_pitch_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, -0.02, -0.18875)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -34.37747
+            float physics:upperLimit = 89.95438
+            custom float3 urdf_axis_xyz = (0, 1, 0)
+            custom float urdf_velocity_limit_rad_s = 3.7692
+        }
+
+        def PhysicsRevoluteJoint "right_elbow_yaw_joint" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 52.4
+            float drive:angular:physics:maxForce = 18
+            float drive:angular:physics:stiffness = 1047.2
+            float drive:angular:physics:targetPosition = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </echo_full_arm_only/links/right_elbow_pitch_link>
+            rel physics:body1 = </echo_full_arm_only/links/right_elbow_yaw_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.05, 0.02, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -89.95438
+            float physics:upperLimit = 89.95438
+            custom float3 urdf_axis_xyz = (1, 0, 0)
+            custom float urdf_velocity_limit_rad_s = 3.7692
+        }
+    }
+
+    def Scope "metadata"
+    {
+        custom string authoring_note = "Arm-only physics package: AmazingHand/fingers are intentionally discarded; Roboto V2 right-arm URDF is the source of truth."
+        custom string[] controlled_joints = ["right_arm_pitch_joint", "right_arm_roll_joint", "right_arm_yaw_joint", "right_elbow_pitch_joint", "right_elbow_yaw_joint"]
+    }
+}
+

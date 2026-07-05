@@ -1,0 +1,16 @@
+# ROS2 ros2_control controller config (used with gazebo_ros2_control)
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+      joints:
+        - Revolute 18
+        - Revolute 20
+        - Revolute 21
+        - Revolute 26
+

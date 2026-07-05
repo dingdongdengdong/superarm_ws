@@ -1,0 +1,1001 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    doc = """Generated from Composed Stage of root layer /tmp/tmpxmq7syyf/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/usdex_amazinghand_graspable/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/temp_amazinghand_graspable/amazinghand_graspable.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Scope "Instances"
+{
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_000_r_wrist_interface_scs0009_0"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_003_r_wrist_interface_scs0009_3"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_011_r_wrist_interface_scs0009_11"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_012_r_wrist_interface_scs0009_12"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_014_r_wrist_interface_scs0009_14"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_015_r_wrist_interface_scs0009_15"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_018_r_wrist_interface_scs0009_18"
+        }
+    }
+
+    def Xform "mjcf_000_r_wrist_interface_scs0009_0_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_000_r_wrist_interface_scs0009_0>
+    )
+    {
+        over "mjcf_000_r_wrist_interface_scs0009_0"
+        {
+            custom string urdf:name = "mjcf_020_r_wrist_interface_scs0009_20"
+        }
+    }
+
+    def Xform "mjcf_001_r_wrist_interface_finger_frame_1_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_001_r_wrist_interface_finger_frame_1_1>
+    )
+    {
+        over "mjcf_001_r_wrist_interface_finger_frame_1_1"
+        {
+            custom string urdf:name = "mjcf_001_r_wrist_interface_finger_frame_1_1"
+        }
+    }
+
+    def Xform "mjcf_001_r_wrist_interface_finger_frame_1_1_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_001_r_wrist_interface_finger_frame_1_1>
+    )
+    {
+        over "mjcf_001_r_wrist_interface_finger_frame_1_1"
+        {
+            custom string urdf:name = "mjcf_016_r_wrist_interface_finger_frame_1_16"
+        }
+    }
+
+    def Xform "mjcf_001_r_wrist_interface_finger_frame_1_1_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_001_r_wrist_interface_finger_frame_1_1>
+    )
+    {
+        over "mjcf_001_r_wrist_interface_finger_frame_1_1"
+        {
+            custom string urdf:name = "mjcf_024_r_wrist_interface_finger_frame_1_24"
+        }
+    }
+
+    def Xform "mjcf_001_r_wrist_interface_finger_frame_1_1_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_001_r_wrist_interface_finger_frame_1_1>
+    )
+    {
+        over "mjcf_001_r_wrist_interface_finger_frame_1_1"
+        {
+            custom string urdf:name = "mjcf_025_r_wrist_interface_finger_frame_1_25"
+        }
+    }
+
+    def Xform "mjcf_002_r_wrist_interface_r_hand_plate_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_002_r_wrist_interface_r_hand_plate_2>
+    )
+    {
+        over "mjcf_002_r_wrist_interface_r_hand_plate_2"
+        {
+            custom string urdf:name = "mjcf_002_r_wrist_interface_r_hand_plate_2"
+        }
+    }
+
+    def Xform "mjcf_004_r_wrist_interface_finger_frame_2_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_004_r_wrist_interface_finger_frame_2_4>
+    )
+    {
+        over "mjcf_004_r_wrist_interface_finger_frame_2_4"
+        {
+            custom string urdf:name = "mjcf_004_r_wrist_interface_finger_frame_2_4"
+        }
+    }
+
+    def Xform "mjcf_004_r_wrist_interface_finger_frame_2_4_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_004_r_wrist_interface_finger_frame_2_4>
+    )
+    {
+        over "mjcf_004_r_wrist_interface_finger_frame_2_4"
+        {
+            custom string urdf:name = "mjcf_005_r_wrist_interface_finger_frame_2_5"
+        }
+    }
+
+    def Xform "mjcf_004_r_wrist_interface_finger_frame_2_4_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_004_r_wrist_interface_finger_frame_2_4>
+    )
+    {
+        over "mjcf_004_r_wrist_interface_finger_frame_2_4"
+        {
+            custom string urdf:name = "mjcf_010_r_wrist_interface_finger_frame_2_10"
+        }
+    }
+
+    def Xform "mjcf_004_r_wrist_interface_finger_frame_2_4_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_004_r_wrist_interface_finger_frame_2_4>
+    )
+    {
+        over "mjcf_004_r_wrist_interface_finger_frame_2_4"
+        {
+            custom string urdf:name = "mjcf_013_r_wrist_interface_finger_frame_2_13"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_007_r_wrist_interface_bushing_0608_04_7"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_008_r_wrist_interface_bushing_0608_04_8"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_009_r_wrist_interface_bushing_0608_04_9"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_017_r_wrist_interface_bushing_0608_04_17"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_021_r_wrist_interface_bushing_0608_04_21"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_022_r_wrist_interface_bushing_0608_04_22"
+        }
+    }
+
+    def Xform "mjcf_006_r_wrist_interface_bushing_0608_04_6_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_006_r_wrist_interface_bushing_0608_04_6>
+    )
+    {
+        over "mjcf_006_r_wrist_interface_bushing_0608_04_6"
+        {
+            custom string urdf:name = "mjcf_023_r_wrist_interface_bushing_0608_04_23"
+        }
+    }
+
+    def Xform "mjcf_019_r_wrist_interface_r_wrist_interface_19" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_019_r_wrist_interface_r_wrist_interface_19>
+    )
+    {
+        over "mjcf_019_r_wrist_interface_r_wrist_interface_19"
+        {
+            custom string urdf:name = "mjcf_019_r_wrist_interface_r_wrist_interface_19"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_026_custom_servo_horn_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_035_rotule_ball_rotule_ball_2"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_037_rotule_ball_rotule_ball_4"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_054_rotule_ball_2_rotule_ball_1"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_060_custom_servo_horn_2_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_067_rotule_ball_3_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_071_rotule_ball_3_rotule_ball_4"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_088_rotule_ball_4_rotule_ball_1"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_8" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_094_custom_servo_horn_3_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_9" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_101_rotule_ball_5_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_10" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_102_rotule_ball_5_rotule_ball_1"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_11" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_121_rotule_ball_6_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_12" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_128_custom_servo_horn_4_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_13" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_135_rotule_ball_7_rotule_ball_0"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_14" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_139_rotule_ball_7_rotule_ball_4"
+        }
+    }
+
+    def Xform "mjcf_026_custom_servo_horn_rotule_ball_0_15" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_026_custom_servo_horn_rotule_ball_0>
+    )
+    {
+        over "mjcf_026_custom_servo_horn_rotule_ball_0"
+        {
+            custom string urdf:name = "mjcf_156_rotule_ball_8_rotule_ball_1"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_053_rotule_ball_2_custom_servo_horn_0"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_062_custom_servo_horn_2_custom_servo_horn_2"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_089_rotule_ball_4_custom_servo_horn_2"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_095_custom_servo_horn_3_custom_servo_horn_1"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_122_rotule_ball_6_custom_servo_horn_1"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_129_custom_servo_horn_4_custom_servo_horn_1"
+        }
+    }
+
+    def Xform "mjcf_028_custom_servo_horn_custom_servo_horn_2_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_028_custom_servo_horn_custom_servo_horn_2>
+    )
+    {
+        over "mjcf_028_custom_servo_horn_custom_servo_horn_2"
+        {
+            custom string urdf:name = "mjcf_157_rotule_ball_8_custom_servo_horn_2"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_029_ball_link_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_030_ball_link_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_056_m2_rod_l18_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_059_m2_rod_l18_rotule_lever_3"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_063_ball_link_2_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_064_ball_link_2_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_090_ball_link_3_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_091_ball_link_3_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_8" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_097_ball_link_4_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_9" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_098_ball_link_4_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_10" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_124_ball_link_5_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_11" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_125_ball_link_5_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_12" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_131_ball_link_6_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_13" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_132_ball_link_6_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_14" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_158_ball_link_7_rotule_lever_0"
+        }
+    }
+
+    def Xform "mjcf_029_ball_link_rotule_lever_0_15" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_029_ball_link_rotule_lever_0>
+    )
+    {
+        over "mjcf_029_ball_link_rotule_lever_0"
+        {
+            custom string urdf:name = "mjcf_159_ball_link_7_rotule_lever_1"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_031_ball_link_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_058_m2_rod_l18_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_065_ball_link_2_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_092_ball_link_3_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_099_ball_link_4_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_126_ball_link_5_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_133_ball_link_6_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_031_ball_link_m2_rod_l18_2_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_031_ball_link_m2_rod_l18_2>
+    )
+    {
+        over "mjcf_031_ball_link_m2_rod_l18_2"
+        {
+            custom string urdf:name = "mjcf_160_ball_link_7_m2_rod_l18_2"
+        }
+    }
+
+    def Xform "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1>
+    )
+    {
+        over "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+        {
+            custom string urdf:name = "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+        }
+    }
+
+    def Xform "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1>
+    )
+    {
+        over "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+        {
+            custom string urdf:name = "mjcf_075_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_gimbal_3"
+        }
+    }
+
+    def Xform "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1>
+    )
+    {
+        over "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+        {
+            custom string urdf:name = "mjcf_106_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_gimbal_0"
+        }
+    }
+
+    def Xform "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1>
+    )
+    {
+        over "mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1"
+        {
+            custom string urdf:name = "mjcf_142_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_gimbal_2"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_046_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_072_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_080_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_109_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_112_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_140_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0"
+        }
+    }
+
+    def Xform "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3>
+    )
+    {
+        over "mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3"
+        {
+            custom string urdf:name = "mjcf_146_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_050_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_081_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_0"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_086_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_4" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_118_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_5" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_120_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_6" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_150_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_1"
+        }
+    }
+
+    def Xform "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_7" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2>
+    )
+    {
+        over "mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        {
+            custom string urdf:name = "mjcf_151_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2"
+        }
+    }
+
+    def Xform "mjcf_033_rotule_ball_link_0" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_033_rotule_ball_link_0>
+    )
+    {
+        over "mjcf_033_rotule_ball_link_0"
+        {
+            custom string urdf:name = "mjcf_033_rotule_ball_link_0"
+        }
+    }
+
+    def Xform "mjcf_033_rotule_ball_link_0_1" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_033_rotule_ball_link_0>
+    )
+    {
+        over "mjcf_033_rotule_ball_link_0"
+        {
+            custom string urdf:name = "mjcf_069_rotule_ball_3_link_2"
+        }
+    }
+
+    def Xform "mjcf_033_rotule_ball_link_0_2" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_033_rotule_ball_link_0>
+    )
+    {
+        over "mjcf_033_rotule_ball_link_0"
+        {
+            custom string urdf:name = "mjcf_104_rotule_ball_5_link_3"
+        }
+    }
+
+    def Xform "mjcf_033_rotule_ball_link_0_3" (
+        prepend references = @./geometries.usd@</Geometries/mjcf_033_rotule_ball_link_0>
+    )
+    {
+        over "mjcf_033_rotule_ball_link_0"
+        {
+            custom string urdf:name = "mjcf_136_rotule_ball_7_link_1"
+        }
+    }
+}
+

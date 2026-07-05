@@ -1,0 +1,271 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "robot_arm_hand_urdf"
+    doc = """Generated from Composed Stage of root layer /tmp/tmp7zf4ucqv/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/usdex_robot_arm_hand_sanitized/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/temp_robot_arm_hand_sanitized/robot_arm_hand_sanitized.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "robot_arm_hand_urdf" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+)
+{
+    prepend rel isaac:physics:robotJoints = [
+        </robot_arm_hand_urdf/Physics/root_joint>,
+        </robot_arm_hand_urdf/Physics/joint_fix_38>,
+        </robot_arm_hand_urdf/Physics/joint_fix_39>,
+        </robot_arm_hand_urdf/Physics/joint_rev_1>,
+        </robot_arm_hand_urdf/Physics/joint_fix_40>,
+        </robot_arm_hand_urdf/Physics/joint_rev_2>,
+        </robot_arm_hand_urdf/Physics/joint_rev_3>,
+        </robot_arm_hand_urdf/Physics/joint_fix_22>,
+        </robot_arm_hand_urdf/Physics/joint_fix_23>,
+        </robot_arm_hand_urdf/Physics/joint_fix_42>,
+        </robot_arm_hand_urdf/Physics/joint_fix_41>,
+        </robot_arm_hand_urdf/Physics/joint_rev_4>,
+        </robot_arm_hand_urdf/Physics/joint_fix_43>,
+        </robot_arm_hand_urdf/Physics/joint_fix_28>,
+        </robot_arm_hand_urdf/Physics/joint_fix_37>,
+        </robot_arm_hand_urdf/Physics/joint_fix_30>,
+        </robot_arm_hand_urdf/Physics/joint_fix_31>,
+        </robot_arm_hand_urdf/Physics/joint_fix_33>,
+    ]
+    prepend rel isaac:physics:robotLinks = [
+        </robot_arm_hand_urdf/Geometry/base_link>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm/wrist_adapter_hand>,
+        </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm/wrist_adapter_hand/camera_d435>,
+    ]
+    token isaac:robotType = "Default"
+
+    over "Geometry"
+    {
+        over "base_link" (
+            prepend apiSchemas = ["IsaacLinkAPI"]
+        )
+        {
+            over "shoulder_bracket" (
+                prepend apiSchemas = ["IsaacLinkAPI"]
+            )
+            {
+                over "motor_1" (
+                    prepend apiSchemas = ["IsaacLinkAPI"]
+                )
+                {
+                    over "arm_link5" (
+                        prepend apiSchemas = ["IsaacLinkAPI"]
+                    )
+                    {
+                        over "motor_2" (
+                            prepend apiSchemas = ["IsaacLinkAPI"]
+                        )
+                        {
+                            over "arm_link2" (
+                                prepend apiSchemas = ["IsaacLinkAPI"]
+                            )
+                            {
+                                over "motor_3" (
+                                    prepend apiSchemas = ["IsaacLinkAPI"]
+                                )
+                                {
+                                    over "arm_link3" (
+                                        prepend apiSchemas = ["IsaacLinkAPI"]
+                                    )
+                                    {
+                                        over "arm_link4" (
+                                            prepend apiSchemas = ["IsaacLinkAPI"]
+                                        )
+                                        {
+                                            over "arm_link1" (
+                                                prepend apiSchemas = ["IsaacLinkAPI"]
+                                            )
+                                            {
+                                                over "motor_4" (
+                                                    prepend apiSchemas = ["IsaacLinkAPI"]
+                                                )
+                                                {
+                                                    over "arm_link2b" (
+                                                        prepend apiSchemas = ["IsaacLinkAPI"]
+                                                    )
+                                                    {
+                                                        over "motor_5" (
+                                                            prepend apiSchemas = ["IsaacLinkAPI"]
+                                                        )
+                                                        {
+                                                            over "arm_link3b" (
+                                                                prepend apiSchemas = ["IsaacLinkAPI"]
+                                                            )
+                                                            {
+                                                                over "arm_link4b" (
+                                                                    prepend apiSchemas = ["IsaacLinkAPI"]
+                                                                )
+                                                                {
+                                                                    over "wrist_adapter_arm" (
+                                                                        prepend apiSchemas = ["IsaacLinkAPI"]
+                                                                    )
+                                                                    {
+                                                                        over "wrist_adapter_hand" (
+                                                                            prepend apiSchemas = ["IsaacLinkAPI"]
+                                                                        )
+                                                                        {
+                                                                            over "camera_d435" (
+                                                                                prepend apiSchemas = ["IsaacLinkAPI"]
+                                                                            )
+                                                                            {
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    over "Physics"
+    {
+        over "root_joint" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_rev_1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_rev_2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_rev_3" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_22" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_23" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_rev_4" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_28" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_30" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_31" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_33" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_37" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_38" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_39" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_40" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_41" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_42" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "joint_fix_43" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+    }
+}
+

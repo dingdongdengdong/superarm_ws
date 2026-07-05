@@ -1,0 +1,15 @@
+#usda 1.0
+(
+    defaultPrim = "amazinghand_right_visual_only"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "amazinghand_right_visual_only" (
+    prepend references = @./roboto_v2_right_arm_amazinghand_visual_only.usda@</roboto_v2_right_arm_amazinghand_visual_only/simready_visual_context/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM>
+)
+{
+    double3 xformOp:translate = (-0.0275, 0.0044, 0.0504)
+    double3 xformOp:scale = (0.001, 0.001, 0.001)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+}

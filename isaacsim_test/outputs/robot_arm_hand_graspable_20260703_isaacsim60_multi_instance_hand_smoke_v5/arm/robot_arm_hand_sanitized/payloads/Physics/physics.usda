@@ -1,0 +1,455 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "robot_arm_hand_urdf"
+    doc = """Generated from Composed Stage of root layer /tmp/tmp7zf4ucqv/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/usdex_robot_arm_hand_sanitized/robot_arm_hand_urdf.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_robot_arm_hand_sanitized_e3jl7c_c/temp_robot_arm_hand_sanitized/robot_arm_hand_sanitized.usd
+
+
+Generated from Composed Stage of root layer /workspace/superarm_ws/isaacsim_test/outputs/robot_arm_hand_graspable_20260703_isaacsim60_multi_instance_hand_smoke_v5/arm/robot_arm_hand_sanitized/payloads/base.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "robot_arm_hand_urdf"
+{
+    over "Geometry" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI", "NewtonArticulationRootAPI"]
+    )
+    {
+        bool newton:selfCollisionEnabled = 0
+
+        over "base_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.055867404, 0.2827889, 0.028709995)
+            float3 physics:diagonalInertia = (0.00068, 0.0011593959, 0.001565604)
+            float physics:mass = 0.70394456
+            quatf physics:principalAxes = (0.26536176, 0.6554259, 0.6554259, -0.26536176)
+
+            over "shoulder_bracket" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+            )
+            {
+                point3f physics:centerOfMass = (0.021459214, -0.025300125, 0.0022904356)
+                float3 physics:diagonalInertia = (0.000082, 0.0002815767, 0.00034342328)
+                float physics:mass = 0.15092994
+                quatf physics:principalAxes = (-0.07033299, 0.7036002, 0.7036002, 0.07033299)
+
+                over "motor_1" (
+                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                )
+                {
+                    point3f physics:centerOfMass = (-0.00007919796, -0.025000108, -0.025105126)
+                    float3 physics:diagonalInertia = (0.00041179176, 0.00043120823, 0.000433)
+                    float physics:mass = 1.0147153
+                    quatf physics:principalAxes = (0.5252528, 0.5252528, 0.47340202, 0.47340202)
+
+                    over "arm_link5" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        point3f physics:centerOfMass = (-0.010582097, -1.2838724e-7, 0.025991634)
+                        float3 physics:diagonalInertia = (0.000023328432, 0.000064, 0.000068671565)
+                        float physics:mass = 0.0829304
+                        quatf physics:principalAxes = (0.5425283, -2.1347843e-16, 0.8400375, -2.147657e-16)
+
+                        over "motor_2" (
+                            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                        )
+                        {
+                            point3f physics:centerOfMass = (0.02510527, 0.00007929912, -6.754009e-8)
+                            float3 physics:diagonalInertia = (0.00041179176, 0.00043120823, 0.000433)
+                            float physics:mass = 1.0147153
+                            quatf physics:principalAxes = (0.99865484, 0, 0, -0.051850796)
+
+                            over "arm_link2" (
+                                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                            )
+                            {
+                                point3f physics:centerOfMass = (0.0037734834, 0.000017321858, 0.024109734)
+                                float3 physics:diagonalInertia = (0.000014829403, 0.00005, 0.000050170598)
+                                float physics:mass = 0.075831905
+                                quatf physics:principalAxes = (0.87648565, 0, 0.481428, 0)
+
+                                over "motor_3" (
+                                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                )
+                                {
+                                    point3f physics:centerOfMass = (-0.00007919796, -1.3876846e-7, 0.026854962)
+                                    float3 physics:diagonalInertia = (0.00041179176, 0.00043120823, 0.000433)
+                                    float physics:mass = 1.0147153
+                                    quatf physics:principalAxes = (0.47340202, 0.47340202, 0.5252528, 0.5252528)
+
+                                    over "arm_link3" (
+                                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                    )
+                                    {
+                                        point3f physics:centerOfMass = (0.021842495, -0.012437598, 0.050214622)
+                                        float3 physics:diagonalInertia = (0.000135, 0.000315, 0.000317)
+                                        float physics:mass = 0.1564287
+                                        quatf physics:principalAxes = (0.6532815, 0.27059805, 0.6532815, 0.27059805)
+
+                                        over "arm_link4" (
+                                            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                        )
+                                        {
+                                            point3f physics:centerOfMass = (2.2494328e-7, -1.2378676e-7, 0.003881814)
+                                            float3 physics:diagonalInertia = (0.000056, 0.000056, 0.000084)
+                                            float physics:mass = 0.13491456
+                                            quatf physics:principalAxes = (1, 0, 0, 0)
+
+                                            over "arm_link1" (
+                                                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                            )
+                                            {
+                                                point3f physics:centerOfMass = (-0.010659096, -1.2842071e-7, 0.026202183)
+                                                float3 physics:diagonalInertia = (0.000023156097, 0.000064, 0.0000678439)
+                                                float physics:mass = 0.08233134
+                                                quatf physics:principalAxes = (0.5389995, -2.507277e-16, 0.8423061, -2.8009106e-16)
+
+                                                over "motor_4" (
+                                                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                )
+                                                {
+                                                    point3f physics:centerOfMass = (0.02510527, 0.00007929912, -6.754009e-8)
+                                                    float3 physics:diagonalInertia = (0.00041179176, 0.00043120823, 0.000433)
+                                                    float physics:mass = 1.0147153
+                                                    quatf physics:principalAxes = (0.99865484, 0, 0, -0.051850796)
+
+                                                    over "arm_link2b" (
+                                                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                    )
+                                                    {
+                                                        point3f physics:centerOfMass = (0.0037734834, 0.000017321858, 0.024109734)
+                                                        float3 physics:diagonalInertia = (0.000014829403, 0.00005, 0.000050170598)
+                                                        float physics:mass = 0.075831905
+                                                        quatf physics:principalAxes = (0.87648565, 0, 0.481428, 0)
+
+                                                        over "motor_5" (
+                                                            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                        )
+                                                        {
+                                                            point3f physics:centerOfMass = (-0.00007919796, -1.3876846e-7, 0.026854962)
+                                                            float3 physics:diagonalInertia = (0.00041179176, 0.00043120823, 0.000433)
+                                                            float physics:mass = 1.0147153
+                                                            quatf physics:principalAxes = (0.47340202, 0.47340202, 0.5252528, 0.5252528)
+
+                                                            over "arm_link3b" (
+                                                                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                            )
+                                                            {
+                                                                point3f physics:centerOfMass = (0.00019249544, -0.024937598, 0.050214622)
+                                                                float3 physics:diagonalInertia = (0.000135, 0.000315, 0.000317)
+                                                                float physics:mass = 0.1564287
+                                                                quatf physics:principalAxes = (0.6532815, 0.27059805, 0.6532815, 0.27059805)
+
+                                                                over "arm_link4b" (
+                                                                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                                )
+                                                                {
+                                                                    point3f physics:centerOfMass = (2.2494328e-7, -1.2378676e-7, 0.003881814)
+                                                                    float3 physics:diagonalInertia = (0.000056, 0.000056, 0.000084)
+                                                                    float physics:mass = 0.13491456
+                                                                    quatf physics:principalAxes = (1, 0, 0, 0)
+
+                                                                    over "wrist_adapter_arm" (
+                                                                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                                    )
+                                                                    {
+                                                                        point3f physics:centerOfMass = (0.006750225, -0.011689222, 0.015439138)
+                                                                        float3 physics:diagonalInertia = (0.000008, 0.000012, 0.000012)
+                                                                        float physics:mass = 0.05878524
+                                                                        quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                                                                        over "wrist_adapter_hand" (
+                                                                            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                                        )
+                                                                        {
+                                                                            point3f physics:centerOfMass = (-0.00035222282, -0.00925551, -0.0056471745)
+                                                                            float3 physics:diagonalInertia = (0.00016700121, 0.0003352888, 0.00040671)
+                                                                            float physics:mass = 0.47096547
+                                                                            quatf physics:principalAxes = (0.021526633, 0.721333, 0.69204587, 0.0169627)
+
+                                                                            over "camera_d435" (
+                                                                                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                                                                            )
+                                                                            {
+                                                                                point3f physics:centerOfMass = (-0.0000106110565, -0.012138301, 0.0009789712)
+                                                                                float3 physics:diagonalInertia = (0.00001, 0.000071, 0.000072)
+                                                                                float physics:mass = 0.107911006
+                                                                                quatf physics:principalAxes = (-0.70710677, 0.70710677, 0, 0)
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    over "Physics"
+    {
+        def PhysicsRevoluteJoint "joint_rev_1" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.6981317
+            float drive:angular:physics:stiffness = 13.962634
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5>
+            point3f physics:localPos0 = (0, -0.025, 0.00175)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "joint_rev_2" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.6981317
+            float drive:angular:physics:stiffness = 13.962634
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2>
+            point3f physics:localPos0 = (-0.00175, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, -1, 0)
+            quatf physics:localRot1 = (0, 0, -1, 0)
+        }
+
+        def PhysicsRevoluteJoint "joint_rev_3" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.6981317
+            float drive:angular:physics:stiffness = 13.962634
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3>
+            point3f physics:localPos0 = (0.02, 0, 0.05)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, -1, 0, 0)
+            quatf physics:localRot1 = (0, -1, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "joint_rev_4" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.6981317
+            float drive:angular:physics:stiffness = 13.962634
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b>
+            point3f physics:localPos0 = (-0.00175, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, -1, 0)
+            quatf physics:localRot1 = (0, 0, -1, 0)
+        }
+
+        def PhysicsFixedJoint "root_joint"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_22"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3>
+            point3f physics:localPos0 = (-0.02165, 0.0125, 0.00175)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_23"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4>
+            point3f physics:localPos0 = (0.02165, -0.0125, 0.117)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_28"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b>
+            point3f physics:localPos0 = (0, 0.025, 0.00175)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_30"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm>
+            point3f physics:localPos0 = (-0.00675, 0.011691, 0.014)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_31"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm/wrist_adapter_hand>
+            point3f physics:localPos0 = (0.00675, -0.011691, 0.044)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_33"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm/wrist_adapter_hand>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b/wrist_adapter_arm/wrist_adapter_hand/camera_d435>
+            point3f physics:localPos0 = (-0.002212, -0.054416, 0.003543)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_37"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5/arm_link3b/arm_link4b>
+            point3f physics:localPos0 = (0, -0.025, 0.117)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_38"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket>
+            point3f physics:localPos0 = (-0.070612, 0.307949, 0.067399)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_39"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1>
+            point3f physics:localPos0 = (0.0355, -0.0003, 0.00712)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_40"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2>
+            point3f physics:localPos0 = (-0.01825, 0, 0.056)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_41"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4>
+            point3f physics:localPos0 = (-0.01825, 0, 0.056)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_42"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1>
+            point3f physics:localPos0 = (0, 0, 0.014)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "joint_fix_43"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b>
+            custom rel physics:body1
+            prepend rel physics:body1 = </robot_arm_hand_urdf/Geometry/base_link/shoulder_bracket/motor_1/arm_link5/motor_2/arm_link2/motor_3/arm_link3/arm_link4/arm_link1/motor_4/arm_link2b/motor_5>
+            point3f physics:localPos0 = (0.02, 0, 0.05)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+    }
+}
+

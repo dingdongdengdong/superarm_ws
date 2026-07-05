@@ -1,0 +1,60 @@
+{
+  "evidence_summary": "Standalone AmazingHand physics was not run because Isaac Sim did not produce a non-empty imported hand USD from the MJCF.",
+  "import_attempts": [
+    {
+      "fix_base": true,
+      "input_mjcf": "AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/robot.xml",
+      "label": "original",
+      "output_usd": "isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/amazinghand_right_single_mjcf_original.usd",
+      "partial_usd_size_bytes": 876,
+      "reason": "RuntimeError: MJCFCreateAsset failed for AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/robot.xml",
+      "status": "FAIL"
+    },
+    {
+      "fix_base": true,
+      "input_mjcf": "isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/amazinghand_right_single_isaac_sanitized.xml",
+      "label": "sanitized",
+      "output_usd": "isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/amazinghand_right_single_mjcf_sanitized.usd",
+      "partial_usd_size_bytes": 492,
+      "reason": "RuntimeError: MJCFCreateAsset failed for isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/amazinghand_right_single_isaac_sanitized.xml",
+      "status": "FAIL"
+    }
+  ],
+  "mjcf_source": {
+    "asset_root": "AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets",
+    "ball_joint_count": 12,
+    "equality_connect_count": 20,
+    "has_closed_loop_constraints": true,
+    "hinge_joint_count": 20,
+    "mesh_count": 23,
+    "missing_meshes": [],
+    "mjcf_path": "AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/robot.xml",
+    "position_actuator_count": 8,
+    "position_actuator_joints": [
+      "finger1_motor1",
+      "finger1_motor2",
+      "finger2_motor1",
+      "finger2_motor2",
+      "finger3_motor1",
+      "finger3_motor2",
+      "finger4_motor1",
+      "finger4_motor2"
+    ],
+    "root_body": "r_wrist_interface",
+    "status": "PASS",
+    "top_level_default_count": 3
+  },
+  "physics_validation": null,
+  "sanitization": {
+    "equality_connect_count": 20,
+    "equality_connect_names_added": 20,
+    "input_mjcf": "AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/robot.xml",
+    "mesh_names_added": 23,
+    "meshdir": "/workspace/superarm_ws/AmazingHand/Demo/AHSimulation/AHSimulation/AH_Right/mjcf/assets",
+    "output_mjcf": "isaacsim_test/outputs/simready/echo_full/sitl/amazinghand_single_mjcf_physics/amazinghand_right_single_isaac_sanitized.xml",
+    "status": "PASS",
+    "top_level_defaults_after": 1,
+    "top_level_defaults_before": 3
+  },
+  "status": "IMPORT_BLOCKED"
+}

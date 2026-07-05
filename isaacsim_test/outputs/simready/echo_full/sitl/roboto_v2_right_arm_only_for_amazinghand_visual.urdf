@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<robot name="roboto_v2_right_arm_only_for_amazinghand_visual">
+  <!--Generated Isaac Sim validation variant: five-joint Roboto V2 right arm only.-->
+  <!--AmazingHand is loaded separately from upstream MJCF as a visual USD follower.-->
+  <link name="right_arm_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+  <link name="right_arm_pitch_link">
+    <inertial>
+      <origin xyz="-0.00436523 -0.04995146 0.0" rpy="0 0 0" />
+      <mass value="0.47284363" />
+      <inertia ixx="0.00015644" ixy="-0.00002207" ixz="0.0" iyy="0.00008197" iyz="0.0" izz="0.00018907" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_pitch_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.055 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_roll_link">
+    <inertial>
+      <origin xyz="-0.0029007 0.0 -0.02197112" rpy="0 0 0" />
+      <mass value="0.08401883" />
+      <inertia ixx="0.00004601" ixy="0.0" ixz="-0.00001743" iyy="0.00005649" iyz="0.0" izz="0.00002712" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_roll_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.10" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_yaw_link">
+    <inertial>
+      <origin xyz="-0.00004328 0.0018211 -0.10615895" rpy="0 0 0" />
+      <mass value="1.15429959" />
+      <inertia ixx="0.0062043" ixy="0.00000007" ixz="-0.00000008" iyy="0.00616498" iyz="0.00017831" izz="0.00033199" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_yaw_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.19" rpy="0 1.57 1.57" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_elbow_pitch_link">
+    <inertial>
+      <origin xyz="0.02378501 0.00433076 0.0" rpy="0 0 0" />
+      <mass value="0.09168684" />
+      <inertia ixx="0.00003059" ixy="-0.00002004" ixz="0.0" iyy="0.00005023" iyz="0.0" izz="0.00006277" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_pitch_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.10 0.02 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.10" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_elbow_yaw_link">
+    <inertial>
+      <origin xyz="0.05317619 0.0000345 -0.00001992" rpy="0 0 0" />
+      <mass value="0.68145595" />
+      <inertia ixx="0.00024481" ixy="0.00000008" ixz="0.00000014" iyy="0.00132562" iyz="-0.0000006" izz="0.00132647" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_yaw_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_arm_pitch_joint" type="revolute">
+    <origin xyz="0 -0.121750000000346 0.206175860781721" rpy="0 0 0" />
+    <parent link="right_arm_base_link" />
+    <child link="right_arm_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_arm_roll_joint" type="revolute">
+    <origin xyz="0.0200000000000407 -0.056 0" rpy="0 0 0" />
+    <parent link="right_arm_pitch_link" />
+    <child link="right_arm_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1" upper="0.25" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_arm_yaw_joint" type="revolute">
+    <origin xyz="-0.02 0 -0.0500000000000019" rpy="0 0 0" />
+    <parent link="right_arm_roll_link" />
+    <child link="right_arm_yaw_link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_elbow_pitch_joint" type="revolute">
+    <origin xyz="0 -0.0200000000000019 -0.18875" rpy="0 0 0" />
+    <parent link="right_arm_yaw_link" />
+    <child link="right_elbow_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.6" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+  <joint name="right_elbow_yaw_joint" type="revolute">
+    <origin xyz="0.0500000000000002 0.0200000000000004 0" rpy="0 0 0" />
+    <parent link="right_elbow_pitch_link" />
+    <child link="right_elbow_yaw_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="18" velocity="3.7692" />
+  </joint>
+</robot>

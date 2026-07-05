@@ -1,0 +1,61 @@
+{
+  "joint_names": [
+    "right_arm_pitch_joint",
+    "right_arm_roll_joint",
+    "right_arm_yaw_joint",
+    "right_elbow_pitch_joint",
+    "right_elbow_yaw_joint"
+  ],
+  "cases": [
+    {
+      "name": "home_zero",
+      "positions": {
+        "right_arm_pitch_joint": 0.0,
+        "right_arm_roll_joint": 0.0,
+        "right_arm_yaw_joint": 0.0,
+        "right_elbow_pitch_joint": 0.0,
+        "right_elbow_yaw_joint": 0.0
+      }
+    },
+    {
+      "name": "reach_forward_left",
+      "positions": {
+        "right_arm_pitch_joint": 0.35,
+        "right_arm_roll_joint": -0.25,
+        "right_arm_yaw_joint": 0.40,
+        "right_elbow_pitch_joint": -0.55,
+        "right_elbow_yaw_joint": 0.30
+      }
+    },
+    {
+      "name": "elbow_fold_high",
+      "positions": {
+        "right_arm_pitch_joint": 0.15,
+        "right_arm_roll_joint": 0.10,
+        "right_arm_yaw_joint": 0.0,
+        "right_elbow_pitch_joint": -0.60,
+        "right_elbow_yaw_joint": 0.45
+      }
+    },
+    {
+      "name": "side_sweep_right",
+      "positions": {
+        "right_arm_pitch_joint": -0.30,
+        "right_arm_roll_joint": 0.25,
+        "right_arm_yaw_joint": -0.35,
+        "right_elbow_pitch_joint": -0.45,
+        "right_elbow_yaw_joint": -0.25
+      }
+    },
+    {
+      "name": "mixed_limit_safe",
+      "positions": {
+        "right_arm_pitch_joint": 0.55,
+        "right_arm_roll_joint": -0.45,
+        "right_arm_yaw_joint": -0.55,
+        "right_elbow_pitch_joint": -0.20,
+        "right_elbow_yaw_joint": 0.60
+      }
+    }
+  ]
+}

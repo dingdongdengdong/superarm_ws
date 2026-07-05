@@ -1,0 +1,542 @@
+{
+  "authored_joint_local_rot_pair_count": 29,
+  "joint_local_rotations": [
+    {
+      "body0": null,
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "localRot0": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "localRot1": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "path": "/echo_full/lerobot_joints/world_fixed_base"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/Cam",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_01"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/lidar",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_02"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v41_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_03"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x200v42_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        -1.962615539765984e-17,
+        -1.962615539765984e-17
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_04"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v71_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.220208880025082e-16,
+        -2.2692743222859713e-16,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_05"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x290v72_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        9.935741469918266e-17,
+        -2.465535826631733e-16,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_06"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v41_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        1.9914534712869712e-16,
+        -0.7071067690849304,
+        1.9914534712869712e-16
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_07"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v42_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.0037198318521935e-16,
+        -0.7071067690849304,
+        2.0037198318521935e-16
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_08"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x400v43_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        2.2876080195570456e-17,
+        -2.2876080195570456e-17
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_09"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v41_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.232472328914548e-16,
+        -2.183412842354069e-16,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_10"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x600v43_rCZB",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.2324805345462246e-16,
+        -2.2079370931550412e-16,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_11"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        -0.7071067690849304,
+        -0.7071067690849304,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_12"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000160_02_v11_xFsDiuuIbc3",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_13"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv11_j8p7",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_14"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__WHEELv12_j8p7",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_15"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv11_vEwC",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.428913033668213e-16,
+        -2.428913033668213e-16,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_16"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__front_wheelv12_vEwC",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        7.779335240765996e-15,
+        7.293552528153235e-15,
+        -0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_base_17"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD",
+      "localRot0": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        -3.30106955045657e-31,
+        3.235753441952e-31
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        -3.30106955045657e-31,
+        3.235753441952e-31
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link5_18"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4",
+      "localRot0": [
+        0.7071067690849304,
+        2.86189113001399e-16,
+        2.86189113001399e-16,
+        0.7071067690849304
+      ],
+      "localRot1": [
+        -0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link1_19"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4",
+      "localRot0": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        2.1648901508566386e-17,
+        2.1648901508566386e-17
+      ],
+      "localRot1": [
+        -0.7071067690849304,
+        -0.7071067690849304,
+        2.1618092339471236e-17,
+        -2.1618092339471236e-17
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link2_20"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4",
+      "localRot0": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        2.1648901508566386e-17,
+        2.1648901508566386e-17
+      ],
+      "localRot1": [
+        -0.7071067690849304,
+        -0.7071067690849304,
+        2.1707434463071863e-17,
+        -2.1669102913486156e-17
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link2_21"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4",
+      "localRot0": [
+        0.7071067690849304,
+        2.6454019494922035e-16,
+        2.6454019494922035e-16,
+        0.7071067690849304
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.2124239854953248e-16,
+        0.7071067690849304,
+        -2.6454019494922035e-16
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link3_22"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4",
+      "localRot0": [
+        0.7071067690849304,
+        2.6454019494922035e-16,
+        2.6454019494922035e-16,
+        0.7071067690849304
+      ],
+      "localRot1": [
+        0.5,
+        0.5,
+        0.5,
+        -0.5
+      ],
+      "path": "/echo_full/lerobot_joints/fixed_link3_23"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__40x40x480v31_rCZB",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2",
+      "localRot0": [
+        -0.5,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.86189113001399e-16,
+        2.86189113001399e-16,
+        0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/right_arm_pitch_joint"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2",
+      "localRot0": [
+        0.7071067690849304,
+        2.86189113001399e-16,
+        2.86189113001399e-16,
+        0.7071067690849304
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        2.1648901508566386e-17,
+        2.1648901508566386e-17
+      ],
+      "path": "/echo_full/lerobot_joints/right_arm_roll_joint"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2",
+      "localRot0": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        2.1648901508566386e-17,
+        2.1648901508566386e-17
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        2.6454019494922035e-16,
+        2.6454019494922035e-16,
+        0.7071067690849304
+      ],
+      "path": "/echo_full/lerobot_joints/right_arm_yaw_joint"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2",
+      "localRot0": [
+        0.7071067690849304,
+        2.6454019494922035e-16,
+        2.6454019494922035e-16,
+        0.7071067690849304
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        1.5016770684410012e-29,
+        1.5016770684410012e-29
+      ],
+      "path": "/echo_full/lerobot_joints/right_elbow_pitch_joint"
+    },
+    {
+      "body0": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2",
+      "body1": "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG",
+      "localRot0": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        1.5016770684410012e-29,
+        1.5016770684410012e-29
+      ],
+      "localRot1": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        -3.30106955045657e-31,
+        3.235753441952e-31
+      ],
+      "path": "/echo_full/lerobot_joints/right_elbow_yaw_joint"
+    }
+  ],
+  "joint_paths": [
+    "/echo_full/lerobot_joints/world_fixed_base",
+    "/echo_full/lerobot_joints/fixed_base_01",
+    "/echo_full/lerobot_joints/fixed_base_02",
+    "/echo_full/lerobot_joints/fixed_base_03",
+    "/echo_full/lerobot_joints/fixed_base_04",
+    "/echo_full/lerobot_joints/fixed_base_05",
+    "/echo_full/lerobot_joints/fixed_base_06",
+    "/echo_full/lerobot_joints/fixed_base_07",
+    "/echo_full/lerobot_joints/fixed_base_08",
+    "/echo_full/lerobot_joints/fixed_base_09",
+    "/echo_full/lerobot_joints/fixed_base_10",
+    "/echo_full/lerobot_joints/fixed_base_11",
+    "/echo_full/lerobot_joints/fixed_base_12",
+    "/echo_full/lerobot_joints/fixed_base_13",
+    "/echo_full/lerobot_joints/fixed_base_14",
+    "/echo_full/lerobot_joints/fixed_base_15",
+    "/echo_full/lerobot_joints/fixed_base_16",
+    "/echo_full/lerobot_joints/fixed_base_17",
+    "/echo_full/lerobot_joints/fixed_link5_18",
+    "/echo_full/lerobot_joints/fixed_link1_19",
+    "/echo_full/lerobot_joints/fixed_link2_20",
+    "/echo_full/lerobot_joints/fixed_link2_21",
+    "/echo_full/lerobot_joints/fixed_link3_22",
+    "/echo_full/lerobot_joints/fixed_link3_23",
+    "/echo_full/lerobot_joints/right_arm_pitch_joint",
+    "/echo_full/lerobot_joints/right_arm_roll_joint",
+    "/echo_full/lerobot_joints/right_arm_yaw_joint",
+    "/echo_full/lerobot_joints/right_elbow_pitch_joint",
+    "/echo_full/lerobot_joints/right_elbow_yaw_joint"
+  ],
+  "output_usd": "/home/sim/Documents/superarm_ws/echo_full/sitl/echo_full_lerobot_joint_pose_fix.usda",
+  "remaining_work": [
+    "isaac_sim_runtime_joint_stability_test",
+    "collider_reauthoring",
+    "mass_inertia_tuning",
+    "drive_gain_tuning"
+  ],
+  "source_authored_localRot0_count": 0,
+  "source_authored_localRot1_count": 0,
+  "source_joint_count": 29,
+  "source_usd": "/home/sim/Documents/superarm_ws/echo_full/sitl/echo_full_lerobot_articulation.usda",
+  "status": "PASS",
+  "world_body0_joint_count": 1
+}

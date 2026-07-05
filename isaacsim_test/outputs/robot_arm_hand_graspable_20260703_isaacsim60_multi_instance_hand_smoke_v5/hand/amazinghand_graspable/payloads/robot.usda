@@ -1,0 +1,163 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "amazinghand_graspable"
+    doc = """Generated from Composed Stage of root layer /tmp/tmpxmq7syyf/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/usdex_amazinghand_graspable/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/temp_amazinghand_graspable/amazinghand_graspable.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "amazinghand_graspable" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+)
+{
+    prepend rel isaac:physics:robotJoints = [
+        </amazinghand_graspable/Physics/wrist_to_palm>,
+        </amazinghand_graspable/Physics/finger1_motor1>,
+        </amazinghand_graspable/Physics/finger2_motor1>,
+        </amazinghand_graspable/Physics/finger3_motor1>,
+        </amazinghand_graspable/Physics/finger4_motor1>,
+        </amazinghand_graspable/Physics/finger1_motor2>,
+        </amazinghand_graspable/Physics/finger2_motor2>,
+        </amazinghand_graspable/Physics/finger3_motor2>,
+        </amazinghand_graspable/Physics/finger4_motor2>,
+    ]
+    prepend rel isaac:physics:robotLinks = [
+        </amazinghand_graspable/Geometry/r_wrist_interface>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger1_proximal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger1_proximal/finger1_distal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger2_proximal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger2_proximal/finger2_distal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger3_proximal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger3_proximal/finger3_distal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger4_proximal>,
+        </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger4_proximal/finger4_distal>,
+    ]
+    token isaac:robotType = "Default"
+
+    over "Geometry"
+    {
+        over "r_wrist_interface" (
+            prepend apiSchemas = ["IsaacLinkAPI"]
+        )
+        {
+            over "palm" (
+                prepend apiSchemas = ["IsaacLinkAPI"]
+            )
+            {
+                over "finger1_proximal" (
+                    prepend apiSchemas = ["IsaacLinkAPI"]
+                )
+                {
+                    over "finger1_distal" (
+                        prepend apiSchemas = ["IsaacLinkAPI"]
+                    )
+                    {
+                    }
+                }
+
+                over "finger2_proximal" (
+                    prepend apiSchemas = ["IsaacLinkAPI"]
+                )
+                {
+                    over "finger2_distal" (
+                        prepend apiSchemas = ["IsaacLinkAPI"]
+                    )
+                    {
+                    }
+                }
+
+                over "finger3_proximal" (
+                    prepend apiSchemas = ["IsaacLinkAPI"]
+                )
+                {
+                    over "finger3_distal" (
+                        prepend apiSchemas = ["IsaacLinkAPI"]
+                    )
+                    {
+                    }
+                }
+
+                over "finger4_proximal" (
+                    prepend apiSchemas = ["IsaacLinkAPI"]
+                )
+                {
+                    over "finger4_distal" (
+                        prepend apiSchemas = ["IsaacLinkAPI"]
+                    )
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    over "Physics"
+    {
+        over "wrist_to_palm" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger1_motor1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger1_motor2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger2_motor1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger2_motor2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger3_motor1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger3_motor2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger4_motor1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+
+        over "finger4_motor2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+        }
+    }
+}
+

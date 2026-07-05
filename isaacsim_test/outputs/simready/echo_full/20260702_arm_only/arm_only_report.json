@@ -1,0 +1,499 @@
+{
+  "controlled_joints": [
+    "right_arm_pitch_joint",
+    "right_arm_roll_joint",
+    "right_arm_yaw_joint",
+    "right_elbow_pitch_joint",
+    "right_elbow_yaw_joint"
+  ],
+  "date_stamp": "20260702",
+  "discarded_scope": "AmazingHand and all finger/hand links",
+  "env_path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/load_arm_only.env",
+  "markdown_report_path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only_report.md",
+  "output_root": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only",
+  "report_path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only_report.json",
+  "runtime_validation": {
+    "arm_dofs_commanded": [
+      "right_arm_pitch_joint",
+      "right_arm_roll_joint",
+      "right_arm_yaw_joint",
+      "right_elbow_pitch_joint",
+      "right_elbow_yaw_joint"
+    ],
+    "contact_sheet": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only_motion_contact_sheet.png",
+    "controlled_dofs_moved": [
+      "right_arm_pitch_joint",
+      "right_arm_roll_joint",
+      "right_arm_yaw_joint",
+      "right_elbow_pitch_joint",
+      "right_elbow_yaw_joint"
+    ],
+    "custom_visual_prim_path": null,
+    "custom_visual_usd_path": "isaacsim_test/outputs/simready/echo_full/sitl/echo_full_lerobot_articulation.usda",
+    "evidence_summary": "Isaac Sim imported the arm-only Roboto V2 URDF, controlled the five right-arm DOFs, applied the requested motion cases, saved non-empty screenshots, and skipped wrist/hand checks because AmazingHand and finger links are intentionally absent.",
+    "hand_motor_control_status": "SKIPPED",
+    "hand_motor_dofs_commanded": [],
+    "isaac_sim_log": "isaacsim_test/artifacts/runtime_logs/arm_only_motion_20260702T150302Z.log",
+    "loaded_dof_count": 5,
+    "loaded_dof_names": [
+      "right_arm_pitch_joint",
+      "right_arm_roll_joint",
+      "right_arm_yaw_joint",
+      "right_elbow_pitch_joint",
+      "right_elbow_yaw_joint"
+    ],
+    "loader": "URDFParseAndImportFile",
+    "missing_hand_motor_dofs": [],
+    "motion_case_count": 5,
+    "motion_cases": [
+      {
+        "applied_command": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "command": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "commanded_hand_motor_targets_rad": {},
+        "grasp_servo_targets_rad": {},
+        "index": 1,
+        "name": "home_zero",
+        "screenshot": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/01_home_zero.png",
+        "size_bytes": 579240
+      },
+      {
+        "applied_command": [
+          0.35,
+          -0.25,
+          0.4,
+          -0.55,
+          0.3
+        ],
+        "command": [
+          0.35,
+          -0.25,
+          0.4,
+          -0.55,
+          0.3
+        ],
+        "commanded_hand_motor_targets_rad": {},
+        "grasp_servo_targets_rad": {},
+        "index": 2,
+        "name": "reach_forward_left",
+        "screenshot": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/02_reach_forward_left.png",
+        "size_bytes": 768052
+      },
+      {
+        "applied_command": [
+          0.15,
+          0.1,
+          0.0,
+          -0.6,
+          0.45
+        ],
+        "command": [
+          0.15,
+          0.1,
+          0.0,
+          -0.6,
+          0.45
+        ],
+        "commanded_hand_motor_targets_rad": {},
+        "grasp_servo_targets_rad": {},
+        "index": 3,
+        "name": "elbow_fold_high",
+        "screenshot": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/03_elbow_fold_high.png",
+        "size_bytes": 569654
+      },
+      {
+        "applied_command": [
+          -0.3,
+          0.25,
+          -0.35,
+          -0.45,
+          -0.25
+        ],
+        "command": [
+          -0.3,
+          0.25,
+          -0.35,
+          -0.45,
+          -0.25
+        ],
+        "commanded_hand_motor_targets_rad": {},
+        "grasp_servo_targets_rad": {},
+        "index": 4,
+        "name": "side_sweep_right",
+        "screenshot": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/04_side_sweep_right.png",
+        "size_bytes": 592966
+      },
+      {
+        "applied_command": [
+          0.55,
+          -0.45,
+          -0.55,
+          -0.2,
+          0.6
+        ],
+        "command": [
+          0.55,
+          -0.45,
+          -0.55,
+          -0.2,
+          0.6
+        ],
+        "commanded_hand_motor_targets_rad": {},
+        "grasp_servo_targets_rad": {},
+        "index": 5,
+        "name": "mixed_limit_safe",
+        "screenshot": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/05_mixed_limit_safe.png",
+        "size_bytes": 734187
+      }
+    ],
+    "motion_visual_validation": {
+      "all_screenshots_nonblank_by_pixel_stats": true,
+      "contact_sheet": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only_motion_contact_sheet.png",
+      "image_stats": [
+        {
+          "avg_stddev": 63.066,
+          "downsample_non_white_fraction": 0.9999,
+          "downsample_unique_colors": 2562,
+          "extrema_rgb": [
+            [
+              1,
+              241
+            ],
+            [
+              1,
+              241
+            ],
+            [
+              1,
+              241
+            ]
+          ],
+          "height": 720,
+          "mean_rgb": [
+            114.28,
+            144.59,
+            162.07
+          ],
+          "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/01_home_zero.png",
+          "rms_vs_home_zero": null,
+          "size_bytes": 579240,
+          "stddev_rgb": [
+            62.53,
+            61.15,
+            65.52
+          ],
+          "width": 1280
+        },
+        {
+          "avg_stddev": 35.008,
+          "downsample_non_white_fraction": 1.0,
+          "downsample_unique_colors": 3337,
+          "extrema_rgb": [
+            [
+              8,
+              241
+            ],
+            [
+              19,
+              241
+            ],
+            [
+              22,
+              241
+            ]
+          ],
+          "height": 720,
+          "mean_rgb": [
+            121.19,
+            161.41,
+            185.33
+          ],
+          "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/02_reach_forward_left.png",
+          "rms_vs_home_zero": 72.882,
+          "size_bytes": 768052,
+          "stddev_rgb": [
+            47.5,
+            31.25,
+            26.28
+          ],
+          "width": 1280
+        },
+        {
+          "avg_stddev": 65.262,
+          "downsample_non_white_fraction": 0.9999,
+          "downsample_unique_colors": 2589,
+          "extrema_rgb": [
+            [
+              0,
+              240
+            ],
+            [
+              1,
+              240
+            ],
+            [
+              1,
+              240
+            ]
+          ],
+          "height": 720,
+          "mean_rgb": [
+            110.49,
+            141.0,
+            158.63
+          ],
+          "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/03_elbow_fold_high.png",
+          "rms_vs_home_zero": 40.495,
+          "size_bytes": 569654,
+          "stddev_rgb": [
+            63.31,
+            63.71,
+            68.77
+          ],
+          "width": 1280
+        },
+        {
+          "avg_stddev": 61.644,
+          "downsample_non_white_fraction": 1.0,
+          "downsample_unique_colors": 2622,
+          "extrema_rgb": [
+            [
+              1,
+              240
+            ],
+            [
+              1,
+              240
+            ],
+            [
+              1,
+              240
+            ]
+          ],
+          "height": 720,
+          "mean_rgb": [
+            117.75,
+            146.96,
+            163.95
+          ],
+          "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/04_side_sweep_right.png",
+          "rms_vs_home_zero": 61.91,
+          "size_bytes": 592966,
+          "stddev_rgb": [
+            62.17,
+            59.51,
+            63.26
+          ],
+          "width": 1280
+        },
+        {
+          "avg_stddev": 33.447,
+          "downsample_non_white_fraction": 1.0,
+          "downsample_unique_colors": 3330,
+          "extrema_rgb": [
+            [
+              13,
+              241
+            ],
+            [
+              16,
+              241
+            ],
+            [
+              18,
+              241
+            ]
+          ],
+          "height": 720,
+          "mean_rgb": [
+            120.1,
+            161.35,
+            185.9
+          ],
+          "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots/05_mixed_limit_safe.png",
+          "rms_vs_home_zero": 73.172,
+          "size_bytes": 734187,
+          "stddev_rgb": [
+            45.93,
+            29.78,
+            24.63
+          ],
+          "width": 1280
+        }
+      ],
+      "poses_differ_from_home_by_rms": true,
+      "screenshot_count": 5,
+      "status": "PASS"
+    },
+    "physical_robot_urdf_path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only.urdf",
+    "screenshot_output_dir": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/motion_screenshots",
+    "status": "PASS",
+    "urdf_constraint_fidelity": {
+      "mjcf_constraints_preserved": null,
+      "note": "Arm-only runtime intentionally excludes AmazingHand, so MJCF finger equality/connect constraints are outside this test scope.",
+      "omitted_mjcf_features": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "wrist_attachment_runtime_validation": {
+      "reason": "Arm-only package intentionally excludes AmazingHand/wrist-interface links.",
+      "status": "SKIPPED"
+    }
+  },
+  "source_reference_urdf": "roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf",
+  "source_simready_usd": "isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd",
+  "status": "PASS",
+  "urdf": {
+    "joint_count": 5,
+    "joints": [
+      "right_arm_pitch_joint",
+      "right_arm_roll_joint",
+      "right_arm_yaw_joint",
+      "right_elbow_pitch_joint",
+      "right_elbow_yaw_joint"
+    ],
+    "link_count": 6,
+    "links": [
+      "torso_link",
+      "right_arm_pitch_link",
+      "right_arm_roll_link",
+      "right_arm_yaw_link",
+      "right_elbow_pitch_link",
+      "right_elbow_yaw_link"
+    ],
+    "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only.urdf"
+  },
+  "usage_note": "Use this dated arm-only package for connected physics. Do not load the final CAD SimReady USD directly when robot articulation is required.",
+  "usd": {
+    "articulation_root_count": 1,
+    "collision_api_count": 5,
+    "collision_paths": [
+      "/echo_full_arm_only/links/torso_link/collisions/collision_01",
+      "/echo_full_arm_only/links/right_arm_pitch_link/collisions/collision_01",
+      "/echo_full_arm_only/links/right_arm_roll_link/collisions/collision_01",
+      "/echo_full_arm_only/links/right_arm_yaw_link/collisions/collision_01",
+      "/echo_full_arm_only/links/right_elbow_pitch_link/collisions/collision_01"
+    ],
+    "joint_paths": [
+      "/echo_full_arm_only/joints/right_arm_pitch_joint",
+      "/echo_full_arm_only/joints/right_arm_roll_joint",
+      "/echo_full_arm_only/joints/right_arm_yaw_joint",
+      "/echo_full_arm_only/joints/right_elbow_pitch_joint",
+      "/echo_full_arm_only/joints/right_elbow_yaw_joint"
+    ],
+    "link_masses": {
+      "right_arm_pitch_link": {
+        "center_of_mass": [
+          -0.00436523,
+          -0.04995146,
+          0.0
+        ],
+        "diagonal_inertia": [
+          0.00015644,
+          8.197e-05,
+          0.00018907
+        ],
+        "mass": 0.47284363
+      },
+      "right_arm_roll_link": {
+        "center_of_mass": [
+          -0.0029007,
+          0.0,
+          -0.02197112
+        ],
+        "diagonal_inertia": [
+          4.601e-05,
+          5.649e-05,
+          2.712e-05
+        ],
+        "mass": 0.08401883
+      },
+      "right_arm_yaw_link": {
+        "center_of_mass": [
+          -4.328e-05,
+          0.0018211,
+          -0.10615895
+        ],
+        "diagonal_inertia": [
+          0.0062043,
+          0.00616498,
+          0.00033199
+        ],
+        "mass": 1.15429959
+      },
+      "right_elbow_pitch_link": {
+        "center_of_mass": [
+          0.02378501,
+          0.00433076,
+          0.0
+        ],
+        "diagonal_inertia": [
+          3.059e-05,
+          5.023e-05,
+          6.277e-05
+        ],
+        "mass": 0.09168684
+      },
+      "right_elbow_yaw_link": {
+        "center_of_mass": [
+          0.05317619,
+          3.45e-05,
+          -1.992e-05
+        ],
+        "diagonal_inertia": [
+          0.00024481,
+          0.00132562,
+          0.00132647
+        ],
+        "mass": 0.68145595
+      },
+      "torso_link": {
+        "center_of_mass": [
+          -0.00234775,
+          -4.66e-06,
+          0.0984446
+        ],
+        "diagonal_inertia": [
+          0.06904132,
+          0.05679531,
+          0.03888628
+        ],
+        "mass": 7.58189737
+      }
+    },
+    "path": "isaacsim_test/outputs/simready/echo_full/20260702_arm_only/arm_only_physics.usda",
+    "revolute_joint_count": 5,
+    "rigid_body_link_count": 6,
+    "root_prim": "/echo_full_arm_only",
+    "visual_meshes": {
+      "right_arm_pitch_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_pitch_link.STL"
+      ],
+      "right_arm_roll_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_roll_link.STL"
+      ],
+      "right_arm_yaw_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_arm_yaw_link.STL"
+      ],
+      "right_elbow_pitch_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_pitch_link.STL"
+      ],
+      "right_elbow_yaw_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/right_elbow_yaw_link.STL"
+      ],
+      "torso_link": [
+        "/workspace/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/meshes/torso_link.STL"
+      ]
+    }
+  }
+}

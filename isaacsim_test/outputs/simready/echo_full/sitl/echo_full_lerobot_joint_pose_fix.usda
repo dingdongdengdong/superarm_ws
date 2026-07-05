@@ -1,0 +1,195 @@
+#usda 1.0
+(
+    defaultPrim = "echo_full"
+    metersPerUnit = 1
+    subLayers = [
+        @echo_full_lerobot_articulation.usda@
+    ]
+    upAxis = "Z"
+)
+
+over "echo_full"
+{
+    custom int joint_pose_fix:authoredJointCount = 29
+    custom string joint_pose_fix:mode = "joint-pose-fix layer"
+    custom string joint_pose_fix:policy = "Authors localRot0/localRot1 from each body's current world orientation so initial joint constraint frames are aligned."
+    custom string[] joint_pose_fix:remainingWork = ["isaac_sim_runtime_joint_stability_test", "collider_reauthoring", "mass_inertia_tuning", "drive_gain_tuning"]
+
+    over "lerobot_joints"
+    {
+        over "world_fixed_base"
+        {
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (-0.5, -0.5, -0.5, -0.5)
+        }
+
+        over "fixed_base_01"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        over "fixed_base_02"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        over "fixed_base_03"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, 0, 0)
+        }
+
+        over "fixed_base_04"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, -1.9626155e-17, -1.9626155e-17)
+        }
+
+        over "fixed_base_05"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.2202089e-16, -2.2692743e-16, -0.70710677)
+        }
+
+        over "fixed_base_06"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 9.9357415e-17, -2.4655358e-16, -0.70710677)
+        }
+
+        over "fixed_base_07"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 1.9914535e-16, -0.70710677, 1.9914535e-16)
+        }
+
+        over "fixed_base_08"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.0037198e-16, -0.70710677, 2.0037198e-16)
+        }
+
+        over "fixed_base_09"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, 2.287608e-17, -2.287608e-17)
+        }
+
+        over "fixed_base_10"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.2324723e-16, -2.1834128e-16, -0.70710677)
+        }
+
+        over "fixed_base_11"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.2324805e-16, -2.2079371e-16, -0.70710677)
+        }
+
+        over "fixed_base_12"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (-0.70710677, -0.70710677, 0, 0)
+        }
+
+        over "fixed_base_13"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        over "fixed_base_14"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        over "fixed_base_15"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        over "fixed_base_16"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.428913e-16, -2.428913e-16, -0.70710677)
+        }
+
+        over "fixed_base_17"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 7.779335e-15, 7.2935525e-15, -0.70710677)
+        }
+
+        over "fixed_link5_18"
+        {
+            quatf physics:localRot0 = (0.70710677, -0.70710677, -3.3010696e-31, 3.2357534e-31)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, -3.3010696e-31, 3.2357534e-31)
+        }
+
+        over "fixed_link1_19"
+        {
+            quatf physics:localRot0 = (0.70710677, 2.861891e-16, 2.861891e-16, 0.70710677)
+            quatf physics:localRot1 = (-0.5, -0.5, -0.5, 0.5)
+        }
+
+        over "fixed_link2_20"
+        {
+            quatf physics:localRot0 = (0.70710677, -0.70710677, 2.1648902e-17, 2.1648902e-17)
+            quatf physics:localRot1 = (-0.70710677, -0.70710677, 2.1618092e-17, -2.1618092e-17)
+        }
+
+        over "fixed_link2_21"
+        {
+            quatf physics:localRot0 = (0.70710677, -0.70710677, 2.1648902e-17, 2.1648902e-17)
+            quatf physics:localRot1 = (-0.70710677, -0.70710677, 2.1707434e-17, -2.1669103e-17)
+        }
+
+        over "fixed_link3_22"
+        {
+            quatf physics:localRot0 = (0.70710677, 2.645402e-16, 2.645402e-16, 0.70710677)
+            quatf physics:localRot1 = (0.70710677, 2.212424e-16, 0.70710677, -2.645402e-16)
+        }
+
+        over "fixed_link3_23"
+        {
+            quatf physics:localRot0 = (0.70710677, 2.645402e-16, 2.645402e-16, 0.70710677)
+            quatf physics:localRot1 = (0.5, 0.5, 0.5, -0.5)
+        }
+
+        over "right_arm_pitch_joint"
+        {
+            quatf physics:localRot0 = (-0.5, -0.5, -0.5, -0.5)
+            quatf physics:localRot1 = (0.70710677, 2.861891e-16, 2.861891e-16, 0.70710677)
+        }
+
+        over "right_arm_roll_joint"
+        {
+            quatf physics:localRot0 = (0.70710677, 2.861891e-16, 2.861891e-16, 0.70710677)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, 2.1648902e-17, 2.1648902e-17)
+        }
+
+        over "right_arm_yaw_joint"
+        {
+            quatf physics:localRot0 = (0.70710677, -0.70710677, 2.1648902e-17, 2.1648902e-17)
+            quatf physics:localRot1 = (0.70710677, 2.645402e-16, 2.645402e-16, 0.70710677)
+        }
+
+        over "right_elbow_pitch_joint"
+        {
+            quatf physics:localRot0 = (0.70710677, 2.645402e-16, 2.645402e-16, 0.70710677)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, 1.501677e-29, 1.501677e-29)
+        }
+
+        over "right_elbow_yaw_joint"
+        {
+            quatf physics:localRot0 = (0.70710677, -0.70710677, 1.501677e-29, 1.501677e-29)
+            quatf physics:localRot1 = (0.70710677, -0.70710677, -3.3010696e-31, 3.2357534e-31)
+        }
+    }
+}
+

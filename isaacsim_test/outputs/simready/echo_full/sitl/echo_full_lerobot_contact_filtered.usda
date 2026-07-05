@@ -1,0 +1,256 @@
+#usda 1.0
+(
+    defaultPrim = "echo_full"
+    metersPerUnit = 1
+    subLayers = [
+        @echo_full_lerobot_articulation.usda@
+    ]
+    upAxis = "Z"
+)
+
+over "echo_full"
+{
+    custom string contact_tuning:mode = "filtered-contact-inspection layer"
+    custom string contact_tuning:policy = "Enables only CAD-derived mesh colliders outside runtime-unstable moving-link body prefixes; simple link colliders and mass/inertia tuning remain required."
+    custom int contact_tuning:enabledCollisionMeshCount = 26
+    custom int contact_tuning:excludedCollisionMeshCount = 24
+    custom string[] contact_tuning:excludedCollisionBodyPrefixes = ["/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistal_Shellv11_dW0CIJW0ZFYG", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__AmazingHand_righthandv201_lQjM/tn__AmazingHandPartsDistalv11_XQCIJQoChD", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv12_qI7BGHKrKpgzLslb2", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv13_qI7BGHKrKpgzLslb2", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv14_qI7BGHKrKpgzLslb2", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__DM4340rau35053Dv15_qI7BGHKrKpgzLslb2", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000152_02_1v11_zGoEffzEbog4", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v11_zGoEffzEbog4", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000153_02_2v12_zGoEffzEbog4", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000154_02_3v11_zGoEffzEbog4", "/echo_full/tn____xaZ2Ve2pr5yw2tw0WSflDbf1/tn__v341_a4a4XfWAou7zcLveO/tn__RB000155_01_4v11_zGoEffzEbog4"]
+    custom string[] contact_tuning:remainingWork = ["self_collision_filtering", "mass_inertia_tuning", "isaac_sim_runtime_contact_test"]
+
+    over "tn____xaZ2Ve2pr5yw2tw0WSflDbf1"
+    {
+        over "lidar"
+        {
+            over "Mesh"
+            {
+                bool physics:collisionEnabled = 1
+            }
+        }
+        over "Cam"
+        {
+            over "Mesh"
+            {
+                bool physics:collisionEnabled = 1
+            }
+        }
+        over "tn__v341_a4a4XfWAou7zcLveO"
+        {
+            over "tn__40x40x200v41_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x200v42_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x480v31_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x400v41_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x400v42_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x290v71_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x290v72_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x600v41_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x600v43_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__front_wheelv11_vEwC"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body5"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__front_wheelv12_vEwC"
+            {
+                over "Body5"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__40x40x400v43_rCZB"
+            {
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__WHEELv11_j8p7"
+            {
+                over "Body1"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body3"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body4"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__WHEELv12_j8p7"
+            {
+                over "Body1"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body3"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body4"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__RB000160_02_v11_xFsDiuuIbc3"
+            {
+                over "Body1"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+            over "tn__DM4340rau35053Dv11_qI7BGHKrKpgzLslb2"
+            {
+                over "Body1"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+                over "Body2"
+                {
+                    over "Mesh"
+                    {
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+        }
+    }
+}

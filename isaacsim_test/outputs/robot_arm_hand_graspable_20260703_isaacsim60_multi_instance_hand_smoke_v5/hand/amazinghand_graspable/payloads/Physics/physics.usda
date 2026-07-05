@@ -1,0 +1,419 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "URDF USD Converter v0.1.2"
+    }
+    defaultPrim = "amazinghand_graspable"
+    doc = """Generated from Composed Stage of root layer /tmp/tmpxmq7syyf/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/usdex_amazinghand_graspable/amazinghand_graspable.usdc
+
+
+Generated from Composed Stage of root layer /tmp/urdf_import_amazinghand_graspable_yp0am6lv/temp_amazinghand_graspable/amazinghand_graspable.usd
+"""
+    kilogramsPerUnit = 1
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "amazinghand_graspable"
+{
+    over "Geometry"
+    {
+        over "r_wrist_interface" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsArticulationRootAPI", "NewtonArticulationRootAPI", "PhysicsMassAPI"]
+        )
+        {
+            bool newton:selfCollisionEnabled = 0
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.00002, 0.00002, 0.00002)
+            float physics:mass = 0.055
+            quatf physics:principalAxes = (1, 0, 0, 0)
+
+            over "palm" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+            )
+            {
+                point3f physics:centerOfMass = (0, 0, 0)
+                float3 physics:diagonalInertia = (0.00008, 0.00008, 0.0001)
+                float physics:mass = 0.14
+                quatf physics:principalAxes = (1, 0, 0, 0)
+
+                over "palm_contact_box" (
+                    prepend apiSchemas = ["NewtonCollisionAPI"]
+                )
+                {
+                }
+
+                over "finger1_proximal" (
+                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                )
+                {
+                    point3f physics:centerOfMass = (0, 0, 0)
+                    float3 physics:diagonalInertia = (0.000003, 0.000011, 0.000011)
+                    float physics:mass = 0.028
+                    quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                    over "finger1_proximal_contact_box" (
+                        prepend apiSchemas = ["NewtonCollisionAPI"]
+                    )
+                    {
+                    }
+
+                    over "finger1_distal" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        point3f physics:centerOfMass = (0, 0, 0)
+                        float3 physics:diagonalInertia = (0.000002, 0.000008, 0.000008)
+                        float physics:mass = 0.022
+                        quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                        over "finger1_distal_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+
+                        over "finger1_distal_tip_pad_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+                    }
+                }
+
+                over "finger2_proximal" (
+                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                )
+                {
+                    point3f physics:centerOfMass = (0, 0, 0)
+                    float3 physics:diagonalInertia = (0.000003, 0.000011, 0.000011)
+                    float physics:mass = 0.028
+                    quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                    over "finger2_proximal_contact_box" (
+                        prepend apiSchemas = ["NewtonCollisionAPI"]
+                    )
+                    {
+                    }
+
+                    over "finger2_distal" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        point3f physics:centerOfMass = (0, 0, 0)
+                        float3 physics:diagonalInertia = (0.000002, 0.000008, 0.000008)
+                        float physics:mass = 0.022
+                        quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                        over "finger2_distal_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+
+                        over "finger2_distal_tip_pad_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+                    }
+                }
+
+                over "finger3_proximal" (
+                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                )
+                {
+                    point3f physics:centerOfMass = (0, 0, 0)
+                    float3 physics:diagonalInertia = (0.000003, 0.000011, 0.000011)
+                    float physics:mass = 0.028
+                    quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                    over "finger3_proximal_contact_box" (
+                        prepend apiSchemas = ["NewtonCollisionAPI"]
+                    )
+                    {
+                    }
+
+                    over "finger3_distal" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        point3f physics:centerOfMass = (0, 0, 0)
+                        float3 physics:diagonalInertia = (0.000002, 0.000008, 0.000008)
+                        float physics:mass = 0.022
+                        quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                        over "finger3_distal_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+
+                        over "finger3_distal_tip_pad_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+                    }
+                }
+
+                over "finger4_proximal" (
+                    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                )
+                {
+                    point3f physics:centerOfMass = (0, 0, 0)
+                    float3 physics:diagonalInertia = (0.000003, 0.000011, 0.000011)
+                    float physics:mass = 0.028
+                    quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                    over "finger4_proximal_contact_box" (
+                        prepend apiSchemas = ["NewtonCollisionAPI"]
+                    )
+                    {
+                    }
+
+                    over "finger4_distal" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        point3f physics:centerOfMass = (0, 0, 0)
+                        float3 physics:diagonalInertia = (0.000002, 0.000008, 0.000008)
+                        float physics:mass = 0.022
+                        quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+
+                        over "finger4_distal_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+
+                        over "finger4_distal_tip_pad_contact_box" (
+                            prepend apiSchemas = ["NewtonCollisionAPI"]
+                        )
+                        {
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    over "Physics"
+    {
+        def PhysicsRevoluteJoint "finger1_motor1" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger1_proximal>
+            point3f physics:localPos0 = (-0.03, -0.03, 0.02)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -2.864789
+            float physics:upperLimit = 60.16057
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger1_motor2" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger1_proximal>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger1_proximal/finger1_distal>
+            point3f physics:localPos0 = (0, 0.058, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 68.75494
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger2_motor1" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger2_proximal>
+            point3f physics:localPos0 = (0, -0.033, 0.02)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -2.864789
+            float physics:upperLimit = 60.16057
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger2_motor2" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger2_proximal>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger2_proximal/finger2_distal>
+            point3f physics:localPos0 = (0, 0.058, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 68.75494
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger3_motor1" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger3_proximal>
+            point3f physics:localPos0 = (0.03, -0.03, 0.02)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -2.864789
+            float physics:upperLimit = 60.16057
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger3_motor2" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger3_proximal>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger3_proximal/finger3_distal>
+            point3f physics:localPos0 = (0, 0.058, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 68.75494
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger4_motor1" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger4_proximal>
+            point3f physics:localPos0 = (0.044, -0.006, -0.006)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -2.864789
+            float physics:upperLimit = 60.16057
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsRevoluteJoint "finger4_motor2" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.08
+            float drive:angular:physics:maxForce = 2
+            float drive:angular:physics:stiffness = 0.7853982
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger4_proximal>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm/finger4_proximal/finger4_distal>
+            point3f physics:localPos0 = (0, 0.058, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 68.75494
+            custom float urdf:dynamics:damping = 0.08
+            custom float urdf:dynamics:friction = 0.02
+            custom float urdf:limit:effort = 2
+            custom float urdf:limit:velocity = 3
+        }
+
+        def PhysicsFixedJoint "wrist_to_palm"
+        {
+            custom rel physics:body0
+            prepend rel physics:body0 = </amazinghand_graspable/Geometry/r_wrist_interface>
+            custom rel physics:body1
+            prepend rel physics:body1 = </amazinghand_graspable/Geometry/r_wrist_interface/palm>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+    }
+}
+

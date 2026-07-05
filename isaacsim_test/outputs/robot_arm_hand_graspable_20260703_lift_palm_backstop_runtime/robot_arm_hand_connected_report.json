@@ -1,0 +1,1361 @@
+{
+  "runtime_validation": {
+    "articulation_root": "/World/RobotArmHandFromZip/Arm/root_joint",
+    "connected_usd_path": "isaacsim_test/outputs/robot_arm_hand_from_zip/robot_arm_hand_connected.usd",
+    "contact_sheet": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/contact_sheet.png",
+    "controlled_joint_names": [
+      "joint_rev_1",
+      "joint_rev_2",
+      "joint_rev_3",
+      "joint_rev_4"
+    ],
+    "evidence_summary": "Isaac Sim opened the fresh connected USD, stepped physics for the named runtime cases, kept direct articulation writes disabled for the proxy-backed validation run, and saved non-empty screenshots plus a contact sheet.",
+    "finger_motion_validation": {
+      "evidence_summary": "For each generated AmazingHand finger, reset all hand joints open, captured a close-up before image, commanded only that finger's two revolute joints, captured a close-up after image, and checked that the other hand finger motors stayed near open. Generated proximal/distal STL segment visuals are partitioned onto the matching moving tree links by default, while passive closed-loop linkage details remain wrist-attached until follower kinematics are implemented.",
+      "finger_results": [
+        {
+          "achieved_positions_rad": [
+            0.7789210677146912,
+            0.9633782505989075
+          ],
+          "before_positions_rad": [
+            0.049399808049201965,
+            0.01661650463938713
+          ],
+          "before_screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger1_two_link_before.png",
+          "before_size_bytes": 306277,
+          "command_error": null,
+          "control_status": "APPLIED",
+          "controlled_indices": [
+            4,
+            8
+          ],
+          "finger_index": 1,
+          "joint_names": [
+            "finger1_motor1",
+            "finger1_motor2"
+          ],
+          "other_hand_joint_max_abs_rad": 0.050000518560409546,
+          "other_hand_joint_positions_rad": {
+            "finger2_motor1": 0.04940252751111984,
+            "finger2_motor2": 0.016720347106456757,
+            "finger3_motor1": 0.04940825700759888,
+            "finger3_motor2": 0.01670864410698414,
+            "finger4_motor1": 0.050000518560409546,
+            "finger4_motor2": 0.02000008523464203
+          },
+          "position_deltas_rad": [
+            0.7295212596654892,
+            0.9467617459595203
+          ],
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger1_two_link_motion.png",
+          "size_bytes": 315563,
+          "status": "PASS",
+          "target_errors_rad": [
+            0.0010789322853088645,
+            0.0033782505989075062
+          ],
+          "target_positions_rad": [
+            0.78,
+            0.96
+          ]
+        },
+        {
+          "achieved_positions_rad": [
+            0.7789240479469299,
+            0.9633828401565552
+          ],
+          "before_positions_rad": [
+            0.049371954053640366,
+            0.016711484640836716
+          ],
+          "before_screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger2_two_link_before.png",
+          "before_size_bytes": 320103,
+          "command_error": null,
+          "control_status": "APPLIED",
+          "controlled_indices": [
+            5,
+            9
+          ],
+          "finger_index": 2,
+          "joint_names": [
+            "finger2_motor1",
+            "finger2_motor2"
+          ],
+          "other_hand_joint_max_abs_rad": 0.04999982565641403,
+          "other_hand_joint_positions_rad": {
+            "finger1_motor1": 0.049412429332733154,
+            "finger1_motor2": 0.016716625541448593,
+            "finger3_motor1": 0.049413032829761505,
+            "finger3_motor2": 0.01672053337097168,
+            "finger4_motor1": 0.04999982565641403,
+            "finger4_motor2": 0.02000008523464203
+          },
+          "position_deltas_rad": [
+            0.7295520938932896,
+            0.9466713555157185
+          ],
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger2_two_link_motion.png",
+          "size_bytes": 322306,
+          "status": "PASS",
+          "target_errors_rad": [
+            0.001075952053070095,
+            0.0033828401565552113
+          ],
+          "target_positions_rad": [
+            0.78,
+            0.96
+          ]
+        },
+        {
+          "achieved_positions_rad": [
+            0.7789303660392761,
+            0.9633631706237793
+          ],
+          "before_positions_rad": [
+            0.04937778040766716,
+            0.016707202419638634
+          ],
+          "before_screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger3_two_link_before.png",
+          "before_size_bytes": 322517,
+          "command_error": null,
+          "control_status": "APPLIED",
+          "controlled_indices": [
+            6,
+            10
+          ],
+          "finger_index": 3,
+          "joint_names": [
+            "finger3_motor1",
+            "finger3_motor2"
+          ],
+          "other_hand_joint_max_abs_rad": 0.04999998211860657,
+          "other_hand_joint_positions_rad": {
+            "finger1_motor1": 0.04941112548112869,
+            "finger1_motor2": 0.01671244017779827,
+            "finger2_motor1": 0.049404408782720566,
+            "finger2_motor2": 0.01672406867146492,
+            "finger4_motor1": 0.04999998211860657,
+            "finger4_motor2": 0.02000008523464203
+          },
+          "position_deltas_rad": [
+            0.729552585631609,
+            0.9466559682041407
+          ],
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger3_two_link_motion.png",
+          "size_bytes": 325970,
+          "status": "PASS",
+          "target_errors_rad": [
+            0.0010696339607239036,
+            0.0033631706237793324
+          ],
+          "target_positions_rad": [
+            0.78,
+            0.96
+          ]
+        },
+        {
+          "achieved_positions_rad": [
+            0.7799514532089233,
+            0.9598994851112366
+          ],
+          "before_positions_rad": [
+            0.050000257790088654,
+            0.02000008523464203
+          ],
+          "before_screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger4_two_link_before.png",
+          "before_size_bytes": 325179,
+          "command_error": null,
+          "control_status": "APPLIED",
+          "controlled_indices": [
+            7,
+            11
+          ],
+          "finger_index": 4,
+          "joint_names": [
+            "finger4_motor1",
+            "finger4_motor2"
+          ],
+          "other_hand_joint_max_abs_rad": 0.04940301924943924,
+          "other_hand_joint_positions_rad": {
+            "finger1_motor1": 0.04940222576260567,
+            "finger1_motor2": 0.016698190942406654,
+            "finger2_motor1": 0.049396418035030365,
+            "finger2_motor2": 0.01670624502003193,
+            "finger3_motor1": 0.04940301924943924,
+            "finger3_motor2": 0.01669815555214882
+          },
+          "position_deltas_rad": [
+            0.7299511954188347,
+            0.9398993998765945
+          ],
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/finger4_two_link_motion.png",
+          "size_bytes": 324427,
+          "status": "PASS",
+          "target_errors_rad": [
+            4.85467910766868e-05,
+            0.00010051488876339221
+          ],
+          "target_positions_rad": [
+            0.78,
+            0.96
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    "grasp_validation": {
+      "authored_objects": [
+        {
+          "anchor_path": "/World/RobotArmHandFromZip/Hand/palm",
+          "local_xyz": [
+            0.0,
+            0.028,
+            0.03
+          ],
+          "mass_kg": 0.006,
+          "name": "small_trash_box",
+          "prim_path": "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box",
+          "scale": [
+            0.022,
+            0.022,
+            0.018
+          ],
+          "shape": "cube",
+          "world_xyz": [
+            0.005,
+            0.02786,
+            0.630003
+          ]
+        }
+      ],
+      "command_error": null,
+      "control_status": "APPLIED",
+      "controlled_joint_names": [
+        "finger1_motor1",
+        "finger1_motor2",
+        "finger2_motor1",
+        "finger2_motor2",
+        "finger3_motor1",
+        "finger3_motor2",
+        "finger4_motor1",
+        "finger4_motor2"
+      ],
+      "evidence_summary": "Authored a small rigid collision object near the generated hand, commanded hand joints from open to closed with position targets, stepped physics, and captured the result. This is a contact smoke test; lift-retention tuning is still separate.",
+      "object_prim_path": "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box",
+      "object_reset_world_xyz": [
+        -0.03512287393847953,
+        0.31062554912711643,
+        0.6277698410297075
+      ],
+      "object_world_xyz_after": [
+        -0.04791828244924545,
+        0.2092353254556656,
+        0.6294782161712646
+      ],
+      "object_world_xyz_before": [
+        -0.03476851060986519,
+        0.31928351521492004,
+        0.6374611854553223
+      ],
+      "object_world_xyz_initial": [
+        0.004999999888241291,
+        0.027860000729560852,
+        0.6272779703140259
+      ],
+      "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/00_grasp_contact_smoke.png",
+      "size_bytes": 1106442,
+      "status": "PASS",
+      "target_positions_rad": [
+        0.9500000000000001,
+        1.1,
+        0.9500000000000001,
+        1.1,
+        0.9500000000000001,
+        1.1,
+        0.9500000000000001,
+        1.1
+      ]
+    },
+    "hand_contact_tuning": {
+      "authored_proxy_count": 13,
+      "authored_proxy_paths": [
+        "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy"
+      ],
+      "bound_collision_count": 13,
+      "bound_collision_paths": [
+        "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy",
+        "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy"
+      ],
+      "dynamic_friction": 1.35,
+      "material_path": "/World/RobotArmHandFromZip/HandHighFrictionMaterial",
+      "missing_link_paths": [],
+      "restitution": 0.02,
+      "show_contact_proxies": false,
+      "static_friction": 1.6,
+      "status": "PASS"
+    },
+    "hand_mount_local_xyz_m": [
+      0.005,
+      -0.00014,
+      0.600003
+    ],
+    "lift_retain_validation": {
+      "command_error": null,
+      "control_status": "APPLIED",
+      "evidence_summary": "Closed all hand joints around the authored small rigid object, then commanded an arm lift pose while physics was stepping. PASS requires the object to remain near the hand and not drop in Z.",
+      "grasp_anchor_world_xyz_after_close": [
+        -0.03511201962828636,
+        0.28270041942596436,
+        0.5977691411972046
+      ],
+      "grasp_anchor_world_xyz_after_lift": [
+        -0.3679492175579071,
+        -0.00997323077172041,
+        0.03151775151491165
+      ],
+      "hand_world_xyz_after_close": [
+        0.005,
+        -0.00014,
+        0.600003
+      ],
+      "hand_world_xyz_after_lift": [
+        0.005,
+        -0.00014,
+        0.600003
+      ],
+      "hand_world_xyz_before": [
+        0.005,
+        -0.00014,
+        0.600003
+      ],
+      "lifted_or_held": true,
+      "object_anchor_distance_after_close_m": 0.05883819318332604,
+      "object_anchor_distance_after_lift_m": 9.376532423265962,
+      "object_hand_distance_after_close_m": 0.05883819318332604,
+      "object_hand_distance_after_lift_m": 9.376532423265962,
+      "object_prim_path": "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box",
+      "object_reset_anchor_path": "/World/RobotArmHandFromZip/Hand/palm",
+      "object_reset_world_xyz": [
+        -0.035131944640763434,
+        0.31062262433371746,
+        0.6277701223885864
+      ],
+      "object_world_xyz_after_close": [
+        -0.02646038495004177,
+        0.23196455836296082,
+        0.6262814998626709
+      ],
+      "object_world_xyz_after_lift": [
+        6.154351234436035,
+        -6.683894157409668,
+        0.946797251701355
+      ],
+      "object_world_xyz_before": [
+        -0.03470758721232414,
+        0.3090228736400604,
+        0.6425554156303406
+      ],
+      "object_world_xyz_initial": [
+        -0.048007331788539886,
+        0.20907257497310638,
+        0.6294624209403992
+      ],
+      "object_z_delta_after_lift_m": 0.3042418360710144,
+      "retained_near_hand": false,
+      "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/lift_retain_smoke.png",
+      "size_bytes": 621187,
+      "status": "WARN",
+      "transform_snapshots": [
+        {
+          "label": "open",
+          "measured_path_count": 26,
+          "measurements": {
+            "/World/RobotArmHandFromZip/Arm/wrist_adapter_hand": {
+              "world_xyz": [
+                -0.03511206433176994,
+                0.2826589345932007,
+                0.5977691411972046
+              ]
+            },
+            "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box": {
+              "world_xyz": [
+                -0.03470758721232414,
+                0.3090228736400604,
+                0.6425554156303406
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand": {
+              "world_xyz": [
+                0.005,
+                -0.00014,
+                0.600003
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal": {
+              "world_xyz": [
+                -0.06512049585580826,
+                0.3105800747871399,
+                0.6206254363059998
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy": {
+              "world_xyz": [
+                -0.06512802706787955,
+                0.3355257079946456,
+                0.6222732612837915
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.0651370645223651,
+                0.3654604678436524,
+                0.6242506512571415
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal": {
+              "world_xyz": [
+                -0.06510300934314728,
+                0.2526504099369049,
+                0.6177699565887451
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.06511175392380543,
+                0.28161524166320745,
+                0.6191976983718718
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal": {
+              "world_xyz": [
+                -0.035119589418172836,
+                0.3075863718986511,
+                0.6206812262535095
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy": {
+              "world_xyz": [
+                -0.03512712406404085,
+                0.33254343569245015,
+                0.6221457773865733
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.03513616563908247,
+                0.36249191224500893,
+                0.6239032387462499
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal": {
+              "world_xyz": [
+                -0.035102102905511856,
+                0.249659463763237,
+                0.6177700161933899
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.035110847070867576,
+                0.2786229082714149,
+                0.6192256280102124
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal": {
+              "world_xyz": [
+                -0.005120490677654744,
+                0.3105981945991516,
+                0.6206256151199341
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy": {
+              "world_xyz": [
+                -0.005128021883887019,
+                0.33554380574439063,
+                0.6222737740538539
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.005137059331365749,
+                0.36547853911867745,
+                0.6242515647745576
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal": {
+              "world_xyz": [
+                -0.00510300137102604,
+                0.2526685297489166,
+                0.6177699565887451
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.005111745951092757,
+                0.2816333575356536,
+                0.6191977782922459
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal": {
+              "world_xyz": [
+                0.005955688655376434,
+                0.3345978260040283,
+                0.5917677283287048
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy": {
+              "world_xyz": [
+                0.003714723201668992,
+                0.3594971848991903,
+                0.591767061090584
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy": {
+              "world_xyz": [
+                0.001025564657220061,
+                0.3893764155733847,
+                0.5917662604048389
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal": {
+              "world_xyz": [
+                0.008889749646186829,
+                0.2766720652580261,
+                0.591769278049469
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy": {
+              "world_xyz": [
+                0.0074227191993787335,
+                0.3056349349546867,
+                0.5917685019054472
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm": {
+              "world_xyz": [
+                -0.03511206433176994,
+                0.2826589345932007,
+                0.5977691411972046
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy": {
+              "world_xyz": [
+                -0.035095459913527645,
+                0.22765893711937477,
+                0.5977706151164365
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/r_wrist_interface": {
+              "world_xyz": [
+                -0.03511206433176994,
+                0.2826589345932007,
+                0.5977691411972046
+              ]
+            }
+          },
+          "missing_paths": [],
+          "reset_anchor_path": "/World/RobotArmHandFromZip/Hand/palm"
+        },
+        {
+          "label": "half_close",
+          "measured_path_count": 26,
+          "measurements": {
+            "/World/RobotArmHandFromZip/Arm/wrist_adapter_hand": {
+              "world_xyz": [
+                -0.03511205315589905,
+                0.28262564539909363,
+                0.5977690815925598
+              ]
+            },
+            "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box": {
+              "world_xyz": [
+                -0.02645913138985634,
+                0.23230555653572083,
+                0.6262684464454651
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand": {
+              "world_xyz": [
+                0.005,
+                -0.00014,
+                0.600003
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal": {
+              "world_xyz": [
+                -0.06511042267084122,
+                0.3035510778427124,
+                0.6455321907997131
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy": {
+              "world_xyz": [
+                -0.06510946052913377,
+                0.3157729193308139,
+                0.6673410557338174
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.06510830595908483,
+                0.3304391291165358,
+                0.6935116936547425
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal": {
+              "world_xyz": [
+                -0.06511443108320236,
+                0.25262773036956787,
+                0.6177686452865601
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.06511242526368254,
+                0.27808940272437094,
+                0.6316504044284463
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal": {
+              "world_xyz": [
+                -0.03511064127087593,
+                0.3005484342575073,
+                0.6455326676368713
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy": {
+              "world_xyz": [
+                -0.035109679128745894,
+                0.31277027446056216,
+                0.6673415332911248
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.03510852455818986,
+                0.3274364827042279,
+                0.693512172076229
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal": {
+              "world_xyz": [
+                -0.035114653408527374,
+                0.24962535500526428,
+                0.6177686452865601
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.035112647599392775,
+                0.27508689329752106,
+                0.6316506503207283
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal": {
+              "world_xyz": [
+                -0.005110394675284625,
+                0.30354592204093933,
+                0.6455329060554504
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy": {
+              "world_xyz": [
+                -0.005109432525805775,
+                0.3157678597904355,
+                0.6673417170437118
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.005108277946431155,
+                0.3304341850898309,
+                0.6935122902296253
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal": {
+              "world_xyz": [
+                -0.005114406347274781,
+                0.2526229918003082,
+                0.6177686452865601
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.005112400543506502,
+                0.2780844635101031,
+                0.6316507724415774
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal": {
+              "world_xyz": [
+                -0.018913540989160538,
+                0.32752516865730286,
+                0.5917696952819824
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy": {
+              "world_xyz": [
+                -0.04072103662631407,
+                0.3397494532582644,
+                0.5917698691328576
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.0668900313908983,
+                0.35441859477941823,
+                0.5917700777539077
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal": {
+              "world_xyz": [
+                0.008887484669685364,
+                0.2766222655773163,
+                0.5917689800262451
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.005013018110287875,
+                0.3020737099829805,
+                0.5917693396645888
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm": {
+              "world_xyz": [
+                -0.03511205315589905,
+                0.28262564539909363,
+                0.5977690815925598
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy": {
+              "world_xyz": [
+                -0.03511638727329642,
+                0.22762564557532203,
+                0.5977683066403363
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/r_wrist_interface": {
+              "world_xyz": [
+                -0.03511205315589905,
+                0.28262564539909363,
+                0.5977690815925598
+              ]
+            }
+          },
+          "missing_paths": [],
+          "reset_anchor_path": "/World/RobotArmHandFromZip/Hand/palm"
+        },
+        {
+          "label": "full_close_before_lift",
+          "measured_path_count": 26,
+          "measurements": {
+            "/World/RobotArmHandFromZip/Arm/wrist_adapter_hand": {
+              "world_xyz": [
+                -0.03511201962828636,
+                0.28270041942596436,
+                0.5977691411972046
+              ]
+            },
+            "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box": {
+              "world_xyz": [
+                -0.02646038495004177,
+                0.23196455836296082,
+                0.6262814998626709
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand": {
+              "world_xyz": [
+                0.005,
+                -0.00014,
+                0.600003
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal": {
+              "world_xyz": [
+                -0.06511114537715912,
+                0.28653019666671753,
+                0.6648969650268555
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy": {
+              "world_xyz": [
+                -0.0651137850665497,
+                0.274961901234299,
+                0.6870594227836189
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.06511695269381841,
+                0.2610799467153967,
+                0.713654372091735
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal": {
+              "world_xyz": [
+                -0.06511886417865753,
+                0.2527121305465698,
+                0.6177764534950256
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.06511500637579036,
+                0.2696211655622147,
+                0.6413366852417011
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal": {
+              "world_xyz": [
+                -0.03511183336377144,
+                0.28352174162864685,
+                0.6648987531661987
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy": {
+              "world_xyz": [
+                -0.03511447328312189,
+                0.27195244102207106,
+                0.6870606862160369
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.03511764118634243,
+                0.25806928029418,
+                0.7136550058758427
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal": {
+              "world_xyz": [
+                -0.03511954843997955,
+                0.2497052550315857,
+                0.6177771687507629
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.03511569081852532,
+                0.26661349174387955,
+                0.6413379734144368
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal": {
+              "world_xyz": [
+                -0.005111146718263627,
+                0.2865149974822998,
+                0.6648980379104614
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy": {
+              "world_xyz": [
+                -0.005113786734099643,
+                0.2749452737432114,
+                0.6870597500652452
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.005116954753102863,
+                0.2610616052563054,
+                0.7136538046509857
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal": {
+              "world_xyz": [
+                -0.005118861794471742,
+                0.2526984214782715,
+                0.6177764534950256
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.005115004165586616,
+                0.26960669414733224,
+                0.6413372323545496
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal": {
+              "world_xyz": [
+                -0.03827724978327751,
+                0.31044647097587585,
+                0.5917624235153198
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy": {
+              "world_xyz": [
+                -0.060473284292702406,
+                0.29894273053069453,
+                0.5917652210711555
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.08710852570401229,
+                0.28513824199647686,
+                0.5917685781381584
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal": {
+              "world_xyz": [
+                0.008886601775884628,
+                0.27668893337249756,
+                0.591770589351654
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.014695324551427906,
+                0.29356769914255815,
+                0.5917664939109819
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm": {
+              "world_xyz": [
+                -0.03511201962828636,
+                0.28270041942596436,
+                0.5977691411972046
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy": {
+              "world_xyz": [
+                -0.03512456865640625,
+                0.2277004224796783,
+                0.5977824989822219
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/r_wrist_interface": {
+              "world_xyz": [
+                -0.03511201962828636,
+                0.28270041942596436,
+                0.5977691411972046
+              ]
+            }
+          },
+          "missing_paths": [],
+          "reset_anchor_path": "/World/RobotArmHandFromZip/Hand/palm"
+        },
+        {
+          "label": "after_lift_retain",
+          "measured_path_count": 26,
+          "measurements": {
+            "/World/RobotArmHandFromZip/Arm/wrist_adapter_hand": {
+              "world_xyz": [
+                -0.3679492175579071,
+                -0.00997323077172041,
+                0.03151775151491165
+              ]
+            },
+            "/World/RobotArmHandFromZip/GraspValidationObjects/small_trash_box": {
+              "world_xyz": [
+                6.154351234436035,
+                -6.683894157409668,
+                0.946797251701355
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand": {
+              "world_xyz": [
+                0.005,
+                -0.00014,
+                0.600003
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal": {
+              "world_xyz": [
+                -0.345897912979126,
+                -0.03227066248655319,
+                0.009676732122898102
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_contact_proxy": {
+              "world_xyz": [
+                -0.36480162261859983,
+                -0.04818298689612162,
+                0.013477744323762218
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_distal/contact_proxies/finger1_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.3874860741859684,
+                -0.06727777618760372,
+                0.018038958964799158
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal": {
+              "world_xyz": [
+                -0.364753782749176,
+                -0.044452063739299774,
+                0.06315634399652481
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger1_proximal/contact_proxies/finger1_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.3553258419005439,
+                -0.038361361292710186,
+                0.03641653705889338
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal": {
+              "world_xyz": [
+                -0.4212367534637451,
+                -0.055358320474624634,
+                0.03509725630283356
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_contact_proxy": {
+              "world_xyz": [
+                -0.4045012739438594,
+                -0.041977834812312056,
+                0.022217569634279344
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_distal/contact_proxies/finger2_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.38441869851999655,
+                -0.025921252017536957,
+                0.0067619456320142934
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal": {
+              "world_xyz": [
+                -0.3843509256839752,
+                -0.02157745137810707,
+                0.06446203589439392
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger2_proximal/contact_proxies/finger2_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.4027938330126775,
+                -0.038467886169463,
+                0.04977965251076533
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal": {
+              "world_xyz": [
+                -0.444564551115036,
+                -0.03537299484014511,
+                0.040533095598220825
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_contact_proxy": {
+              "world_xyz": [
+                -0.44436235287850273,
+                -0.037052422950842843,
+                0.01559038850588337
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_distal/contact_proxies/finger3_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.4441197149946628,
+                -0.039067736683680125,
+                -0.014340860004921574
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal": {
+              "world_xyz": [
+                -0.4037274420261383,
+                0.001041186973452568,
+                0.059777259826660156
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger3_proximal/contact_proxies/finger3_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.4241459952866269,
+                -0.017165907308475684,
+                0.05015518102020837
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal": {
+              "world_xyz": [
+                -0.35900068283081055,
+                -0.011204220354557037,
+                0.06260780990123749
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_contact_proxy": {
+              "world_xyz": [
+                -0.3576546432365286,
+                -0.012769007058743342,
+                0.037693163205347394
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_distal/contact_proxies/finger4_distal_tip_pad_proxy": {
+              "world_xyz": [
+                -0.35603939572339033,
+                -0.014646751103766908,
+                0.0077955871702792764
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal": {
+              "world_xyz": [
+                -0.3921939730644226,
+                0.02754804491996765,
+                0.03503124788403511
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/finger4_proximal/contact_proxies/finger4_proximal_contact_proxy": {
+              "world_xyz": [
+                -0.3755973243500995,
+                0.008171912734695409,
+                0.04881953106187181
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm": {
+              "world_xyz": [
+                -0.3679492175579071,
+                -0.00997323077172041,
+                0.03151775151491165
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/palm/contact_proxies/palm_contact_proxy": {
+              "world_xyz": [
+                -0.36997139763668985,
+                -0.0076269024884058415,
+                0.08643045980102601
+              ]
+            },
+            "/World/RobotArmHandFromZip/Hand/r_wrist_interface": {
+              "world_xyz": [
+                -0.3679492175579071,
+                -0.00997323077172041,
+                0.03151775151491165
+              ]
+            }
+          },
+          "missing_paths": [],
+          "reset_anchor_path": "/World/RobotArmHandFromZip/Hand/palm"
+        }
+      ],
+      "visible_diagnostic_screenshots": [
+        {
+          "error": null,
+          "focus_prim_path": "/World/RobotArmHandFromZip/Hand/palm",
+          "label": "open",
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/grasp_real_hand_01_open.png",
+          "size_bytes": 306715,
+          "status": "PASS"
+        },
+        {
+          "error": null,
+          "focus_prim_path": "/World/RobotArmHandFromZip/Hand/palm",
+          "label": "half_close",
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/grasp_real_hand_02_half_close.png",
+          "size_bytes": 304370,
+          "status": "PASS"
+        },
+        {
+          "error": null,
+          "focus_prim_path": "/World/RobotArmHandFromZip/Hand/palm",
+          "label": "full_close_before_lift",
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/grasp_real_hand_03_full_close_before_lift.png",
+          "size_bytes": 310663,
+          "status": "PASS"
+        },
+        {
+          "error": null,
+          "focus_prim_path": "/World/RobotArmHandFromZip/Hand/palm",
+          "label": "after_lift_retain",
+          "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/grasp_real_hand_04_after_lift_retain.png",
+          "size_bytes": 142089,
+          "status": "PASS"
+        }
+      ]
+    },
+    "loaded_dof_count": 12,
+    "loaded_dof_names": [
+      "joint_rev_1",
+      "joint_rev_2",
+      "joint_rev_3",
+      "joint_rev_4",
+      "finger1_motor1",
+      "finger2_motor1",
+      "finger3_motor1",
+      "finger4_motor1",
+      "finger1_motor2",
+      "finger2_motor2",
+      "finger3_motor2",
+      "finger4_motor2"
+    ],
+    "motion_cases": [
+      {
+        "achieved_positions_rad": [
+          -0.8296265602111816,
+          4.273941516876221,
+          3.0993294715881348,
+          -0.4432089328765869
+        ],
+        "command": [],
+        "command_error": null,
+        "control_status": "SKIPPED: startup capture has no arm command",
+        "controlled_joint_names": [
+          "joint_rev_1",
+          "joint_rev_2",
+          "joint_rev_3",
+          "joint_rev_4"
+        ],
+        "name": "startup",
+        "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/01_startup.png",
+        "size_bytes": 607526,
+        "status": "PASS",
+        "target_positions_rad": []
+      },
+      {
+        "achieved_positions_rad": [
+          -0.00752567034214735,
+          -0.0011205283226445317,
+          0.008708546869456768,
+          -0.0029291289392858744
+        ],
+        "command": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "command_error": null,
+        "control_status": "APPLIED",
+        "controlled_joint_names": [
+          "joint_rev_1",
+          "joint_rev_2",
+          "joint_rev_3",
+          "joint_rev_4"
+        ],
+        "name": "home",
+        "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/02_home.png",
+        "size_bytes": 752747,
+        "status": "PASS",
+        "target_positions_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "achieved_positions_rad": [
+          0.24970903992652893,
+          -0.20150427520275116,
+          0.2974148988723755,
+          -0.25283128023147583
+        ],
+        "command": [
+          0.25,
+          -0.2,
+          0.3,
+          -0.25
+        ],
+        "command_error": null,
+        "control_status": "APPLIED",
+        "controlled_joint_names": [
+          "joint_rev_1",
+          "joint_rev_2",
+          "joint_rev_3",
+          "joint_rev_4"
+        ],
+        "name": "reach",
+        "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/03_reach.png",
+        "size_bytes": 708280,
+        "status": "PASS",
+        "target_positions_rad": [
+          0.25,
+          -0.2,
+          0.3,
+          -0.25
+        ]
+      },
+      {
+        "achieved_positions_rad": [
+          0.1455029547214508,
+          0.2004418671131134,
+          -0.3402262032032013,
+          0.450472891330719
+        ],
+        "command": [
+          0.15,
+          0.2,
+          -0.35,
+          0.45
+        ],
+        "command_error": null,
+        "control_status": "APPLIED",
+        "controlled_joint_names": [
+          "joint_rev_1",
+          "joint_rev_2",
+          "joint_rev_3",
+          "joint_rev_4"
+        ],
+        "name": "fold",
+        "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/04_fold.png",
+        "size_bytes": 728993,
+        "status": "PASS",
+        "target_positions_rad": [
+          0.15,
+          0.2,
+          -0.35,
+          0.45
+        ]
+      },
+      {
+        "achieved_positions_rad": [
+          -0.24743658304214478,
+          0.1485273689031601,
+          0.3018450438976288,
+          -0.2011522650718689
+        ],
+        "command": [
+          -0.25,
+          0.15,
+          0.3,
+          -0.2
+        ],
+        "command_error": null,
+        "control_status": "APPLIED",
+        "controlled_joint_names": [
+          "joint_rev_1",
+          "joint_rev_2",
+          "joint_rev_3",
+          "joint_rev_4"
+        ],
+        "name": "side_sweep",
+        "screenshot": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime/05_side_sweep.png",
+        "size_bytes": 720039,
+        "status": "PASS",
+        "target_positions_rad": [
+          -0.25,
+          0.15,
+          0.3,
+          -0.2
+        ]
+      }
+    ],
+    "root_prim": "/World/RobotArmHandFromZip",
+    "screenshot_output_dir": "isaacsim_test/artifacts/robot_arm_hand_graspable_20260703_lift_palm_backstop_runtime",
+    "status": "PASS"
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,422 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="amazinghand_graspable">
+  <!--Isaac tree articulation generated from AmazingHand visual assets; closed-loop MJCF constraints are intentionally not used.-->
+  <link name="r_wrist_interface">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.055" />
+      <inertia ixx="2e-05" ixy="0" ixz="0" iyy="2e-05" iyz="0" izz="2e-05" />
+    </inertial>
+  </link>
+  <link name="palm">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.14" />
+      <inertia ixx="8e-05" ixy="0" ixz="0" iyy="8e-05" iyz="0" izz="0.0001" />
+    </inertial>
+    <collision name="palm_contact_box">
+      <origin xyz="0 -0.038 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.09 0.085 0.035" />
+      </geometry>
+    </collision>
+    <visual name="palm_contact_box_implemented_visual">
+      <origin xyz="0 -0.038 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.09 0.085 0.035" />
+      </geometry>
+      <material name="palm_contact_box_implemented_visual_material">
+        <color rgba="0.18 0.42 0.95 0.55" />
+      </material>
+    </visual>
+  </link>
+  <joint name="wrist_to_palm" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="r_wrist_interface" />
+    <child link="palm" />
+  </joint>
+  <link name="finger1_base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.006" />
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06" />
+    </inertial>
+    <visual name="finger1_base_motor_mount_frame_implemented_visual">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.03 0.024 0.024" />
+      </geometry>
+      <material name="finger1_base_motor_mount_frame_implemented_visual_material">
+        <color rgba="0.25 0.65 1 0.55" />
+      </material>
+    </visual>
+  </link>
+  <joint name="palm_to_finger1_base" type="fixed">
+    <origin xyz="-0.03 -0.03 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger1_base" />
+  </joint>
+  <link name="finger1_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger1_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="finger1_proximal_contact_box_implemented_visual">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+      <material name="finger1_proximal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+  </link>
+  <link name="finger1_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger1_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <visual name="finger1_distal_contact_box_implemented_visual">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+      <material name="finger1_distal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+    <collision name="finger1_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="finger1_distal_tip_pad_contact_box_implemented_visual">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+      <material name="finger1_distal_tip_pad_contact_box_implemented_visual_material">
+        <color rgba="0.1 0.85 0.35 0.72" />
+      </material>
+    </visual>
+  </link>
+  <joint name="finger1_motor1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="finger1_base" />
+    <child link="finger1_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger1_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger1_proximal" />
+    <child link="finger1_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger2_base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.006" />
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06" />
+    </inertial>
+    <visual name="finger2_base_motor_mount_frame_implemented_visual">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.03 0.024 0.024" />
+      </geometry>
+      <material name="finger2_base_motor_mount_frame_implemented_visual_material">
+        <color rgba="0.25 0.65 1 0.55" />
+      </material>
+    </visual>
+  </link>
+  <joint name="palm_to_finger2_base" type="fixed">
+    <origin xyz="0 -0.033 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger2_base" />
+  </joint>
+  <link name="finger2_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger2_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="finger2_proximal_contact_box_implemented_visual">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+      <material name="finger2_proximal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+  </link>
+  <link name="finger2_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger2_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <visual name="finger2_distal_contact_box_implemented_visual">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+      <material name="finger2_distal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+    <collision name="finger2_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="finger2_distal_tip_pad_contact_box_implemented_visual">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+      <material name="finger2_distal_tip_pad_contact_box_implemented_visual_material">
+        <color rgba="0.1 0.85 0.35 0.72" />
+      </material>
+    </visual>
+  </link>
+  <joint name="finger2_motor1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="finger2_base" />
+    <child link="finger2_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger2_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger2_proximal" />
+    <child link="finger2_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger3_base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.006" />
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06" />
+    </inertial>
+    <visual name="finger3_base_motor_mount_frame_implemented_visual">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.03 0.024 0.024" />
+      </geometry>
+      <material name="finger3_base_motor_mount_frame_implemented_visual_material">
+        <color rgba="0.25 0.65 1 0.55" />
+      </material>
+    </visual>
+  </link>
+  <joint name="palm_to_finger3_base" type="fixed">
+    <origin xyz="0.03 -0.03 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger3_base" />
+  </joint>
+  <link name="finger3_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger3_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="finger3_proximal_contact_box_implemented_visual">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+      <material name="finger3_proximal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+  </link>
+  <link name="finger3_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger3_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <visual name="finger3_distal_contact_box_implemented_visual">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+      <material name="finger3_distal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+    <collision name="finger3_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="finger3_distal_tip_pad_contact_box_implemented_visual">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+      <material name="finger3_distal_tip_pad_contact_box_implemented_visual_material">
+        <color rgba="0.1 0.85 0.35 0.72" />
+      </material>
+    </visual>
+  </link>
+  <joint name="finger3_motor1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="finger3_base" />
+    <child link="finger3_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger3_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger3_proximal" />
+    <child link="finger3_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger4_base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.006" />
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06" />
+    </inertial>
+    <visual name="finger4_base_motor_mount_frame_implemented_visual">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.03 0.024 0.024" />
+      </geometry>
+      <material name="finger4_base_motor_mount_frame_implemented_visual_material">
+        <color rgba="0.25 0.65 1 0.55" />
+      </material>
+    </visual>
+  </link>
+  <joint name="palm_to_finger4_base" type="fixed">
+    <origin xyz="0.044 -0.006 -0.006" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger4_base" />
+  </joint>
+  <link name="finger4_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger4_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="finger4_proximal_contact_box_implemented_visual">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+      <material name="finger4_proximal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+  </link>
+  <link name="finger4_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger4_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <visual name="finger4_distal_contact_box_implemented_visual">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+      <material name="finger4_distal_contact_box_implemented_visual_material">
+        <color rgba="0.95 0.54 0.18 0.62" />
+      </material>
+    </visual>
+    <collision name="finger4_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="finger4_distal_tip_pad_contact_box_implemented_visual">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+      <material name="finger4_distal_tip_pad_contact_box_implemented_visual_material">
+        <color rgba="0.1 0.85 0.35 0.72" />
+      </material>
+    </visual>
+  </link>
+  <joint name="finger4_motor1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="finger4_base" />
+    <child link="finger4_proximal" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger4_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger4_proximal" />
+    <child link="finger4_distal" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+</robot>

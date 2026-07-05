@@ -1,0 +1,905 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="amazinghand_graspable">
+  <!--Isaac tree articulation generated from AmazingHand visual assets; closed-loop MJCF constraints are intentionally not used.-->
+  <link name="r_wrist_interface">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.055" />
+      <inertia ixx="2e-05" ixy="0" ixz="0" iyy="2e-05" iyz="0" izz="2e-05" />
+    </inertial>
+    <visual name="mjcf_000_r_wrist_interface_scs0009_0">
+      <origin xyz="-0.022075 0.03055 0.0698" rpy="0 0 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_001_r_wrist_interface_finger_frame_1_1">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_002_r_wrist_interface_r_hand_plate_2">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/r_hand_plate.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_003_r_wrist_interface_scs0009_3">
+      <origin xyz="-0.00443741 0.0191037 0.019125" rpy="-1.5707963 0 -1.2217309" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_004_r_wrist_interface_finger_frame_2_4">
+      <origin xyz="-0.0115 -0.0083 0.0961543" rpy="1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_005_r_wrist_interface_finger_frame_2_5">
+      <origin xyz="-0.0115 -0.0405 0.0851417" rpy="1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_006_r_wrist_interface_bushing_0608_04_6">
+      <origin xyz="-0.015 -0.0083 0.0961543" rpy="-1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_007_r_wrist_interface_bushing_0608_04_7">
+      <origin xyz="-0.015 0.0245 0.1022" rpy="-1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_008_r_wrist_interface_bushing_0608_04_8">
+      <origin xyz="-0.015 -0.0405 0.0851417" rpy="-1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_009_r_wrist_interface_bushing_0608_04_9">
+      <origin xyz="-0.025 -0.0083 0.0961543" rpy="1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_010_r_wrist_interface_finger_frame_2_10">
+      <origin xyz="0.0280778 0.0245 0.0297" rpy="3.1415927 0 1.9198628" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_011_r_wrist_interface_scs0009_11">
+      <origin xyz="-0.022075 -0.0109301 0.0632994" rpy="0 -0.10471969 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_012_r_wrist_interface_scs0009_12">
+      <origin xyz="-0.022075 0.01845 0.0698" rpy="0 0 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_013_r_wrist_interface_finger_frame_2_13">
+      <origin xyz="-0.0109 0.0245 0.1022" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_2.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_014_r_wrist_interface_scs0009_14">
+      <origin xyz="-0.022075 0.00110358 0.0645642" rpy="0 -0.10471969 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_015_r_wrist_interface_scs0009_15">
+      <origin xyz="-0.022075 -0.0388192 0.0522246" rpy="0 -0.23561962 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_016_r_wrist_interface_finger_frame_1_16">
+      <origin xyz="-0.0115 -0.0083 0.0961543" rpy="1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_017_r_wrist_interface_bushing_0608_04_17">
+      <origin xyz="0.0280778 0.0245 0.0262" rpy="0 0 1.9198628" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_018_r_wrist_interface_scs0009_18">
+      <origin xyz="-0.022075 -0.0270535 0.0550493" rpy="0 -0.23561962 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_019_r_wrist_interface_r_wrist_interface_19">
+      <origin xyz="-0.0115 0.0245 0.1022" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/r_wrist_interface.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_020_r_wrist_interface_scs0009_20">
+      <origin xyz="-0.000298971 0.00773341 0.019125" rpy="-1.5707963 0 -1.2217309" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/scs0009.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_021_r_wrist_interface_bushing_0608_04_21">
+      <origin xyz="-0.025 0.0245 0.1022" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_022_r_wrist_interface_bushing_0608_04_22">
+      <origin xyz="-0.025 -0.0405 0.0851417" rpy="1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_023_r_wrist_interface_bushing_0608_04_23">
+      <origin xyz="0.0280778 0.0245 0.0162" rpy="3.1415927 0 1.9198628" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/bushing_0608_04.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_024_r_wrist_interface_finger_frame_1_24">
+      <origin xyz="-0.0115 -0.0405 0.0851417" rpy="1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_025_r_wrist_interface_finger_frame_1_25">
+      <origin xyz="0.0280778 0.0245 0.0297" rpy="3.1415927 0 1.9198628" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/finger_frame_1.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="palm">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.14" />
+      <inertia ixx="8e-05" ixy="0" ixz="0" iyy="8e-05" iyz="0" izz="0.0001" />
+    </inertial>
+    <collision name="palm_contact_box">
+      <origin xyz="0 -0.038 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.09 0.085 0.035" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wrist_to_palm" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="r_wrist_interface" />
+    <child link="palm" />
+  </joint>
+  <link name="finger1_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger1_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_026_custom_servo_horn_rotule_ball_0">
+      <origin xyz="0.010849993 0.014099983 -0.036406558" rpy="1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_028_custom_servo_horn_custom_servo_horn_2">
+      <origin xyz="0.006449993 0.0090999831 -0.036406558" rpy="-1.5707963 0 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_029_ball_link_rotule_lever_0">
+      <origin xyz="0.012184855 0.010751639 -0.0036040168" rpy="1.6632739 -0.058624479 0.94280016" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_030_ball_link_rotule_lever_1">
+      <origin xyz="0.010849993 0.014099983 -0.036406558" rpy="-1.5119208 0.092318272 -0.62256238" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_031_ball_link_m2_rod_l18_2">
+      <origin xyz="0.012194967 0.010726273 -0.0033555127" rpy="1.5119208 -0.092318272 2.5190303" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_035_rotule_ball_rotule_ball_2">
+      <origin xyz="0.012184855 0.010751639 -0.0036040168" rpy="1.5661625 0.54877984 -0.0024172425" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_037_rotule_ball_rotule_ball_4">
+      <origin xyz="0.012184867 -0.0053482304 -0.0035403694" rpy="-1.5754301 0.54877984 -0.0024172425" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_039_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_gimbal_1">
+      <origin xyz="-1.6975736e-08 0.003049958 -0.0040065582" rpy="1.5707965 -0.0039526499 -1.5707957" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/gimbal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_041_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3">
+      <origin xyz="0.0059999766 0.003049962 -0.0040065582" rpy="-1.574749 1.2245905e-07 6.5836097e-07" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_049_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2">
+      <origin xyz="6.5883982e-11 0.0032000008 -0.0040071244" rpy="1.5754181 -0.54481644 3.139198" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_050_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3">
+      <origin xyz="0.026949788 0.0033757981 0.040463967" rpy="1.5754181 -0.54481644 3.139198" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_051_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_proximal_shell_4">
+      <origin xyz="0 -0.0080000004 -0.0022860193" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_052_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_proximal_5">
+      <origin xyz="0 0.0033 -0.0040075197" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_053_rotule_ball_2_custom_servo_horn_0">
+      <origin xyz="0.006449993 -0.0030000169 -0.036406558" rpy="1.5707963 0 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_054_rotule_ball_2_rotule_ball_1">
+      <origin xyz="0.010849993 -0.0080000169 -0.036406558" rpy="-1.5707963 0 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_056_m2_rod_l18_rotule_lever_0">
+      <origin xyz="0.010849993 -0.0080000169 -0.036406558" rpy="-1.6580759 -0.022336984 -0.71626782" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_058_m2_rod_l18_m2_rod_l18_2">
+      <origin xyz="0.01083988 -0.0080201061 -0.036655545" rpy="-1.548374 -0.087257737 -2.2890185" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_059_m2_rod_l18_rotule_lever_3">
+      <origin xyz="0.012184856 -0.0053482389 -0.0035403719" rpy="1.548374 0.087257737 0.85257414" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="finger1_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger1_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <collision name="finger1_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_033_rotule_ball_link_0">
+      <origin xyz="0.020012792 -0.045936634 -0.019187922" rpy="1.0220122 -0.0039541129 -1.5707959" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/link.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_044_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_distal_2">
+      <origin xyz="0 -0.046218485 -0.0019386087" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_045_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_distal_shell_3">
+      <origin xyz="0 -0.053104363 -0.0018242737" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_046_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4">
+      <origin xyz="0.041151785 -0.046109706 0.025574854" rpy="-1.579327 1.0890248 -0.0075590578" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="finger1_motor1" type="revolute">
+    <origin xyz="-0.03 -0.03 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger1_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger1_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger1_proximal" />
+    <child link="finger1_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger2_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger2_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_060_custom_servo_horn_2_rotule_ball_0">
+      <origin xyz="0.010849969 0.01742746 -0.035100155" rpy="1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_062_custom_servo_horn_2_custom_servo_horn_2">
+      <origin xyz="0.0064499685 0.012454851 -0.035622798" rpy="-1.5707963 0.10471979 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_063_ball_link_2_rotule_lever_0">
+      <origin xyz="0.010849969 0.01742746 -0.035100155" rpy="-1.5303824 -0.20645248 1.5710279" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_064_ball_link_2_rotule_lever_1">
+      <origin xyz="0.012184831 0.010668656 -0.0028273073" rpy="1.3641799 -0.039555278 -3.1330723" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_065_ball_link_2_m2_rod_l18_2">
+      <origin xyz="0.010839856 0.017478663 -0.035344646" rpy="-1.3641799 0.039555278 0.0085203405" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_067_rotule_ball_3_rotule_ball_0">
+      <origin xyz="0.012184831 -0.0053497052 -0.0044469119" rpy="-1.4528351 0.5456862 0.06143051" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_071_rotule_ball_3_rotule_ball_4">
+      <origin xyz="0.012184831 0.010668656 -0.0028273073" rpy="1.6887576 0.5456862 0.06143051" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_072_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0">
+      <origin xyz="0.0059999712 0.003051268 -0.0040326861" rpy="-1.4700297 -2.9271464e-07 9.9180893e-09" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_075_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_2_gimbal_3">
+      <origin xyz="-2.2375449e-08 0.003051268 -0.0040326885" rpy="1.5707969 0.10076667 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/gimbal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_081_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_0">
+      <origin xyz="0.02694977 -0.0012731517 0.040228282" rpy="1.4531168 -0.54174956 -3.0807065" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_084_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_proximal_3">
+      <origin xyz="0 0.0033 -0.0040075197" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_085_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_proximal_shell_4">
+      <origin xyz="0 -0.0080000004 -0.0022860193" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_086_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5">
+      <origin xyz="3.9313795e-12 0.0032005072 -0.0040175793" rpy="1.4531168 -0.54174956 -3.0807065" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_088_rotule_ball_4_rotule_ball_1">
+      <origin xyz="0.010849969 -0.0045514386 -0.03741024" rpy="-1.5707963 -0.10471979 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_089_rotule_ball_4_custom_servo_horn_2">
+      <origin xyz="0.0064499685 0.00042117081 -0.036887598" rpy="1.5707963 -0.10471979 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_090_ball_link_3_rotule_lever_0">
+      <origin xyz="0.01218483 -0.0053496453 -0.0044469118" rpy="1.5465331 -0.040429692 -3.1397938" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_091_ball_link_3_rotule_lever_1">
+      <origin xyz="0.010849969 -0.0045514386 -0.03741024" rpy="-1.5303547 -0.024243356 1.5716143" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_092_ball_link_3_m2_rod_l18_2">
+      <origin xyz="0.012194943 -0.0053556924 -0.0041971896" rpy="1.5303547 0.024243356 -1.5699784" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="finger2_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger2_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <collision name="finger2_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_069_rotule_ball_3_link_2">
+      <origin xyz="0.020012799 -0.044135173 -0.019063959" rpy="1.0220118 0.10076689 -1.5707972" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/link.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_076_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_distal_0">
+      <origin xyz="0 -0.046218485 -0.0019386087" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_078_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_distal_shell_2">
+      <origin xyz="0 -0.053104363 -0.0018242737" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_080_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4">
+      <origin xyz="0.041151773 -0.048986257 0.025435518" rpy="-1.355945 1.0794256 0.19007852" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="finger2_motor1" type="revolute">
+    <origin xyz="0 -0.033 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger2_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger2_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger2_proximal" />
+    <child link="finger2_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger3_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger3_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_094_custom_servo_horn_3_rotule_ball_0">
+      <origin xyz="0.010850052 0.021364996 -0.0329902" rpy="1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_095_custom_servo_horn_3_custom_servo_horn_1">
+      <origin xyz="0.0064500517 0.016503146 -0.034157422" rpy="-1.5707963 0.23561853 -1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_097_ball_link_4_rotule_lever_0">
+      <origin xyz="0.010850052 0.021364996 -0.0329902" rpy="-1.4053653 0.29803263 -0.93209358" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_098_ball_link_4_rotule_lever_1">
+      <origin xyz="0.012184914 0.010451588 -0.0018756426" rpy="1.8727096 -0.15807532 0.58971674" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_099_ball_link_4_m2_rod_l18_2">
+      <origin xyz="0.010839939 0.021447674 -0.033225916" rpy="-1.8727096 0.15807532 -2.5518759" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_101_rotule_ball_5_rotule_ball_0">
+      <origin xyz="0.012184894 -0.0052182943 -0.0055721784" rpy="-1.3010336 0.53253094 0.13947289" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_102_rotule_ball_5_rotule_ball_1">
+      <origin xyz="0.012184914 0.010451588 -0.0018756426" rpy="1.840559 0.53253094 0.13947289" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_106_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_gimbal_0">
+      <origin xyz="4.2890986e-08 0.0030567025 -0.0040649638" rpy="1.5707949 0.23166489 -1.5707973" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/gimbal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_109_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3">
+      <origin xyz="0.0060000365 0.0030566988 -0.0040649727" rpy="-1.3391314 1.5986513e-06 -5.842193e-07" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_115_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_proximal_shell_0">
+      <origin xyz="0 -0.0080000004 -0.0022860193" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_117_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_proximal_2">
+      <origin xyz="0 0.0033 -0.0040075197" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_118_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3">
+      <origin xyz="-9.3565974e-11 0.0032026714 -0.0040304795" rpy="1.3016531 -0.52871154 -3.0033437" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_120_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_3_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_5">
+      <origin xyz="0.026949846 -0.0070079099 0.039252887" rpy="1.3016531 -0.52871154 -3.0033437" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_121_rotule_ball_6_rotule_ball_0">
+      <origin xyz="0.010850052 -0.00012440509 -0.038149344" rpy="-1.5707963 -0.23561853 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_122_rotule_ball_6_custom_servo_horn_1">
+      <origin xyz="0.0064500517 0.0047374456 -0.036982122" rpy="1.5707963 -0.23561853 1.5707963" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_124_ball_link_5_rotule_lever_0">
+      <origin xyz="0.010850052 -0.00012440509 -0.038149344" rpy="-1.4300756 -0.076938647 0.75342987" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_125_ball_link_5_rotule_lever_1">
+      <origin xyz="0.012184916 -0.005218326 -0.0055722035" rpy="1.4930926 -0.1403017 2.3351139" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_126_ball_link_5_m2_rod_l18_2">
+      <origin xyz="0.010839939 -8.5814779e-05 -0.038396141" rpy="-1.4930926 0.1403017 -0.80647874" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="finger3_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger3_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <collision name="finger3_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_104_rotule_ball_5_link_3">
+      <origin xyz="0.020012761 -0.041917724 -0.018645603" rpy="1.0220119 0.23166565 -1.5707962" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/link.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_112_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2">
+      <origin xyz="0.04115182 -0.052535602 0.024839994" rpy="-1.0998674 1.0402073 0.4137799" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_113_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_distal_3">
+      <origin xyz="0 -0.046218485 -0.0019386087" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_114_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_3_distal_shell_4">
+      <origin xyz="0 -0.053104363 -0.0018242737" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal_shell.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="finger3_motor1" type="revolute">
+    <origin xyz="0.03 -0.03 0.02" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger3_proximal" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger3_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger3_proximal" />
+    <child link="finger3_distal" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <link name="finger4_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.028" />
+      <inertia ixx="1.1e-05" ixy="0" ixz="0" iyy="1.1e-05" iyz="0" izz="3e-06" />
+    </inertial>
+    <collision name="finger4_proximal_contact_box">
+      <origin xyz="0 0.029 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.018 0.058 0.018" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_128_custom_servo_horn_4_rotule_ball_0">
+      <origin xyz="-0.026751257 -0.017929807 0.0068424825" rpy="3.1415927 0 1.9198701" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_129_custom_servo_horn_4_custom_servo_horn_1">
+      <origin xyz="-0.028461395 -0.013231357 0.0024424825" rpy="0 0 1.9198701" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_131_ball_link_6_rotule_lever_0">
+      <origin xyz="0.0029278372 -0.0035642408 0.0081773458" rpy="2.7809049 -1.4559268 2.3800962" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_132_ball_link_6_rotule_lever_1">
+      <origin xyz="-0.026751257 -0.017929807 0.0068424825" rpy="-0.040696269 0.10744858 2.0172196" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_133_ball_link_6_m2_rod_l18_2">
+      <origin xyz="0.0031526789 -0.0034554108 0.0081874584" rpy="0.040696269 -0.10744858 -1.124373" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_135_rotule_ball_7_rotule_ball_0">
+      <origin xyz="0.0029278372 -0.0035642408 0.0081773458" rpy="1.5707963 -1.0220141 -2.7964771" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_139_rotule_ball_7_rotule_ball_4">
+      <origin xyz="-0.0025188927 0.011586462 0.0081773389" rpy="-1.5707964 -1.0220141 -2.7964771" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_140_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_0">
+      <origin xyz="-8.4580676e-05 0.0035352413 0.0019924821" rpy="-1.4168712 -1.570796 -2.9504023" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_142_std00333_plast_tcb_torx_2_5x8__configuration_copy_of_default_4_gimbal_2">
+      <origin xyz="-8.4581999e-05 0.0035352405 -0.0040075148" rpy="-3.1415924 4.6255839e-08 1.9159118" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/gimbal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_150_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_1">
+      <origin xyz="-3.3830534e-05 0.0033941036 -0.0040075197" rpy="1.5707962 1.0259775 0.34511539" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_151_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_2">
+      <origin xyz="0.041815471 0.018439052 0.022942164" rpy="1.5707962 1.0259775 0.34511539" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_152_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_proximal_shell_3">
+      <origin xyz="0 -0.0080000004 -0.0022860193" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_153_parallel_pin_2_x_16__da4b7ddbe9d803fe3fbc70f2e822b99b_4_proximal_4">
+      <origin xyz="0 0.0033 -0.0040075197" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/proximal.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_156_rotule_ball_8_rotule_ball_1">
+      <origin xyz="-0.034309938 0.0028373949 0.0068424825" rpy="-3.1415927 0 -1.2217298" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_ball.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_157_rotule_ball_8_custom_servo_horn_2">
+      <origin xyz="-0.032599834 -0.0018610671 0.0024424825" rpy="0 0 -1.2217298" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/custom_servo_horn.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_158_ball_link_7_rotule_lever_0">
+      <origin xyz="-0.0025188694 0.011586458 0.0081773456" rpy="1.5236155 -1.5302898 -2.8258163" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_159_ball_link_7_rotule_lever_1">
+      <origin xyz="-0.034309938 0.0028373949 0.0068424825" rpy="-0.040461509 -0.0019098997 1.8394305" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/rotule_lever.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_160_ball_link_7_m2_rod_l18_2">
+      <origin xyz="-0.002278028 0.011652739 0.0081874582" rpy="0.040461509 0.0019098997 -1.3021622" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/m2_rod_l18.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="finger4_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.022" />
+      <inertia ixx="8e-06" ixy="0" ixz="0" iyy="8e-06" iyz="0" izz="2e-06" />
+    </inertial>
+    <collision name="finger4_distal_contact_box">
+      <origin xyz="0 0.025 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.05 0.016" />
+      </geometry>
+    </collision>
+    <collision name="finger4_distal_tip_pad_contact_box">
+      <origin xyz="0 0.055 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.026 0.014 0.022" />
+      </geometry>
+    </collision>
+    <visual name="mjcf_136_rotule_ball_7_link_1">
+      <origin xyz="-0.016112492 -0.052382905 0.01807403" rpy="2.5928108 -7.9739621e-08 1.9159133" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/link.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_144_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_distal_shell_0">
+      <origin xyz="0 -0.053104363 -0.0018242737" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal_shell.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_146_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_2">
+      <origin xyz="0.025891568 -0.036910388 0.039212935" rpy="-1.5707963 -0.48176086 -2.7964772" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999.stl" />
+      </geometry>
+    </visual>
+    <visual name="mjcf_147_parallel_pin_2_x_10__fee063fca0c8b40e46bbc4ffff61d999_4_distal_3">
+      <origin xyz="0 -0.046218485 -0.0019386087" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/workspace/superarm_ws/isaacsim_test/inputs/robot_arm_hand_package/robot_arm_hand_package/hand_mjcf/assets/distal.stl" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="finger4_motor1" type="revolute">
+    <origin xyz="0.044 -0.006 -0.006" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="finger4_proximal" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.05" upper="1.05" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+  <joint name="finger4_motor2" type="revolute">
+    <origin xyz="0 0.058 0" rpy="0 0 0" />
+    <parent link="finger4_proximal" />
+    <child link="finger4_distal" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="1.2" effort="2.0" velocity="3.0" />
+    <dynamics damping="0.08" friction="0.02" />
+  </joint>
+</robot>

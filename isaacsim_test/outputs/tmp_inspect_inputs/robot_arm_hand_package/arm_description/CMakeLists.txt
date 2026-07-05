@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.8)
+project(robot_arm_hand_urdf_description)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+find_package(ament_cmake REQUIRED)
+
+# Install launch files
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+  FILES_MATCHING PATTERN "*.py"
+)
+
+# Install URDF/xacro and config
+install(DIRECTORY urdf/
+  DESTINATION share/${PROJECT_NAME}/urdf
+)
+install(DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
+  OPTIONAL
+)
+
+# Install meshes (STL)
+install(DIRECTORY meshes/
+  DESTINATION share/${PROJECT_NAME}/meshes
+  OPTIONAL
+)
+
+# Install RViz config
+install(FILES launch/urdf.rviz
+  DESTINATION share/${PROJECT_NAME}/launch
+)
+
+ament_package()
