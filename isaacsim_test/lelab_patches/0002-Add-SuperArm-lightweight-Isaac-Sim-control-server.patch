@@ -1,7 +1,7 @@
 From b330278e17fd690db616b883df66ca36d3910633 Mon Sep 17 00:00:00 2001
 From: Codex <codex@example.local>
 Date: Sun, 5 Jul 2026 11:18:52 +0000
-Subject: [PATCH 2/2] Add SuperArm lightweight Isaac Sim control server
+Subject: [PATCH 2/3] Add SuperArm lightweight Isaac Sim control server
 
 ---
  lelab/datasets.py        |   7 ++-

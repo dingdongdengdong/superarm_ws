@@ -16,10 +16,12 @@ upstream base commit: 8f8a50f Force-release camera/serial resources when a devic
 local integration commits:
   - f453845 Add Isaac Sim RPO arm teleoperation backend
   - b330278 Add SuperArm lightweight Isaac Sim control server
+  - ae43d96 Switch SuperArm server to six-field control contract
 local branch: feature/superarm-isaacsim-control
 patch files:
   - isaacsim_test/lelab_patches/0001-Add-Isaac-Sim-RPO-arm-teleoperation-backend.patch
   - isaacsim_test/lelab_patches/0002-Add-SuperArm-lightweight-Isaac-Sim-control-server.patch
+  - isaacsim_test/lelab_patches/0003-Switch-SuperArm-server-to-six-field-control-contract.patch
 ```
 
 ## Current compatibility verdict
@@ -98,7 +100,7 @@ cd /workspaces/superarm_ws
 
 ## Implemented MVP patch
 
-The local LeLab clone now has commits `f453845` and `b330278` with:
+The local LeLab clone now has commits `f453845`, `b330278`, and `ae43d96` with:
 
 - `robot_backend="isaacsim_rpo_arm"` support in `lelab/teleoperate.py`.
 - dynamic import of this repo's `IsaacSimRpoArmRobot` from `SUPERARM_WS_PATH` or `/workspaces/superarm_ws`.
@@ -106,6 +108,7 @@ The local LeLab clone now has commits `f453845` and `b330278` with:
 - generic `joint_rev_*.pos` and vector readback conversion for websocket/joint-position display.
 - targeted LeLab test coverage in `tests/test_teleoperate.py`.
 - lightweight Python 3.10-compatible `lelab.superarm_server` FastAPI UI for ROS2 Humble + Isaac Sim control without importing the full upstream LeLab app stack.
+- six-field default UI/config for `right_arm_pitch_joint`, `right_arm_roll_joint`, `right_arm_yaw_joint`, `right_elbow_pitch_joint`, `right_elbow_yaw_joint`, and `amazinghand_grasp`.
 
 Validation run inside `worktrees/leLab`:
 
@@ -176,3 +179,42 @@ Evidence:
   - `[0.4, 0.1, 0.15, -0.45]`
   - `[0.0, 0.0, 0.0, 0.0]`
 - Per-command JSON evidence was written under `data/isaac_command_evidence/`.
+
+## 2026-07-05 six-field control rerun
+
+Runtime folder:
+
+```text
+/workspaces/superarm_ws/isaacsim_test/artifacts/lelab_superarm_6field_control_20260705T130140Z
+```
+
+What changed from the previous 4-joint fallback run:
+
+- Isaac was restarted with the SimReady USD:
+  `/workspaces/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd`
+- `JOINT_NAMES` was left unset so `setup_rpo_arm_scene.py` used its default RoboParty V2 contract.
+- LeLab server UI now defaults to `rpo_arm_isaacsim.yaml` and exposes 6 sliders:
+  - `right_arm_pitch_joint`
+  - `right_arm_roll_joint`
+  - `right_arm_yaw_joint`
+  - `right_elbow_pitch_joint`
+  - `right_elbow_yaw_joint`
+  - `amazinghand_grasp`
+
+Validation evidence:
+
+- `/move-arm` connected with `robot_backend=isaacsim_rpo_arm` and `rpo_arm_isaacsim.yaml`.
+- `/send-joint-action` accepted/read back:
+  - `[0.2, 0.1, -0.2, 0.3, -0.15, 0.0]`
+  - `[-0.2, -0.1, 0.2, -0.3, 0.15, 0.5]`
+  - `[0.35, -0.25, 0.15, 0.25, -0.25, 1.0]`
+  - `[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]`
+- Isaac command evidence confirms `using_simready=true`, `published_joint_names` has all 6 fields, and `binding_status="binding_pending"`.
+
+Important limitation:
+
+The current SimReady USD still does not expose a bound articulation for these
+six fields. Isaac logs: `SimReady articulation binding is binding_pending;
+publishing mirrored 6D LeRobot state until prim mapping is authored.` This means
+LeLab/ROS 6D command and state echo works, but visual/physical SimReady joint
+motion still needs USD articulation prim binding.

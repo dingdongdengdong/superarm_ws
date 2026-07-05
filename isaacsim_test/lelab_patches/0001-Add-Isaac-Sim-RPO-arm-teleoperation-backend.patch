@@ -1,7 +1,7 @@
 From f45384598f66b815b6a524b580b5fe3b34a23578 Mon Sep 17 00:00:00 2001
 From: Codex <codex@example.local>
 Date: Sun, 5 Jul 2026 11:09:42 +0000
-Subject: [PATCH 1/2] Add Isaac Sim RPO arm teleoperation backend
+Subject: [PATCH 1/3] Add Isaac Sim RPO arm teleoperation backend
 
 ---
  lelab/server.py           |   8 ++

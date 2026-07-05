@@ -1,0 +1,68 @@
+From ae43d96008f47f9054bed0c1dcce2e55bff2be78 Mon Sep 17 00:00:00 2001
+From: Codex <codex@example.local>
+Date: Sun, 5 Jul 2026 13:03:05 +0000
+Subject: [PATCH 3/3] Switch SuperArm server to six-field control contract
+
+---
+ lelab/superarm_server.py | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
+
+diff --git a/lelab/superarm_server.py b/lelab/superarm_server.py
+index c0e85c2..ae232a9 100644
+--- a/lelab/superarm_server.py
++++ b/lelab/superarm_server.py
+@@ -38,25 +38,34 @@ CONTROL_HTML = """
+ </head>
+ <body>
+   <h1>LeLab SuperArm Isaac Sim Control</h1>
+-  <p>Backend: <code>isaacsim_rpo_arm</code>; joints: <code>joint_rev_1..4</code></p>
++  <p>Backend: <code>isaacsim_rpo_arm</code>; joints: <code>right_arm_* x5 + amazinghand_grasp</code></p>
+   <div>
+     <button onclick="connectArm()">Connect Isaac Sim Arm</button>
+     <button onclick="sendAction()">Send Slider Action</button>
+-    <button onclick="preset([0,0,0,0])">Home</button>
+-    <button onclick="preset([0.25,-0.2,0.3,-0.35])">Positive Reach</button>
+-    <button onclick="preset([-0.25,0.2,-0.3,0.35])">Negative Reach</button>
+-    <button onclick="preset([0.4,0.1,0.15,-0.45])">Mixed Elbow</button>
++    <button onclick="preset([0,0,0,0,0,0])">Home</button>
++    <button onclick="preset([0.2,0.1,-0.2,0.3,-0.15,0.0])">Arm Pose A</button>
++    <button onclick="preset([-0.2,-0.1,0.2,-0.3,0.15,0.5])">Arm Pose B + Half Grasp</button>
++    <button onclick="preset([0.35,-0.25,0.15,0.25,-0.25,1.0])">Reach + Grasp</button>
+     <button onclick="stopArm()">Stop</button>
+   </div>
+   <div id="sliders"></div>
+   <h2>Status</h2>
+   <pre id="out">Not connected</pre>
+ <script>
+-const names = ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"];
++const joints = [
++  {name: "right_arm_pitch_joint", min: -1.57, max: 1.57, step: 0.01, value: 0},
++  {name: "right_arm_roll_joint", min: -1.57, max: 1.57, step: 0.01, value: 0},
++  {name: "right_arm_yaw_joint", min: -1.57, max: 1.57, step: 0.01, value: 0},
++  {name: "right_elbow_pitch_joint", min: -1.57, max: 1.57, step: 0.01, value: 0},
++  {name: "right_elbow_yaw_joint", min: -1.57, max: 1.57, step: 0.01, value: 0},
++  {name: "amazinghand_grasp", min: 0.0, max: 1.0, step: 0.01, value: 0},
++];
++const names = joints.map(j => j.name);
+ const sliders = document.getElementById("sliders");
+-for (let i = 0; i < names.length; i++) {
++for (let i = 0; i < joints.length; i++) {
++  const joint = joints[i];
+   const row = document.createElement("div"); row.className = "row";
+-  row.innerHTML = `<label>${names[i]}</label><input id="j${i}" type="range" min="-1.2" max="1.2" step="0.01" value="0" oninput="v${i}.textContent=this.value"><span id="v${i}">0</span>`;
++  row.innerHTML = `<label>${joint.name}</label><input id="j${i}" type="range" min="${joint.min}" max="${joint.max}" step="${joint.step}" value="${joint.value}" oninput="v${i}.textContent=this.value"><span id="v${i}">${joint.value}</span>`;
+   sliders.appendChild(row);
+ }
+ function values(){ return names.map((_, i) => parseFloat(document.getElementById(`j${i}`).value)); }
+@@ -66,7 +75,7 @@ async function connectArm(){
+   return post('/move-arm', {
+     robot_backend: 'isaacsim_rpo_arm',
+     leader_port: 'unused', follower_port: 'unused', leader_config: 'unused',
+-    follower_config: '/workspaces/superarm_ws/isaacsim_test/lerobot/source_arm_isaacsim_arm_only.yaml',
++    follower_config: '/workspaces/superarm_ws/isaacsim_test/lerobot/rpo_arm_isaacsim.yaml',
+     superarm_ws_path: '/workspaces/superarm_ws'
+   });
+ }
+-- 
+2.34.1
+
