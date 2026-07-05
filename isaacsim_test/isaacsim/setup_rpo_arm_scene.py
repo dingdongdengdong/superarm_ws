@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import math
 import os
 import shutil
 import sys
@@ -17,7 +18,7 @@ import time
 
 import numpy as np
 
-CONTROLLED_ARM_JOINT_NAMES = [
+DEFAULT_CONTROLLED_ARM_JOINT_NAMES = [
     "right_arm_pitch_joint",
     "right_arm_roll_joint",
     "right_arm_yaw_joint",
@@ -25,6 +26,19 @@ CONTROLLED_ARM_JOINT_NAMES = [
     "right_elbow_yaw_joint",
 ]
 SYNTHETIC_GRASP_NAME = "amazinghand_grasp"
+
+
+def _parse_controlled_arm_joint_names() -> list[str]:
+    raw = os.environ.get("JOINT_NAMES", "")
+    if not raw.strip():
+        return list(DEFAULT_CONTROLLED_ARM_JOINT_NAMES)
+    names = [part.strip() for part in raw.split(",") if part.strip()]
+    names = [name for name in names if name != SYNTHETIC_GRASP_NAME]
+    return names or list(DEFAULT_CONTROLLED_ARM_JOINT_NAMES)
+
+
+CONTROLLED_ARM_JOINT_NAMES = _parse_controlled_arm_joint_names()
+# Local source-package URDF control can set JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4.
 PUBLISHED_JOINT_NAMES = [*CONTROLLED_ARM_JOINT_NAMES, SYNTHETIC_GRASP_NAME]
 DEFAULT_SIMREADY_USD = (
     "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/"
@@ -59,7 +73,15 @@ def _env_flag(name: str, default: bool = False) -> bool:
 
 SCREENSHOT_AFTER_COMMAND = _env_flag("SCREENSHOT_AFTER_COMMAND")
 SCREENSHOT_ON_STARTUP = _env_flag("SCREENSHOT_ON_STARTUP")
+SCREENSHOT_EACH_COMMAND = _env_flag("SCREENSHOT_EACH_COMMAND")
+SCREENSHOT_EXIT_AFTER_COMMAND_COUNT = int(os.environ.get("SCREENSHOT_EXIT_AFTER_COMMAND_COUNT", "1"))
 SCREENSHOT_PATH = os.environ.get("SCREENSHOT_PATH", DEFAULT_SCREENSHOT_PATH)
+SCREENSHOT_SEQUENCE_DIR = os.environ.get(
+    "SCREENSHOT_SEQUENCE_DIR",
+    "/workspace/superarm_ws/isaacsim_test/artifacts/lerobot_pose_screenshots",
+)
+COMMAND_EVIDENCE_PATH = os.environ.get("COMMAND_EVIDENCE_PATH", "")
+COMMAND_EVIDENCE_DIR = os.environ.get("COMMAND_EVIDENCE_DIR", "")
 EXIT_AFTER_SCREENSHOT = _env_flag(
     "EXIT_AFTER_SCREENSHOT", default=SCREENSHOT_AFTER_COMMAND or SCREENSHOT_ON_STARTUP
 )
@@ -83,8 +105,10 @@ simulation_app = SimulationApp({"headless": args.headless, "width": 1280, "heigh
 
 import omni.kit.commands  # noqa: E402
 import omni.usd  # noqa: E402
-from pxr import UsdGeom  # noqa: E402
+from pxr import Usd, UsdGeom, UsdLux  # noqa: E402
 from isaacsim.core.utils.extensions import enable_extension, get_extension_path_from_name  # noqa: E402
+from isaacsim.core.utils.rotations import rot_matrix_to_quat  # noqa: E402
+from isaacsim.sensors.camera import Camera  # noqa: E402
 
 enable_extension("isaacsim.ros2.bridge")
 enable_extension("isaacsim.asset.importer.urdf")
@@ -223,7 +247,10 @@ print(
     "[setup_rpo_arm_scene] Screenshot config: "
     f"after_command={SCREENSHOT_AFTER_COMMAND}, "
     f"on_startup={SCREENSHOT_ON_STARTUP}, "
+    f"each_command={SCREENSHOT_EACH_COMMAND}, "
+    f"exit_after_count={SCREENSHOT_EXIT_AFTER_COMMAND_COUNT}, "
     f"path={SCREENSHOT_PATH}, "
+    f"sequence_dir={SCREENSHOT_SEQUENCE_DIR}, "
     f"exit_after={EXIT_AFTER_SCREENSHOT}",
     flush=True,
 )
@@ -294,9 +321,46 @@ def _position_list(raw_positions) -> list[float]:
     return arr.reshape(-1).astype(float).tolist()
 
 
+def _write_command_evidence(
+    *,
+    command_seq: int,
+    command: list[float],
+    articulation_readback: list[float] | None,
+    binding_status: str,
+) -> None:
+    if not COMMAND_EVIDENCE_PATH and not COMMAND_EVIDENCE_DIR:
+        return
+    payload = {
+        "command_seq": command_seq,
+        "controlled_joint_names": list(CONTROLLED_ARM_JOINT_NAMES),
+        "published_joint_names": list(PUBLISHED_JOINT_NAMES),
+        "command": command,
+        "articulation_readback": articulation_readback,
+        "binding_status": binding_status,
+        "using_simready": bool(using_simready),
+        "urdf_path": urdf_path,
+        "simready_usd_path": simready_usd_path,
+    }
+    if COMMAND_EVIDENCE_PATH:
+        os.makedirs(os.path.dirname(COMMAND_EVIDENCE_PATH), exist_ok=True)
+        with open(COMMAND_EVIDENCE_PATH, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, sort_keys=True)
+            f.write("\n")
+    if COMMAND_EVIDENCE_DIR:
+        os.makedirs(COMMAND_EVIDENCE_DIR, exist_ok=True)
+        per_command_path = os.path.join(
+            COMMAND_EVIDENCE_DIR, f"command_{command_seq:03d}_evidence.json"
+        )
+        with open(per_command_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, sort_keys=True)
+            f.write("\n")
+
+
 def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> None:
     """Capture visual evidence without using Replicator in headless CI."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.exists(path):
+        os.unlink(path)
     print(
         f"[setup_rpo_arm_scene] Capturing screenshot after LeRobot command "
         f"{last_applied_command} -> {path}",
@@ -304,6 +368,7 @@ def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> Non
     )
     errors = []
     capture_methods = [
+        ("camera sensor", _capture_camera_sensor_screenshot),
         ("renderer resource", _capture_renderer_resource_screenshot),
         ("viewport", _capture_viewport_screenshot),
     ]
@@ -313,6 +378,8 @@ def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> Non
             flush=True,
         )
         try:
+            if os.path.exists(path):
+                os.unlink(path)
             capture_method(path)
             if os.path.isfile(path) and os.path.getsize(path) > 0:
                 print(
@@ -331,6 +398,178 @@ def _capture_rgb_screenshot(path: str, last_applied_command: list[float]) -> Non
                 flush=True,
             )
     _write_fallback_visual_evidence(path, errors)
+
+
+def _save_png(path: str, rgba) -> None:
+    arr = np.asarray(rgba)
+    if arr.dtype != np.uint8:
+        arr = np.clip(arr * 255 if arr.max(initial=0) <= 1.0 else arr, 0, 255).astype(np.uint8)
+    try:
+        from PIL import Image
+
+        Image.fromarray(arr[:, :, :4]).save(path)
+        return
+    except Exception:
+        import matplotlib.pyplot as plt
+
+        plt.imsave(path, arr[:, :, :3])
+
+
+def _fallback_bbox() -> tuple[np.ndarray, np.ndarray]:
+    return np.array([-0.75, -0.75, 0.0], dtype=float), np.array([0.75, 0.75, 1.0], dtype=float)
+
+
+def _is_reasonable_bbox(mn: np.ndarray, mx: np.ndarray) -> bool:
+    if not np.all(np.isfinite(mn)) or not np.all(np.isfinite(mx)):
+        return False
+    extent = mx - mn
+    extent_norm = float(np.linalg.norm(extent))
+    return math.isfinite(extent_norm) and 1e-6 <= extent_norm <= 100.0 and np.all(np.abs(mn) < 100.0) and np.all(np.abs(mx) < 100.0)
+
+
+def _bbox_for_prim(stage: Usd.Stage, focus_prim_path: str) -> tuple[np.ndarray, np.ndarray, str]:
+    prim = stage.GetPrimAtPath(focus_prim_path)
+    if not prim or not prim.IsValid():
+        return (*_fallback_bbox(), "fallback_missing_prim")
+    cache = UsdGeom.BBoxCache(Usd.TimeCode.Default(), [UsdGeom.Tokens.default_, UsdGeom.Tokens.render])
+
+    def compute(path_prim):
+        box = cache.ComputeWorldBound(path_prim).ComputeAlignedBox()
+        return np.array(box.GetMin(), dtype=float), np.array(box.GetMax(), dtype=float)
+
+    mn, mx = compute(prim)
+    if _is_reasonable_bbox(mn, mx):
+        return mn, mx, "target"
+    mins = []
+    maxs = []
+    for child in Usd.PrimRange(prim):
+        try:
+            cmn, cmx = compute(child)
+        except Exception:
+            continue
+        if _is_reasonable_bbox(cmn, cmx):
+            mins.append(cmn)
+            maxs.append(cmx)
+    if mins:
+        return np.min(np.vstack(mins), axis=0), np.max(np.vstack(maxs), axis=0), "descendants"
+    return (*_fallback_bbox(), "fallback_unbounded")
+
+
+def _look_at_world_quat(position: np.ndarray, target: np.ndarray) -> np.ndarray:
+    forward = np.asarray(target, dtype=float) - np.asarray(position, dtype=float)
+    norm = np.linalg.norm(forward)
+    if not math.isfinite(float(norm)) or norm < 1e-9:
+        return np.array([1.0, 0.0, 0.0, 0.0], dtype=float)
+    x_axis = forward / norm
+    up_hint = np.array([0.0, 0.0, 1.0], dtype=float)
+    if abs(float(np.dot(x_axis, up_hint))) > 0.98:
+        up_hint = np.array([0.0, 1.0, 0.0], dtype=float)
+    y_axis = np.cross(up_hint, x_axis)
+    y_axis /= max(float(np.linalg.norm(y_axis)), 1e-9)
+    z_axis = np.cross(x_axis, y_axis)
+    z_axis /= max(float(np.linalg.norm(z_axis)), 1e-9)
+    return np.asarray(rot_matrix_to_quat(np.column_stack([x_axis, y_axis, z_axis])), dtype=float)
+
+
+def _ensure_debug_lights(stage: Usd.Stage) -> list[str]:
+    light_paths = []
+    dome = UsdLux.DomeLight.Define(stage, "/World/ViewportDebugDomeLight")
+    dome.CreateIntensityAttr(600.0)
+    light_paths.append(str(dome.GetPath()))
+    distant = UsdLux.DistantLight.Define(stage, "/World/ViewportDebugDistantLight")
+    distant.CreateIntensityAttr(2500.0)
+    distant.CreateAngleAttr(0.5)
+    light_paths.append(str(distant.GetPath()))
+    return light_paths
+
+
+def _capture_camera_sensor_screenshot(path: str) -> None:
+    """Headless-safe capture of the live articulated pose using an Isaac Camera."""
+    stage = omni.usd.get_context().get_stage()
+    mn, mx, bbox_source = _bbox_for_prim(stage, prim_path)
+    center = (mn + mx) / 2.0
+    extent = mx - mn
+    radius = min(max(float(np.linalg.norm(extent)), 0.5), 5.0)
+    camera_position = center + np.array([radius * 0.9, -radius * 1.8, radius * 0.8 + 0.5], dtype=float)
+    quat = _look_at_world_quat(camera_position, center)
+    _ensure_debug_lights(stage)
+    camera_path = "/World/ViewportDebugCamera"
+    camera = Camera(
+        prim_path=camera_path,
+        position=camera_position,
+        orientation=quat,
+        resolution=(1280, 720),
+    )
+    camera.initialize()
+    camera.set_focal_length(24.0)
+    for _ in range(20):
+        try:
+            world.step(render=True)
+        except Exception:
+            simulation_app.update()
+    rgba = camera.get_rgba()
+    if rgba is None or np.asarray(rgba).size == 0:
+        raise RuntimeError("Camera returned no RGBA data")
+    _save_png(path, np.asarray(rgba))
+    metadata_path = os.path.splitext(path)[0] + ".json"
+    with open(metadata_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "camera_path": camera_path,
+                "camera_position": camera_position.astype(float).tolist(),
+                "bbox_min": mn.astype(float).tolist(),
+                "bbox_max": mx.astype(float).tolist(),
+                "bbox_source": bbox_source,
+                "focus_prim": prim_path,
+                "resolution": [1280, 720],
+                "capture_method": "isaacsim.sensors.camera.Camera.get_rgba",
+            },
+            f,
+            indent=2,
+            sort_keys=True,
+        )
+        f.write("\n")
+
+
+def _capture_command_screenshot(
+    sequence_dir: str,
+    command_index: int,
+    command_seq: int,
+    last_applied_command: list[float],
+    articulation_readback: list[float] | None,
+) -> None:
+    os.makedirs(sequence_dir, exist_ok=True)
+    filename = f"command_{command_index:03d}.png"
+    path = os.path.join(sequence_dir, filename)
+    _capture_rgb_screenshot(path, last_applied_command)
+    manifest_path = os.path.join(sequence_dir, "manifest.json")
+    if os.path.isfile(manifest_path):
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+    else:
+        manifest = {
+            "command_sequence": True,
+            "root_prim": prim_path,
+            "controlled_joint_names": list(CONTROLLED_ARM_JOINT_NAMES),
+            "published_joint_names": list(PUBLISHED_JOINT_NAMES),
+            "images": [],
+        }
+    manifest["last_applied_command"] = [float(v) for v in last_applied_command]
+    manifest.setdefault("images", []).append(
+        {
+            "filename": filename,
+            "path": path,
+            "command_index": int(command_index),
+            "ros_command_seq": int(command_seq),
+            "applied_command": [float(v) for v in last_applied_command],
+            "articulation_readback": articulation_readback,
+            "image_size_bytes": os.path.getsize(path) if os.path.isfile(path) else 0,
+        }
+    )
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2, sort_keys=True)
+        f.write("\n")
+    print(f"[setup_rpo_arm_scene] Command screenshot saved: {path}", flush=True)
 
 
 def _write_fallback_visual_evidence(path: str, errors: list[str]) -> None:
@@ -464,6 +703,7 @@ timeline.play()
 
 print("[setup_rpo_arm_scene] Simulation running. Ctrl+C to stop.", flush=True)
 screenshot_taken = False
+screenshot_command_capture_count = 0
 last_processed_command_seq = -1
 if SCREENSHOT_ON_STARTUP:
     print("[setup_rpo_arm_scene] Startup screenshot trigger accepted.", flush=True)
@@ -517,14 +757,33 @@ try:
                 for idx, value in zip(controlled_indices, arm_command, strict=True):
                     all_positions[idx] = value
                 art.set_joint_positions(np.array([all_positions], dtype=np.float32))
+                articulation_positions = _position_list(art.get_joint_positions())
+                articulation_readback = [
+                    articulation_positions[i] for i in controlled_indices
+                ]
+                current_positions = [*articulation_readback, current_grasp]
+                print(
+                    "[setup_rpo_arm_scene] Articulation readback after command "
+                    f"#{cmd_seq}: {articulation_readback}",
+                    flush=True,
+                )
             elif using_simready:
+                articulation_readback = None
                 _write_simready_mapping_evidence(
                     asset_path=simready_usd_path,
                     prim_path=prim_path,
                     binding_status="binding_pending",
                     last_command=list(current_positions),
                 )
+            else:
+                articulation_readback = None
             last_applied_command = list(current_positions)
+            _write_command_evidence(
+                command_seq=cmd_seq,
+                command=last_applied_command,
+                articulation_readback=articulation_readback,
+                binding_status="articulation_bound" if art is not None else "binding_pending",
+            )
             _publish_current_state()
             print(
                 f"[setup_rpo_arm_scene] Applied LeRobot command #{cmd_seq}: "
@@ -532,11 +791,24 @@ try:
                 flush=True,
             )
 
-            if SCREENSHOT_AFTER_COMMAND and not screenshot_taken:
+            if SCREENSHOT_AFTER_COMMAND and (SCREENSHOT_EACH_COMMAND or not screenshot_taken):
                 print("[setup_rpo_arm_scene] Screenshot trigger accepted.", flush=True)
-                _capture_rgb_screenshot(SCREENSHOT_PATH, last_applied_command)
+                if SCREENSHOT_EACH_COMMAND:
+                    screenshot_command_capture_count += 1
+                    _capture_command_screenshot(
+                        SCREENSHOT_SEQUENCE_DIR,
+                        screenshot_command_capture_count,
+                        cmd_seq,
+                        last_applied_command,
+                        articulation_readback,
+                    )
+                else:
+                    _capture_rgb_screenshot(SCREENSHOT_PATH, last_applied_command)
                 screenshot_taken = True
-                if EXIT_AFTER_SCREENSHOT:
+                if EXIT_AFTER_SCREENSHOT and (
+                    not SCREENSHOT_EACH_COMMAND
+                    or screenshot_command_capture_count >= SCREENSHOT_EXIT_AFTER_COMMAND_COUNT
+                ):
                     print(
                         "[setup_rpo_arm_scene] Exiting after screenshot as requested.",
                         flush=True,

@@ -9,15 +9,33 @@ from typing import Optional
 
 import numpy as np
 
-from lerobot.common.robot_devices.robots.configs import RobotConfig
+try:  # LeRobot versions used by older containers.
+    from lerobot.common.robot_devices.robots.configs import RobotConfig
+except ModuleNotFoundError:
+    try:  # Newer upstream LeRobot checkout layout.
+        from lerobot.robots.config import RobotConfig
+    except ModuleNotFoundError:
+        class RobotConfig:  # type: ignore[no-redef]
+            """Small local fallback so contract tests can run without LeRobot installed."""
+
+            @classmethod
+            def register_subclass(cls, _name: str):
+                def _decorator(subclass):
+                    return subclass
+
+                return _decorator
 
 
-JOINT_NAMES = [
+ARM_JOINT_NAMES = [
     "right_arm_pitch_joint",
     "right_arm_roll_joint",
     "right_arm_yaw_joint",
     "right_elbow_pitch_joint",
     "right_elbow_yaw_joint",
+]
+SYNTHETIC_GRASP_NAME = "amazinghand_grasp"
+JOINT_NAMES = [
+    *ARM_JOINT_NAMES,
     "amazinghand_grasp",
 ]
 FEATURE_KEYS = [f"{name}.pos" for name in JOINT_NAMES]
@@ -31,6 +49,9 @@ class IsaacSimRpoArmConfig(RobotConfig):
     joint_command_topic: str = "/follower/joint_commands"
     phone_command_topic: str = "/leader/joint_commands"
     connect_timeout_s: float = 10.0
+    fixed_hand: bool = False
+    fixed_grasp: float = 0.0
+    allow_custom_joint_names: bool = False
     mock: bool = False
 
 
@@ -138,11 +159,22 @@ class IsaacSimRpoArmRobot:
 
     def _normalize_vector(self, values: list[float]) -> list[float]:
         target_len = len(self.config.joint_names)
-        values = [float(v) for v in values[:target_len]]
-        if len(values) < target_len:
-            values.extend([0.0] * (target_len - len(values)))
-        values[-1] = float(np.clip(values[-1], 0.0, 1.0))
-        return values
+        normalized = [float(v) for v in values[:target_len]]
+        if len(normalized) < target_len:
+            for joint_name in self.config.joint_names[len(normalized):]:
+                if joint_name == SYNTHETIC_GRASP_NAME:
+                    normalized.append(float(self.config.fixed_grasp))
+                else:
+                    normalized.append(0.0)
+
+        for idx, joint_name in enumerate(self.config.joint_names):
+            if joint_name != SYNTHETIC_GRASP_NAME:
+                continue
+            if self.config.fixed_hand:
+                normalized[idx] = float(np.clip(self.config.fixed_grasp, 0.0, 1.0))
+            else:
+                normalized[idx] = float(np.clip(normalized[idx], 0.0, 1.0))
+        return normalized
 
     def run_calibration(self):
         print("[IsaacSimRpoArmRobot] Simulated robot - no calibration needed.")

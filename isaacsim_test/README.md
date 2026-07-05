@@ -234,6 +234,51 @@ Dataset feature names stay the five arm command keys plus `amazinghand_grasp.pos
 
 ---
 
+## Arm-only fixed-hand branch
+
+For this branch, move only the five RoboParty right-arm joints and keep the
+AmazingHand fixed. Use:
+
+```text
+isaacsim_test/lerobot/rpo_arm_isaacsim_arm_only.yaml
+```
+
+That config exposes exactly five LeRobot action/state keys:
+
+1. `right_arm_pitch_joint.pos`
+2. `right_arm_roll_joint.pos`
+3. `right_arm_yaw_joint.pos`
+4. `right_elbow_pitch_joint.pos`
+5. `right_elbow_yaw_joint.pos`
+
+It deliberately omits `amazinghand_grasp`; `fixed_hand: true` and
+`fixed_grasp: 0.0` document that the hand should not be commanded on this
+branch.
+
+To run the fixed-hand arm capture with timestamped artifacts:
+
+```bash
+SUPERARM_WS_PATH=$PWD \
+ROS_DOMAIN_ID=42 \
+bash isaacsim_test/run_fixed_hand_arm_lerobot_capture.sh
+```
+
+Each run creates:
+
+```text
+isaacsim_test/artifacts/arm_fixed_hand_lerobot_<UTC_DATE_TIME>/
+  logs/
+  screenshots/
+  data/
+  report.json
+  report.md
+```
+
+Use `TARGET=0.1,0.0,-0.1,0.2,-0.2` to override the default five-joint arm
+target. Do not include a sixth hand/grasp value for this branch.
+
+---
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |

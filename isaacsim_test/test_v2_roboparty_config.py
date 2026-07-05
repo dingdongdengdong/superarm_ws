@@ -134,6 +134,15 @@ class RoboPartyV2ConfigTest(unittest.TestCase):
         self.assertIn("_publish_current_state", scene_text)
         self.assertIn("Startup screenshot trigger accepted", scene_text)
 
+    def test_scene_can_use_env_joint_names_for_local_source_urdf_control(self) -> None:
+        scene_text = _read("isaacsim_test/isaacsim/setup_rpo_arm_scene.py")
+
+        self.assertIn("JOINT_NAMES", scene_text)
+        self.assertIn("_parse_controlled_arm_joint_names", scene_text)
+        self.assertIn("joint_rev_1", scene_text)
+        self.assertIn("COMMAND_EVIDENCE_PATH", scene_text)
+        self.assertIn("articulation_readback", scene_text)
+
     def test_lerobot_sitl_verifier_uses_robot_config_and_checks_tolerance(self) -> None:
         verifier_text = _read("isaacsim_test/lerobot/verify_lerobot_sitl.py")
 
