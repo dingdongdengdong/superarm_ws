@@ -12,8 +12,10 @@ LeLab clone state captured during setup:
 
 ```text
 repo: https://github.com/huggingface/leLab.git
-commit: 8f8a50f Force-release camera/serial resources when a device disconnect fails
+upstream base commit: 8f8a50f Force-release camera/serial resources when a device disconnect fails
+local integration commit: f453845 Add Isaac Sim RPO arm teleoperation backend
 local branch: feature/superarm-isaacsim-control
+patch file: isaacsim_test/lelab_patches/0001-add-isaac-sim-rpo-arm-teleoperation-backend.patch
 ```
 
 ## Current compatibility verdict
@@ -88,4 +90,41 @@ Run our existing Isaac/LeRobot multi-pose validation:
 ```bash
 cd /workspaces/superarm_ws
 ./isaacsim_test/run_source_arm_lerobot_pose_capture.sh
+```
+
+## Implemented MVP patch
+
+The local LeLab clone now has commit `f453845` with:
+
+- `robot_backend="isaacsim_rpo_arm"` support in `lelab/teleoperate.py`.
+- dynamic import of this repo's `IsaacSimRpoArmRobot` from `SUPERARM_WS_PATH` or `/workspaces/superarm_ws`.
+- `/send-joint-action` API in `lelab/server.py` for sending one vector/list action to the active backend.
+- generic `joint_rev_*.pos` readback conversion for websocket/joint-position display.
+- targeted LeLab test coverage in `tests/test_teleoperate.py`.
+
+Validation run inside `worktrees/leLab`:
+
+```text
+python3 -m py_compile worktrees/leLab/lelab/teleoperate.py worktrees/leLab/lelab/server.py worktrees/leLab/tests/test_teleoperate.py
+cd worktrees/leLab && python3 -m pytest tests/test_teleoperate.py -q
+# 7 passed, 2 warnings
+```
+
+API sketch for Isaac Sim mode:
+
+```json
+POST /move-arm
+{
+  "robot_backend": "isaacsim_rpo_arm",
+  "leader_port": "unused",
+  "follower_port": "unused",
+  "leader_config": "unused",
+  "follower_config": "isaacsim_test/lerobot/source_arm_isaacsim_arm_only.yaml",
+  "superarm_ws_path": "/workspaces/superarm_ws"
+}
+
+POST /send-joint-action
+{
+  "action": [0.25, -0.2, 0.3, -0.35]
+}
 ```
