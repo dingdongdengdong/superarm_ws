@@ -130,10 +130,10 @@ mkdir -p "$LOG_DIR" "$DATA_DIR" "$SCREENSHOT_DIR" "$COMMAND_EVIDENCE_DIR"
 cat > "$DATA_DIR/pose_cases_used.json" <<'JSON'
 {
   "cases": [
-    {"name": "home_zero", "target": [0.0, 0.0, 0.0, 0.0]},
-    {"name": "positive_reach", "target": [0.25, -0.20, 0.30, -0.35]},
-    {"name": "negative_reach", "target": [-0.25, 0.20, -0.30, 0.35]},
-    {"name": "mixed_elbow", "target": [0.40, 0.10, 0.15, -0.45]}
+    {"name": "home_zero", "target": [0.0, 0.0, 0.0, 0.0, 0.0]},
+    {"name": "positive_reach", "target": [0.25, -0.20, 0.30, -0.35, 0.20]},
+    {"name": "negative_reach", "target": [-0.25, 0.20, -0.30, 0.35, -0.20]},
+    {"name": "mixed_elbow", "target": [0.40, 0.10, 0.15, -0.45, 0.30]}
   ]
 }
 JSON
@@ -179,8 +179,8 @@ fi
   export SCREENSHOT_SEQUENCE_DIR="$SCREENSHOT_DIR"
   export SIMREADY_USD_PATH=/does/not/exist.usd
   export RPO_ARM_URDF_PATH="$URDF_PATH"
-  export JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4
-  export NUM_JOINTS=4
+  export JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4,joint_rev_5
+  export NUM_JOINTS=5
   export COMMAND_EVIDENCE_PATH="$DATA_DIR/isaac_last_command_evidence.json"
   export COMMAND_EVIDENCE_DIR="$COMMAND_EVIDENCE_DIR"
   export LD_LIBRARY_PATH="$ISAAC_ROOT/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"

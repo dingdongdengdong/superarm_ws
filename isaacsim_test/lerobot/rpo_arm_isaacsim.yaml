@@ -16,3 +16,6 @@ phone_command_topic: /leader/joint_commands
 
 connect_timeout_s: 10.0
 mock: false
+
+fixed_hand: true
+fixed_grasp: 0.0

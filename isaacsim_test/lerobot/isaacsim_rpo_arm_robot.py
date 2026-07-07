@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import threading
 import time
 from dataclasses import dataclass, field
@@ -48,6 +49,7 @@ class IsaacSimRpoArmConfig(RobotConfig):
     joint_state_topic: str = "/follower/joint_states"
     joint_command_topic: str = "/follower/joint_commands"
     phone_command_topic: str = "/leader/joint_commands"
+    screenshot_debug_topic: str = "/follower/screenshot_debug"
     connect_timeout_s: float = 10.0
     fixed_hand: bool = False
     fixed_grasp: float = 0.0
@@ -67,6 +69,7 @@ class IsaacSimRpoArmRobot:
         self._state_lock = threading.Lock()
         self._cmd_lock = threading.Lock()
         self._pub = None
+        self._debug_pub = None
         self.is_connected = False
         self.cameras = {}
 
@@ -108,7 +111,7 @@ class IsaacSimRpoArmRobot:
         import rclpy
         from rclpy.node import Node
         from sensor_msgs.msg import JointState
-        from std_msgs.msg import Float64MultiArray
+        from std_msgs.msg import Float64MultiArray, String
 
         try:
             rclpy.init()
@@ -118,6 +121,9 @@ class IsaacSimRpoArmRobot:
         self._node = Node("isaacsim_rpo_arm_lerobot_bridge")
         self._pub = self._node.create_publisher(
             Float64MultiArray, self.config.joint_command_topic, 10
+        )
+        self._debug_pub = self._node.create_publisher(
+            String, self.config.screenshot_debug_topic, 10
         )
         self._node.create_subscription(
             JointState, self.config.joint_state_topic, self._joint_state_cb, 10
@@ -216,8 +222,6 @@ class IsaacSimRpoArmRobot:
         return obs, action
 
     def send_action(self, action) -> np.ndarray:
-        from std_msgs.msg import Float64MultiArray
-
         if isinstance(action, dict):
             if "action" in action:
                 positions = action["action"]
@@ -227,11 +231,36 @@ class IsaacSimRpoArmRobot:
             positions = action
 
         positions = self._normalize_vector(np.asarray(positions, dtype=np.float32).reshape(-1).tolist())
+        if self.config.mock:
+            with self._state_lock:
+                self._latest_positions = list(positions)
+            return np.array(positions, dtype=np.float32)
+        if self._pub is None:
+            raise RuntimeError("IsaacSimRpoArmRobot is not connected; call connect() before send_action().")
+
+        from std_msgs.msg import Float64MultiArray
+
         msg = Float64MultiArray()
         msg.data = positions
-        if self._pub is not None:
-            self._pub.publish(msg)
+        self._pub.publish(msg)
         return np.array(positions, dtype=np.float32)
+
+    def publish_screenshot_debug(self, payload: dict) -> dict:
+        """Publish a screenshot debug-control JSON message for the Isaac bridge."""
+        if self._debug_pub is None:
+            raise RuntimeError("Isaac Sim screenshot debug publisher is not connected.")
+        data = json.dumps(payload, sort_keys=True)
+        try:
+            from std_msgs.msg import String
+        except ModuleNotFoundError:
+            class String:  # type: ignore[no-redef]
+                def __init__(self) -> None:
+                    self.data = ""
+
+        msg = String()
+        msg.data = data
+        self._debug_pub.publish(msg)
+        return payload
 
     def disconnect(self):
         if self._node is not None:

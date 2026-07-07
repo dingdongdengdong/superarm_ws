@@ -103,6 +103,19 @@ class RoboPartyV2ConfigTest(unittest.TestCase):
         self.assertIn("binding_pending", scene_text)
         self.assertIn("AddReference", scene_text)
 
+    def test_scene_prefers_controllable_simready_overlay_when_available(self) -> None:
+        scene_text = _read("isaacsim_test/isaacsim/setup_rpo_arm_scene.py")
+        compose_text = _read("isaacsim_test/docker-compose.yml")
+        env_text = _read("isaacsim_test/.env.example")
+
+        self.assertIn("SIMREADY_CONTROLLABLE_USD_PATH", scene_text)
+        self.assertIn("echo_full_robot_arm_hand_controllable.usda", scene_text)
+        self.assertIn("/ControlRig", scene_text)
+        self.assertIn("arm_articulation_bound_wrist_attached_hand_visual", scene_text)
+        self.assertIn("wrist_attached_visual_only", scene_text)
+        self.assertIn("SIMREADY_CONTROLLABLE_USD_PATH", compose_text)
+        self.assertIn("SIMREADY_CONTROLLABLE_USD_PATH", env_text)
+
     def test_scene_supports_screenshot_after_lerobot_command(self) -> None:
         scene_text = _read("isaacsim_test/isaacsim/setup_rpo_arm_scene.py")
         compose_text = _read("isaacsim_test/docker-compose.yml")

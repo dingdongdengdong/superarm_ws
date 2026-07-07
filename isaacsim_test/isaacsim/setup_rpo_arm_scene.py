@@ -38,14 +38,20 @@ def _parse_controlled_arm_joint_names() -> list[str]:
 
 
 CONTROLLED_ARM_JOINT_NAMES = _parse_controlled_arm_joint_names()
-# Local source-package URDF control can set JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4.
+# Local source-package URDF control can set JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4,joint_rev_5.
 PUBLISHED_JOINT_NAMES = [*CONTROLLED_ARM_JOINT_NAMES, SYNTHETIC_GRASP_NAME]
 DEFAULT_SIMREADY_USD = (
     "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/"
     "pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/"
     "echo_full_robot_arm_hand.usd"
 )
+DEFAULT_SIMREADY_CONTROLLABLE_USD = (
+    "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/"
+    "pipeline/04_conform/repair-loop-02-fet005/fet006-controllable-arm-fixed-hand/"
+    "echo_full_robot_arm_hand_controllable.usda"
+)
 DEFAULT_SIMREADY_PRIM_PATH = "/World/echo_full_simready"
+DEFAULT_SIMREADY_CONTROL_RIG_REL_PATH = "/ControlRig"
 DEFAULT_SIMREADY_MAPPING_PATH = (
     "/workspace/superarm_ws/isaacsim_test/artifacts/"
     "simready_prim_mapping.json"
@@ -71,6 +77,23 @@ def _env_flag(name: str, default: bool = False) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+
+def _env_float(name: str, default: float) -> float:
+    value = os.environ.get(name)
+    if value is None or not value.strip():
+        return default
+    return float(value)
+
+
+def _env_vector(name: str, default: tuple[float, float, float]) -> tuple[float, float, float]:
+    value = os.environ.get(name)
+    if value is None or not value.strip():
+        return default
+    parts = [float(part.strip()) for part in value.split(",") if part.strip()]
+    if len(parts) != 3:
+        raise ValueError(f"{name} must contain exactly 3 comma-separated floats")
+    return (parts[0], parts[1], parts[2])
+
 SCREENSHOT_AFTER_COMMAND = _env_flag("SCREENSHOT_AFTER_COMMAND")
 SCREENSHOT_ON_STARTUP = _env_flag("SCREENSHOT_ON_STARTUP")
 SCREENSHOT_EACH_COMMAND = _env_flag("SCREENSHOT_EACH_COMMAND")
@@ -80,6 +103,9 @@ SCREENSHOT_SEQUENCE_DIR = os.environ.get(
     "SCREENSHOT_SEQUENCE_DIR",
     "/workspace/superarm_ws/isaacsim_test/artifacts/lerobot_pose_screenshots",
 )
+SCREENSHOT_CAMERA_POSITION = _env_vector("SCREENSHOT_CAMERA_POSITION", (2.1106870919205436, -4.221374183841087, 2.876166303929372))
+SCREENSHOT_CAMERA_TARGET = _env_vector("SCREENSHOT_CAMERA_TARGET", (0.0, 0.0, 0.5))
+SCREENSHOT_CAMERA_FOCAL_LENGTH = _env_float("SCREENSHOT_CAMERA_FOCAL_LENGTH", 24.0)
 COMMAND_EVIDENCE_PATH = os.environ.get("COMMAND_EVIDENCE_PATH", "")
 COMMAND_EVIDENCE_DIR = os.environ.get("COMMAND_EVIDENCE_DIR", "")
 EXIT_AFTER_SCREENSHOT = _env_flag(
@@ -123,9 +149,13 @@ from isaacsim.asset.importer.urdf._urdf import UrdfJointTargetType  # noqa: E402
 import rclpy  # noqa: E402
 from rclpy.node import Node  # noqa: E402
 from sensor_msgs.msg import JointState  # noqa: E402
-from std_msgs.msg import Float64MultiArray  # noqa: E402
+from std_msgs.msg import Float64MultiArray, String  # noqa: E402
 
 ext_path = get_extension_path_from_name("isaacsim.asset.importer.urdf")
+SIMREADY_CONTROLLABLE_USD_CANDIDATES = [
+    os.environ.get("SIMREADY_CONTROLLABLE_USD_PATH", ""),
+    DEFAULT_SIMREADY_CONTROLLABLE_USD,
+]
 SIMREADY_USD_CANDIDATES = [
     os.environ.get("SIMREADY_USD_PATH", ""),
     DEFAULT_SIMREADY_USD,
@@ -134,9 +164,12 @@ URDF_CANDIDATES = [
     os.environ.get("RPO_ARM_URDF_PATH", ""),
     DEFAULT_ROBOPARTY_V2_URDF,
 ]
-simready_usd_path = next((p for p in SIMREADY_USD_CANDIDATES if p and os.path.isfile(p)), None)
+simready_controllable_usd_path = next((p for p in SIMREADY_CONTROLLABLE_USD_CANDIDATES if p and os.path.isfile(p)), None)
+simready_visual_usd_path = next((p for p in SIMREADY_USD_CANDIDATES if p and os.path.isfile(p)), None)
+simready_usd_path = simready_controllable_usd_path or simready_visual_usd_path
 urdf_path = next((p for p in URDF_CANDIDATES if p and os.path.isfile(p)), None)
 using_simready = simready_usd_path is not None
+using_controllable_simready = simready_controllable_usd_path is not None
 
 
 def _load_simready_usd(asset_path: str, prim_path: str) -> str:
@@ -184,16 +217,37 @@ def _write_simready_mapping_evidence(
 ) -> None:
     os.makedirs(os.path.dirname(SIMREADY_MAPPING_PATH), exist_ok=True)
     feature_bindings = []
+    bound_by_feature = {}
+    controllable_binding_statuses = {
+        "arm_articulation_bound_fixed_hand_visual",
+        "arm_articulation_bound_wrist_attached_hand_visual",
+    }
     for feature_name in PUBLISHED_JOINT_NAMES:
+        feature = f"{feature_name}.pos" if not feature_name.endswith(".pos") else feature_name
+        if binding_status in controllable_binding_statuses and feature_name != SYNTHETIC_GRASP_NAME:
+            status = "articulation_bound"
+            usd_prim = (
+                f"{SIMREADY_PRIM_PATH}{DEFAULT_SIMREADY_CONTROL_RIG_REL_PATH}/Joints/{feature_name}"
+            )
+            reason = "Five-DOF controllable SimReady overlay authored for arm motion."
+        elif binding_status in controllable_binding_statuses and feature_name == SYNTHETIC_GRASP_NAME:
+            status = "wrist_attached_visual_only"
+            usd_prim = None
+            reason = "Mounted device/hand visual follows the wrist as geometry-only; no hand/finger drive is authored."
+        else:
+            status = "binding_pending"
+            usd_prim = None
+            reason = (
+                "SimReady USD is loaded as the primary visual/physics asset; "
+                "articulation mapping must be authored from prim inspection."
+            )
+        bound_by_feature[feature] = status
         feature_bindings.append(
             {
-                "feature": f"{feature_name}.pos" if not feature_name.endswith(".pos") else feature_name,
-                "binding_status": "binding_pending",
-                "usd_prim": None,
-                "reason": (
-                    "SimReady USD is loaded as the primary visual/physics asset; "
-                    "articulation mapping must be authored from prim inspection."
-                ),
+                "feature": feature,
+                "binding_status": status,
+                "usd_prim": usd_prim,
+                "reason": reason,
             }
         )
     control_contract = _control_contract()
@@ -208,7 +262,7 @@ def _write_simready_mapping_evidence(
         "control_contract": control_contract,
         "binding_status": binding_status,
         "bound_or_binding_pending_per_feature": {
-            feature: "binding_pending" for feature in control_contract
+            feature: bound_by_feature.get(feature, "binding_pending") for feature in control_contract
         },
         "feature_bindings": feature_bindings,
         "last_command": last_command,
@@ -220,20 +274,34 @@ def _write_simready_mapping_evidence(
 
 if using_simready:
     prim_path = _load_simready_usd(simready_usd_path, SIMREADY_PRIM_PATH)
-    print(f"[setup_rpo_arm_scene] Loading SimReady USD: {simready_usd_path}", flush=True)
-    print(f"[setup_rpo_arm_scene] SimReady prim path: {prim_path}", flush=True)
-    _write_simready_mapping_evidence(
-        asset_path=simready_usd_path,
-        prim_path=prim_path,
-        binding_status="binding_pending",
-    )
+    if using_controllable_simready:
+        articulation_prim_path = SIMREADY_PRIM_PATH + DEFAULT_SIMREADY_CONTROL_RIG_REL_PATH
+        print(f"[setup_rpo_arm_scene] Loading controllable SimReady USD: {simready_usd_path}", flush=True)
+        print(f"[setup_rpo_arm_scene] Controllable arm articulation prim: {articulation_prim_path}", flush=True)
+        _write_simready_mapping_evidence(
+            asset_path=simready_usd_path,
+            prim_path=prim_path,
+            binding_status="arm_articulation_bound_wrist_attached_hand_visual",
+        )
+    else:
+        articulation_prim_path = ""
+        print(f"[setup_rpo_arm_scene] Loading SimReady USD: {simready_usd_path}", flush=True)
+        print(f"[setup_rpo_arm_scene] SimReady prim path: {prim_path}", flush=True)
+        _write_simready_mapping_evidence(
+            asset_path=simready_usd_path,
+            prim_path=prim_path,
+            binding_status="binding_pending",
+        )
 elif urdf_path is None:
     print(
         "[setup_rpo_arm_scene] ERROR: No SimReady USD or RoboParty V2.0 URDF found. Tried:\n"
         + "\n".join(f"  {p}" for p in SIMREADY_USD_CANDIDATES if p)
         + "\n"
+        + "\n".join(f"  {p}" for p in SIMREADY_CONTROLLABLE_USD_CANDIDATES if p)
+        + "\n"
         + "\n".join(f"  {p}" for p in URDF_CANDIDATES if p)
-        + "\n\nSet SIMREADY_USD_PATH to the converted SimReady USD, "
+        + "\n\nSet SIMREADY_CONTROLLABLE_USD_PATH to the generated controllable overlay, "
+        "set SIMREADY_USD_PATH to the converted SimReady USD, "
         "or set RPO_ARM_URDF_PATH for the legacy fallback."
         + f"\nURDF importer extension path: {ext_path}",
         flush=True,
@@ -282,7 +350,10 @@ world.reset()
 art = None
 all_dof_names: list[str] = []
 controlled_indices: list[int] = []
-if using_simready:
+if using_controllable_simready:
+    art = Articulation(articulation_prim_path)
+    print("[setup_rpo_arm_scene] Initializing controllable SimReady arm articulation.", flush=True)
+elif using_simready:
     print(
         "[setup_rpo_arm_scene] SimReady articulation binding is binding_pending; "
         "publishing mirrored 6D LeRobot state until prim mapping is authored.",
@@ -291,14 +362,16 @@ if using_simready:
 else:
     art = Articulation(prim_path)
     print("[setup_rpo_arm_scene] Initializing articulation.", flush=True)
-    art.initialize()
 
+if art is not None:
+    art.initialize()
     num_dof = art.num_dof
     all_dof_names = list(art.dof_names)
     missing_joints = [name for name in CONTROLLED_ARM_JOINT_NAMES if name not in all_dof_names]
     if missing_joints:
+        loaded_asset_kind = "controllable SimReady" if using_controllable_simready else "URDF"
         print(
-            "[setup_rpo_arm_scene] ERROR: Official V2 right-arm joints missing from imported URDF: "
+            f"[setup_rpo_arm_scene] ERROR: {loaded_asset_kind} arm joints missing: "
             f"{missing_joints}\nAvailable joints: {all_dof_names}",
             flush=True,
         )
@@ -306,7 +379,8 @@ else:
         sys.exit(1)
 
     controlled_indices = [all_dof_names.index(name) for name in CONTROLLED_ARM_JOINT_NAMES]
-    print(f"[setup_rpo_arm_scene] Loaded {num_dof} total URDF joints: {all_dof_names}", flush=True)
+    loaded_asset_kind = "controllable SimReady" if using_controllable_simready else "URDF"
+    print(f"[setup_rpo_arm_scene] Loaded {num_dof} total {loaded_asset_kind} joints: {all_dof_names}", flush=True)
 print(
     "[setup_rpo_arm_scene] Controlled LeRobot joints: "
     f"{PUBLISHED_JOINT_NAMES}",
@@ -490,8 +564,15 @@ def _capture_camera_sensor_screenshot(path: str) -> None:
     center = (mn + mx) / 2.0
     extent = mx - mn
     radius = min(max(float(np.linalg.norm(extent)), 0.5), 5.0)
-    camera_position = center + np.array([radius * 0.9, -radius * 1.8, radius * 0.8 + 0.5], dtype=float)
-    quat = _look_at_world_quat(camera_position, center)
+    default_camera_position = center + np.array([radius * 0.9, -radius * 1.8, radius * 0.8 + 0.5], dtype=float)
+    default_camera_target = center
+    camera_position = np.array(SCREENSHOT_CAMERA_POSITION, dtype=float)
+    camera_target = np.array(SCREENSHOT_CAMERA_TARGET, dtype=float)
+    if not os.environ.get("SCREENSHOT_CAMERA_POSITION"):
+        camera_position = default_camera_position
+    if not os.environ.get("SCREENSHOT_CAMERA_TARGET"):
+        camera_target = default_camera_target
+    quat = _look_at_world_quat(camera_position, camera_target)
     _ensure_debug_lights(stage)
     camera_path = "/World/ViewportDebugCamera"
     camera = Camera(
@@ -501,7 +582,7 @@ def _capture_camera_sensor_screenshot(path: str) -> None:
         resolution=(1280, 720),
     )
     camera.initialize()
-    camera.set_focal_length(24.0)
+    camera.set_focal_length(SCREENSHOT_CAMERA_FOCAL_LENGTH)
     for _ in range(20):
         try:
             world.step(render=True)
@@ -517,6 +598,8 @@ def _capture_camera_sensor_screenshot(path: str) -> None:
             {
                 "camera_path": camera_path,
                 "camera_position": camera_position.astype(float).tolist(),
+                "camera_target": camera_target.astype(float).tolist(),
+                "camera_focal_length": float(SCREENSHOT_CAMERA_FOCAL_LENGTH),
                 "bbox_min": mn.astype(float).tolist(),
                 "bbox_max": mx.astype(float).tolist(),
                 "bbox_source": bbox_source,
@@ -663,9 +746,18 @@ class SimBridgeNode(Node):
         self._cmd = None
         self._cmd_seq = 0
         self._cmd_lock = threading.Lock()
+        self._debug_control = {
+            "capture_every_command": bool(SCREENSHOT_AFTER_COMMAND and SCREENSHOT_EACH_COMMAND),
+            "request_capture": False,
+            "output_dir": SCREENSHOT_SEQUENCE_DIR,
+        }
+        self._debug_control_lock = threading.Lock()
         self._pub = self.create_publisher(JointState, "/follower/joint_states", 10)
         self._sub = self.create_subscription(
             Float64MultiArray, "/follower/joint_commands", self._cmd_cb, 10
+        )
+        self._debug_sub = self.create_subscription(
+            String, "/follower/screenshot_debug", self._debug_control_cb, 10
         )
 
     def _cmd_cb(self, msg: Float64MultiArray):
@@ -673,10 +765,47 @@ class SimBridgeNode(Node):
             self._cmd = list(msg.data)
             self._cmd_seq += 1
 
+    def _debug_control_cb(self, msg: String):
+        try:
+            payload = json.loads(msg.data)
+        except Exception as exc:
+            print(
+                f"[setup_rpo_arm_scene] Ignoring invalid screenshot debug JSON: {exc}",
+                flush=True,
+            )
+            return
+        if not isinstance(payload, dict):
+            print(
+                "[setup_rpo_arm_scene] Ignoring non-object screenshot debug payload.",
+                flush=True,
+            )
+            return
+        with self._debug_control_lock:
+            if "capture_every_command" in payload:
+                self._debug_control["capture_every_command"] = bool(payload["capture_every_command"])
+            if "output_dir" in payload and str(payload["output_dir"]).strip():
+                self._debug_control["output_dir"] = str(payload["output_dir"])
+            if payload.get("request_capture"):
+                self._debug_control["request_capture"] = True
+        print(
+            f"[setup_rpo_arm_scene] Screenshot debug control updated: {payload}",
+            flush=True,
+        )
+
     def get_command(self):
         with self._cmd_lock:
             cmd = list(self._cmd) if self._cmd is not None else None
             return self._cmd_seq, cmd
+
+    def consume_debug_control(self):
+        with self._debug_control_lock:
+            debug_one_shot_requested = bool(self._debug_control.get("request_capture"))
+            self._debug_control["request_capture"] = False
+            return {
+                "capture_every_command": bool(self._debug_control.get("capture_every_command")),
+                "request_capture": debug_one_shot_requested,
+                "output_dir": str(self._debug_control.get("output_dir") or SCREENSHOT_SEQUENCE_DIR),
+            }
 
     def publish_state(self, names, positions, velocities, stamp):
         msg = JointState()
@@ -733,7 +862,24 @@ try:
             app_updated = True
 
         cmd_seq, cmd = bridge.get_command()
+        debug_control = bridge.consume_debug_control()
+        debug_capture_every_command = bool(debug_control["capture_every_command"])
+        debug_one_shot_requested = bool(debug_control["request_capture"])
+        debug_sequence_dir = str(debug_control["output_dir"])
         should_exit_after_screenshot = False
+
+        if debug_one_shot_requested:
+            print("[setup_rpo_arm_scene] One-shot screenshot debug trigger accepted.", flush=True)
+            screenshot_command_capture_count += 1
+            _publish_current_state()
+            _capture_command_screenshot(
+                debug_sequence_dir,
+                screenshot_command_capture_count,
+                max(last_processed_command_seq, 0),
+                list(current_positions),
+                None,
+            )
+
         if (
             cmd is not None
             and cmd_seq != last_processed_command_seq
@@ -791,12 +937,15 @@ try:
                 flush=True,
             )
 
-            if SCREENSHOT_AFTER_COMMAND and (SCREENSHOT_EACH_COMMAND or not screenshot_taken):
+            env_command_screenshot_requested = SCREENSHOT_AFTER_COMMAND and (
+                SCREENSHOT_EACH_COMMAND or not screenshot_taken
+            )
+            if env_command_screenshot_requested or debug_capture_every_command:
                 print("[setup_rpo_arm_scene] Screenshot trigger accepted.", flush=True)
-                if SCREENSHOT_EACH_COMMAND:
+                if SCREENSHOT_EACH_COMMAND or debug_capture_every_command:
                     screenshot_command_capture_count += 1
                     _capture_command_screenshot(
-                        SCREENSHOT_SEQUENCE_DIR,
+                        debug_sequence_dir if debug_capture_every_command else SCREENSHOT_SEQUENCE_DIR,
                         screenshot_command_capture_count,
                         cmd_seq,
                         last_applied_command,
@@ -805,7 +954,7 @@ try:
                 else:
                     _capture_rgb_screenshot(SCREENSHOT_PATH, last_applied_command)
                 screenshot_taken = True
-                if EXIT_AFTER_SCREENSHOT and (
+                if env_command_screenshot_requested and EXIT_AFTER_SCREENSHOT and (
                     not SCREENSHOT_EACH_COMMAND
                     or screenshot_command_capture_count >= SCREENSHOT_EXIT_AFTER_COMMAND_COUNT
                 ):

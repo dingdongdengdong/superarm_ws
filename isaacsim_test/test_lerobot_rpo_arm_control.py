@@ -47,6 +47,14 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
 
         self.assertEqual(normalized, [0.1, -0.2, 0.3, -0.4, -0.5])
 
+    def test_default_full_config_declares_fixed_visual_amazinghand(self):
+        config_path = LEROBOT_DIR / "rpo_arm_isaacsim.yaml"
+        raw = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(raw["joint_names"][-1], "amazinghand_grasp")
+        self.assertTrue(raw["fixed_hand"])
+        self.assertEqual(raw["fixed_grasp"], 0.0)
+
     def test_full_config_fixed_hand_pins_grasp_when_present(self):
         config = IsaacSimRpoArmConfig(fixed_hand=True, fixed_grasp=0.25, mock=True)
         robot = IsaacSimRpoArmRobot(config)
@@ -65,7 +73,7 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
 
     def test_custom_source_arm_config_allows_non_roboparty_joint_names(self):
         config = IsaacSimRpoArmConfig(
-            joint_names=["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"],
+            joint_names=["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4", "joint_rev_5"],
             fixed_hand=True,
             fixed_grasp=0.0,
             allow_custom_joint_names=True,
@@ -80,8 +88,28 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
             "joint_rev_2.pos",
             "joint_rev_3.pos",
             "joint_rev_4.pos",
+            "joint_rev_5.pos",
         ])
 
+
+    def test_screenshot_debug_publishes_json_payload_when_debug_publisher_is_available(self):
+        config = IsaacSimRpoArmConfig(mock=True)
+        robot = IsaacSimRpoArmRobot(config)
+        published = []
+
+        class _FakePublisher:
+            def publish(self, msg):
+                published.append(msg.data)
+
+        robot._debug_pub = _FakePublisher()
+
+        payload = robot.publish_screenshot_debug({"capture_every_command": True, "output_dir": "/tmp/screens"})
+
+        self.assertEqual(payload["capture_every_command"], True)
+        self.assertEqual(payload["output_dir"], "/tmp/screens")
+        self.assertEqual(len(published), 1)
+        self.assertIn('"capture_every_command": true', published[0])
+        self.assertIn('"output_dir": "/tmp/screens"', published[0])
 
 if __name__ == "__main__":
     unittest.main()

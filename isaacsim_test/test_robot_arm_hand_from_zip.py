@@ -63,6 +63,25 @@ class RobotArmHandFromZipTests(unittest.TestCase):
             self.assertNotIn("<transmission", text)
 
             root = ET.parse(output_urdf).getroot()
+            moving_joints = [
+                joint.attrib["name"]
+                for joint in root.findall("joint")
+                if joint.attrib.get("type") in {"revolute", "continuous"}
+            ]
+            self.assertEqual(moving_joints, [
+                "joint_rev_1",
+                "joint_rev_2",
+                "joint_rev_3",
+                "joint_rev_4",
+                "joint_rev_5",
+            ])
+            joint_rev_5 = root.find("./joint[@name='joint_rev_5']")
+            self.assertIsNotNone(joint_rev_5)
+            self.assertEqual(joint_rev_5.attrib.get("type"), "continuous")
+            self.assertEqual(joint_rev_5.find("parent").attrib.get("link"), "motor_5")
+            self.assertEqual(joint_rev_5.find("child").attrib.get("link"), "arm_link3b")
+            self.assertEqual(joint_rev_5.find("axis").attrib.get("xyz"), "0.0 0.0 1.0")
+            self.assertEqual(report["promoted_fixed_joints"][0]["to"], "joint_rev_5")
             mesh_paths = [
                 mesh.attrib["filename"]
                 for mesh in root.findall(".//mesh")
@@ -126,19 +145,20 @@ class RobotArmHandFromZipTests(unittest.TestCase):
 
     def test_arm_joint_command_updates_named_dofs_without_disturbing_others(self) -> None:
         result = build_arm_joint_position_command(
-            current_positions=[10.0, 0.0, 0.0, 0.0, 20.0],
-            dof_names=["fixed_a", "joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"],
-            command=[0.1, -0.2, 0.3, -0.4],
+            current_positions=[10.0, 0.0, 0.0, 0.0, 0.0, 20.0],
+            dof_names=["fixed_a", "joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4", "joint_rev_5"],
+            command=[0.1, -0.2, 0.3, -0.4, 0.5],
         )
 
-        self.assertEqual(result["controlled_indices"], [1, 2, 3, 4])
+        self.assertEqual(result["controlled_indices"], [1, 2, 3, 4, 5])
         self.assertEqual(result["controlled_joint_names"], [
             "joint_rev_1",
             "joint_rev_2",
             "joint_rev_3",
             "joint_rev_4",
+            "joint_rev_5",
         ])
-        self.assertEqual(result["positions"], [10.0, 0.1, -0.2, 0.3, -0.4])
+        self.assertEqual(result["positions"], [10.0, 0.1, -0.2, 0.3, -0.4, 0.5])
 
     def test_named_joint_command_updates_only_requested_joints(self) -> None:
         result = build_named_joint_position_command(
@@ -153,7 +173,7 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertEqual(result["positions"], [0.0, 0.5, 2.0, 0.75])
 
     def test_hand_grasp_command_targets_all_generated_hand_dofs(self) -> None:
-        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
+        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_5"]
 
         result = build_hand_grasp_position_command(
             current_positions=[0.0] * len(dof_names),
@@ -167,7 +187,7 @@ class RobotArmHandFromZipTests(unittest.TestCase):
         self.assertTrue(all(value > 1.0 for value in result["target_values"][1::2]))
 
     def test_single_finger_two_link_command_targets_only_one_motor_pair(self) -> None:
-        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_4"]
+        dof_names = ["joint_rev_1", *HAND_ACTUATED_JOINT_NAMES, "joint_rev_5"]
         current = [0.1] * len(dof_names)
 
         result = build_single_finger_two_link_position_command(

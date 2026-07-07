@@ -122,3 +122,120 @@
 
 ## 2026-07-05T10:50Z
 - Ran source arm LeRobot multi-pose screenshot validation. Run dir: /workspaces/superarm_ws/isaacsim_test/artifacts/source_arm_lerobot_pose_cases_20260705T104845Z. 4/4 cases passed; 4/4 screenshots captured.
+
+## 2026-07-06 Isaac Sim 5.1 LeLab SuperArm Control Branch
+
+- Created branch `feature/isaacsim-5.1-lelab-superarm-control`.
+- Verified local Isaac Sim is 5.1: `/workspace/isaacsim/VERSION` = `5.1.0-rc.19+release.26219.9c81211b.gl`.
+- Added 5DOF+grasp LeLab SuperArm server control contract module, CLI artifact generator, and unit tests.
+- LeLab contract artifact root: `isaacsim_test/artifacts/lelab_isaacsim51_control_20260706T053212Z/`. Live PNG verification artifact root: `isaacsim_test/artifacts/lelab_isaacsim51_control_panel_20260706T051927Z/`.
+- Generated timestamped `logs/`, six one-axis control cases, `lelab_superarm_control.html`, and PNG evidence.
+- Initial live Isaac Sim 5.1 PNGs were captured but later rejected by subagent review for poor framing/occlusion; do not use them as proof. The accepted live render proof is the clean no-ground recapture listed below.
+- Kept limitation explicit: current SimReady USD still has `binding_pending`, so this is contract/render compatibility evidence, not final physical six-axis articulation proof.
+
+## 2026-07-06 Subagent PNG Verification
+
+- Sent the LeLab SuperArm matrix PNG and live Isaac Sim render PNGs to vision subagents.
+- Contract PNG verdict: PASS for six controls + six one-axis cases; not physics evidence.
+- Initial live PNG verdict: FAIL due poor framing/occlusion.
+- Fixed by recapturing the SimReady USD without a ground plane.
+- Clean recapture verdict: PASS as Isaac Sim 5.1 visual render evidence, with caveat that it is cropped and not control/physics evidence.
+- Preferred live PNG: `isaacsim_test/artifacts/lelab_isaacsim51_control_panel_20260706T051927Z/screenshots/live_isaacsim51_clean_echo_full_view/echo_full_5_1_clean_view.png`.
+
+## 2026-07-06 Ralph Cleanup Audit
+
+- Found and fixed a masking fallback introduced during mock control testing: non-mock `send_action()` now errors when called before ROS connection instead of silently updating local state.
+- Added regression test for disconnected non-mock `send_action()`.
+- Added timestamp validation for LeLab SuperArm artifact roots; custom suffixes must match `YYYYMMDDTHHMMSSZ`.
+- Fresh checks passed: py_compile, 8 LeLab SuperArm tests, 5 LeRobot RPO arm tests, and artifact generator smoke with `20260706T053212Z`.
+
+## 2026-07-06 LeLab Server Correction
+
+- User clarified: not standalone control panel; LeLab should control the simulated arm.
+- Renamed branch to `feature/isaacsim-5.1-lelab-superarm-control`.
+- Renamed helper/test/runner to LeLab-focused names and changed artifact prefix to `lelab_isaacsim51_control_<YYYYMMDDTHHMMSSZ>`.
+- Added LeLab patch `isaacsim_test/lelab_patches/0004-Add-SuperArm-server-six-field-contract-tests.patch`.
+- Verified actual LeLab server/API contract with pytest: `tests/test_superarm_server.py tests/test_teleoperate.py` => 9 passed, 2 warnings.
+
+## 2026-07-06 RoboParty V2 Right-Arm LeLab Correction
+
+- User corrected the target: study LeLab first and use the RoboParty/Roboto right-arm control path, not the old source-arm reference.
+- Commit-history finding:
+  - `6e9537c fix: use RoboParty V2 right arm URDF for Isaac Sim` made `/workspaces/superarm_ws/roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf` the intended right-arm runtime target.
+  - `a8a4bbf Validate LeRobot source arm pose capture` added `source_arm_isaacsim_arm_only.yaml` only for the separate source-arm experiment; current sanitizer now exposes `joint_rev_1..5`.
+  - LeLab commit `f453845` had a stale fallback to `source_arm_isaacsim_arm_only.yaml`; the later six-field server patch did not fix that backend default.
+- Fixed LeLab worktree commit: `361f171 Use RoboParty V2 right arm for Isaac Sim backend`.
+- Exported main-repo patch: `isaacsim_test/lelab_patches/0005-Use-RoboParty-V2-right-arm-for-Isaac-Sim-backend.patch`.
+- The patch changes LeLab `_create_isaacsim_rpo_arm_robot()` default config to `rpo_arm_isaacsim.yaml` and updates tests to require right-arm feature names plus `amazinghand_grasp`.
+- Initialized `roboparty` submodule to verify the actual URDF path; before init, `python3 -m unittest isaacsim_test.test_v2_roboparty_config -v` failed with missing `roboto_origin.urdf`, after init it passed 10 tests.
+- Verification artifact: `isaacsim_test/artifacts/lelab_roboparty_right_arm_fix_20260706T055444Z/logs/`.
+
+## 2026-07-06 LeLab -> Isaac Sim RoboParty right-arm live control verification
+- Live run folder: `isaacsim_test/artifacts/lelab_live_control_20260706T060150Z/` (date-time stamped logs/data/screenshots).
+- LeLab website/control URL used: `http://127.0.0.1:8000/`; server module `lelab.superarm_server`, endpoints `POST /move-arm`, `POST /send-joint-action`, `GET /joint-positions`.
+- Correct robot/control reference: `isaacsim_test/lerobot/rpo_arm_isaacsim.yaml` targeting RoboParty V2 right-arm URDF `roboparty/modules/rpo_hardware/V2.0/roboto_origin_mechanic/03_URDF/urdf/roboto_origin.urdf`; do not use the old source-arm-only reference for this LeLab control path.
+- Command sent in joint order `[right_arm_pitch_joint,right_arm_roll_joint,right_arm_yaw_joint,right_elbow_pitch_joint,right_elbow_yaw_joint,amazinghand_grasp]`: `[0.35,-0.25,0.15,0.25,-0.25,1.0]`.
+- Verified LeLab final state: pitch `0.3499999940395355`, roll `-0.25`, yaw `0.15000000596046448`, elbow_pitch `0.25`, elbow_yaw `-0.25`, grasp `1.0`.
+- Isaac evidence: `binding_status=articulation_bound`, `using_simready=false` (URDF fallback forced for actual articulation), screenshot `screenshots/isaac_after_command/command_001.png`.
+- Vision subagent PNG verdict: PASS — non-empty Isaac/Omniverse render with a visible white robot-arm segment against the blue scene background.
+- No LeLab source edits were made for this live run; control was through existing LeLab endpoints.
+
+## 2026-07-06 LeLab five-axis full screenshot verification
+- User requested five one-axis LeLab actions with visible arm-position screenshots and labels.
+- Artifact root: `isaacsim_test/artifacts/lelab_five_axis_fullscreens_20260706T062906Z/`.
+- Used `isaac-sim-viewport-debugger` workflow and added Isaac scene camera override knobs to capture clearer right-arm views.
+- Final commands through LeLab `/send-joint-action` in order `[pitch, roll, yaw, elbow_pitch, elbow_yaw, grasp]`:
+  1. `[1.57,0,0,0,0,0]`
+  2. `[0,1.57,0,0,0,0]`
+  3. `[0,0,1.57,0,0,0]`
+  4. `[0,0,0,1.57,0,0]`
+  5. `[0,0,0,0,1.57,0]`
+- LeLab readback matched each target; Isaac raw manifest records articulation readback for all five.
+- Final labeled PNG folder: `screenshots/final_full_labeled/`; contact sheet: `five_axis_final_full_contact_sheet_labeled.png`.
+- Vision subagent verdict: GREAT PASS — all five labeled screenshots are readable, show the robot/right arm clearly, and distinguish the intended one-axis 1.57 rad commands.
+
+### 2026-07-06T06:44:49Z — standalone arm asset search
+
+User clarified the previous LeLab captures showed the full RoboParty robot; next work should use only a standalone arm where possible. Search result:
+
+- Existing standalone/source arm package: `robot_arm_hand_package.zip`, generated through `isaacsim_test/isaacsim/robot_arm_hand_from_zip.py`.
+- Generated standalone URDF currently present at `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/robot_arm_hand_sanitized.urdf`.
+- Matching LeRobot config: `isaacsim_test/lerobot/source_arm_isaacsim_arm_only.yaml` with custom joints `joint_rev_1..joint_rev_5` and `fixed_hand: true`.
+- Matching runner: `isaacsim_test/run_source_arm_lerobot_pose_capture.sh`; prior verified artifact: `isaacsim_test/artifacts/source_arm_lerobot_pose_cases_20260705T104845Z/report.json` (`status=done`, 4 pose cases, 4 screenshots).
+- Existing 5-DOF RoboParty right-arm-only control config is `isaacsim_test/lerobot/rpo_arm_isaacsim_arm_only.yaml`, but it still targets the full RoboParty V2 URDF unless we create/hide/extract a standalone right-arm visual/asset.
+
+Decision note: for a visually standalone arm, use the source-arm URDF path above after regeneration; it now has 5 active arm joints. For RoboParty-named 5-DOF control, keep using `rpo_arm_isaacsim_arm_only.yaml` or create a new extracted RoboParty right-arm-only asset.
+
+
+### 2026-07-06T07:00:00Z — source standalone arm corrected to 5 DOF
+
+Comparison/fix for standalone source arm vs RoboParty V2 right arm:
+
+- RoboParty V2 right-arm URDF already has 5 arm joints: `right_arm_pitch_joint`, `right_arm_roll_joint`, `right_arm_yaw_joint`, `right_elbow_pitch_joint`, `right_elbow_yaw_joint`.
+- The standalone source package contained five motor meshes (`motor_1..motor_5`), but its exported xacro only marked `joint_rev_1..joint_rev_4` as continuous and exported the `motor_5 -> arm_link3b` output as fixed joint `joint_fix_28`.
+- Fixed in `isaacsim_test/isaacsim/robot_arm_hand_from_zip.py`: sanitizer promotes that specific exported fixed joint to continuous `joint_rev_5` with parent `motor_5`, child `arm_link3b`, axis `0.0 0.0 1.0`.
+- Updated source-arm LeRobot config `isaacsim_test/lerobot/source_arm_isaacsim_arm_only.yaml` to use `joint_rev_1..joint_rev_5`.
+- Updated `isaacsim_test/run_source_arm_lerobot_pose_capture.sh` and `isaacsim_test/lerobot/run_lerobot_pose_cases.py` pose targets to 5 values.
+- Regenerated current standalone URDF at `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/robot_arm_hand_sanitized.urdf`; moving joints now equal `joint_rev_1..joint_rev_5`.
+- Verification artifact: `isaacsim_test/artifacts/source_arm_5dof_fix_20260706T065945Z/`.
+- Tests: `python3 -m unittest isaacsim_test.test_robot_arm_hand_from_zip isaacsim_test.test_lerobot_rpo_arm_control isaacsim_test.test_v2_roboparty_config -v` passed 31 tests.
+## [2026-07-06T07:11:54.032Z] session-end
+- **Pages:** session-log-2026-07-06-8-hcpbfw.md
+- **Summary:** Auto-captured session log for omx-1783321913498-hcpbfw
+
+## [2026-07-06T07:15:19.840Z] session-end
+- **Pages:** session-log-2026-07-06-8-0s6ja2.md
+- **Summary:** Auto-captured session log for omx-1783322042108-0s6ja2
+
+## [2026-07-06T07:16:41.815Z] session-end
+- **Pages:** session-log-2026-07-06-9-qlmx4g.md
+- **Summary:** Auto-captured session log for omx-1783322194529-qlmx4g
+
+## [2026-07-07T01:05:59.935Z] session-end
+- **Pages:** session-log-2026-07-07-0-7lmfi0.md
+- **Summary:** Auto-captured session log for omx-1783383804550-7lmfi0
+
+## [2026-07-07T01:05:59.947Z] session-end
+- **Pages:** session-log-2026-07-07-1-lmzjnh.md
+- **Summary:** Auto-captured session log for omx-1783334617641-lmzjnh
+

@@ -31,10 +31,10 @@ from isaacsim_rpo_arm_robot import IsaacSimRpoArmConfig, IsaacSimRpoArmRobot  # 
 DEFAULT_CONFIG = SCRIPT_DIR / "source_arm_isaacsim_arm_only.yaml"
 DEFAULT_EVIDENCE = REPO_ROOT / "isaacsim_test/artifacts/lerobot_pose_cases.json"
 DEFAULT_CASES = [
-    {"name": "home_zero", "target": [0.0, 0.0, 0.0, 0.0]},
-    {"name": "positive_reach", "target": [0.25, -0.20, 0.30, -0.35]},
-    {"name": "negative_reach", "target": [-0.25, 0.20, -0.30, 0.35]},
-    {"name": "mixed_elbow", "target": [0.40, 0.10, 0.15, -0.45]},
+    {"name": "home_zero", "target": [0.0, 0.0, 0.0, 0.0, 0.0]},
+    {"name": "positive_reach", "target": [0.25, -0.20, 0.30, -0.35, 0.20]},
+    {"name": "negative_reach", "target": [-0.25, 0.20, -0.30, 0.35, -0.20]},
+    {"name": "mixed_elbow", "target": [0.40, 0.10, 0.15, -0.45, 0.30]},
 ]
 
 

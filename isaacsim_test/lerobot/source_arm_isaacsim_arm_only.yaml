@@ -9,6 +9,7 @@ joint_names:
   - joint_rev_2
   - joint_rev_3
   - joint_rev_4
+  - joint_rev_5
 
 joint_state_topic: /follower/joint_states
 joint_command_topic: /follower/joint_commands
