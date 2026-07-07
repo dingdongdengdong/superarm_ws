@@ -13,8 +13,10 @@ if str(LEROBOT_DIR) not in sys.path:
 
 from isaacsim_rpo_arm_robot import (  # noqa: E402
     ARM_JOINT_NAMES,
+    HAND_ACTUATED_JOINT_NAMES,
     IsaacSimRpoArmConfig,
     IsaacSimRpoArmRobot,
+    hand_grasp_scalar_action,
 )
 from verify_lerobot_sitl import (  # noqa: E402
     _default_target_for_config,
@@ -91,6 +93,45 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
             "joint_rev_5.pos",
         ])
 
+
+
+    def test_hand_only_config_declares_eight_amazinghand_joints_and_hand_topics(self):
+        config_path = LEROBOT_DIR / "amazinghand_isaacsim_hand_only.yaml"
+        raw = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(raw["_type"], "isaacsim_rpo_arm")
+        self.assertEqual(raw["joint_names"], HAND_ACTUATED_JOINT_NAMES)
+        self.assertEqual(len(raw["joint_names"]), 8)
+        self.assertEqual(raw["joint_state_topic"], "/hand/joint_states")
+        self.assertEqual(raw["joint_command_topic"], "/hand/joint_commands")
+        self.assertEqual(raw["phone_command_topic"], "/hand/leader_joint_commands")
+        self.assertEqual(raw["screenshot_debug_topic"], "/hand/screenshot_debug")
+        self.assertTrue(raw["allow_custom_joint_names"])
+        self.assertFalse(raw.get("fixed_hand", False))
+
+    def test_hand_grasp_scalar_action_maps_to_eight_joint_action_vector(self):
+        open_action = hand_grasp_scalar_action(0.0)
+        half_action = hand_grasp_scalar_action(0.5)
+        closed_action = hand_grasp_scalar_action(1.0)
+
+        self.assertEqual(len(open_action), 8)
+        self.assertEqual(len(half_action), 8)
+        self.assertEqual(len(closed_action), 8)
+        self.assertEqual(open_action, [0.05, 0.02] * 4)
+        self.assertEqual(half_action, [0.5, 0.56] * 4)
+        self.assertEqual(closed_action, [0.95, 1.1] * 4)
+
+    def test_hand_only_normalize_preserves_all_eight_hand_joint_values(self):
+        config = IsaacSimRpoArmConfig(
+            joint_names=list(HAND_ACTUATED_JOINT_NAMES),
+            allow_custom_joint_names=True,
+            mock=True,
+        )
+        robot = IsaacSimRpoArmRobot(config)
+
+        normalized = robot._normalize_vector([0.05, 0.02, 0.5, 0.56, 0.95, 1.1, -0.1, 1.2])
+
+        self.assertEqual(normalized, [0.05, 0.02, 0.5, 0.56, 0.95, 1.1, -0.1, 1.2])
 
     def test_screenshot_debug_publishes_json_payload_when_debug_publisher_is_available(self):
         config = IsaacSimRpoArmConfig(mock=True)

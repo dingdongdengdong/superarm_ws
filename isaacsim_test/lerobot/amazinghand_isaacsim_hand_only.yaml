@@ -1,0 +1,26 @@
+# LeRobot config for validating the generated AmazingHand hand-only URDF in Isaac Sim.
+# This intentionally uses /hand/* topics so arm control sessions stay isolated.
+
+_type: isaacsim_rpo_arm
+
+joint_names:
+  - finger1_motor1
+  - finger1_motor2
+  - finger2_motor1
+  - finger2_motor2
+  - finger3_motor1
+  - finger3_motor2
+  - finger4_motor1
+  - finger4_motor2
+
+joint_state_topic: /hand/joint_states
+joint_command_topic: /hand/joint_commands
+phone_command_topic: /hand/leader_joint_commands
+screenshot_debug_topic: /hand/screenshot_debug
+
+allow_custom_joint_names: true
+fixed_hand: false
+fixed_grasp: 0.0
+
+connect_timeout_s: 10.0
+mock: false

@@ -10,6 +10,35 @@ from typing import Optional
 
 import numpy as np
 
+
+try:
+    from isaacsim_test.isaacsim.graspable_hand_urdf import (
+        HAND_ACTUATED_JOINT_NAMES,
+        grasp_scalar_to_hand_joint_targets,
+    )
+except ModuleNotFoundError:
+    try:
+        from graspable_hand_urdf import HAND_ACTUATED_JOINT_NAMES, grasp_scalar_to_hand_joint_targets
+    except ModuleNotFoundError:
+        HAND_ACTUATED_JOINT_NAMES = [
+            "finger1_motor1",
+            "finger1_motor2",
+            "finger2_motor1",
+            "finger2_motor2",
+            "finger3_motor1",
+            "finger3_motor2",
+            "finger4_motor1",
+            "finger4_motor2",
+        ]
+
+        def grasp_scalar_to_hand_joint_targets(grasp: float) -> dict[str, float]:
+            closedness = max(0.0, min(1.0, float(grasp)))
+            targets: dict[str, float] = {}
+            for finger_index in range(1, 5):
+                targets[f"finger{finger_index}_motor1"] = 0.05 + closedness * 0.90
+                targets[f"finger{finger_index}_motor2"] = 0.02 + closedness * 1.08
+            return targets
+
 try:  # LeRobot versions used by older containers.
     from lerobot.common.robot_devices.robots.configs import RobotConfig
 except ModuleNotFoundError:
@@ -40,6 +69,12 @@ JOINT_NAMES = [
     "amazinghand_grasp",
 ]
 FEATURE_KEYS = [f"{name}.pos" for name in JOINT_NAMES]
+
+
+def hand_grasp_scalar_action(grasp: float) -> list[float]:
+    """Return the canonical 8D AmazingHand action vector for a normalized grasp."""
+    targets = grasp_scalar_to_hand_joint_targets(grasp)
+    return [round(float(targets[name]), 6) for name in HAND_ACTUATED_JOINT_NAMES]
 
 
 @RobotConfig.register_subclass("isaacsim_rpo_arm")
