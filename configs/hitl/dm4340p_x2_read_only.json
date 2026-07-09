@@ -1,0 +1,26 @@
+{
+  "channel": "/dev/ttyACM0",
+  "bitrate": 1000000,
+  "motion_disabled": true,
+  "motors": [
+    {
+      "label": "first_motor_id1_confirmed_single_motor_hitl_2026_07_10",
+      "joint_name": "first_motor",
+      "send_id": 1,
+      "status_id": 0,
+      "mode": "MIT/CAN confirmed by disable, enable-disable, and tiny MIT motion HITL on 2026-07-10",
+      "confirmed": true,
+      "embedded_motor_id": 1
+    },
+    {
+      "label": "second_motor_not_connected",
+      "joint_name": "second_motor_not_connected",
+      "send_id": 2,
+      "status_id": 0,
+      "mode": "not connected during 2026-07-10 single-motor HITL; unconfirmed",
+      "confirmed": false,
+      "embedded_motor_id": 2
+    }
+  ],
+  "physical_setup": "single_motor_connected_operator_confirmed_2026_07_10"
+}

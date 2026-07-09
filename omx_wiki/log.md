@@ -239,3 +239,15 @@ Comparison/fix for standalone source arm vs RoboParty V2 right arm:
 - **Pages:** session-log-2026-07-07-1-lmzjnh.md
 - **Summary:** Auto-captured session log for omx-1783334617641-lmzjnh
 
+## [2026-07-09T14:58:31.671Z] query
+- **Pages:** none
+- **Summary:** Query "HITL SITL lelab DM4340P DAMIAO canable Isaac Sim LeRobot" → 0 results (of 0 total)
+
+## [2026-07-09T15:01:24.835Z] ingest
+- **Pages:** dm4340p-canable-hitl-readiness.md
+- **Summary:** Created new page "DM4340P CANable HITL Readiness"
+
+## [2026-07-09T15:01:24.843Z] add
+- **Pages:** dm4340p-canable-hitl-readiness.md
+- **Summary:** Created wiki page dm4340p-canable-hitl-readiness.md
+

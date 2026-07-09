@@ -1,6 +1,10 @@
 # Wiki Index
 
-> 5 pages | Last updated: 2026-07-07T01:05:59.949Z
+> 6 pages | Last updated: 2026-07-09T15:01:24.840Z
+
+## decision
+
+- [DM4340P CANable HITL Readiness](dm4340p-canable-hitl-readiness.md) — # DM4340P CANable HITL Readiness
 
 ## session-log
 
