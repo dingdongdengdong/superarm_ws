@@ -56,6 +56,45 @@ In the default stable mode, STL finger visuals do not visibly curl with the coll
 
 To get both accurate animated visual and physical grasping later, implement a visual follower system derived from the MJCF linkage pivots or a proper tree-compatible USD/URDF visual decomposition.
 
+## 2026-07-09 Isaac Sim 6.0 Visual-Proof Guardrail
+
+### Correct target and separation
+
+For hand-fidelity work, use the standalone generated graspable-hand tree:
+
+- source package: `robot_arm_hand_package.zip` -> `hand_mjcf/robot.xml` and `hand_mjcf/assets/*.stl`
+- runtime target: `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/amazinghand_graspable.urdf`
+- articulation root: `/amazinghand_graspable/Geometry`
+- required DOFs: `finger1_motor1`, `finger1_motor2`, ..., `finger4_motor1`, `finger4_motor2`
+
+Do **not** use SimReady `echo_full` screenshots, the six-field LeLab contract, or yellow contact proxies as proof that the standalone hand fingers visibly move.  Those are separate paths; SimReady remains `binding_pending` for this purpose.
+
+### Capture acceptance criteria (mandatory)
+
+An articulation target/readback proves control plumbing only.  It is not visual proof.
+
+1. Import the standalone hand in Isaac Sim 6.0 and command named open and close poses for all eight DOFs.
+2. Capture a close-up with a headless render product/Replicator or a camera sensor; on Ubuntu Server this is supported and does not require a desktop viewport.
+3. Save the before/after PNGs and command/readback JSON in the same timestamped artifact directory.
+4. Inspect the PNG pixels.  Reject uniform white, uniform black, empty, badly framed, or proxy-only images even when a writer emits non-empty files or a report says `PASS`.
+5. Only then report `visual motion verified`; physics/contact-grasp verification remains a separate claim.
+
+### Failure mode found on 2026-07-09
+
+Host-side generation wrote STL filenames rooted at the host checkout, for example
+`/home/dong/july/superarm_ws.omx-worktrees/launch-feat-hitl/.../hand_mjcf/assets/*.stl`.
+Inside the Isaac Sim container the checkout is `/workspace/superarm_ws`; the host path is absent.  Isaac then imports the 8-DOF articulation and its primitive collision boxes but silently omits the visual meshes, producing blank Replicator output.
+
+Before any container import, generate the URDF inside the container or rewrite the mesh filename prefix to `/workspace/superarm_ws`.  Confirm the imported USD contains real `Mesh` prims (the corrected diagnostic import contained 114), then still apply the image-inspection rule above.  The first Replicator frames can be cleared textures, so warm several render frames and retain the inspected final open/closed frames.
+
+Evidence roots from this diagnosis:
+
+- blank/stale-capture rejection: `isaacsim_test/artifacts/hand_replicator_detail_20260709T194300Z/`
+- container-path import and mesh check: `isaacsim_test/artifacts/hand_replicator_visual_paths_20260709T195000Z/`
+- bounds-framed, warmed capture attempt: `isaacsim_test/artifacts/hand_replicator_framed_20260709T200000Z/`
+
+The current direct 8-DOF readback is successful, but the images above are still rejected as blank.  Do not present this run as visual verification until a non-blank, close-up before/after pair is reviewed.
+
 ## Finger Physics Contract
 
 Each generated finger is a two-link tree chain:
