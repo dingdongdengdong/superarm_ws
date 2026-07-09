@@ -1,4 +1,5 @@
-# LeRobot config for the Isaac Sim RoboParty V2.0 right arm + AmazingHand follower.
+# LeRobot config for moving only the Isaac Sim RoboParty V2.0 right arm.
+# The AmazingHand stays fixed on this branch; no hand/grasp action is exposed.
 
 _type: isaacsim_rpo_arm
 
@@ -8,14 +9,14 @@ joint_names:
   - right_arm_yaw_joint
   - right_elbow_pitch_joint
   - right_elbow_yaw_joint
-  - amazinghand_grasp
 
 joint_state_topic: /follower/joint_states
 joint_command_topic: /follower/joint_commands
 phone_command_topic: /leader/joint_commands
 
-connect_timeout_s: 10.0
-mock: false
-
+# Safety contract for this branch: hand does not move.
 fixed_hand: true
 fixed_grasp: 0.0
+
+connect_timeout_s: 10.0
+mock: false

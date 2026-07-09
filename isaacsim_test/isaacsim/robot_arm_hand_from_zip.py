@@ -53,7 +53,7 @@ GRASP_VALIDATION_ROOT_PRIM_PATH = f"{CONNECTED_ROOT_PRIM_PATH}/GraspValidationOb
 FIXED_JOINT_PATH = f"{CONNECTED_ROOT_PRIM_PATH}/arm_to_hand_fixed_joint"
 ARM_HAND_ATTACHMENT_BODY0_PATH = f"{CONNECTED_ARM_PRIM_PATH}/wrist_adapter_hand"
 ARM_HAND_ATTACHMENT_BODY1_PATH = CONNECTED_HAND_PRIM_PATH
-ARM_JOINT_NAMES = ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4"]
+ARM_JOINT_NAMES = ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4", "joint_rev_5"]
 HAND_ROOT_LINK_NAME = "r_wrist_interface"
 
 
@@ -256,6 +256,59 @@ def _remove_xacro_includes(root: ET.Element) -> int:
     return removed
 
 
+def _promote_missing_source_arm_fifth_joint(root: ET.Element) -> list[dict[str, str]]:
+    """Repair the delivered standalone arm when its fifth motor joint is fixed.
+
+    The source package contains five motor meshes in the serial arm chain, but the
+    CAD exporter marks the motor_5 -> arm_link3b joint as fixed (`joint_fix_28`)
+    and only emits transmissions/controller entries for four revolute joints.
+    For Isaac/LeRobot we need the full arm chain to expose five controllable arm
+    DOFs, matching the RoboParty V2 right-arm contract.  Promote that exported
+    fixed joint to a continuous fifth arm joint while keeping its original origin
+    and parent/child transform.
+    """
+    moving_joint_names = {
+        joint.attrib.get("name", "")
+        for joint in root.findall("joint")
+        if joint.attrib.get("type") in {"revolute", "continuous"}
+    }
+    if "joint_rev_5" in moving_joint_names:
+        return []
+
+    for joint in root.findall("joint"):
+        if joint.attrib.get("name") != "joint_fix_28":
+            continue
+        parent = joint.find("parent")
+        child = joint.find("child")
+        if (
+            parent is None
+            or child is None
+            or parent.attrib.get("link") != "motor_5"
+            or child.attrib.get("link") != "arm_link3b"
+        ):
+            return []
+        joint.attrib["name"] = "joint_rev_5"
+        joint.attrib["type"] = "continuous"
+        axis = joint.find("axis")
+        if axis is None:
+            axis = ET.Element("axis")
+            joint.append(axis)
+        # motor_5 has the same no-rpy local frame convention as motor_1; its shaft
+        # axis is Z in this exported standalone source-arm URDF.
+        axis.attrib["xyz"] = "0.0 0.0 1.0"
+        return [
+            {
+                "from": "joint_fix_28",
+                "to": "joint_rev_5",
+                "parent": "motor_5",
+                "child": "arm_link3b",
+                "axis": axis.attrib["xyz"],
+                "reason": "source CAD export contains five motor links but fixed the motor_5 output joint",
+            }
+        ]
+    return []
+
+
 def _copy_material_definitions(package_root: Path, root: ET.Element) -> int:
     materials_path = package_root / "arm_description/urdf/materials.xacro"
     if not materials_path.is_file():
@@ -293,6 +346,8 @@ def sanitize_arm_urdf(package_root: str | Path, output_urdf: str | Path) -> dict
     root = tree.getroot()
     removed_includes = _remove_xacro_includes(root)
     inserted_materials = _copy_material_definitions(package, root)
+
+    promoted_fixed_joints = _promote_missing_source_arm_fifth_joint(root)
 
     mesh_reference_count = 0
     missing_meshes: list[str] = []
@@ -332,6 +387,7 @@ def sanitize_arm_urdf(package_root: str | Path, output_urdf: str | Path) -> dict
         "missing_meshes": missing_meshes,
         "joint_count": len(joints),
         "moving_joint_names": revolute_or_continuous,
+        "promoted_fixed_joints": promoted_fixed_joints,
     }
 
 

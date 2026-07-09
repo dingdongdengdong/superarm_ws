@@ -1,0 +1,23 @@
+# LeRobot config for the robot_arm_hand_package.zip source URDF arm.
+# Use this when running local Isaac Sim directly from /workspaces/superarm_ws
+# with RPO_ARM_URDF_PATH pointing at the sanitized source-package URDF.
+
+_type: isaacsim_rpo_arm
+
+joint_names:
+  - joint_rev_1
+  - joint_rev_2
+  - joint_rev_3
+  - joint_rev_4
+  - joint_rev_5
+
+joint_state_topic: /follower/joint_states
+joint_command_topic: /follower/joint_commands
+phone_command_topic: /leader/joint_commands
+
+fixed_hand: true
+fixed_grasp: 0.0
+allow_custom_joint_names: true
+
+connect_timeout_s: 10.0
+mock: false

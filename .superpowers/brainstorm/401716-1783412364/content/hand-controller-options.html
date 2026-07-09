@@ -1,0 +1,34 @@
+
+<h2>Manual LeLab Hand Controller: UI Direction</h2>
+<p class="subtitle">Pick the controller shape for validating AmazingHand alone before attaching it to the arm.</p>
+<div class="cards">
+  <div class="card" data-choice="hybrid" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">Recommended: Hybrid Hand Manual</div>
+        <div class="mockup-body">
+          <div class="mock-nav">AmazingHand Manual · Connected · Screenshot Debug</div>
+          <div style="padding:12px">
+            <div class="label">Basic</div>
+            <div style="display:flex;align-items:center;gap:12px;margin:8px 0"><button class="mock-button">Open</button><input class="mock-input" value="Grasp scalar 0.55" style="flex:1"><button class="mock-button">Close</button></div>
+            <div class="label">Per-finger tuning</div>
+            <div class="placeholder">Finger 1 pair · Finger 2 pair · Finger 3 pair · Thumb pair</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>A. Hybrid: scalar + per-finger</h3><p>Simple open/close validation first, with advanced 8-joint sliders visible for diagnosing individual finger problems.</p></div>
+  </div>
+  <div class="card" data-choice="scalar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup"><div class="mockup-header">Simple Grasp Scalar</div><div class="mockup-body"><div class="mock-nav">AmazingHand Manual</div><div style="padding:20px"><input class="mock-input" value="Grasp 0.00 → 1.00" style="width:100%"><div style="margin-top:16px"><button class="mock-button">Open</button> <button class="mock-button">Half</button> <button class="mock-button">Close</button></div></div></div></div>
+    </div>
+    <div class="card-body"><h3>B. Scalar only</h3><p>Fastest and safest UI, but hides whether a specific finger joint is broken.</p></div>
+  </div>
+  <div class="card" data-choice="eight" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup"><div class="mockup-header">8-Joint Expert Panel</div><div class="mockup-body"><div class="placeholder">finger1_motor1</div><div class="placeholder">finger1_motor2</div><div class="placeholder">finger2_motor1</div><div class="placeholder">finger2_motor2</div><div class="placeholder">...</div></div></div>
+    </div>
+    <div class="card-body"><h3>C. 8-joint only</h3><p>Maximum diagnosis, but more cumbersome for basic “does hand open/close?” validation.</p></div>
+  </div>
+</div>

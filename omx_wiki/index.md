@@ -1,16 +1,11 @@
-# Project Memory Index
+# Wiki Index
 
-Updated: 2026-07-02
+> 5 pages | Last updated: 2026-07-07T01:05:59.949Z
 
-This repository now stores project memory in `omx_wiki/`. Keep these files under git so Isaac Sim hand/arm decisions survive context resets and future sessions.
+## session-log
 
-Current pages:
-
-- `amazinghand-isaacsim.md`: Isaac Sim AmazingHand conversion decisions, validation evidence, and known limits.
-- `log.md`: chronological project memory log.
-
-Memory policy:
-
-- Add important debugging conclusions, validation artifact paths, and user-facing decisions here before committing related code.
-- Keep transient Isaac outputs out of memory unless their paths are needed as evidence.
-- Do not treat report `PASS` alone as enough for visual tasks; record image/contact-sheet inspection results.
+- [Session Log 2026-07-06](session-log-2026-07-06-8-0s6ja2.md) — # Session Log 2026-07-06
+- [Session Log 2026-07-06](session-log-2026-07-06-8-hcpbfw.md) — # Session Log 2026-07-06
+- [Session Log 2026-07-06](session-log-2026-07-06-9-qlmx4g.md) — # Session Log 2026-07-06
+- [Session Log 2026-07-07](session-log-2026-07-07-0-7lmfi0.md) — # Session Log 2026-07-07
+- [Session Log 2026-07-07](session-log-2026-07-07-1-lmzjnh.md) — # Session Log 2026-07-07

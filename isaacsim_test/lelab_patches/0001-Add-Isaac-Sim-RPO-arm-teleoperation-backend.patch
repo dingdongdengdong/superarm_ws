@@ -1,0 +1,383 @@
+From f45384598f66b815b6a524b580b5fe3b34a23578 Mon Sep 17 00:00:00 2001
+From: Codex <codex@example.local>
+Date: Sun, 5 Jul 2026 11:09:42 +0000
+Subject: [PATCH 1/3] Add Isaac Sim RPO arm teleoperation backend
+
+---
+ lelab/server.py           |   8 ++
+ lelab/teleoperate.py      | 212 ++++++++++++++++++++++++++++++++++++--
+ tests/test_teleoperate.py |  54 ++++++++++
+ 3 files changed, 264 insertions(+), 10 deletions(-)
+
+diff --git a/lelab/server.py b/lelab/server.py
+index 519e0c7..73db7ff 100644
+--- a/lelab/server.py
++++ b/lelab/server.py
+@@ -71,8 +71,10 @@ from .rollout import (
+ 
+ # Import our custom teleoperation functionality
+ from .teleoperate import (
++    JointActionRequest,
+     TeleoperateRequest,
+     handle_get_joint_positions,
++    handle_send_joint_action,
+     handle_start_teleoperation,
+     handle_stop_teleoperation,
+     handle_teleoperation_status,
+@@ -326,6 +328,12 @@ def get_joint_positions():
+     return handle_get_joint_positions()
+ 
+ 
++@app.post("/send-joint-action")
++def send_joint_action(request: JointActionRequest):
++    """Send one joint action to the active robot backend."""
++    return handle_send_joint_action(request)
++
++
+ @app.post("/start-inference")
+ def start_inference(request: InferenceRequest):
+     result = handle_start_inference(request)
+diff --git a/lelab/teleoperate.py b/lelab/teleoperate.py
+index 6341680..f8eabf5 100644
+--- a/lelab/teleoperate.py
++++ b/lelab/teleoperate.py
+@@ -14,14 +14,37 @@
+ 
+ import logging
+ import math
++import os
++import sys
+ import threading
+ import time
++from pathlib import Path
+ from typing import Any
+ 
+ from pydantic import BaseModel
+-
+-from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
+-from lerobot.teleoperators.so_leader import SO101Leader, SO101LeaderConfig
++import yaml
++
++try:
++    from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
++    from lerobot.teleoperators.so_leader import SO101Leader, SO101LeaderConfig
++except ModuleNotFoundError:
++    # Keep the module importable in lightweight test/dev environments.  Real
++    # SO-101 use still requires LeRobot to be installed; tests monkeypatch
++    # these names with fakes.
++    class _MissingLeRobot:
++        def __init__(self, *args, **kwargs) -> None:
++            raise ModuleNotFoundError("LeRobot is required for SO-101 teleoperation")
++
++    SO101Follower = _MissingLeRobot
++    SO101Leader = _MissingLeRobot
++
++    class SO101FollowerConfig:
++        def __init__(self, **kwargs) -> None:
++            self.__dict__.update(kwargs)
++
++    class SO101LeaderConfig:
++        def __init__(self, **kwargs) -> None:
++            self.__dict__.update(kwargs)
+ 
+ from .utils.config import setup_calibration_files
+ from .utils.devices import safe_disconnect_device
+@@ -61,6 +84,13 @@ class TeleoperateRequest(BaseModel):
+     follower_port: str
+     leader_config: str
+     follower_config: str
++    robot_backend: str = "so101"
++    isaacsim_config: str | None = None
++    superarm_ws_path: str | None = None
++
++
++class JointActionRequest(BaseModel):
++    action: list[float] | dict[str, float]
+ 
+ 
+ def get_joint_positions_from_robot(robot) -> dict[str, float]:
+@@ -73,6 +103,23 @@ def get_joint_positions_from_robot(robot) -> dict[str, float]:
+     Returns:
+         Dictionary mapping URDF joint names to radian values
+     """
++    try:
++        observation = robot.get_observation()
++    except AttributeError:
++        observation = robot.capture_observation().get("observation.state", [])
++
++    # Generic LeRobot custom robot path.  Our Isaac Sim bridge exposes feature
++    # keys like joint_rev_1.pos and does not use the SO-101 URDF joint names.
++    if isinstance(observation, dict) and not any(
++        f"{name}.pos" in observation
++        for name in ("shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper")
++    ):
++        return {
++            key.removesuffix(".pos"): float(value)
++            for key, value in observation.items()
++            if key.endswith(".pos")
++        }
++
+     motor_to_urdf_mapping = {
+         "shoulder_pan": "Rotation",
+         "shoulder_lift": "Pitch",
+@@ -83,7 +130,6 @@ def get_joint_positions_from_robot(robot) -> dict[str, float]:
+     }
+ 
+     try:
+-        observation = robot.get_observation()
+         calibration = robot.calibration or {}
+ 
+         joint_positions: dict[str, float] = {}
+@@ -123,6 +169,100 @@ def get_joint_positions_from_robot(robot) -> dict[str, float]:
+         return dict.fromkeys(motor_to_urdf_mapping.values(), 0.0)
+ 
+ 
++def _superarm_workspace_from_request(request: TeleoperateRequest) -> Path:
++    return Path(
++        request.superarm_ws_path
++        or os.environ.get("SUPERARM_WS_PATH")
++        or "/workspaces/superarm_ws"
++    )
++
++
++def _create_isaacsim_rpo_arm_robot(request: TeleoperateRequest):
++    """Create this repo's custom LeRobot Isaac Sim arm backend.
++
++    LeLab upstream is SO-101 first.  This hook lets a local superarm checkout
++    provide `IsaacSimRpoArmRobot` without vendoring that robot into LeLab.
++    """
++    superarm_ws = _superarm_workspace_from_request(request)
++    lerobot_dir = superarm_ws / "isaacsim_test" / "lerobot"
++    if str(lerobot_dir) not in sys.path:
++        sys.path.insert(0, str(lerobot_dir))
++
++    from isaacsim_rpo_arm_robot import IsaacSimRpoArmConfig, IsaacSimRpoArmRobot
++
++    config_path = Path(
++        request.isaacsim_config
++        or request.follower_config
++        or (lerobot_dir / "source_arm_isaacsim_arm_only.yaml")
++    )
++    if not config_path.is_absolute():
++        config_path = superarm_ws / config_path
++    raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
++    raw.pop("_type", None)
++    config = IsaacSimRpoArmConfig(**raw)
++    return IsaacSimRpoArmRobot(config)
++
++
++def _handle_start_isaacsim_teleoperation(request: TeleoperateRequest, websocket_manager=None) -> dict[str, Any]:
++    global teleoperation_active, teleoperation_thread, current_robot, current_teleop
++
++    robot = None
++    try:
++        robot = _create_isaacsim_rpo_arm_robot(request)
++        logger.info("Connecting Isaac Sim RPO arm backend...")
++        robot.connect()
++        current_robot = robot
++        current_teleop = None
++
++        def isaacsim_worker():
++            global teleoperation_active, current_robot, current_teleop
++
++            logger.info("Starting Isaac Sim arm telemetry loop...")
++            try:
++                last_broadcast_time = 0.0
++                broadcast_interval = 0.05
++                while teleoperation_active:
++                    current_time = time.time()
++                    if current_time - last_broadcast_time >= broadcast_interval:
++                        joint_positions = get_joint_positions_from_robot(robot)
++                        joint_data = {
++                            "type": "joint_update",
++                            "joints": joint_positions,
++                            "timestamp": current_time,
++                            "robot_backend": "isaacsim_rpo_arm",
++                        }
++                        if websocket_manager and websocket_manager.active_connections:
++                            websocket_manager.broadcast_joint_data_sync(joint_data)
++                        last_broadcast_time = current_time
++                    time.sleep(0.01)
++            except Exception as e:
++                logger.error(f"Error during Isaac Sim telemetry loop: {e}")
++            finally:
++                _safe_disconnect(robot)
++                logger.info("Isaac Sim arm teleoperation stopped")
++                teleoperation_active = False
++                current_robot = None
++                current_teleop = None
++
++        teleoperation_thread = threading.Thread(
++            target=isaacsim_worker, name="isaacsim-teleoperation-worker", daemon=True
++        )
++        teleoperation_thread.start()
++        return {
++            "success": True,
++            "message": "Isaac Sim arm backend connected successfully",
++            "robot_backend": "isaacsim_rpo_arm",
++            "joint_positions": get_joint_positions_from_robot(robot),
++        }
++    except Exception as e:
++        _safe_disconnect(robot)
++        teleoperation_active = False
++        current_robot = None
++        current_teleop = None
++        logger.error(f"Failed to start Isaac Sim arm backend: {e}")
++        return {"success": False, "message": str(e), "robot_backend": "isaacsim_rpo_arm"}
++
++
+ def _safe_disconnect(device) -> None:
+     """Disconnect a robot/teleop device, swallowing (but logging) any error.
+ 
+@@ -132,6 +272,31 @@ def _safe_disconnect(device) -> None:
+     safe_disconnect_device(device, logger)
+ 
+ 
++def _other_feature_busy_messages() -> list[str]:
++    """Return blockers from mutually-exclusive LeLab modes.
++
++    Importing record/rollout can require optional LeRobot dependencies.  In a
++    lightweight API test environment those modules may be unavailable; that
++    should not make the teleoperate module itself unusable.
++    """
++    messages: list[str] = []
++    try:
++        from . import record as _record
++
++        if _record.recording_active:
++            messages.append("Recording is currently active. Stop it first.")
++    except ModuleNotFoundError:
++        pass
++    try:
++        from . import rollout as _rollout
++
++        if _rollout.inference_active:
++            messages.append("Inference is currently active. Stop it first.")
++    except ModuleNotFoundError:
++        pass
++    return messages
++
++
+ def handle_start_teleoperation(request: TeleoperateRequest, websocket_manager=None) -> dict[str, Any]:
+     """Handle start teleoperation request.
+ 
+@@ -142,17 +307,20 @@ def handle_start_teleoperation(request: TeleoperateRequest, websocket_manager=No
+     """
+     global teleoperation_active, teleoperation_thread, current_robot, current_teleop
+ 
+-    from . import record as _record, rollout as _rollout
+-
+     with _state_lock:
+         if teleoperation_active:
+             return {"success": False, "message": "Teleoperation is already active"}
+-        if _record.recording_active:
+-            return {"success": False, "message": "Recording is currently active. Stop it first."}
+-        if _rollout.inference_active:
+-            return {"success": False, "message": "Inference is currently active. Stop it first."}
++        busy_messages = _other_feature_busy_messages()
++        if busy_messages:
++            return {"success": False, "message": busy_messages[0]}
+         teleoperation_active = True
+ 
++    if request.robot_backend == "isaacsim_rpo_arm":
++        return _handle_start_isaacsim_teleoperation(request, websocket_manager)
++    if request.robot_backend != "so101":
++        teleoperation_active = False
++        return {"success": False, "message": f"Unsupported robot_backend: {request.robot_backend}"}
++
+     robot = None
+     teleop_device = None
+     try:
+@@ -334,3 +502,27 @@ def handle_get_joint_positions() -> dict[str, Any]:
+     except Exception as e:
+         logger.error(f"Error getting joint positions: {e}")
+         return {"success": False, "message": f"Failed to get joint positions: {str(e)}"}
++
++
++def handle_send_joint_action(request: JointActionRequest) -> dict[str, Any]:
++    """Send one action to the active robot backend.
++
++    For `robot_backend=isaacsim_rpo_arm`, `action` should be either a list in
++    config joint order (`joint_rev_1..4`) or a mapping keyed by feature/joint
++    names.  The active backend owns normalization.
++    """
++    global current_robot
++
++    if not teleoperation_active or current_robot is None:
++        return {"success": False, "message": "No active teleoperation session"}
++    try:
++        sent = current_robot.send_action(request.action)
++        return {
++            "success": True,
++            "sent_action": sent.tolist() if hasattr(sent, "tolist") else sent,
++            "joint_positions": get_joint_positions_from_robot(current_robot),
++            "timestamp": time.time(),
++        }
++    except Exception as e:
++        logger.error(f"Error sending joint action: {e}")
++        return {"success": False, "message": f"Failed to send joint action: {str(e)}"}
+diff --git a/tests/test_teleoperate.py b/tests/test_teleoperate.py
+index 57a8481..eb9efe9 100644
+--- a/tests/test_teleoperate.py
++++ b/tests/test_teleoperate.py
+@@ -151,3 +151,57 @@ def test_start_teleoperation_disconnects_follower_when_leader_fails(
+     # The already-connected follower must have been cleaned up.
+     assert created["follower"].disconnected is True
+     assert teleop.teleoperation_active is False
++
++
++def test_isaacsim_backend_uses_custom_robot_and_action_endpoint(
++    monkeypatch: pytest.MonkeyPatch,
++) -> None:
++    import lelab.teleoperate as teleop
++
++    monkeypatch.setattr(teleop, "teleoperation_active", False)
++
++    class _IsaacRobot:
++        def __init__(self) -> None:
++            self.connected = False
++            self.last_action = None
++
++        def connect(self) -> None:
++            self.connected = True
++
++        def disconnect(self) -> None:
++            self.connected = False
++
++        def get_observation(self) -> dict[str, float]:
++            return {
++                "joint_rev_1.pos": 0.1,
++                "joint_rev_2.pos": -0.2,
++                "joint_rev_3.pos": 0.3,
++                "joint_rev_4.pos": -0.4,
++            }
++
++        def send_action(self, action):
++            self.last_action = action
++            return action
++
++    created = _IsaacRobot()
++    monkeypatch.setattr(teleop, "_create_isaacsim_rpo_arm_robot", lambda request: created)
++
++    request = teleop.TeleoperateRequest(
++        leader_port="unused",
++        follower_port="unused",
++        leader_config="unused",
++        follower_config="isaacsim_test/lerobot/source_arm_isaacsim_arm_only.yaml",
++        robot_backend="isaacsim_rpo_arm",
++    )
++    result = teleop.handle_start_teleoperation(request)
++
++    assert result["success"] is True
++    assert result["robot_backend"] == "isaacsim_rpo_arm"
++    assert result["joint_positions"]["joint_rev_1"] == 0.1
++
++    action_result = teleop.handle_send_joint_action(teleop.JointActionRequest(action=[0.2, -0.2, 0.3, -0.3]))
++    assert action_result["success"] is True
++    assert action_result["sent_action"] == [0.2, -0.2, 0.3, -0.3]
++
++    stop_result = teleop.handle_stop_teleoperation()
++    assert stop_result["success"] is True
+-- 
+2.34.1
+

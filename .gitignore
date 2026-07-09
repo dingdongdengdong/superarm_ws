@@ -1,10 +1,12 @@
 # External upstream checkouts kept outside this repo's committed source.
 /roboto_origin/
+/external/
 
 # Local worktrees and generated outputs.
 /.worktrees/
 /worktrees/
 /outputs/
+/.docker-vfs/
 
 # ROS 2 colcon build artifacts
 /build/
@@ -23,3 +25,7 @@ __pycache__/
 # Local Isaac Sim test env overrides (copy from .env.example)
 /isaacsim_test/.env
 /isaacsim_test/artifacts/
+
+# Generated Isaac Sim source-arm package extraction/output; regenerated from robot_arm_hand_package.zip.
+/isaacsim_test/inputs/
+/isaacsim_test/outputs/
