@@ -472,3 +472,27 @@ Hardware boundary: `rustypot==1.5.0` is installed and the serial transport is
 implemented, but no physical hand was attached. Do not claim eight-servo
 hardware validation until the opt-in discovery, motion, telemetry, timeout, and
 torque-off checks pass.
+
+### 2026-07-10 MuJoCo hand-motion direction correction
+
+A user visual review correctly found that the first MuJoCo dashboard motion was
+too subtle. Numeric actuator readback had passed, but commanding both official
+MJCF motor hinges positive mostly produced lateral linkage motion rather than
+finger flexion.
+
+The corrected official-MJCF mapping keeps the calibrated magnitudes but applies
+the mechanical direction to motor 2:
+
+- motor 1: `0 deg -> +0.05 rad`, `110 deg -> +0.95 rad`
+- motor 2: `0 deg -> -0.02 rad`, `110 deg -> -1.10 rad`
+
+The dashboard renderer now uses a fixed hand-focused camera rather than MuJoCo's
+generic free-camera default. A new kinematic regression requires every `tip1`
+through `tip4` site to move over 50 mm and move at least 20 mm closer to the
+wrist during close.
+
+Corrected evidence root:
+`isaacsim_test/artifacts/mujoco_superarm_amazinghand_20260710T090202Z/`.
+The report records 60.62-60.64 mm fingertip displacement for all fingers and
+wrist-distance reductions of 49.85, 49.90, 48.72, and 21.93 mm. The reviewed
+`closeup_contact_sheet.jpg` now shows obvious finger flexion.

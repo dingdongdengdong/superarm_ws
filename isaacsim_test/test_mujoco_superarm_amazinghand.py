@@ -68,7 +68,7 @@ class CombinedMuJoCoModelTest(unittest.TestCase):
         mujoco = self.mujoco
         data = mujoco.MjData(self.model)
         data.ctrl[:5] = [0.2, -0.2, 0.3, -0.3, 0.1]
-        data.ctrl[5:] = [0.50, 0.56] * 4
+        data.ctrl[5:] = [0.50, -0.56] * 4
         for _ in range(1000):
             mujoco.mj_step(self.model, data)
         self.assertTrue(np.isfinite(data.qpos).all())
@@ -77,6 +77,59 @@ class CombinedMuJoCoModelTest(unittest.TestCase):
         mujoco.mj_forward(self.model, data)
         self.assertTrue(np.isfinite(data.qpos).all())
         self.assertLess(float(np.linalg.norm(data.qvel)), 1e-12)
+
+    def test_each_finger_visibly_flexes_toward_the_wrist(self) -> None:
+        """Guard against commanding both hinges positive (mostly side motion)."""
+        mujoco = self.mujoco
+        wrist = mujoco.mj_name2id(
+            self.model,
+            mujoco.mjtObj.mjOBJ_BODY,
+            "r_wrist_interface",
+        )
+        for finger in range(1, 5):
+            data = mujoco.MjData(self.model)
+            for index in range(1, 5):
+                motor1 = mujoco.mj_name2id(
+                    self.model,
+                    mujoco.mjtObj.mjOBJ_ACTUATOR,
+                    f"finger{index}_motor1",
+                )
+                motor2 = mujoco.mj_name2id(
+                    self.model,
+                    mujoco.mjtObj.mjOBJ_ACTUATOR,
+                    f"finger{index}_motor2",
+                )
+                data.ctrl[motor1] = 0.05
+                data.ctrl[motor2] = -0.02
+            for _ in range(1200):
+                mujoco.mj_step(self.model, data)
+            tip = mujoco.mj_name2id(
+                self.model,
+                mujoco.mjtObj.mjOBJ_SITE,
+                f"tip{finger}",
+            )
+            open_position = data.site_xpos[tip].copy()
+            open_radius = float(np.linalg.norm(open_position - data.xpos[wrist]))
+            data.ctrl[
+                mujoco.mj_name2id(
+                    self.model,
+                    mujoco.mjtObj.mjOBJ_ACTUATOR,
+                    f"finger{finger}_motor1",
+                )
+            ] = 0.95
+            data.ctrl[
+                mujoco.mj_name2id(
+                    self.model,
+                    mujoco.mjtObj.mjOBJ_ACTUATOR,
+                    f"finger{finger}_motor2",
+                )
+            ] = -1.10
+            for _ in range(1500):
+                mujoco.mj_step(self.model, data)
+            closed_position = data.site_xpos[tip].copy()
+            closed_radius = float(np.linalg.norm(closed_position - data.xpos[wrist]))
+            self.assertGreater(float(np.linalg.norm(closed_position - open_position)), 0.05)
+            self.assertGreater(open_radius - closed_radius, 0.02)
 
 
 if __name__ == "__main__":

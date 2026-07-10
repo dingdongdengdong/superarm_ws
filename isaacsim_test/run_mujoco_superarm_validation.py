@@ -96,8 +96,11 @@ def run(output_root: Path) -> dict:
         mujoco.mj_resetData(model, data)
         for index in range(1, 5):
             data.ctrl[actuator_ids[f"finger{index}_motor1"]] = 0.05
-            data.ctrl[actuator_ids[f"finger{index}_motor2"]] = 0.02
+            data.ctrl[actuator_ids[f"finger{index}_motor2"]] = -0.02
         _step(model, data, 600)
+        tip_site = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, f"tip{finger}")
+        open_tip_position = data.site_xpos[tip_site].copy()
+        open_tip_radius = float(np.linalg.norm(open_tip_position - data.xpos[hand_body]))
         camera.lookat[:] = (data.xpos[hand_body] + data.xpos[focus_body]) / 2.0
         camera.distance = 0.22
         camera.azimuth = 135
@@ -106,7 +109,7 @@ def run(output_root: Path) -> dict:
         before_path = output_root / f"finger{finger}_before_open.jpg"
         Image.fromarray(renderer.render()).save(before_path, quality=90)
 
-        raw_target = [0.50, 0.56]
+        raw_target = [0.50, -0.56]
         for name, value in zip(pair, raw_target, strict=True):
             data.ctrl[actuator_ids[name]] = value
         _step(model, data, 800)
@@ -123,11 +126,15 @@ def run(output_root: Path) -> dict:
             }
         )
 
-        close_target = [0.95, 1.10]
+        close_target = [0.95, -1.10]
         for name, value in zip(pair, close_target, strict=True):
             data.ctrl[actuator_ids[name]] = value
         _step(model, data, 1200)
         close_readback = [float(data.qpos[qpos_addresses[name]]) for name in pair]
+        close_tip_position = data.site_xpos[tip_site].copy()
+        close_tip_radius = float(np.linalg.norm(close_tip_position - data.xpos[hand_body]))
+        tip_displacement = float(np.linalg.norm(close_tip_position - open_tip_position))
+        radius_reduction = open_tip_radius - close_tip_radius
         commands.append(
             {
                 "subsystem": "hand",
@@ -137,6 +144,11 @@ def run(output_root: Path) -> dict:
                 "target_rad": close_target,
                 "readback_rad": close_readback,
                 "finite": bool(np.isfinite(data.qpos).all()),
+                "tip_displacement_mm": tip_displacement * 1000.0,
+                "tip_wrist_distance_open_mm": open_tip_radius * 1000.0,
+                "tip_wrist_distance_close_mm": close_tip_radius * 1000.0,
+                "tip_wrist_distance_reduction_mm": radius_reduction * 1000.0,
+                "visual_motion_passed": tip_displacement > 0.05 and radius_reduction > 0.02,
             }
         )
         camera.lookat[:] = (data.xpos[hand_body] + data.xpos[focus_body]) / 2.0
@@ -190,6 +202,7 @@ def run(output_root: Path) -> dict:
     report = {
         "status": "PASS"
         if all(item.get("finite", True) for item in commands)
+        and all(item.get("visual_motion_passed", True) for item in commands)
         and all(item["before_stats"]["nonblank"] and item["after_stats"]["nonblank"] for item in render_records)
         else "FAIL",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),

@@ -313,3 +313,15 @@ Comparison/fix for standalone source arm vs RoboParty V2 right arm:
 - EGL artifact `isaacsim_test/artifacts/mujoco_superarm_amazinghand_20260710T085241Z/`
   passed numeric and close-up visual checks. Physical serial hardware remains
   untested and must not be reported as validated.
+
+## 2026-07-10 MuJoCo hand visible-motion debug fix
+
+- User review found the first official-MJCF hand movement visually too subtle.
+- Root cause: both motor targets were positive; this mostly abducted/spread the
+  closed-loop linkage. Correct flexion uses the calibrated motor-2 magnitude
+  with negative sign, matching the mechanical even-servo direction.
+- Added a hand-focused dashboard camera and a regression that measures actual
+  `tip1..tip4` site displacement and approach toward `r_wrist_interface`.
+- Corrected artifact `mujoco_superarm_amazinghand_20260710T090202Z` passes with
+  about 60.6 mm fingertip travel per finger and visibly different close-up
+  before/after renders.
