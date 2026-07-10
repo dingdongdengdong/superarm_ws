@@ -439,3 +439,36 @@ OVRTX_SKIP_USD_CHECK=1 .viewer-venv/bin/python -c 'import ovrtx; print(ovrtx.__f
 Host package `libopengl0` was also installed because `ovrtx` needed `libOpenGL.so.0`.
 
 Still pending: a clean first rendered PNG. Initial smoke attempts left stale high-CPU `ovrtx` renderer processes and were killed. Continue with a minimal, logged `ovrtx` render before using it as AmazingHand visual proof.
+
+## 2026-07-10 MuJoCo-first LeLab source-arm + AmazingHand dashboard
+
+Created dedicated root branch `feature/mujoco-superarm-amazinghand` and LeLab
+branch `feature/superarm-amazinghand-dashboard`. This is additive and does not
+modify the preserved Isaac/ROS control path; the web runtime selector shows
+`Isaac Sim — later` disabled.
+
+The MuJoCo model keeps the official closed-loop hand MJCF. Only the sanitized
+five-joint source-arm URDF is converted to MJCF. The generator then attaches the
+official `r_wrist_interface` body and copies all 8 hand position actuators and
+20 equality constraints without using the simplified Isaac hand URDF.
+
+- Generator: `isaacsim_test/mujoco_models/generate_superarm_amazinghand.py`
+- LeLab dashboard: `/home/dong/july/superarm_ws/worktrees/leLab`, route `/superarm`
+- Model result: 13 actuators, 20 equalities, 41 meshes, finite stepping
+- EGL validation artifact:
+  `isaacsim_test/artifacts/mujoco_superarm_amazinghand_20260710T085241Z/`
+- Reviewed proof: all four `finger*_before_open.jpg` / `finger*_after_close.jpg`
+  pairs are nonblank close-ups and visibly show the official linkage moving.
+- Numeric proof: all five `joint_rev_1..5` cases and all eight hand actuator raw
+  and close cases have finite target/readback data in
+  `command_and_render_report.json`.
+
+AmazingHandControl was inspected only as an ignored reference checkout at
+`worktrees/AmazingHandControl`, revision `2a59fd8`, Apache-2.0. Its ordering,
+servo inversion, programs, validation, and keyboard behavior were adapted into
+LeLab; its Tkinter/matplotlib UI is not a runtime dependency.
+
+Hardware boundary: `rustypot==1.5.0` is installed and the serial transport is
+implemented, but no physical hand was attached. Do not claim eight-servo
+hardware validation until the opt-in discovery, motion, telemetry, timeout, and
+torque-off checks pass.

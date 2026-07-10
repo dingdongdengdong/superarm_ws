@@ -296,3 +296,20 @@ Comparison/fix for standalone source arm vs RoboParty V2 right arm:
 - **Pages:** session-log-2026-07-09-2-4gokfp.md
 - **Summary:** Auto-captured session log for omx-1783577226092-4gokfp
 
+
+## 2026-07-10 MuJoCo LeLab SuperArm + official AmazingHand MJCF
+
+- Preserved and checkpointed prior Isaac/LeLab work before creating dedicated
+  MuJoCo/dashboard feature branches.
+- Cloned ignored AmazingHandControl reference revision `2a59fd8` and recorded
+  Apache-2.0 provenance; it is not a runtime dependency.
+- Added a portable generator that converts only the five-joint source arm from
+  URDF and attaches the official closed-loop hand MJCF unchanged (8 hand
+  actuators, 20 equality constraints).
+- Added LeLab `/superarm`, unified transports, serial safety, MJPEG/WS telemetry,
+  atomic arm+hand programs, cancelable sequences, and the complete React control
+  surface. Existing Isaac/ROS paths were not changed.
+- Installed and verified `mujoco==3.10.0` and `rustypot==1.5.0` in the LeLab venv.
+- EGL artifact `isaacsim_test/artifacts/mujoco_superarm_amazinghand_20260710T085241Z/`
+  passed numeric and close-up visual checks. Physical serial hardware remains
+  untested and must not be reported as validated.
