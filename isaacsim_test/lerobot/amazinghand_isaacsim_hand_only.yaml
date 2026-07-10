@@ -22,5 +22,11 @@ allow_custom_joint_names: true
 fixed_hand: false
 fixed_grasp: 0.0
 
-connect_timeout_s: 10.0
+manual_leader:
+  kind: amazinghand
+  slider_min: 0.0
+  slider_max: 1.2
+  slider_step: 0.01
+
+connect_timeout_s: 45.0
 mock: false

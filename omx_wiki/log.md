@@ -239,3 +239,60 @@ Comparison/fix for standalone source arm vs RoboParty V2 right arm:
 - **Pages:** session-log-2026-07-07-1-lmzjnh.md
 - **Summary:** Auto-captured session log for omx-1783334617641-lmzjnh
 
+
+## 2026-07-09 LeLab AmazingHand hand-only realtime control
+- Current branch/workspace: `/home/dong/july/superarm_ws`, branch `feature/lelab-handpart-manual`.
+- LeLab repo/worktree is at `/home/dong/july/superarm_ws/worktrees/leLab`.
+- Added LeLab built-in robot record `SuperArm AmazingHand` and Manual Leader config for `isaacsim_test/lerobot/amazinghand_isaacsim_hand_only.yaml`.
+- Generated/used hand-only Isaac URDF: `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/amazinghand_graspable.urdf` with 8 joints `finger1_motor1..finger4_motor2`.
+- Isaac Sim 6.0 scene bridge now uses the generated URDF hand tree, queues ROS callbacks onto the sim loop, holds the latest command, and writes command evidence JSONL.
+- LeLab live control-only smoke passed for open, half, close through `/hand/joint_commands` -> `/hand/joint_states`:
+  - Artifact: `isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T065136Z/`.
+  - `hand_command_evidence.jsonl` contains exact applied readbacks for open `[0.05,0.02]*4`, half `[0.50,0.56]*4`, and close `[0.95,1.10]*4`.
+  - Direct ROS isolation check also passed open/half/close/open2 at `isaacsim_test/artifacts/direct_amazinghand_control_20260709T065049Z/`.
+- Test evidence:
+  - `worktrees/leLab/.venv/bin/python -m pytest worktrees/leLab/tests/test_server.py worktrees/leLab/tests/test_utils_config.py worktrees/leLab/tests/test_teleoperate.py worktrees/leLab/tests/test_superarm_amazinghand_manual_config.py -q` -> 58 passed.
+  - `worktrees/leLab/.venv/bin/python -m unittest isaacsim_test.test_lerobot_rpo_arm_control -v` -> 11 tests OK.
+  - `worktrees/leLab/.venv/bin/python -m pytest isaacsim_test/test_setup_amazinghand_scene.py -q` -> 4 passed.
+- Exported LeLab patch: `isaacsim_test/lelab_patches/0007-Add-SuperArm-AmazingHand-manual-leader.patch`; fresh apply-check over patches 0001..0007 passed.
+- Still not done: headless close-up visual screenshots are not valid yet. Current camera screenshot path can fail with `Camera returned no RGBA data`; do not claim visual/finger proof until close-up per-finger PNG evidence exists.
+- SimReady status remains `binding_pending`; this work proves LeLab realtime hand control on the Isaac-friendly generated URDF, not physical SimReady articulation binding.
+
+## 2026-07-09 Realtime Viewer screenshot attempt
+- Tried the `$omniverse-realtime-viewer` route for close-up hand screenshots after Isaac Camera/Replicator capture blocked the sim loop.
+- Host and LeLab venv did not have `ovrtx`, `ovui`, or `ovstream` installed.
+- Started a separate `.viewer-venv` and attempted `pip install --upgrade ovrtx --index-url https://pypi.nvidia.com --extra-index-url https://pypi.org/simple`; the wheel was ~2.5GB and the transfer stalled with no cache growth, so the install was stopped.
+- Isaac container did not expose standalone `usdrecord`/`usdview` capture commands. Omniverse Python modules require launching `SimulationApp`, which is the same path that currently blocks on visual capture.
+- Current screenshot state: Realtime control/readback is proven, but close-up per-finger visual evidence remains pending until `ovrtx` is installed successfully or a working Isaac viewport capture path is isolated.
+
+## 2026-07-09 AmazingHand visual-import root cause + refreshed LeLab control
+- Found the visual-import root cause while following the Realtime Viewer/screenshot path: the generated `amazinghand_graspable.urdf` contains host-absolute STL paths under `/home/dong/july/superarm_ws/...`, but the Isaac container sees the repo at `/workspace/superarm_ws`. Without remapping, Isaac imported the joints/collision boxes but dropped the real STL visual payloads.
+- Fixed `isaacsim_test/isaacsim/setup_amazinghand_scene.py` to remap URDF mesh filenames to the container repo path before Isaac's URDF importer runs.
+- Also fixed the Isaac 6 USD output default to use the active `HAND_SCREENSHOT_OUTPUT_DIR` artifact root, avoiding stale `manual_hand_screenshot_debug/usd` permission collisions.
+- Fresh LeLab control/readback after the fix passed again:
+  - Artifact: `isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T073737Z/`.
+  - Scene log shows `remapped host URDF mesh paths for container`, `Loaded AmazingHand joints`, and applied open/half/close commands.
+  - USD output now includes `payloads/geometries.usd` and `payloads/instances.usda`, confirming the STL visual payloads are present in the generated USD package.
+- Realtime/Replicator PNG capture is still not accepted: Isaac Replicator with `wait_for_render=True` hung in headless mode after `step async`; the container was killed. Keep screenshot capture outside the realtime ROS loop until a nonblocking Realtime Viewer/ovrtx path is available.
+
+## 2026-07-09 ovrtx install retry succeeded
+- Retried the Omniverse Realtime Viewer dependency install in `.viewer-venv`.
+- Previous blocker was network/download stall on the large `ovrtx` wheel, not package auth. The wheel is ~2.55GB.
+- Successful command path:
+  - `python3 -m venv .viewer-venv`
+  - `.viewer-venv/bin/python -m pip install --upgrade pip setuptools wheel`
+  - `PIP_CACHE_DIR=$PWD/.pip-cache-ovrtx .viewer-venv/bin/python -m pip install --upgrade ovrtx --index-url https://pypi.nvidia.com --extra-index-url https://pypi.org/simple`
+- Installed version verified: `ovrtx-0.3.0.312915`.
+- Import verified with `OVRTX_SKIP_USD_CHECK=1`.
+- Added small PNG helper deps to `.viewer-venv`: `numpy`, `pillow`.
+- Host runtime was missing `libOpenGL.so.0`; installed `libopengl0` via apt.
+- Cleanup: removed temporary `/tmp/pip-unpack-*` wheel files. `.viewer-venv` is about 4.8GB after install.
+- Render smoke is not accepted yet: first `ovrtx` smoke attempts with the bundled scene created stale high-CPU renderer processes and were killed. Next step is a clean minimal render with correct RenderProduct path and unbuffered logging, then AmazingHand USD capture.
+## [2026-07-09T18:10:07.493Z] session-end
+- **Pages:** session-log-2026-07-09-4-nrvehl.md
+- **Summary:** Auto-captured session log for omx-1783597629794-nrvehl
+
+## [2026-07-09T18:10:10.500Z] session-end
+- **Pages:** session-log-2026-07-09-2-4gokfp.md
+- **Summary:** Auto-captured session log for omx-1783577226092-4gokfp
+

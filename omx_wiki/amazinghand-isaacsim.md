@@ -325,3 +325,117 @@ Comparison/fix for standalone source arm vs RoboParty V2 right arm:
 - Regenerated current standalone URDF at `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/robot_arm_hand_sanitized.urdf`; moving joints now equal `joint_rev_1..joint_rev_5`.
 - Verification artifact: `isaacsim_test/artifacts/source_arm_5dof_fix_20260706T065945Z/`.
 - Tests: `python3 -m unittest isaacsim_test.test_robot_arm_hand_from_zip isaacsim_test.test_lerobot_rpo_arm_control isaacsim_test.test_v2_roboparty_config -v` passed 31 tests.
+
+### 2026-07-09 LeLab hand-only realtime milestone
+
+LeLab control for the generated Isaac-friendly AmazingHand hand tree is now working in control/readback form under Isaac Sim 6.0.
+
+What changed:
+
+- LeLab worktree: `/home/dong/july/superarm_ws/worktrees/leLab`.
+- Built-in LeLab robot record: `SuperArm AmazingHand`.
+- Manual Leader config source: `isaacsim_test/lerobot/amazinghand_isaacsim_hand_only.yaml`.
+- LeLab patch export: `isaacsim_test/lelab_patches/0007-Add-SuperArm-AmazingHand-manual-leader.patch`.
+- Generated hand URDF used by Isaac: `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/amazinghand_graspable.urdf`.
+
+The hand-only LeRobot config intentionally uses isolated topics:
+
+```text
+/hand/joint_commands
+/hand/joint_states
+/hand/screenshot_debug
+```
+
+Verified command presets in joint order
+`[finger1_motor1,finger1_motor2,finger2_motor1,finger2_motor2,finger3_motor1,finger3_motor2,finger4_motor1,finger4_motor2]`:
+
+```text
+open  = [0.05, 0.02] * 4
+half  = [0.50, 0.56] * 4
+close = [0.95, 1.10] * 4
+```
+
+Accepted realtime control/readback artifact:
+
+```text
+isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T065136Z/
+```
+
+That run connected LeLab to the Isaac Sim 6.0 bridge and produced exact `/hand/joint_states` readback for open, half, and close. The command-evidence JSONL also records applied Isaac readback for close at approximately `[0.949999988, 1.100000024] * 4`.
+
+A direct ROS isolation check also passed without LeLab in the loop:
+
+```text
+isaacsim_test/artifacts/direct_amazinghand_control_20260709T065049Z/
+```
+
+Important caveats for future work:
+
+- Do **not** call this SimReady physical articulation proof. SimReady remains `binding_pending`.
+- Do **not** use whole-arm/yellow-proxy screenshots as proof of AmazingHand quality.
+- The current headless screenshot path still fails intermittently/no-valid-RGBA; close-up per-finger visual evidence is still required.
+- The verified runtime target here is the generated Isaac-friendly URDF hand tree, not the original closed-loop MuJoCo MJCF.
+
+### 2026-07-09 Realtime Viewer screenshot route status
+
+The Omniverse Realtime Viewer approach is the right next visual-proof path, but it is not installed yet on this host.
+
+Observed state:
+
+- Host Python and LeLab venv: no `ovrtx`, no `ovui`, no `ovstream`.
+- A `.viewer-venv` install attempt for `ovrtx` started from NVIDIA PyPI, but the wheel is about 2.5GB and the transfer stalled; the attempt was stopped before changing runtime behavior.
+- Isaac Sim container does not provide a simple standalone `usdrecord`/`usdview` command for this capture.
+
+Keep the current truth separate:
+
+- **Proven:** LeLab -> ROS -> Isaac generated-URDF hand command/readback for open, half, close.
+- **Not proven yet:** close-up per-finger visual screenshot evidence.
+
+Next visual-proof options:
+
+1. Finish installing `ovrtx` in `.viewer-venv` when network/download is stable and render the generated USD through the Realtime Viewer path.
+2. Build a smaller Realtime Viewer wrapper around the generated USD exported under `isaacsim_test/artifacts/amazinghand_visual_capture_*/usd/`.
+3. Alternatively debug Isaac viewport capture separately, but avoid issuing screenshot requests inside the realtime ROS control loop because the capture blocks command application.
+
+### 2026-07-09 visual-import fix after Realtime Viewer triage
+
+The missing close-up visual evidence exposed a separate asset-path issue:
+
+- Generated URDF mesh filenames were host-absolute (`/home/dong/july/superarm_ws/...`).
+- Isaac Sim runs in Docker with the repo mounted at `/workspace/superarm_ws`.
+- Result before the fix: joints and collision guide boxes imported, but STL visual meshes were not usable inside the container.
+
+`setup_amazinghand_scene.py` now remaps those URDF mesh filenames to the container path before import. It also writes Isaac 6 URDF-import USD packages under the current hand artifact root instead of the stale default screenshot directory.
+
+Fresh verification after this fix:
+
+```text
+isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T073737Z/
+```
+
+That run again verified LeLab realtime open/half/close readback and produced a USD package with visual payload files:
+
+```text
+usd/amazinghand_graspable/payloads/geometries.usd
+usd/amazinghand_graspable/payloads/instances.usda
+```
+
+Still pending: accepted close-up per-finger PNG evidence. Isaac Replicator still hangs in this headless setup, so the next preferred screenshot path remains Omniverse Realtime Viewer / `ovrtx` once the dependency is installed successfully.
+
+### 2026-07-09 ovrtx dependency installed
+
+The Realtime Viewer dependency retry succeeded. `ovrtx-0.3.0.312915` is now installed in:
+
+```text
+.viewer-venv/
+```
+
+The earlier failure was a stalled transfer of the ~2.55GB NVIDIA PyPI wheel, not a package/auth error. Import now works with:
+
+```bash
+OVRTX_SKIP_USD_CHECK=1 .viewer-venv/bin/python -c 'import ovrtx; print(ovrtx.__file__)'
+```
+
+Host package `libopengl0` was also installed because `ovrtx` needed `libOpenGL.so.0`.
+
+Still pending: a clean first rendered PNG. Initial smoke attempts left stale high-CPU `ovrtx` renderer processes and were killed. Continue with a minimal, logged `ovrtx` render before using it as AmazingHand visual proof.

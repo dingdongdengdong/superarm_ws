@@ -474,3 +474,68 @@ Fresh LeLab validation:
 ```text
 cd worktrees/leLab && python3 -m pytest tests/test_server.py tests/test_teleoperate.py -q
 ```
+
+## 2026-07-09 SuperArm AmazingHand Manual Leader
+
+LeLab now has a built-in `SuperArm AmazingHand` robot record for controlling the
+Isaac-friendly generated AmazingHand URDF directly through the normal LeLab Manual
+Leader path.
+
+- LeLab worktree: `worktrees/leLab`
+- Exported patch: `isaacsim_test/lelab_patches/0007-Add-SuperArm-AmazingHand-manual-leader.patch`
+- Hand-only LeRobot config: `isaacsim_test/lerobot/amazinghand_isaacsim_hand_only.yaml`
+- Generated URDF: `isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/amazinghand_graspable.urdf`
+- Topics: `/hand/joint_commands`, `/hand/joint_states`, `/hand/screenshot_debug`
+
+Verified presets:
+
+```text
+Open hand  = [0.05, 0.02] * 4
+Half close = [0.50, 0.56] * 4
+Close hand = [0.95, 1.10] * 4
+```
+
+Latest accepted control/readback artifact:
+
+```text
+isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T065136Z/
+```
+
+Verification commands run from the workspace:
+
+```bash
+worktrees/leLab/.venv/bin/python -m pytest \
+  worktrees/leLab/tests/test_server.py \
+  worktrees/leLab/tests/test_utils_config.py \
+  worktrees/leLab/tests/test_teleoperate.py \
+  worktrees/leLab/tests/test_superarm_amazinghand_manual_config.py -q
+
+worktrees/leLab/.venv/bin/python -m unittest isaacsim_test.test_lerobot_rpo_arm_control -v
+worktrees/leLab/.venv/bin/python -m pytest isaacsim_test/test_setup_amazinghand_scene.py -q
+```
+
+Results: 58 LeLab tests passed, 11 LeRobot shim tests passed, and 4 Isaac hand
+scene static tests passed.
+
+Caveat: this validates realtime command/readback for the generated Isaac-friendly
+URDF hand. It is not SimReady binding proof, and visual close-up finger evidence
+is still pending because the current headless screenshot path can return no RGBA
+data.
+
+### 2026-07-09 AmazingHand remapped-visual rerun
+
+A later rerun found that the generated hand URDF's STL visual paths were host
+absolute. `setup_amazinghand_scene.py` now remaps those mesh filenames to
+`/workspace/superarm_ws` inside the Isaac container before import.
+
+Fresh control/readback artifact after the remap fix:
+
+```text
+isaacsim_test/artifacts/lelab_amazinghand_control_only_20260709T073737Z/
+```
+
+The run passed open/half/close again and wrote a USD package containing
+`payloads/geometries.usd` and `payloads/instances.usda`, so the visual payloads
+are now packaged with the hand USD. Close-up PNG proof is still pending because
+headless Replicator capture currently hangs and must not run inside the realtime
+control loop.

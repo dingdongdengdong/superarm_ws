@@ -71,6 +71,17 @@ JOINT_NAMES = [
 FEATURE_KEYS = [f"{name}.pos" for name in JOINT_NAMES]
 
 
+def _float64_multi_array_message():
+    try:
+        from std_msgs.msg import Float64MultiArray
+    except ModuleNotFoundError:
+        class Float64MultiArray:  # type: ignore[no-redef]
+            def __init__(self) -> None:
+                self.data = []
+
+    return Float64MultiArray()
+
+
 def hand_grasp_scalar_action(grasp: float) -> list[float]:
     """Return the canonical 8D AmazingHand action vector for a normalized grasp."""
     targets = grasp_scalar_to_hand_joint_targets(grasp)
@@ -230,8 +241,6 @@ class IsaacSimRpoArmRobot:
         return {"observation.state": np.array(positions, dtype=np.float32)}
 
     def teleop_step(self, record_data: bool = False):
-        from std_msgs.msg import Float64MultiArray
-
         with self._cmd_lock:
             phone_cmd = list(self._latest_phone_cmd) if self._latest_phone_cmd else None
 
@@ -244,7 +253,7 @@ class IsaacSimRpoArmRobot:
                 )
 
         phone_cmd = self._normalize_vector(phone_cmd)
-        msg = Float64MultiArray()
+        msg = _float64_multi_array_message()
         msg.data = phone_cmd
         if self._pub is not None:
             self._pub.publish(msg)
@@ -273,11 +282,11 @@ class IsaacSimRpoArmRobot:
         if self._pub is None:
             raise RuntimeError("IsaacSimRpoArmRobot is not connected; call connect() before send_action().")
 
-        from std_msgs.msg import Float64MultiArray
-
-        msg = Float64MultiArray()
+        msg = _float64_multi_array_message()
         msg.data = positions
         self._pub.publish(msg)
+        with self._cmd_lock:
+            self._latest_phone_cmd = list(positions)
         return np.array(positions, dtype=np.float32)
 
     def publish_screenshot_debug(self, payload: dict) -> dict:

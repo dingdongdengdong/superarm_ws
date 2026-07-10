@@ -108,6 +108,10 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
         self.assertEqual(raw["screenshot_debug_topic"], "/hand/screenshot_debug")
         self.assertTrue(raw["allow_custom_joint_names"])
         self.assertFalse(raw.get("fixed_hand", False))
+        self.assertEqual(raw["manual_leader"]["kind"], "amazinghand")
+        self.assertEqual(raw["manual_leader"]["slider_min"], 0.0)
+        self.assertEqual(raw["manual_leader"]["slider_max"], 1.2)
+        self.assertGreaterEqual(float(raw["connect_timeout_s"]), 45.0)
 
     def test_hand_grasp_scalar_action_maps_to_eight_joint_action_vector(self):
         open_action = hand_grasp_scalar_action(0.0)
@@ -151,6 +155,30 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
         self.assertEqual(len(published), 1)
         self.assertIn('"capture_every_command": true', published[0])
         self.assertIn('"output_dir": "/tmp/screens"', published[0])
+
+    def test_send_action_becomes_latest_repeated_realtime_command(self):
+        config = IsaacSimRpoArmConfig(
+            joint_names=list(HAND_ACTUATED_JOINT_NAMES),
+            allow_custom_joint_names=True,
+            mock=False,
+        )
+        robot = IsaacSimRpoArmRobot(config)
+        published = []
+
+        class _FakePublisher:
+            def publish(self, msg):
+                published.append(list(msg.data))
+
+        robot._pub = _FakePublisher()
+
+        robot.send_action([0.05, 0.02] * 4)
+        robot.teleop_step(record_data=False)
+
+        self.assertEqual(len(published), 2)
+        for actual, expected in zip(published[0], [0.05, 0.02] * 4, strict=True):
+            self.assertAlmostEqual(actual, expected, places=5)
+        for actual, expected in zip(published[1], [0.05, 0.02] * 4, strict=True):
+            self.assertAlmostEqual(actual, expected, places=5)
 
 if __name__ == "__main__":
     unittest.main()
