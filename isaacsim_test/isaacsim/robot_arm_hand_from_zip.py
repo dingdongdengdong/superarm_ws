@@ -11,11 +11,11 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import copy
 import json
 import math
 import os
 import shutil
-import sys
 import tempfile
 import time
 import zipfile
@@ -25,11 +25,18 @@ from typing import Any
 
 try:
     from isaacsim_test.isaacsim.graspable_hand_urdf import (
+        HAND_ACTUATED_JOINT_NAMES,
+        VISUAL_MODE_PARTITIONED_LINKS,
         generate_graspable_hand_urdf,
         grasp_scalar_to_hand_joint_targets,
     )
 except ModuleNotFoundError:
-    from graspable_hand_urdf import generate_graspable_hand_urdf, grasp_scalar_to_hand_joint_targets
+    from graspable_hand_urdf import (
+        HAND_ACTUATED_JOINT_NAMES,
+        VISUAL_MODE_PARTITIONED_LINKS,
+        generate_graspable_hand_urdf,
+        grasp_scalar_to_hand_joint_targets,
+    )
 
 CONTAINER_ROOT = "/workspace/superarm_ws"
 HOST_ROOT = (
@@ -55,6 +62,9 @@ ARM_HAND_ATTACHMENT_BODY0_PATH = f"{CONNECTED_ARM_PRIM_PATH}/wrist_adapter_hand"
 ARM_HAND_ATTACHMENT_BODY1_PATH = CONNECTED_HAND_PRIM_PATH
 ARM_JOINT_NAMES = ["joint_rev_1", "joint_rev_2", "joint_rev_3", "joint_rev_4", "joint_rev_5"]
 HAND_ROOT_LINK_NAME = "r_wrist_interface"
+ARM_HAND_URDF_FIXED_JOINT_NAME = "wrist_adapter_to_amazinghand"
+ARM_HAND_URDF_PARENT_LINK_NAME = "wrist_adapter_hand"
+CANONICAL_PHYSICAL_JOINT_NAMES = [*ARM_JOINT_NAMES, *HAND_ACTUATED_JOINT_NAMES]
 
 
 def _compose_connected_reference_body_path(
@@ -388,6 +398,123 @@ def sanitize_arm_urdf(package_root: str | Path, output_urdf: str | Path) -> dict
         "joint_count": len(joints),
         "moving_joint_names": revolute_or_continuous,
         "promoted_fixed_joints": promoted_fixed_joints,
+    }
+
+
+def assemble_combined_arm_hand_urdf(
+    arm_urdf: str | Path,
+    hand_urdf: str | Path,
+    output_urdf: str | Path,
+    *,
+    hand_visual_mode: str | None = None,
+) -> dict[str, Any]:
+    """Join the generated source arm and AmazingHand into one deterministic URDF tree."""
+    arm_path = _host_path(arm_urdf)
+    hand_path = _host_path(hand_urdf)
+    output = _host_path(output_urdf)
+    if not arm_path.is_file():
+        raise FileNotFoundError(f"Sanitized arm URDF not found: {arm_path}")
+    if not hand_path.is_file():
+        raise FileNotFoundError(f"Generated AmazingHand URDF not found: {hand_path}")
+
+    arm_tree = ET.parse(arm_path)
+    arm_root = arm_tree.getroot()
+    hand_root = ET.parse(hand_path).getroot()
+    if arm_root.tag != "robot" or hand_root.tag != "robot":
+        raise ValueError("Both source files must contain a URDF <robot> root")
+
+    arm_links = {link.attrib.get("name", "") for link in arm_root.findall("link")}
+    hand_links = {link.attrib.get("name", "") for link in hand_root.findall("link")}
+    arm_joints = {joint.attrib.get("name", "") for joint in arm_root.findall("joint")}
+    hand_joints = {joint.attrib.get("name", "") for joint in hand_root.findall("joint")}
+    duplicate_links = sorted((arm_links & hand_links) - {""})
+    duplicate_joints = sorted((arm_joints & hand_joints) - {""})
+    if duplicate_links or duplicate_joints:
+        raise ValueError(
+            "Cannot assemble URDFs with duplicate names: "
+            f"links={duplicate_links}, joints={duplicate_joints}"
+        )
+    if ARM_HAND_URDF_PARENT_LINK_NAME not in arm_links:
+        raise ValueError(
+            f"Arm URDF is missing attachment link {ARM_HAND_URDF_PARENT_LINK_NAME!r}"
+        )
+    if HAND_ROOT_LINK_NAME not in hand_links:
+        raise ValueError(f"Hand URDF is missing root link {HAND_ROOT_LINK_NAME!r}")
+
+    arm_root.attrib["name"] = "superarm_amazinghand"
+    for element in hand_root:
+        if element.tag in {"link", "joint", "material"}:
+            arm_root.append(copy.deepcopy(element))
+
+    fixed_joint = ET.SubElement(
+        arm_root,
+        "joint",
+        {"name": ARM_HAND_URDF_FIXED_JOINT_NAME, "type": "fixed"},
+    )
+    ET.SubElement(fixed_joint, "parent", {"link": ARM_HAND_URDF_PARENT_LINK_NAME})
+    ET.SubElement(fixed_joint, "child", {"link": HAND_ROOT_LINK_NAME})
+    ET.SubElement(
+        fixed_joint,
+        "origin",
+        {
+            "xyz": " ".join(f"{value:.6f}" for value in HAND_MOUNT_LOCAL_XYZ),
+            "rpy": "0 0 0",
+        },
+    )
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    ET.indent(arm_tree, space="  ")
+    arm_tree.write(output, encoding="utf-8", xml_declaration=True)
+    output.write_text(output.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+
+    links = arm_root.findall("link")
+    joints = arm_root.findall("joint")
+    child_links = {
+        child.attrib["link"]
+        for joint in joints
+        if (child := joint.find("child")) is not None and child.attrib.get("link")
+    }
+    root_links = [link.attrib["name"] for link in links if link.attrib["name"] not in child_links]
+    actuated_joint_names = [
+        joint.attrib["name"]
+        for joint in joints
+        if joint.attrib.get("type") in {"revolute", "continuous", "prismatic"}
+    ]
+    mesh_paths = [
+        mesh.attrib["filename"]
+        for mesh in arm_root.findall(".//mesh")
+        if mesh.attrib.get("filename")
+    ]
+    missing_meshes = [path for path in mesh_paths if not _host_path(path).is_file()]
+    status = "PASS"
+    if (
+        root_links != ["base_link"]
+        or actuated_joint_names != CANONICAL_PHYSICAL_JOINT_NAMES
+        or missing_meshes
+    ):
+        status = "FAIL"
+    return {
+        "status": status,
+        "output_urdf": _repo_relative_path(output),
+        "robot_name": arm_root.attrib["name"],
+        "root_links": root_links,
+        "link_count": len(links),
+        "joint_count": len(joints),
+        "actuated_joint_names": actuated_joint_names,
+        "fixed_joint": {
+            "name": ARM_HAND_URDF_FIXED_JOINT_NAME,
+            "parent": ARM_HAND_URDF_PARENT_LINK_NAME,
+            "child": HAND_ROOT_LINK_NAME,
+            "xyz": list(HAND_MOUNT_LOCAL_XYZ),
+            "rpy": [0.0, 0.0, 0.0],
+        },
+        "mesh_reference_count": len(mesh_paths),
+        "missing_meshes": missing_meshes,
+        "hand_visual_mode": hand_visual_mode,
+        "sources": {
+            "arm_urdf": _repo_relative_path(arm_path),
+            "hand_urdf": _repo_relative_path(hand_path),
+        },
     }
 
 
@@ -804,10 +931,23 @@ def _prepare_source_artifacts(args: argparse.Namespace) -> tuple[Path, dict[str,
     sanitized_urdf = output_root / "robot_arm_hand_sanitized.urdf"
     sanitized_hand_mjcf = output_root / "hand_sanitized.xml"
     graspable_hand_urdf = output_root / "amazinghand_graspable.urdf"
+    articulated_hand_urdf = output_root / "amazinghand_articulated.urdf"
+    combined_arm_hand_urdf = output_root / "superarm_amazinghand.urdf"
     arm_report = sanitize_arm_urdf(package_root, sanitized_urdf)
     hand_report = analyze_hand_mjcf(package_root)
     hand_sanitize_report = sanitize_hand_mjcf(package_root, sanitized_hand_mjcf)
     graspable_hand_report = generate_graspable_hand_urdf(package_root, graspable_hand_urdf)
+    articulated_hand_report = generate_graspable_hand_urdf(
+        package_root,
+        articulated_hand_urdf,
+        visual_mode=VISUAL_MODE_PARTITIONED_LINKS,
+    )
+    combined_arm_hand_report = assemble_combined_arm_hand_urdf(
+        sanitized_urdf,
+        articulated_hand_urdf,
+        combined_arm_hand_urdf,
+        hand_visual_mode=articulated_hand_report["visual_mode"],
+    )
     report = {
         "status": "PASS"
         if (
@@ -815,6 +955,8 @@ def _prepare_source_artifacts(args: argparse.Namespace) -> tuple[Path, dict[str,
             and hand_report["status"] == "PASS"
             and hand_sanitize_report["status"] == "PASS"
             and graspable_hand_report["status"] == "PASS"
+            and articulated_hand_report["status"] == "PASS"
+            and combined_arm_hand_report["status"] == "PASS"
         )
         else "FAIL",
         "zip_source": _repo_relative_path(args.zip),
@@ -822,12 +964,16 @@ def _prepare_source_artifacts(args: argparse.Namespace) -> tuple[Path, dict[str,
         "sanitized_urdf_path": _repo_relative_path(sanitized_urdf),
         "sanitized_hand_mjcf_path": _repo_relative_path(sanitized_hand_mjcf),
         "graspable_hand_urdf_path": _repo_relative_path(graspable_hand_urdf),
+        "articulated_hand_urdf_path": _repo_relative_path(articulated_hand_urdf),
+        "combined_arm_hand_urdf_path": _repo_relative_path(combined_arm_hand_urdf),
         "hand_mjcf_path": _repo_relative_path(package_root / "hand_mjcf/robot.xml"),
         "hand_mount_local_xyz_m": list(HAND_MOUNT_LOCAL_XYZ),
         "arm": arm_report,
         "hand": hand_report,
         "hand_sanitization": hand_sanitize_report,
         "graspable_hand_urdf": graspable_hand_report,
+        "articulated_hand_urdf": articulated_hand_report,
+        "combined_arm_hand_urdf": combined_arm_hand_report,
     }
     return package_root, report
 

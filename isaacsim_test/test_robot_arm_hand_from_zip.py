@@ -17,9 +17,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from isaacsim_test.isaacsim.graspable_hand_urdf import HAND_ACTUATED_JOINT_NAMES
+from isaacsim_test.isaacsim.graspable_hand_urdf import VISUAL_MODE_PARTITIONED_LINKS
 from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
+    ARM_HAND_URDF_FIXED_JOINT_NAME,
+    ARM_HAND_URDF_PARENT_LINK_NAME,
     ARM_HAND_ATTACHMENT_BODY0_PATH,
     ARM_HAND_ATTACHMENT_BODY1_PATH,
+    CANONICAL_PHYSICAL_JOINT_NAMES,
     CONNECTED_HAND_PRIM_PATH,
     HAND_MOUNT_LOCAL_XYZ,
     _compose_connected_reference_body_path,
@@ -27,6 +31,7 @@ from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
     _author_connected_usd,
     _author_proxy_hand_usd,
     analyze_hand_mjcf,
+    assemble_combined_arm_hand_urdf,
     build_arm_joint_position_command,
     build_grasp_validation_object_specs,
     build_hand_contact_proxy_specs,
@@ -301,6 +306,68 @@ class RobotArmHandFromZipTests(unittest.TestCase):
                 report["graspable_hand_urdf"]["actuated_joint_names"],
                 HAND_ACTUATED_JOINT_NAMES,
             )
+
+            combined = Path(report["combined_arm_hand_urdf_path"])
+            self.assertTrue(combined.is_file())
+            self.assertEqual(report["combined_arm_hand_urdf"]["status"], "PASS")
+
+    def test_combined_urdf_has_one_root_and_measured_fixed_hand_mount(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            args = argparse.Namespace(
+                zip=str(ZIP_PATH),
+                input_root=str(Path(tmp) / "inputs"),
+                output_root=str(Path(tmp) / "outputs"),
+            )
+            _, report = _prepare_source_artifacts(args)
+            combined_report = report["combined_arm_hand_urdf"]
+            combined = Path(report["combined_arm_hand_urdf_path"])
+
+            self.assertEqual(combined_report["root_links"], ["base_link"])
+            self.assertEqual(combined_report["link_count"], 28)
+            self.assertEqual(combined_report["joint_count"], 27)
+            self.assertEqual(
+                combined_report["actuated_joint_names"],
+                CANONICAL_PHYSICAL_JOINT_NAMES,
+            )
+            self.assertEqual(combined_report["missing_meshes"], [])
+            self.assertEqual(
+                combined_report["hand_visual_mode"],
+                VISUAL_MODE_PARTITIONED_LINKS,
+            )
+
+            root = ET.parse(combined).getroot()
+            fixed = root.find(f"./joint[@name='{ARM_HAND_URDF_FIXED_JOINT_NAME}']")
+            self.assertIsNotNone(fixed)
+            self.assertEqual(fixed.attrib["type"], "fixed")
+            self.assertEqual(fixed.find("parent").attrib["link"], ARM_HAND_URDF_PARENT_LINK_NAME)
+            self.assertEqual(fixed.find("child").attrib["link"], "r_wrist_interface")
+            self.assertEqual(fixed.find("origin").attrib["xyz"], "0.005000 -0.000140 0.600003")
+
+            second_output = Path(tmp) / "second.urdf"
+            assemble_combined_arm_hand_urdf(
+                Path(report["sanitized_urdf_path"]),
+                Path(report["articulated_hand_urdf_path"]),
+                second_output,
+                hand_visual_mode=VISUAL_MODE_PARTITIONED_LINKS,
+            )
+            self.assertEqual(combined.read_bytes(), second_output.read_bytes())
+
+    def test_combined_urdf_rejects_duplicate_names(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            arm = root / "arm.urdf"
+            hand = root / "hand.urdf"
+            arm.write_text(
+                '<robot name="arm"><link name="wrist_adapter_hand"/><link name="same"/></robot>',
+                encoding="utf-8",
+            )
+            hand.write_text(
+                '<robot name="hand"><link name="r_wrist_interface"/><link name="same"/></robot>',
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "duplicate names"):
+                assemble_combined_arm_hand_urdf(arm, hand, root / "combined.urdf")
 
     def test_reference_body_path_maps_imported_child_body_into_connected_hand(self) -> None:
         self.assertEqual(
