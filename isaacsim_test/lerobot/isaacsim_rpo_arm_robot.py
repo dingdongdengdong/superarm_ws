@@ -7,7 +7,7 @@ import sys
 import threading
 import time
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import numpy as np
 
@@ -95,6 +95,12 @@ except ModuleNotFoundError:
         def __init__(self, config) -> None:
             self.config = config
 
+try:
+    from lerobot.cameras.utils import make_cameras_from_configs as _make_cameras_from_configs
+except ModuleNotFoundError:
+    def _make_cameras_from_configs(_configs):
+        return {}
+
 
 ARM_JOINT_NAMES = [
     "right_arm_pitch_joint",
@@ -149,6 +155,7 @@ class IsaacSimRpoArmConfig(RobotConfig):
     so101_leader_mapping: list[dict] = field(default_factory=list)
     so101_gripper_feature: str = "gripper.pos"
     mock: bool = False
+    cameras: dict = field(default_factory=dict)
 
 
 class IsaacSimRpoArm(Robot):
@@ -169,11 +176,17 @@ class IsaacSimRpoArm(Robot):
         self._is_connected = False
         self._active_motion_code = 0.0
         self._latest_physical_positions: dict[str, float] = {}
-        self.cameras = {}
+        self.cameras = _make_cameras_from_configs(config.cameras)
 
     @property
     def camera_features(self) -> dict:
-        return {}
+        features = {}
+        for name, camera in self.cameras.items():
+            if getattr(camera, "use_rgb", True):
+                features[name] = (camera.height, camera.width, 3)
+            if getattr(camera, "use_depth", False):
+                features[f"{name}_depth"] = (camera.height, camera.width, 1)
+        return features
 
     @property
     def motor_features(self) -> dict:
@@ -197,7 +210,7 @@ class IsaacSimRpoArm(Robot):
 
     @property
     def observation_features(self) -> dict[str, type]:
-        return {key: float for key in self._feature_keys}
+        return {**{key: float for key in self._feature_keys}, **self.camera_features}
 
     @property
     def action_features(self) -> dict[str, type]:
@@ -205,7 +218,7 @@ class IsaacSimRpoArm(Robot):
 
     @property
     def is_connected(self) -> bool:
-        return self._is_connected
+        return self._is_connected and all(camera.is_connected for camera in self.cameras.values())
 
     @property
     def is_calibrated(self) -> bool:
@@ -225,6 +238,8 @@ class IsaacSimRpoArm(Robot):
             self._latest_physical_positions = self._expanded_physical_positions(
                 self._latest_positions
             )
+            for camera in self.cameras.values():
+                camera.connect()
             self._is_connected = True
             return
 
@@ -259,6 +274,8 @@ class IsaacSimRpoArm(Robot):
         while time.time() < deadline:
             with self._state_lock:
                 if self._latest_positions is not None:
+                    for camera in self.cameras.values():
+                        camera.connect()
                     print(f"[IsaacSimRpoArmRobot] Connected. Joints: {self.config.joint_names}")
                     self._is_connected = True
                     return
@@ -340,7 +357,7 @@ class IsaacSimRpoArm(Robot):
     def run_calibration(self):
         print("[IsaacSimRpoArmRobot] Simulated robot - no calibration needed.")
 
-    def get_observation(self) -> dict[str, float]:
+    def get_observation(self) -> dict[str, Any]:
         if not self.is_connected:
             raise RuntimeError("IsaacSimRpoArm is not connected; call connect() before get_observation().")
         with self._state_lock:
@@ -349,7 +366,13 @@ class IsaacSimRpoArm(Robot):
                 if self._latest_positions is not None
                 else [0.0] * len(self.config.joint_names)
             )
-        return dict(zip(self._feature_keys, positions, strict=True))
+        observation = dict(zip(self._feature_keys, positions, strict=True))
+        for name, camera in self.cameras.items():
+            if getattr(camera, "use_rgb", True):
+                observation[name] = camera.read_latest()
+            if getattr(camera, "use_depth", False):
+                observation[f"{name}_depth"] = camera.read_latest_depth()
+        return observation
 
     def capture_observation(self) -> dict:
         observation = self.get_observation()
@@ -453,6 +476,9 @@ class IsaacSimRpoArm(Robot):
         return payload
 
     def disconnect(self):
+        for camera in self.cameras.values():
+            if camera.is_connected:
+                camera.disconnect()
         if self._node is not None:
             self._node.destroy_node()
             self._node = None

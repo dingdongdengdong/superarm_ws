@@ -4,6 +4,7 @@ import sys
 import unittest
 from pathlib import Path
 
+import numpy as np
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -195,6 +196,56 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
         self.assertEqual(physical["finger1_motor1"], 0.95)
         self.assertEqual(physical["finger1_motor2"], 1.1)
         robot.disconnect()
+
+    def test_modern_robot_includes_configured_camera_in_recording_observation(self):
+        import isaacsim_rpo_arm_robot as robot_module
+
+        class _FakeCamera:
+            height = 2
+            width = 3
+            use_rgb = True
+            use_depth = False
+            is_connected = False
+
+            def connect(self):
+                self.is_connected = True
+
+            def read_latest(self):
+                return np.ones((2, 3, 3), dtype=np.uint8)
+
+            def disconnect(self):
+                self.is_connected = False
+
+        class _FakeCameraConfig:
+            width = 3
+            height = 2
+            fps = 30
+
+        original_factory = robot_module._make_cameras_from_configs
+        robot_module._make_cameras_from_configs = lambda configs: {"wrist": _FakeCamera()}
+        self.addCleanup(setattr, robot_module, "_make_cameras_from_configs", original_factory)
+        config = IsaacSimRpoArmConfig(
+            joint_names=[
+                "joint_rev_1",
+                "joint_rev_2",
+                "joint_rev_3",
+                "joint_rev_4",
+                "joint_rev_5",
+                "amazinghand_motion",
+            ],
+            mock=True,
+            cameras={"wrist": _FakeCameraConfig()},
+        )
+        robot = IsaacSimRpoArm(config)
+
+        robot.connect()
+        observation = robot.get_observation()
+
+        self.assertEqual(robot.observation_features["wrist"], (2, 3, 3))
+        self.assertEqual(observation["wrist"].shape, (2, 3, 3))
+        self.assertTrue(robot.is_connected)
+        robot.disconnect()
+        self.assertFalse(robot.is_connected)
 
     def test_hand_grasp_scalar_action_maps_to_eight_joint_action_vector(self):
         open_action = hand_grasp_scalar_action(0.0)
