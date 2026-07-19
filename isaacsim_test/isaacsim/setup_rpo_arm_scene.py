@@ -176,7 +176,10 @@ simulation_app.update()
 
 from isaacsim.core.api import World  # noqa: E402
 from isaacsim.core.prims import Articulation  # noqa: E402
-from isaacsim.asset.importer.urdf._urdf import UrdfJointTargetType  # noqa: E402
+try:  # Isaac Sim 6.0 moved the Python binding under the public impl package.
+    from isaacsim.asset.importer.urdf.impl._urdf import UrdfJointTargetType  # noqa: E402
+except ImportError:  # Isaac Sim 5.1 compatibility.
+    from isaacsim.asset.importer.urdf._urdf import UrdfJointTargetType  # noqa: E402
 
 import rclpy  # noqa: E402
 from rclpy.node import Node  # noqa: E402

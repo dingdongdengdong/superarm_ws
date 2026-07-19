@@ -16,8 +16,8 @@ services:
       RMW_IMPLEMENTATION: rmw_fastrtps_cpp
       FASTDDS_BUILTIN_TRANSPORTS: UDPv4
       PYTHONUNBUFFERED: "1"
-      LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
-      PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
+      LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.core/humble/lib:/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
+      PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.core/humble/rclpy:/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
       SIMREADY_USD_PATH: "${SIMREADY_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd}"
       SIMREADY_CONTROLLABLE_USD_PATH: "${SIMREADY_CONTROLLABLE_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet006-controllable-arm-fixed-hand/echo_full_robot_arm_hand_controllable.usda}"
       SIMREADY_THUMBNAIL_PATH: "${SIMREADY_THUMBNAIL_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png}"
@@ -61,8 +61,8 @@ services:
       RMW_IMPLEMENTATION: rmw_fastrtps_cpp
       FASTDDS_BUILTIN_TRANSPORTS: UDPv4
       PYTHONUNBUFFERED: "1"
-      LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
-      PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
+      LD_LIBRARY_PATH: "/isaac-sim/exts/isaacsim.ros2.core/humble/lib:/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:${LD_LIBRARY_PATH:-}"
+      PYTHONPATH: "/isaac-sim/exts/isaacsim.ros2.core/humble/rclpy:/isaac-sim/exts/isaacsim.ros2.bridge/humble/rclpy:${PYTHONPATH:-}"
       SIMREADY_USD_PATH: "${SIMREADY_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/echo_full_robot_arm_hand.usd}"
       SIMREADY_CONTROLLABLE_USD_PATH: "${SIMREADY_CONTROLLABLE_USD_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/04_conform/repair-loop-02-fet005/fet006-controllable-arm-fixed-hand/echo_full_robot_arm_hand_controllable.usda}"
       SIMREADY_THUMBNAIL_PATH: "${SIMREADY_THUMBNAIL_PATH:-/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/pipeline/07_render/thumbnail.png}"
@@ -72,6 +72,12 @@ services:
       SCREENSHOT_ON_STARTUP: "${SCREENSHOT_ON_STARTUP:-0}"
       SCREENSHOT_PATH: "${ISAAC_SIM_60_SCREENSHOT_PATH:-/workspace/superarm_ws/isaacsim_test/artifacts/echo_full_simready_startup_isaacsim60.png}"
       EXIT_AFTER_SCREENSHOT: "${EXIT_AFTER_SCREENSHOT:-1}"
+      JOINT_NAMES: "${JOINT_NAMES:-}"
+      COMMAND_EVIDENCE_PATH: "${COMMAND_EVIDENCE_PATH:-}"
+      COMMAND_EVIDENCE_DIR: "${COMMAND_EVIDENCE_DIR:-}"
+      SCREENSHOT_EACH_COMMAND: "${SCREENSHOT_EACH_COMMAND:-0}"
+      SCREENSHOT_SEQUENCE_DIR: "${SCREENSHOT_SEQUENCE_DIR:-}"
+      SCREENSHOT_EXIT_AFTER_COMMAND_COUNT: "${SCREENSHOT_EXIT_AFTER_COMMAND_COUNT:-0}"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./isaacsim:/workspace/isaacsim:ro
