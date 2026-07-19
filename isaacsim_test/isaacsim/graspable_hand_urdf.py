@@ -26,6 +26,13 @@ HAND_ACTUATED_JOINT_NAMES = [
     "finger4_motor2",
 ]
 
+HAND_MOTION_HYSTERESIS = 0.05
+_HAND_MOTION_SPECS = (
+    ("open", 0.0, 0.0),
+    ("half_close", 0.5, 0.5),
+    ("close", 1.0, 1.0),
+)
+
 VISUAL_MODE_STATIC_SHELL = "static_shell"
 VISUAL_MODE_PARTITIONED_LINKS = "partitioned_links"
 
@@ -528,6 +535,55 @@ def grasp_scalar_to_hand_joint_targets(grasp: float) -> dict[str, float]:
         targets[f"finger{finger_index}_motor1"] = 0.05 + closedness * 0.90
         targets[f"finger{finger_index}_motor2"] = 0.02 + closedness * 1.08
     return targets
+
+
+def fixed_hand_motion_library() -> list[dict[str, Any]]:
+    """Return the canonical named hand motions used by leader, policy, and runtime."""
+    return [
+        {
+            "name": name,
+            "code": code,
+            "joint_targets": {
+                joint_name: round(target, 6)
+                for joint_name, target in grasp_scalar_to_hand_joint_targets(grasp).items()
+            },
+        }
+        for name, code, grasp in _HAND_MOTION_SPECS
+    ]
+
+
+def resolve_fixed_hand_motion(
+    value: float,
+    *,
+    previous_code: float | None = None,
+    hysteresis: float = HAND_MOTION_HYSTERESIS,
+) -> dict[str, Any]:
+    """Quantize a normalized command to a configured hand motion with hysteresis."""
+    command = float(value)
+    if not math.isfinite(command):
+        raise ValueError(f"Hand motion command must be finite, got {value!r}")
+    if hysteresis < 0.0 or hysteresis >= 0.25:
+        raise ValueError("Hand motion hysteresis must be in [0.0, 0.25)")
+    command = max(0.0, min(1.0, command))
+    motions = fixed_hand_motion_library()
+
+    if previous_code is not None:
+        previous = next(
+            (motion for motion in motions if abs(motion["code"] - float(previous_code)) < 1e-9),
+            None,
+        )
+        if previous is not None:
+            index = motions.index(previous)
+            lower = -math.inf
+            upper = math.inf
+            if index > 0:
+                lower = (motions[index - 1]["code"] + previous["code"]) / 2.0 - hysteresis
+            if index < len(motions) - 1:
+                upper = (previous["code"] + motions[index + 1]["code"]) / 2.0 + hysteresis
+            if lower <= command <= upper:
+                return previous
+
+    return min(motions, key=lambda motion: abs(command - motion["code"]))
 
 
 def _mesh(asset_root: Path, filename: str) -> Path:

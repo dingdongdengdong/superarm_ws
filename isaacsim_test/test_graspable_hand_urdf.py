@@ -14,11 +14,14 @@ from isaacsim_test.isaacsim.robot_arm_hand_from_zip import (
 )
 from isaacsim_test.isaacsim.graspable_hand_urdf import (
     HAND_ACTUATED_JOINT_NAMES,
+    HAND_MOTION_HYSTERESIS,
     VISUAL_MODE_PARTITIONED_LINKS,
     VISUAL_MODE_STATIC_SHELL,
     build_graspable_hand_model_spec,
+    fixed_hand_motion_library,
     generate_graspable_hand_urdf,
     grasp_scalar_to_hand_joint_targets,
+    resolve_fixed_hand_motion,
 )
 
 ZIP_PATH = ROOT / "robot_arm_hand_package.zip"
@@ -78,6 +81,45 @@ class GraspableHandUrdfTests(unittest.TestCase):
             self.assertLessEqual(open_targets[joint_name], closed_targets[joint_name])
             self.assertGreaterEqual(closed_targets[joint_name], 0.6)
             self.assertLessEqual(closed_targets[joint_name], 1.25)
+
+    def test_fixed_hand_motion_library_has_three_stable_eight_joint_poses(self) -> None:
+        motions = fixed_hand_motion_library()
+
+        self.assertEqual([motion["name"] for motion in motions], ["open", "half_close", "close"])
+        self.assertEqual([motion["code"] for motion in motions], [0.0, 0.5, 1.0])
+        for motion in motions:
+            self.assertEqual(list(motion["joint_targets"]), HAND_ACTUATED_JOINT_NAMES)
+            self.assertEqual(len(motion["joint_targets"]), 8)
+            for name, target in motion["joint_targets"].items():
+                if name.endswith("motor1"):
+                    self.assertGreaterEqual(target, -0.05)
+                    self.assertLessEqual(target, 1.05)
+                else:
+                    self.assertGreaterEqual(target, 0.0)
+                    self.assertLessEqual(target, 1.2)
+
+    def test_fixed_hand_motion_quantization_uses_thresholds_and_hysteresis(self) -> None:
+        self.assertEqual(resolve_fixed_hand_motion(-1.0)["name"], "open")
+        self.assertEqual(resolve_fixed_hand_motion(0.26)["name"], "half_close")
+        self.assertEqual(resolve_fixed_hand_motion(0.76)["name"], "close")
+        self.assertEqual(resolve_fixed_hand_motion(2.0)["name"], "close")
+
+        self.assertEqual(
+            resolve_fixed_hand_motion(
+                0.25 + HAND_MOTION_HYSTERESIS,
+                previous_code=0.0,
+            )["name"],
+            "open",
+        )
+        self.assertEqual(
+            resolve_fixed_hand_motion(
+                0.25 + HAND_MOTION_HYSTERESIS + 0.001,
+                previous_code=0.0,
+            )["name"],
+            "half_close",
+        )
+        with self.assertRaises(ValueError):
+            resolve_fixed_hand_motion(float("nan"))
 
     def test_generate_urdf_writes_tree_hand_with_visuals_collisions_and_inertials(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,0 +1,64 @@
+# Canonical LeRobot/Isaac configuration for the custom source arm + AmazingHand.
+# Policy/action space is six controls. The final value selects one fixed hand
+# motion; the runtime expands it to the eight physical hand joints below.
+
+_type: isaacsim_rpo_arm
+
+joint_names:
+  - joint_rev_1
+  - joint_rev_2
+  - joint_rev_3
+  - joint_rev_4
+  - joint_rev_5
+  - amazinghand_motion
+
+physical_joint_names:
+  - joint_rev_1
+  - joint_rev_2
+  - joint_rev_3
+  - joint_rev_4
+  - joint_rev_5
+  - finger1_motor1
+  - finger1_motor2
+  - finger2_motor1
+  - finger2_motor2
+  - finger3_motor1
+  - finger3_motor2
+  - finger4_motor1
+  - finger4_motor2
+
+joint_state_topic: /follower/joint_states
+joint_command_topic: /follower/joint_commands
+phone_command_topic: /leader/joint_commands
+screenshot_debug_topic: /follower/screenshot_debug
+
+combined_urdf_path: isaacsim_test/outputs/robot_arm_hand_from_zip_local_drive/superarm_amazinghand.urdf
+allow_custom_joint_names: true
+fixed_hand: false
+fixed_grasp: 0.0
+motion_hysteresis: 0.05
+
+arm_limits:
+  joint_rev_1: {min: -1.57, max: 1.57, default: 0.0, step: 0.01}
+  joint_rev_2: {min: -1.57, max: 1.57, default: 0.0, step: 0.01}
+  joint_rev_3: {min: -1.57, max: 1.57, default: 0.0, step: 0.01}
+  joint_rev_4: {min: -1.57, max: 1.57, default: 0.0, step: 0.01}
+  joint_rev_5: {min: -1.57, max: 1.57, default: 0.0, step: 0.01}
+
+hand_motions:
+  - name: open
+    code: 0.0
+    joint_targets: [0.05, 0.02, 0.05, 0.02, 0.05, 0.02, 0.05, 0.02]
+  - name: half_close
+    code: 0.5
+    joint_targets: [0.50, 0.56, 0.50, 0.56, 0.50, 0.56, 0.50, 0.56]
+  - name: close
+    code: 1.0
+    joint_targets: [0.95, 1.10, 0.95, 1.10, 0.95, 1.10, 0.95, 1.10]
+
+manual_leader:
+  kind: superarm_amazinghand
+  hand_control: fixed_motions
+
+connect_timeout_s: 45.0
+mock: false

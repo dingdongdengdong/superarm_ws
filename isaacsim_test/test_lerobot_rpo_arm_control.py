@@ -18,6 +18,9 @@ from isaacsim_rpo_arm_robot import (  # noqa: E402
     IsaacSimRpoArmRobot,
     hand_grasp_scalar_action,
 )
+from isaacsim_test.isaacsim.graspable_hand_urdf import (  # noqa: E402
+    fixed_hand_motion_library,
+)
 from verify_lerobot_sitl import (  # noqa: E402
     _default_target_for_config,
     _load_config,
@@ -112,6 +115,32 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
         self.assertEqual(raw["manual_leader"]["slider_min"], 0.0)
         self.assertEqual(raw["manual_leader"]["slider_max"], 1.2)
         self.assertGreaterEqual(float(raw["connect_timeout_s"]), 45.0)
+
+    def test_combined_config_uses_six_logical_controls_and_fixed_hand_motions(self):
+        config_path = LEROBOT_DIR / "source_arm_amazinghand.yaml"
+        raw = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(raw["_type"], "isaacsim_rpo_arm")
+        self.assertEqual(raw["joint_names"], [
+            "joint_rev_1",
+            "joint_rev_2",
+            "joint_rev_3",
+            "joint_rev_4",
+            "joint_rev_5",
+            "amazinghand_motion",
+        ])
+        self.assertEqual(raw["physical_joint_names"], [*raw["joint_names"][:5], *HAND_ACTUATED_JOINT_NAMES])
+        self.assertEqual(len(raw["hand_motions"]), 3)
+        expected = fixed_hand_motion_library()
+        for actual, motion in zip(raw["hand_motions"], expected, strict=True):
+            self.assertEqual(actual["name"], motion["name"])
+            self.assertEqual(float(actual["code"]), motion["code"])
+            self.assertEqual(
+                [float(value) for value in actual["joint_targets"]],
+                list(motion["joint_targets"].values()),
+            )
+        self.assertEqual(set(raw["arm_limits"]), set(raw["joint_names"][:5]))
+        self.assertEqual(raw["manual_leader"]["hand_control"], "fixed_motions")
 
     def test_hand_grasp_scalar_action_maps_to_eight_joint_action_vector(self):
         open_action = hand_grasp_scalar_action(0.0)
