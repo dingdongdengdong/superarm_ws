@@ -2,9 +2,9 @@
 title: "LeLab MuJoCo Web LeRobot 6D Focus"
 tags: ["lelab", "mujoco", "lerobot", "superarm", "amazinghand", "6d"]
 created: 2026-07-19T13:34:06.965Z
-updated: 2026-07-19T13:34:06.965Z
+updated: 2026-07-19T13:46:00.000Z
 sources: []
-links: ["amazinghand-isaacsim.md"]
+links: []
 category: architecture
 confidence: medium
 schemaVersion: 1
@@ -38,6 +38,7 @@ The grasp feature is quantized to `0.0` open, `0.5` half-close, or `1.0` close a
 ## Website behavior
 
 - The built-in `SuperArm + AmazingHand` record is selected as the primary robot when its three runtime asset variables resolve.
+- The normal recording modal selects either Manual Web Leader or SO101 Leader. SO101 requires a serial port and calibration ID; both inputs enter the same 6D LeRobot action contract.
 - Manual Web Leader exposes five arm sliders plus Open, Half, and Close buttons.
 - Leaving Teleoperation stops the runtime; a tested back/re-enter cycle stopped cleanly, reconnected successfully, and stopped again.
 - The original LeLab Three.js showroom now retains mesh filename extensions, resolves mesh URLs relative to the record URDF, waits for mesh loading before camera framing, and reports 13/13 physical joints while the runtime is connected.
@@ -61,7 +62,7 @@ Live URL during the verification session: `http://127.0.0.1:8000`.
 - Evidence root: `/home/dong/july/superarm_ws.omx-worktrees/lelab-mujoco-web-lerobot/artifacts/mujoco_web_live_20260719T1307Z`.
 - GIF: `superarm_mujoco_lelab.gif` (six reviewed MuJoCo poses: open, half, close, arm motion).
 - Primary showroom screenshot: `showroom.png` (attached arm and hand, real STL geometry, 13/13 joint coverage).
-- Browser screenshots: `landing.png`, `manual.png`, `mujoco.png`.
+- Browser screenshots: `landing.png`, `manual.png`, `mujoco.png`, and `recording_so101_selector.png`.
 - Contract reports: `live_contract_report.json`, `recording_evidence.json`, `dataset_contract_report.json`.
 - Real state-only LeRobot episode: `/home/dong/.cache/huggingface/lerobot/local/superarm_mujoco_manual_motion_evidence_20260719_133152`.
 - Episode proof: 29 frames; `action` width 6; `observation.state` width 6; motion codes `0.0`, `0.5`, and `1.0`; five distinct arm action rows; observed state changed.
@@ -73,7 +74,4 @@ Live URL during the verification session: `http://127.0.0.1:8000`.
 - Camera capture: NOT TESTED; the recorded episode is state-only.
 - Trained ACT/VLA rollout: NOT TESTED. Only ACT model construction for a 6D action head plus camera feature and the live state-only dataset boundary are verified.
 
-## Related
-
-- [[amazinghand-isaacsim]] is historical workspace knowledge only and is not part of this focused branch runtime.
 
