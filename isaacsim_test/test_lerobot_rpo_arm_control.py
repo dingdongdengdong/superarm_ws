@@ -14,6 +14,7 @@ if str(LEROBOT_DIR) not in sys.path:
 from isaacsim_rpo_arm_robot import (  # noqa: E402
     ARM_JOINT_NAMES,
     HAND_ACTUATED_JOINT_NAMES,
+    IsaacSimRpoArm,
     IsaacSimRpoArmConfig,
     IsaacSimRpoArmRobot,
     hand_grasp_scalar_action,
@@ -141,6 +142,59 @@ class LeRobotRpoArmControlTest(unittest.TestCase):
             )
         self.assertEqual(set(raw["arm_limits"]), set(raw["joint_names"][:5]))
         self.assertEqual(raw["manual_leader"]["hand_control"], "fixed_motions")
+
+    def test_modern_lerobot_factory_constructs_six_control_robot(self):
+        from lerobot.robots import make_robot_from_config
+        from lerobot.robots.robot import Robot
+
+        raw = yaml.safe_load((LEROBOT_DIR / "source_arm_amazinghand.yaml").read_text(encoding="utf-8"))
+        raw.pop("_type")
+        raw.pop("manual_leader")
+        raw["mock"] = True
+        config = IsaacSimRpoArmConfig(**raw)
+
+        robot = make_robot_from_config(config)
+
+        self.assertIsInstance(robot, Robot)
+        self.assertIsInstance(robot, IsaacSimRpoArm)
+        self.assertEqual(list(robot.action_features), [
+            "joint_rev_1.pos",
+            "joint_rev_2.pos",
+            "joint_rev_3.pos",
+            "joint_rev_4.pos",
+            "joint_rev_5.pos",
+            "amazinghand_motion.pos",
+        ])
+        self.assertTrue(all(feature is float for feature in robot.action_features.values()))
+        self.assertEqual(robot.action_features, robot.observation_features)
+
+    def test_modern_named_action_quantizes_motion_and_keeps_physical_state_separate(self):
+        raw = yaml.safe_load((LEROBOT_DIR / "source_arm_amazinghand.yaml").read_text(encoding="utf-8"))
+        raw.pop("_type")
+        raw.pop("manual_leader")
+        raw["mock"] = True
+        robot = IsaacSimRpoArm(IsaacSimRpoArmConfig(**raw))
+        robot.connect()
+        action = {
+            "joint_rev_1.pos": 0.1,
+            "joint_rev_2.pos": -0.2,
+            "joint_rev_3.pos": 0.3,
+            "joint_rev_4.pos": -0.4,
+            "joint_rev_5.pos": 0.5,
+            "amazinghand_motion.pos": 0.77,
+        }
+
+        sent = robot.send_action(action)
+        observation = robot.get_observation()
+        physical = robot.get_visualization_joints()
+
+        self.assertEqual(sent["amazinghand_motion.pos"], 1.0)
+        self.assertEqual(observation, sent)
+        self.assertEqual(len(observation), 6)
+        self.assertEqual(len(physical), 13)
+        self.assertEqual(physical["finger1_motor1"], 0.95)
+        self.assertEqual(physical["finger1_motor2"], 1.1)
+        robot.disconnect()
 
     def test_hand_grasp_scalar_action_maps_to_eight_joint_action_vector(self):
         open_action = hand_grasp_scalar_action(0.0)
