@@ -146,6 +146,8 @@ class IsaacSimRpoArmConfig(RobotConfig):
     motion_hysteresis: float = 0.05
     arm_limits: dict[str, dict[str, float]] = field(default_factory=dict)
     hand_motions: list[dict] = field(default_factory=list)
+    so101_leader_mapping: list[dict] = field(default_factory=list)
+    so101_gripper_feature: str = "gripper.pos"
     mock: bool = False
 
 
