@@ -73,5 +73,3 @@ Live URL during the verification session: `http://127.0.0.1:8000`.
 - Physical eight-servo AmazingHand transport: NOT TESTED in this focused run.
 - Camera capture: NOT TESTED; the recorded episode is state-only.
 - Trained ACT/VLA rollout: NOT TESTED. Only ACT model construction for a 6D action head plus camera feature and the live state-only dataset boundary are verified.
-
-
