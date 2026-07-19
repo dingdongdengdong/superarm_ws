@@ -2,7 +2,7 @@
 title: "LeLab MuJoCo Web LeRobot 6D Focus"
 tags: ["lelab", "mujoco", "lerobot", "superarm", "amazinghand", "6d"]
 created: 2026-07-19T13:34:06.965Z
-updated: 2026-07-19T13:46:00.000Z
+updated: 2026-07-19T14:16:00.000Z
 sources: []
 links: []
 category: architecture
@@ -43,6 +43,7 @@ The grasp feature is quantized to `0.0` open, `0.5` half-close, or `1.0` close a
 - Leaving Teleoperation stops the runtime; a tested back/re-enter cycle stopped cleanly, reconnected successfully, and stopped again.
 - The original LeLab Three.js showroom now retains mesh filename extensions, resolves mesh URLs relative to the record URDF, waits for mesh loading before camera framing, and reports 13/13 physical joints while the runtime is connected.
 - The inherited URDF hand mount used a detached `0.600003 m` display offset. LeLab now serves a non-destructive browser-only alignment at `0 0 0.011753`, matching the attached MuJoCo adapter chain. The input URDF is not modified.
+- Joint 5 was generated at the wrong moving boundary: `motor_5 -> arm_link3b` rotated around a 25 mm shell offset. The focused branch now keeps that shell mount fixed and rotates `arm_link2b -> motor_5`, matching joint 3. The correction is applied non-destructively to served URDF and runtime MJCF.
 
 ## Runtime inputs
 
@@ -64,6 +65,7 @@ Live URL during the verification session: `http://127.0.0.1:8000`.
 - Primary showroom screenshot: `showroom.png` (attached arm and hand, real STL geometry, 13/13 joint coverage).
 - Browser screenshots: `landing.png`, `manual.png`, `mujoco.png`, and `recording_so101_selector.png`.
 - Contract reports: `live_contract_report.json`, `recording_evidence.json`, `dataset_contract_report.json`.
+- Joint 5 audit: `artifacts/joint5_audit_20260719T1352Z` contains bad/fixed close-ups, live MuJoCo frames, and showroom screenshots. Before repair, motor-cover separation reached `35.341 mm` at `1.57 rad`; after repair the relative placement stays constant across the tested range.
 - Real state-only LeRobot episode: `/home/dong/.cache/huggingface/lerobot/local/superarm_mujoco_manual_motion_evidence_20260719_133152`.
 - Episode proof: 29 frames; `action` width 6; `observation.state` width 6; motion codes `0.0`, `0.5`, and `1.0`; five distinct arm action rows; observed state changed.
 
