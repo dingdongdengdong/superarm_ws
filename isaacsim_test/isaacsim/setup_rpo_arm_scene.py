@@ -18,6 +18,13 @@ import time
 
 import numpy as np
 
+from superarm_runtime_contract import (
+    LOGICAL_HAND_MOTION_NAME,
+    PHYSICAL_JOINT_NAMES,
+    infer_logical_state,
+    resolve_logical_command,
+)
+
 DEFAULT_CONTROLLED_ARM_JOINT_NAMES = [
     "right_arm_pitch_joint",
     "right_arm_roll_joint",
@@ -28,18 +35,43 @@ DEFAULT_CONTROLLED_ARM_JOINT_NAMES = [
 SYNTHETIC_GRASP_NAME = "amazinghand_grasp"
 
 
+def _requested_joint_names() -> list[str]:
+    return [
+        part.strip()
+        for part in os.environ.get("JOINT_NAMES", "").split(",")
+        if part.strip()
+    ]
+
+
 def _parse_controlled_arm_joint_names() -> list[str]:
-    raw = os.environ.get("JOINT_NAMES", "")
-    if not raw.strip():
+    names = _requested_joint_names()
+    if not names:
         return list(DEFAULT_CONTROLLED_ARM_JOINT_NAMES)
-    names = [part.strip() for part in raw.split(",") if part.strip()]
-    names = [name for name in names if name != SYNTHETIC_GRASP_NAME]
+    names = [
+        name
+        for name in names
+        if name not in {SYNTHETIC_GRASP_NAME, LOGICAL_HAND_MOTION_NAME}
+    ]
     return names or list(DEFAULT_CONTROLLED_ARM_JOINT_NAMES)
 
 
 CONTROLLED_ARM_JOINT_NAMES = _parse_controlled_arm_joint_names()
-# Local source-package URDF control can set JOINT_NAMES=joint_rev_1,joint_rev_2,joint_rev_3,joint_rev_4,joint_rev_5.
-PUBLISHED_JOINT_NAMES = [*CONTROLLED_ARM_JOINT_NAMES, SYNTHETIC_GRASP_NAME]
+# Combined source-arm launch example: joint_rev_1,...,joint_rev_5,amazinghand_motion.
+USES_FIXED_MOTION_HAND = LOGICAL_HAND_MOTION_NAME in _requested_joint_names()
+LOGICAL_JOINT_NAMES = [
+    *CONTROLLED_ARM_JOINT_NAMES,
+    LOGICAL_HAND_MOTION_NAME if USES_FIXED_MOTION_HAND else SYNTHETIC_GRASP_NAME,
+]
+CONTROLLED_PHYSICAL_JOINT_NAMES = (
+    list(PHYSICAL_JOINT_NAMES)
+    if USES_FIXED_MOTION_HAND
+    else list(CONTROLLED_ARM_JOINT_NAMES)
+)
+PUBLISHED_JOINT_NAMES = (
+    list(CONTROLLED_PHYSICAL_JOINT_NAMES)
+    if USES_FIXED_MOTION_HAND
+    else list(LOGICAL_JOINT_NAMES)
+)
 DEFAULT_SIMREADY_USD = (
     "/workspace/superarm_ws/isaacsim_test/outputs/simready/echo_full/"
     "pipeline/04_conform/repair-loop-02-fet005/fet005-grasp/"
@@ -367,23 +399,27 @@ if art is not None:
     art.initialize()
     num_dof = art.num_dof
     all_dof_names = list(art.dof_names)
-    missing_joints = [name for name in CONTROLLED_ARM_JOINT_NAMES if name not in all_dof_names]
+    missing_joints = [
+        name for name in CONTROLLED_PHYSICAL_JOINT_NAMES if name not in all_dof_names
+    ]
     if missing_joints:
         loaded_asset_kind = "controllable SimReady" if using_controllable_simready else "URDF"
         print(
-            f"[setup_rpo_arm_scene] ERROR: {loaded_asset_kind} arm joints missing: "
+            f"[setup_rpo_arm_scene] ERROR: {loaded_asset_kind} controlled joints missing: "
             f"{missing_joints}\nAvailable joints: {all_dof_names}",
             flush=True,
         )
         simulation_app.close()
         sys.exit(1)
 
-    controlled_indices = [all_dof_names.index(name) for name in CONTROLLED_ARM_JOINT_NAMES]
+    controlled_indices = [
+        all_dof_names.index(name) for name in CONTROLLED_PHYSICAL_JOINT_NAMES
+    ]
     loaded_asset_kind = "controllable SimReady" if using_controllable_simready else "URDF"
     print(f"[setup_rpo_arm_scene] Loaded {num_dof} total {loaded_asset_kind} joints: {all_dof_names}", flush=True)
 print(
-    "[setup_rpo_arm_scene] Controlled LeRobot joints: "
-    f"{PUBLISHED_JOINT_NAMES}",
+    "[setup_rpo_arm_scene] LeRobot logical/physical joints: "
+    f"logical={LOGICAL_JOINT_NAMES}, physical={PUBLISHED_JOINT_NAMES}",
     flush=True,
 )
 
@@ -398,19 +434,28 @@ def _position_list(raw_positions) -> list[float]:
 def _write_command_evidence(
     *,
     command_seq: int,
-    command: list[float],
+    requested_logical_command: list[float],
+    resolved_logical_command: list[float],
+    physical_targets: dict[str, float],
     articulation_readback: list[float] | None,
     binding_status: str,
+    error: str | None = None,
 ) -> None:
     if not COMMAND_EVIDENCE_PATH and not COMMAND_EVIDENCE_DIR:
         return
     payload = {
         "command_seq": command_seq,
         "controlled_joint_names": list(CONTROLLED_ARM_JOINT_NAMES),
+        "logical_joint_names": list(LOGICAL_JOINT_NAMES),
+        "physical_joint_names": list(CONTROLLED_PHYSICAL_JOINT_NAMES),
         "published_joint_names": list(PUBLISHED_JOINT_NAMES),
-        "command": command,
+        "command": resolved_logical_command,
+        "requested_logical_command": requested_logical_command,
+        "resolved_logical_command": resolved_logical_command,
+        "physical_targets": physical_targets,
         "articulation_readback": articulation_readback,
         "binding_status": binding_status,
+        "error": error,
         "using_simready": bool(using_simready),
         "urdf_path": urdf_path,
         "simready_usd_path": simready_usd_path,
@@ -729,12 +774,21 @@ def _capture_viewport_screenshot(path: str) -> None:
 
 if art is not None:
     all_positions = _position_list(art.get_joint_positions())
-    current_arm_positions = [all_positions[i] for i in controlled_indices]
+    current_physical_positions = [all_positions[i] for i in controlled_indices]
 else:
-    all_positions = [0.0] * len(CONTROLLED_ARM_JOINT_NAMES)
-    current_arm_positions = list(all_positions)
+    all_positions = [0.0] * len(CONTROLLED_PHYSICAL_JOINT_NAMES)
+    current_physical_positions = list(all_positions)
 current_grasp = 0.0
-current_positions = [*current_arm_positions, current_grasp]
+current_motion_code = 0.0
+if USES_FIXED_MOTION_HAND:
+    current_positions = list(current_physical_positions)
+    current_logical_positions = infer_logical_state(
+        dict(zip(CONTROLLED_PHYSICAL_JOINT_NAMES, current_positions, strict=True))
+    )
+    current_motion_code = current_logical_positions[-1]
+else:
+    current_positions = [*current_physical_positions, current_grasp]
+    current_logical_positions = list(current_positions)
 current_velocities = [0.0] * len(PUBLISHED_JOINT_NAMES)
 
 rclpy.init()
@@ -880,34 +934,87 @@ try:
                 None,
             )
 
-        if (
-            cmd is not None
-            and cmd_seq != last_processed_command_seq
-            and len(cmd) >= len(CONTROLLED_ARM_JOINT_NAMES)
-        ):
+        if cmd is not None and cmd_seq != last_processed_command_seq:
             last_processed_command_seq = cmd_seq
             command_values = [float(v) for v in cmd]
-            arm_command = command_values[: len(CONTROLLED_ARM_JOINT_NAMES)]
-            current_grasp = float(
-                np.clip(
-                    command_values[len(CONTROLLED_ARM_JOINT_NAMES)]
-                    if len(command_values) > len(CONTROLLED_ARM_JOINT_NAMES)
-                    else current_grasp,
-                    0.0,
-                    1.0,
+            physical_targets: dict[str, float]
+            if USES_FIXED_MOTION_HAND:
+                try:
+                    resolution = resolve_logical_command(
+                        command_values,
+                        previous_motion_code=current_motion_code,
+                    )
+                except ValueError as exc:
+                    error = f"invalid logical command #{cmd_seq}: {exc}"
+                    print(f"[setup_rpo_arm_scene] Ignoring {error}", flush=True)
+                    _write_command_evidence(
+                        command_seq=cmd_seq,
+                        requested_logical_command=command_values,
+                        resolved_logical_command=list(current_logical_positions),
+                        physical_targets=dict(
+                            zip(PUBLISHED_JOINT_NAMES, current_positions, strict=True)
+                        ),
+                        articulation_readback=None,
+                        binding_status="command_rejected",
+                        error=error,
+                    )
+                    continue
+                current_logical_positions = list(resolution.resolved_logical_command)
+                current_motion_code = current_logical_positions[-1]
+                physical_targets = dict(resolution.physical_targets)
+                target_values = [
+                    physical_targets[name] for name in CONTROLLED_PHYSICAL_JOINT_NAMES
+                ]
+                current_positions = list(target_values)
+            else:
+                if len(command_values) < len(CONTROLLED_ARM_JOINT_NAMES):
+                    print(
+                        "[setup_rpo_arm_scene] Ignoring short legacy command "
+                        f"#{cmd_seq}: expected at least {len(CONTROLLED_ARM_JOINT_NAMES)}, "
+                        f"got {len(command_values)}",
+                        flush=True,
+                    )
+                    continue
+                arm_command = command_values[: len(CONTROLLED_ARM_JOINT_NAMES)]
+                current_grasp = float(
+                    np.clip(
+                        command_values[len(CONTROLLED_ARM_JOINT_NAMES)]
+                        if len(command_values) > len(CONTROLLED_ARM_JOINT_NAMES)
+                        else current_grasp,
+                        0.0,
+                        1.0,
+                    )
                 )
-            )
-            current_positions = [*arm_command, current_grasp]
+                current_logical_positions = [*arm_command, current_grasp]
+                target_values = list(arm_command)
+                current_positions = list(current_logical_positions)
+                physical_targets = dict(
+                    zip(CONTROLLED_ARM_JOINT_NAMES, arm_command, strict=True)
+                )
 
             if art is not None:
-                for idx, value in zip(controlled_indices, arm_command, strict=True):
+                for idx, value in zip(controlled_indices, target_values, strict=True):
                     all_positions[idx] = value
                 art.set_joint_positions(np.array([all_positions], dtype=np.float32))
                 articulation_positions = _position_list(art.get_joint_positions())
                 articulation_readback = [
                     articulation_positions[i] for i in controlled_indices
                 ]
-                current_positions = [*articulation_readback, current_grasp]
+                if USES_FIXED_MOTION_HAND:
+                    current_positions = list(articulation_readback)
+                    current_logical_positions = infer_logical_state(
+                        dict(
+                            zip(
+                                CONTROLLED_PHYSICAL_JOINT_NAMES,
+                                articulation_readback,
+                                strict=True,
+                            )
+                        )
+                    )
+                    current_motion_code = current_logical_positions[-1]
+                else:
+                    current_positions = [*articulation_readback, current_grasp]
+                    current_logical_positions = list(current_positions)
                 print(
                     "[setup_rpo_arm_scene] Articulation readback after command "
                     f"#{cmd_seq}: {articulation_readback}",
@@ -919,14 +1026,16 @@ try:
                     asset_path=simready_usd_path,
                     prim_path=prim_path,
                     binding_status="binding_pending",
-                    last_command=list(current_positions),
+                    last_command=list(current_logical_positions),
                 )
             else:
                 articulation_readback = None
-            last_applied_command = list(current_positions)
+            last_applied_command = list(current_logical_positions)
             _write_command_evidence(
                 command_seq=cmd_seq,
-                command=last_applied_command,
+                requested_logical_command=command_values,
+                resolved_logical_command=last_applied_command,
+                physical_targets=physical_targets,
                 articulation_readback=articulation_readback,
                 binding_status="articulation_bound" if art is not None else "binding_pending",
             )
