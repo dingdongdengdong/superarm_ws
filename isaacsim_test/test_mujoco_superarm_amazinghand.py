@@ -78,6 +78,38 @@ class CombinedMuJoCoModelTest(unittest.TestCase):
         self.assertTrue(np.isfinite(data.qpos).all())
         self.assertLess(float(np.linalg.norm(data.qvel)), 1e-12)
 
+    def test_arm_joint_anchors_stay_inside_motor_mesh_bounds(self) -> None:
+        """Keep every revolute axis physically located inside its motor body."""
+        mujoco = self.mujoco
+        data = mujoco.MjData(self.model)
+        mujoco.mj_forward(self.model, data)
+        mesh_names = [
+            mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_MESH, index)
+            for index in range(self.model.nmesh)
+        ]
+        for index, joint_name in enumerate(ARM_JOINT_NAMES, start=1):
+            joint_id = mujoco.mj_name2id(
+                self.model,
+                mujoco.mjtObj.mjOBJ_JOINT,
+                joint_name,
+            )
+            motor_geoms = [
+                geom_id
+                for geom_id in range(self.model.ngeom)
+                if self.model.geom_type[geom_id] == mujoco.mjtGeom.mjGEOM_MESH
+                and mesh_names[int(self.model.geom_dataid[geom_id])] == f"motor_{index}"
+            ]
+            self.assertEqual(len(motor_geoms), 1, joint_name)
+            geom_id = motor_geoms[0]
+            center_distance = float(
+                np.linalg.norm(data.geom_xpos[geom_id] - data.xanchor[joint_id])
+            )
+            self.assertLessEqual(
+                center_distance,
+                float(self.model.geom_rbound[geom_id]),
+                f"{joint_name} axis is outside motor_{index}",
+            )
+
     def test_each_finger_visibly_flexes_toward_the_wrist(self) -> None:
         """Guard against commanding both hinges positive (mostly side motion)."""
         mujoco = self.mujoco
