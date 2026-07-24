@@ -1,13 +1,21 @@
 {
   "schema": "superarm.lelab_isaac_rl_integration/v1",
   "lelab": {
-    "commit": "a336c943dd821fe2e554ff6e864fde9f72470a0a",
+    "commit": "39c1eba1a440ba527a954a10b54b70fc69f9e8a8",
     "required_paths": [
       "frontend/dist/index.html",
       "isaacsim_validation/control_bridge.py",
+      "lelab/superarm/actions.py",
+      "lelab/superarm/isaac_robot.py",
       "lelab/rl/config.py",
       "lelab/server.py"
     ]
+  },
+  "superarm_lerobot": {
+    "config_path": "isaacsim_test/lerobot/source_arm_amazinghand.yaml",
+    "robot_module_path": "isaacsim_test/lerobot/isaacsim_rpo_arm_robot.py",
+    "action_adapter_path": "isaacsim_test/lerobot/superarm_action_adapter.py",
+    "backend_type": "isaacsim_rpo_arm"
   },
   "distribution": {
     "filename": "superarm_amazinghand_isaac60_passive_linkage_no_shell_distribution_20260724_v3.zip",

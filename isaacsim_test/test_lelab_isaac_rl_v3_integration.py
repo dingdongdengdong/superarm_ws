@@ -13,6 +13,7 @@ from isaacsim_test.lelab_rl_v3_integration import (
     load_lock,
     validate_distribution,
     validate_lelab_checkout,
+    validate_superarm_lerobot,
 )
 
 
@@ -41,7 +42,7 @@ def _write_distribution(path: Path, lock: dict) -> str:
 def test_committed_lock_pins_verified_v3_and_half_close_boundary() -> None:
     lock = load_lock(LOCK_PATH)
 
-    assert lock["lelab"]["commit"] == "a336c943dd821fe2e554ff6e864fde9f72470a0a"
+    assert lock["lelab"]["commit"] == "39c1eba1a440ba527a954a10b54b70fc69f9e8a8"
     assert lock["distribution"]["sha256"] == (
         "c356d1157318b72532b82d73270ef06b5b11ed5b8a90641ea4e431941e4554f7"
     )
@@ -49,6 +50,12 @@ def test_committed_lock_pins_verified_v3_and_half_close_boundary() -> None:
     assert lock["distribution"]["outer_shells_included"] is False
     assert lock["contract"]["real_hardware_grasp_max"] == 0.5
     assert lock["contract"]["simulation_grasp_max"] == 1.0
+    assert lock["superarm_lerobot"] == {
+        "config_path": "isaacsim_test/lerobot/source_arm_amazinghand.yaml",
+        "robot_module_path": "isaacsim_test/lerobot/isaacsim_rpo_arm_robot.py",
+        "action_adapter_path": "isaacsim_test/lerobot/superarm_action_adapter.py",
+        "backend_type": "isaacsim_rpo_arm",
+    }
 
 
 def test_launcher_defaults_to_visible_lelab_submodule() -> None:
@@ -58,6 +65,35 @@ def test_launcher_defaults_to_visible_lelab_submodule() -> None:
 
     assert 'lelab_repo=${LELAB_REPO:-"$repo_root/leLab"}' in launcher
     assert '--lelab-repo "$lelab_repo"' in launcher
+    assert 'SUPERARM_ASSET_ROOT=${SUPERARM_ASSET_ROOT:-"$repo_root"}' in launcher
+    assert (
+        'SUPERARM_LEROBOT_CONFIG=${SUPERARM_LEROBOT_CONFIG:-"$repo_root/'
+        'isaacsim_test/lerobot/source_arm_amazinghand.yaml"}'
+    ) in launcher
+    assert "export SUPERARM_ASSET_ROOT SUPERARM_LEROBOT_CONFIG" in launcher
+    assert 'if [[ -n "${LELAB_PYTHON:-}" ]]' in launcher
+    assert 'exec "$LELAB_PYTHON" -m lelab.scripts.lelab --no-open "$@"' in launcher
+
+
+def test_superarm_lerobot_validation_pins_edited_six_control_config() -> None:
+    repo_root = LOCK_PATH.parents[1]
+
+    report = validate_superarm_lerobot(repo_root, load_lock())
+
+    assert report["config"].endswith(
+        "isaacsim_test/lerobot/source_arm_amazinghand.yaml"
+    )
+    assert report["backend_type"] == "isaacsim_rpo_arm"
+    assert report["logical_joint_names"] == [
+        "joint_rev_1",
+        "joint_rev_2",
+        "joint_rev_3",
+        "joint_rev_4",
+        "joint_rev_5",
+        "amazinghand_motion",
+    ]
+    assert report["physical_joint_count"] == 13
+    assert report["motion_codes"] == [0.0, 0.5, 1.0]
 
 
 def test_distribution_validation_accepts_only_matching_archive_and_manifest(
