@@ -2,9 +2,9 @@
 
 ## Decision
 
-SuperArm consumes the verified LeLab RL runtime instead of copying LeLab source
-or another USD into this repository. The integration lock is
-`isaacsim_test/lelab_rl_v3.lock.json`.
+SuperArm consumes the verified LeLab RL runtime from the visible top-level
+`leLab` Git submodule instead of copying another USD into this repository. The
+integration lock is `isaacsim_test/lelab_rl_v3.lock.json`.
 
 Pinned inputs:
 
@@ -20,9 +20,10 @@ Pinned inputs:
 ## Operator boundary
 
 `isaacsim_test/run_lelab_isaac_rl_v3.sh` validates both pinned inputs before
-launch. It requires explicit `LELAB_REPO` and
-`SUPERARM_ISAAC_DISTRIBUTION_ZIP` environment variables so the integration is
-portable and cannot silently fall back to an older local asset.
+launch. It defaults to the top-level `leLab` submodule and requires an explicit
+`SUPERARM_ISAAC_DISTRIBUTION_ZIP`, so it cannot silently fall back to an older
+local asset. `LELAB_REPO` remains an optional development override and is still
+subject to the exact clean-commit check.
 
 Use `--check-only` to validate the boundary without launching LeLab.
 

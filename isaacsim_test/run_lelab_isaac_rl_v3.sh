@@ -2,11 +2,12 @@
 set -euo pipefail
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-: "${LELAB_REPO:?Set LELAB_REPO to the verified LeLab checkout}"
+repo_root=$(cd -- "$script_dir/.." && pwd)
+lelab_repo=${LELAB_REPO:-"$repo_root/leLab"}
 : "${SUPERARM_ISAAC_DISTRIBUTION_ZIP:?Set SUPERARM_ISAAC_DISTRIBUTION_ZIP to the V3 archive}"
 
 python3 "$script_dir/lelab_rl_v3_integration.py" \
-  --lelab-repo "$LELAB_REPO" \
+  --lelab-repo "$lelab_repo" \
   --distribution-zip "$SUPERARM_ISAAC_DISTRIBUTION_ZIP"
 
 if [[ "${1:-}" == "--check-only" ]]; then
@@ -18,5 +19,5 @@ command -v uv >/dev/null 2>&1 || {
   exit 2
 }
 
-cd "$LELAB_REPO"
+cd "$lelab_repo"
 exec uv run lelab --no-open "$@"

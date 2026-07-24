@@ -51,6 +51,15 @@ def test_committed_lock_pins_verified_v3_and_half_close_boundary() -> None:
     assert lock["contract"]["simulation_grasp_max"] == 1.0
 
 
+def test_launcher_defaults_to_visible_lelab_submodule() -> None:
+    launcher = LOCK_PATH.with_name("run_lelab_isaac_rl_v3.sh").read_text(
+        encoding="utf-8"
+    )
+
+    assert 'lelab_repo=${LELAB_REPO:-"$repo_root/leLab"}' in launcher
+    assert '--lelab-repo "$lelab_repo"' in launcher
+
+
 def test_distribution_validation_accepts_only_matching_archive_and_manifest(
     tmp_path: Path,
 ) -> None:

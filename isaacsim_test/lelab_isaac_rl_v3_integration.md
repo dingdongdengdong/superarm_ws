@@ -4,8 +4,8 @@ This is the current SuperArm integration boundary for LeLab reinforcement
 learning. It replaces the old Isaac Sim 5.1 `binding_pending` route for RL
 without deleting that historical test path.
 
-The integration deliberately does not copy LeLab source or another robot USD
-into this repository. `lelab_rl_v3.lock.json` pins:
+LeLab is visible as the top-level `leLab` Git submodule. The integration does
+not copy another robot USD into this repository. `lelab_rl_v3.lock.json` pins:
 
 - LeLab commit `a336c943dd821fe2e554ff6e864fde9f72470a0a`;
 - the single passive-linkage/no-shell V3 distribution checksum;
@@ -18,7 +18,7 @@ into this repository. `lelab_rl_v3.lock.json` pins:
 ## Validate without launching
 
 ```bash
-export LELAB_REPO=/path/to/verified/leLab
+git submodule update --init leLab
 export SUPERARM_ISAAC_DISTRIBUTION_ZIP=/path/to/superarm_amazinghand_isaac60_passive_linkage_no_shell_distribution_20260724_v3.zip
 ./isaacsim_test/run_lelab_isaac_rl_v3.sh --check-only
 ```
@@ -26,6 +26,8 @@ export SUPERARM_ISAAC_DISTRIBUTION_ZIP=/path/to/superarm_amazinghand_isaac60_pas
 The command fails before launch if the LeLab checkout is dirty, is not exactly
 at the pinned commit, or if the archive filename, checksum, entrypoint, visual
 profile, joint contract, shell exclusion, or hardware grasp boundary differs.
+`LELAB_REPO` may override the top-level submodule for development, but the same
+exact commit and clean-worktree checks still apply.
 
 ## Launch
 
