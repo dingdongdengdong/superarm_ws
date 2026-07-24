@@ -1,5 +1,11 @@
 # LeLab → Isaac Sim SimReady Right-Arm Integration Notes
 
+> **Historical Isaac Sim 5.1 route.** This page documents the older
+> RoboParty/SimReady `binding_pending` integration and must not be used as the
+> RL asset source. Current Isaac Sim 6.0 V3 RL integration is documented in
+> [`lelab_isaac_rl_v3_integration.md`](lelab_isaac_rl_v3_integration.md) and is
+> enforced by `lelab_rl_v3.lock.json`.
+
 Branch: `feature/lelab-isaacsim-arm-control`
 
 Local upstream clone:

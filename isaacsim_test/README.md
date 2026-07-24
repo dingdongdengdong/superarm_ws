@@ -1,5 +1,10 @@
 # Isaac Sim 5.1 — SimReady `echo_full` Arm + Hand Sim-in-the-Loop
 
+> **Current LeLab RL path:** use the pinned Isaac Sim 6.0 V3 integration in
+> [`lelab_isaac_rl_v3_integration.md`](lelab_isaac_rl_v3_integration.md).
+> The 5.1 `echo_full` material below is retained as historical SITL evidence,
+> not as the RL distribution.
+
 The current source of truth for Isaac Sim work is the validated SimReady USD produced from the real CAD file:
 
 | Artifact | Path |
