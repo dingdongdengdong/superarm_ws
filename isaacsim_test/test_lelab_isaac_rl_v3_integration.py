@@ -42,7 +42,7 @@ def _write_distribution(path: Path, lock: dict) -> str:
 def test_committed_lock_pins_verified_v3_and_half_close_boundary() -> None:
     lock = load_lock(LOCK_PATH)
 
-    assert lock["lelab"]["commit"] == "39c1eba1a440ba527a954a10b54b70fc69f9e8a8"
+    assert lock["lelab"]["commit"] == "5bcae6b6fa85497ea34346829780a0c879397c53"
     assert lock["distribution"]["sha256"] == (
         "c356d1157318b72532b82d73270ef06b5b11ed5b8a90641ea4e431941e4554f7"
     )

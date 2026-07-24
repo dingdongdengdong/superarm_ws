@@ -1,7 +1,7 @@
 {
   "schema": "superarm.lelab_isaac_rl_integration/v1",
   "lelab": {
-    "commit": "39c1eba1a440ba527a954a10b54b70fc69f9e8a8",
+    "commit": "5bcae6b6fa85497ea34346829780a0c879397c53",
     "required_paths": [
       "frontend/dist/index.html",
       "isaacsim_validation/control_bridge.py",

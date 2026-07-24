@@ -7,7 +7,7 @@ without deleting that historical test path.
 LeLab is visible as the top-level `leLab` Git submodule. The integration does
 not copy another robot USD into this repository. `lelab_rl_v3.lock.json` pins:
 
-- LeLab commit `39c1eba1a440ba527a954a10b54b70fc69f9e8a8`;
+- LeLab commit `5bcae6b6fa85497ea34346829780a0c879397c53`;
 - SuperArm's edited LeRobot config
   `isaacsim_test/lerobot/source_arm_amazinghand.yaml`;
 - its `isaacsim_rpo_arm_robot.py` robot and
